@@ -1,3 +1,7 @@
+import daisyui from "daisyui"
 export default {
-	plugins: [require('daisyui')],
-};
+	//...
+	plugins: [
+		daisyui,
+	],
+}
