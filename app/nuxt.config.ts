@@ -8,9 +8,19 @@ export default defineNuxtConfig({
 
 
   devtools: { enabled: false },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode'],
-
-
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          'defineStore',
+          'acceptHMRUpdate',
+        ],
+      },
+    ]
+  ],
 
   //colorMode: {
   //  preference: 'system', // default theme
