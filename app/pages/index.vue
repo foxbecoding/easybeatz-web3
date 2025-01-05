@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- This page correctly has only one single root element -->
-    Fox
+    <button class="btn btn-neutral">Neutral</button>
   </div>
 </template>
