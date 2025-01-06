@@ -33,36 +33,29 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 # CORS origins
 ALLOWED_HOSTS = [
     # 'easybeatz.com',
-    # '198.46.85.241'
-    # '192.168.1.235',
-    # 'easybeatz.local'
+    'easybeatz.local',
+    'localhost'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    # 'https://easybeatz.com:4445',
-    # 'https://easybeatz.local',
-    # 'https://192.168.1.235:1111',
-    # 'https://192.168.1.235:3000',
-    # 'https://easybeatz.local:3000',
-    
+    # 'https://easybeatz.com',
+    'http://easybeatz.local',
+    'http://localhost:8000'
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     # 'https://easybeatz.com'
-    # 'https://easybeatz.com:4444',
-    # 'https://easybeatz.local',
-    # 'https://192.168.1.235:1111',
-    # 'https://192.168.1.235:3000',
-    # 'https://easybeatz.local:3000'
+    'http://easybeatz.local',
+    'http://localhost:8000'
 )
 
 # Application definition
-CSRF_COOKIE_SECURE=True
-SESSION_COOKIE_SECURE=True
-SECURE_SSL_REDIRECT=True
-SECURE_HSTS_SECONDS=60
-SECURE_HSTS_INCLUDE_SUBDOMAINS=True
-SECURE_HSTS_PRELOAD=True
+# CSRF_COOKIE_SECURE=True
+# SESSION_COOKIE_SECURE=True
+# SECURE_SSL_REDIRECT=True
+# SECURE_HSTS_SECONDS=60
+# SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+# SECURE_HSTS_PRELOAD=True
 
 INSTALLED_APPS = [
     'corsheaders',
@@ -96,8 +89,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = False
 
 ROOT_URLCONF = 'api.urls'
 
