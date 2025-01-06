@@ -6,8 +6,10 @@ export default defineNuxtConfig({
     port: 3000,
   },
 
-
   devtools: { enabled: false },
+
+  plugins: ["./plugins/iconify.ts"],
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
