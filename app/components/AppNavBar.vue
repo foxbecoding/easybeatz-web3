@@ -9,7 +9,6 @@
       <label class="input bg-neutral input-ghost flex items-center gap-2 max-w-[480px] w-full">
         <input type="text" class="grow" placeholder="Search" />
         <Icon icon="solar:magnifer-linear" width="24" height="24" />
-
       </label>
 
       <div class="flex-none">
@@ -25,15 +24,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.navbar {
-  /*border-bottom: 1px solid #212121;*/
-}
-
-.searchbar-container {
-  max-width: 480px;
-  height: 48px;
-  padding: 4px;
-}
-</style>
