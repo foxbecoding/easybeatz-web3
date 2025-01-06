@@ -1,6 +1,9 @@
 <template>
-  <div>
+  <AppNavBar />
+  <div class="divider my-0"></div>
+  <main>
     <p>Some default layout content shared across all pages</p>
     <slot />
-  </div>
+  </main>
+  <AppFooter />
 </template>
