@@ -25,20 +25,8 @@ const connectWallet = async () => {
       // Request the user to sign the message
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
 
-      // Now that the wallet is connected, send the address to the backend
-      const apiData: ApiData = {
-        method: 'POST',
-        path: '/api/web3-login/',
-        data: {
-          signedMessage: signedMessage.signature,
-          originalMessage: message,
-          pubkey: walletAddress.value
-        }
-      }
+      // Now that the wallet is connected, authenticate user
 
-      const { data, error } = await useApi(apiData);
-      console.log("error: ", error)
-      console.log("data: ", data)
     } catch (error) {
       console.error("Failed to connect wallet", error);
     }
@@ -62,8 +50,20 @@ const requestLoginNonce = (): string => {
 
 }
 
-const authenticateUser = (signature, message) => {
+const authenticateUser = async (signature: any, message: string) => {
+  const apiData: ApiData = {
+    method: 'POST',
+    path: '/api/web3-login/',
+    data: {
+      signedMessage: signature,
+      originalMessage: message,
+      pubkey: walletAddress.value
+    }
+  }
 
+  const { data, error } = await useApi(apiData);
+  console.log("error: ", error)
+  console.log("data: ", data)
 }
 
 </script>
