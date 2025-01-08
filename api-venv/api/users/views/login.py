@@ -34,7 +34,7 @@ class UserLoginViewSet(viewsets.ViewSet):
         user = self.find_or_create_user(pubkey)
         access_token = self.authenticate_user(user)
 
-        return Response({"access_token": access_token}, status=status.HTTP_200_OK)
+        return Response({"access_token": access_token, "pubkey": user.pubkey}, status=status.HTTP_200_OK)
 
     def verify_solana_signature(self, data):
         signature_bytes = data['signedMessage']
