@@ -62,6 +62,10 @@ const requestLoginNonce = (): string => {
 
 }
 
+const authenticateUser = (signature, message) => {
+
+}
+
 </script>
 
 <style scoped></style>
