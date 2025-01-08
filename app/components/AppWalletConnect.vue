@@ -20,9 +20,11 @@ const connectWallet = async () => {
       walletAddress.value = response.publicKey.toString();
 
       //Request login nonce
-      await requestLoginNonce();
+      const nonce = await requestLoginNonce();
 
-      const message = generateMessage();
+      // generate message to sign
+      const message = generateMessage(nonce);
+
       // Request the user to sign the message
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
 
@@ -37,14 +39,16 @@ const connectWallet = async () => {
   }
 }
 
-const generateMessage = (): string => {
+const generateMessage = (nonce: string): string => {
   const message = `Welcome to EasyBeatz! 
 
 Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos) and Privacy Policy (https://easybeatz.com/privacy). 
 
 This request will not trigger a blockchain transaction or cost any gas fees. 
 
-Wallet address: ${walletAddress.value}`;
+Wallet address: ${walletAddress.value}
+
+Nonce: ${nonce}`;
   return message;
 }
 
@@ -57,10 +61,13 @@ const requestLoginNonce = async () => {
     }
   }
 
-  const { data, error } = await useApi(apiData);
+  const res = await useApi(apiData)
 
-  console.log("error: ", error)
-  console.log("data: ", data)
+  if (res.errors) {
+    throw new Error(`requestLoginNonce() - Response status: ${res.errors}`);
+  }
+
+  return res.nonce;
 }
 
 const authenticateUser = async (signature: any, message: string) => {
@@ -74,9 +81,8 @@ const authenticateUser = async (signature: any, message: string) => {
     }
   }
 
-  const { data, error } = await useApi(apiData);
-  console.log("error: ", error)
-  console.log("data: ", data)
+  const res = await useApi(apiData);
+  console.log("data: ", res)
 }
 
 </script>
