@@ -3,5 +3,5 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r"user", UserViewSet, basename="user")
-router.register(r"user-login", UserLoginViewSet, basename="user-login")
+router.register(r"web3-login", UserLoginViewSet, basename="web3-login")
 urlpatterns = router.urls
