@@ -1,14 +1,13 @@
 <template>
   <button @click="connectWallet()" class="btn btn-neutral text-xl mr-4">
-    <Icon class="text-2xl" icon="solar:wallet-2-bold" :ssr="true" />
+    <Icon class="text-2xl" icon="solar:wallet-2-bold" />
     Login
+    <img src="/phantom-icon.svg" />
   </button>
 </template>
 
 <script setup lang="ts">
-import { Connection, clusterApiUrl, Keypair } from '@solana/web3.js';
-
-const walletAddress = ref("")
+import type { ApiData } from "../composables/useApi"
 
 const connectWallet = async () => {
 
@@ -17,33 +16,39 @@ const connectWallet = async () => {
       // Request wallet connection
       const response = await window.phantom.solana.connect();
 
-      walletAddress.value = response.publicKey.toString();
+      const walletAddress = response.publicKey.toString();
 
       // Define the message to be signed (could be anything, e.g., a random nonce)
-      const message = ` Welcome to EasyBeatz!
+      const message = `Welcome to EasyBeatz! 
 
-Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos)  and Privacy Policy (https://easybeatz.com/privacy)
+Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos) and Privacy Policy (https://easybeatz.com/privacy). 
 
-This request will not trigger a blockchain transaction or cost any gas fees.
+This request will not trigger a blockchain transaction or cost any gas fees. 
 
-Wallet address: ${walletAddress.value}`
+Wallet address: ${walletAddress}`
 
       // Request the user to sign the message
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
 
-      // The signed message contains the original message and the signature
-      console.log("Message:", message);
-      console.log("Signed Message:", signedMessage);
-
-      console.log(walletAddress.value)
-
       // Now that the wallet is connected, send the address to the backend
-      //await this.authenticateBackend();
+      const apiData: ApiData = {
+        method: 'POST',
+        path: '/api/web3-login/',
+        data: {
+          signedMessage: signedMessage.signature,
+          originalMessage: message,
+          pubkey: walletAddress
+        }
+      }
+
+      const { data, error } = await useApi(apiData);
+      console.log("error: ", error)
+      console.log("data: ", data)
     } catch (error) {
       console.error("Failed to connect wallet", error);
     }
   } else {
-    alert("Phantom Wallet not found");
+    alert("Phantom Wallet not found. Please install phantom wallet in your browser.");
   }
 }
 
