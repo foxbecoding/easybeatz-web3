@@ -63,8 +63,8 @@ const requestLoginNonce = async () => {
 
   const res = await useApi(apiData)
 
-  if (res.errors) {
-    throw new Error(`requestLoginNonce() - Response status: ${res.errors}`);
+  if (res.error) {
+    throw new Error(`requestLoginNonce() - Response status: ${res.error}`);
   }
 
   return res.nonce;
