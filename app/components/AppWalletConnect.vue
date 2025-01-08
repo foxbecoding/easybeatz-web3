@@ -7,7 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ApiData } from "../composables/useApi"
+import { useUserStore } from "@/store/user"
+import type { ApiData } from "@/composables/useApi"
 
 const walletAddress = ref("");
 
@@ -82,7 +83,14 @@ const authenticateUser = async (signature: any, message: string) => {
   }
 
   const res = await useApi(apiData);
-  console.log("data: ", res)
+
+  if (res.error) {
+    throw new Error(`authenticateNonce() - Response status: ${res.error}`);
+  }
+
+  const userStore = useUserStore();
+  userStore.accessKey = res.access_key
+  userStore.pubkey = res.pubkey
 }
 
 </script>
