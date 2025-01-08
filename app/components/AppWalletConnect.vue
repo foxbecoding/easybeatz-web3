@@ -1,5 +1,5 @@
 <template>
-  <button @click="connectWallet()" class="btn btn-neutral text-xl mr-4">
+  <button @click="connectWallet()" class="btn btn-neutral text-xl">
     <Icon class="text-2xl" icon="solar:wallet-2-bold" />
     Login
     <img src="/phantom-icon.svg" />
@@ -91,6 +91,7 @@ const authenticateUser = async (signature: any, message: string) => {
   const userStore = useUserStore();
   userStore.accessKey = res.access_key
   userStore.pubkey = res.pubkey
+  userStore.isAuthenticated = true
 }
 
 </script>
