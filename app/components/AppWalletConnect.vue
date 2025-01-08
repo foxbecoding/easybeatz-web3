@@ -26,6 +26,7 @@ const connectWallet = async () => {
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
 
       // Now that the wallet is connected, authenticate user
+      authenticateUser(signedMessage.signature, message)
 
     } catch (error) {
       console.error("Failed to connect wallet", error);
@@ -46,8 +47,19 @@ Wallet address: ${walletAddress.value}`;
   return message;
 }
 
-const requestLoginNonce = (): string => {
+const requestLoginNonce = async () => {
+  const apiData: ApiData = {
+    method: 'POST',
+    path: '/api/web3-login-nonce/',
+    data: {
+      pubkey: walletAddress.value
+    }
+  }
 
+  const { data, error } = await useApi(apiData);
+
+  console.log("error: ", error)
+  console.log("data: ", data)
 }
 
 const authenticateUser = async (signature: any, message: string) => {
