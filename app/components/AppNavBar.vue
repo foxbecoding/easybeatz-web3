@@ -12,7 +12,10 @@
       </label>
 
       <div class="flex-none">
-        <AppWalletConnect />
+        <AppWalletConnect v-if="!userStore.isAuthenticated" class="mr-4" />
+        <button v-else class="btn btn-neutral btn-square mr-4">
+          <Icon icon="solar:user-bold" class="text-2xl" />
+        </button>
         <button class="btn btn-neutral btn-square">
           <Icon icon="solar:cart-large-bold" class="text-2xl" />
         </button>
@@ -21,3 +24,10 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useUserStore } from "@/store/user"
+
+const userStore = useUserStore();
+
+</script>
