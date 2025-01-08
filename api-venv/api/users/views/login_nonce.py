@@ -8,5 +8,5 @@ class UserLoginNonceViewSet(viewsets.ViewSet):
         permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]
 
-    def create(self, data):
+    def create(self, request):
         pass
