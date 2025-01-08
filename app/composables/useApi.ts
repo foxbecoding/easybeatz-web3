@@ -7,6 +7,10 @@ export interface ApiData {
 
 export const useApi = async (apiData: ApiData): Promise<any> => {
   const csrftoken: any = useCookie('csrftoken')
+
+  //const myHeaders = new Headers();
+  //myHeaders.append("Content-Type", "application/json");
+
   const requestHeaders = ref<HeadersInit>({
     'accept': 'application/json',
     'Content-Type': 'application/json',
@@ -19,12 +23,10 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
     }
   }
 
-  const { data, error } = await useFetch(apiData.path, {
+  return await $fetch(apiData.path, {
     method: apiData.method,
     body: apiData.data,
-    headers: requestHeaders,
+    headers: requestHeaders.value,
     credentials: 'include'
   });
-
-  return { data, error }
 }
