@@ -17,4 +17,4 @@ class UserLoginNonceViewSet(viewsets.ViewSet):
         
         nonce = serializer.save()
 
-        return Response({"data": nonce.nonce}, status=status.HTTP_201_CREATED)
+        return Response({"nonce": nonce.nonce}, status=status.HTTP_201_CREATED)
