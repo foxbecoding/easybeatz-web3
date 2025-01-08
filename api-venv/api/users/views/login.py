@@ -25,7 +25,7 @@ class UserLoginViewSet(viewsets.ViewSet):
         if not nonce:
             return Response({"error": "No nonce found for this wallet address"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not self.verify_nonce(message, nonce):
+        if not self.verify_nonce(message, nonce.nonce):
             return Response({"error": "Invalid message or nonce"}, status=status.HTTP_400_BAD_REQUEST)
 
         if not self.verify_solana_signature(serializer.validated_data):
