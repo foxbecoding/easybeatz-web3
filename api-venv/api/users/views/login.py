@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
 from solders.pubkey import Pubkey
 from solders.signature import Signature
 from ..models import User, UserLogin 
@@ -45,8 +46,11 @@ class UserLoginViewSet(viewsets.ViewSet):
             return user
         return user
 
-    def authenticate_user(self):
-        pass
+    def authenticate_user(self, user):
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        return access_token
 
     def create(self, request):
         serializer = Web3LoginSerializer(data=request.data)
@@ -57,11 +61,8 @@ class UserLoginViewSet(viewsets.ViewSet):
             return Response({"message": "Verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 
         pubkey = serializer.validated_data['pubkey']
-
         user = self.find_or_create_user(pubkey)
+        access_token = self.authenticate_user(user)
 
-        print(user)
+        return Response({"success": True, "access_token": access_token}, status=status.HTTP_200_OK)
 
-        # return Response({"message": "Success", "data": validated_data}, status=status.HTTP_200_OK)
-        # print(request.data["pubkey"])
-        return Response("fox")
