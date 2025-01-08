@@ -54,6 +54,8 @@ Wallet address: ${walletAddress.value}`
   }
 }
 
+const generateMessage = () => string { }
+
 </script>
 
 <style scoped></style>
