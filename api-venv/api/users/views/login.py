@@ -16,7 +16,7 @@ class UserLoginViewSet(viewsets.ViewSet):
     def create(self, request):
         serializer = Web3LoginSerializer(data=request.data)
         if not serializer.is_valid():
-            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)i
+            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
         pubkey = serializer.validated_data['pubkey']
         message = serializer.validated_data['originalMessage']
