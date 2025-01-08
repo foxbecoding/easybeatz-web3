@@ -9,6 +9,8 @@
 <script setup lang="ts">
 import type { ApiData } from "../composables/useApi"
 
+const walletAddress = ref("")
+
 const connectWallet = async () => {
 
   if (window.phantom?.solana) {
@@ -16,7 +18,7 @@ const connectWallet = async () => {
       // Request wallet connection
       const response = await window.phantom.solana.connect();
 
-      const walletAddress = response.publicKey.toString();
+      walletAddress.value = response.publicKey.toString();
 
       // Define the message to be signed (could be anything, e.g., a random nonce)
       const message = `Welcome to EasyBeatz! 
@@ -25,7 +27,7 @@ Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.co
 
 This request will not trigger a blockchain transaction or cost any gas fees. 
 
-Wallet address: ${walletAddress}`
+Wallet address: ${walletAddress.value}`
 
       // Request the user to sign the message
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
@@ -37,7 +39,7 @@ Wallet address: ${walletAddress}`
         data: {
           signedMessage: signedMessage.signature,
           originalMessage: message,
-          pubkey: walletAddress
+          pubkey: walletAddress.value
         }
       }
 
