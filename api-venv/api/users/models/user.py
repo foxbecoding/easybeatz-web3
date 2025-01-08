@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
-    pubkey = models.CharField(max_length=44, blank=False, null=False, default='')
+    pubkey = models.CharField(max_length=100, blank=False, null=False, default='')
     username = models.CharField(max_length=70, blank=True, null=True, unique=True)
     slug = models.SlugField(max_length=70, blank=True, null=True, unique=True)
     profile_image = models.CharField(max_length=200, blank=True, default='')
