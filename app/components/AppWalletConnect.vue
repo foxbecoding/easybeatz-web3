@@ -20,7 +20,6 @@ const connectWallet = async () => {
 
       walletAddress.value = response.publicKey.toString();
 
-      // Define the message to be signed (could be anything, e.g., a random nonce)
       const message = `Welcome to EasyBeatz! 
 
 Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos) and Privacy Policy (https://easybeatz.com/privacy). 
@@ -54,7 +53,16 @@ Wallet address: ${walletAddress.value}`
   }
 }
 
-const generateMessage = () => string { }
+const generateMessage = (): string => {
+  const message = `Welcome to EasyBeatz! 
+
+Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos) and Privacy Policy (https://easybeatz.com/privacy). 
+
+This request will not trigger a blockchain transaction or cost any gas fees. 
+
+Wallet address: ${walletAddress.value}`
+  return message
+}
 
 </script>
 
