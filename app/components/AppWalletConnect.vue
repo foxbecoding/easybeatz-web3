@@ -17,17 +17,11 @@ const connectWallet = async () => {
     try {
       // Request wallet connection
       const response = await window.phantom.solana.connect();
-
       walletAddress.value = response.publicKey.toString();
 
-      const message = `Welcome to EasyBeatz! 
+      //Request login nonce
 
-Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos) and Privacy Policy (https://easybeatz.com/privacy). 
-
-This request will not trigger a blockchain transaction or cost any gas fees. 
-
-Wallet address: ${walletAddress.value}`
-
+      const message = generateMessage();
       // Request the user to sign the message
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
 
@@ -60,8 +54,12 @@ Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.co
 
 This request will not trigger a blockchain transaction or cost any gas fees. 
 
-Wallet address: ${walletAddress.value}`
-  return message
+Wallet address: ${walletAddress.value}`;
+  return message;
+}
+
+const requestLoginNonce = (): string => {
+
 }
 
 </script>
