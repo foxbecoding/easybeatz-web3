@@ -9,13 +9,12 @@
       <label class="input bg-neutral input-ghost flex items-center gap-2 max-w-[480px] w-full">
         <input type="text" class="grow" placeholder="Search" />
         <Icon icon="solar:magnifer-linear" width="24" height="24" />
-
       </label>
 
       <div class="flex-none">
-        <button class="btn btn-neutral text-xl mr-4">
-          <Icon icon="solar:wallet-2-bold" :ssr="true" class="text-2xl" />
-          Login
+        <AppWalletConnect v-if="!userStore.isAuthenticated" class="mr-4" />
+        <button v-else class="btn btn-neutral btn-square mr-4">
+          <Icon icon="solar:user-bold" class="text-2xl" />
         </button>
         <button class="btn btn-neutral btn-square">
           <Icon icon="solar:cart-large-bold" class="text-2xl" />
@@ -26,14 +25,9 @@
   </div>
 </template>
 
-<style scoped>
-.navbar {
-  /*border-bottom: 1px solid #212121;*/
-}
+<script setup lang="ts">
+import { useUserStore } from "@/store/user"
 
-.searchbar-container {
-  max-width: 480px;
-  height: 48px;
-  padding: 4px;
-}
-</style>
+const userStore = useUserStore();
+
+</script>

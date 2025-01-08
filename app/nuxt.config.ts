@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
-  plugins: ["./plugins/iconify.ts"],
+  plugins: ["~/plugins/iconify.ts"],
 
   modules: [
     '@nuxtjs/tailwindcss',
@@ -31,5 +31,11 @@ export default defineNuxtConfig({
   //},
   tailwindcss: { exposeConfig: true },
 
-  compatibilityDate: '2025-01-03'
+  compatibilityDate: '2025-01-03',
+
+  alias: {
+
+    '~': './'
+
+  }
 })

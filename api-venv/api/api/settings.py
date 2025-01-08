@@ -38,24 +38,27 @@ ALLOWED_HOSTS = [
 ]
 CSRF_TRUSTED_ORIGINS = [
     # 'https://easybeatz.com',
-    'http://easybeatz.local',
-    'http://localhost:8000'
+    # 'http://easybeatz.local',
+    'https://easybeatz.local',
+    # 'http://localhost:8000'
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     # 'https://easybeatz.com'
-    'http://easybeatz.local',
-    'http://localhost:8000'
+    # 'http://easybeatz.local',
+    'https://easybeatz.local',
+    # 'http://localhost:8000'
 )
 
 # Application definition
-# CSRF_COOKIE_SECURE=True
-# SESSION_COOKIE_SECURE=True
-# SECURE_SSL_REDIRECT=True
-# SECURE_HSTS_SECONDS=60
-# SECURE_HSTS_INCLUDE_SUBDOMAINS=True
-# SECURE_HSTS_PRELOAD=True
+CSRF_COOKIE_SECURE=True
+SESSION_COOKIE_SECURE=True
+SECURE_SSL_REDIRECT=True
+SECURE_HSTS_SECONDS=60
+SECURE_HSTS_INCLUDE_SUBDOMAINS=True
+SECURE_HSTS_PRELOAD=True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 INSTALLED_APPS = [
     'corsheaders',
@@ -66,12 +69,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'users.apps.UsersConfig',
 ]
 
 REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.SessionAuthentication',
+    # ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
