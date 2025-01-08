@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import type { ApiData } from "../composables/useApi"
 
-const walletAddress = ref("")
+const walletAddress = ref("");
 
 const connectWallet = async () => {
 
@@ -20,13 +20,14 @@ const connectWallet = async () => {
       walletAddress.value = response.publicKey.toString();
 
       //Request login nonce
+      await requestLoginNonce();
 
       const message = generateMessage();
       // Request the user to sign the message
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
 
       // Now that the wallet is connected, authenticate user
-      authenticateUser(signedMessage.signature, message)
+      await authenticateUser(signedMessage.signature, message);
 
     } catch (error) {
       console.error("Failed to connect wallet", error);
