@@ -25,6 +25,8 @@ services:
       - ../api-venv:/usr/src/api
     ports:
       - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
     # env_file:
     #   - ../.env
     depends_on:
@@ -53,8 +55,10 @@ services:
       dockerfile: Dockerfile.nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+     - ./nginx/certs:/etc/nginx/certs
     depends_on:
       - app
       - api
