@@ -28,8 +28,8 @@ const company_name = `${config.public.COMPANY_NAME}`;
 const guideLinks: GuideLink[] = [
   { title: 'About', to: '/about' },
   { title: 'Contact', to: '/contact' },
-  { title: 'Terms', to: '/terms-of-service' },
-  { title: 'Privacy', to: '/privacy-policy' },
+  { title: 'Terms', to: '/tos' },
+  { title: 'Privacy', to: '/privacy' },
 ];
 
 </script>
