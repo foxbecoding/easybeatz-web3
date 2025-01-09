@@ -4,7 +4,7 @@
     <div class="drawer-content flex flex-col ">
 
       <AppNavBar />
-      <div class="divider my-0"></div>
+      <div class="divider my-0" style="height: 0rem"></div>
       <main>
         <slot />
       </main>
