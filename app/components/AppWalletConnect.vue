@@ -7,8 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from "@/store/user"
-import type { ApiData } from "@/composables/useApi"
+import { useAuthStore } from "@/store/auth";
+import { useUserStore } from "@/store/user";
+import type { ApiData } from "@/composables/useApi";
 
 const walletAddress = ref("");
 
@@ -89,9 +90,11 @@ const authenticateUser = async (signature: any, message: string) => {
   }
 
   const userStore = useUserStore();
-  userStore.accessKey = res.access_key
   userStore.pubkey = res.pubkey
-  userStore.isAuthenticated = true
+
+  const authStore = useAuthStore();
+  authStore.accessKey = res.access_key
+  authStore.isAuthenticated = true
 }
 
 </script>
