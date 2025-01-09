@@ -15,10 +15,10 @@
       <img src="/logo.png" width="200px" class="px-4 py-4" />
       <ul class="menu bg-base-200 text-base-content w-80 px-4 py-2">
         <li v-for="(item, i) in menuList" :key="i">
-          <a class="text-lg">
+          <NuxtLink class="text-lg" :to="item.to">
             <Icon :icon="item.icon" class="text-2xl" />
             {{ item.label }}
-          </a>
+          </NuxtLink>
         </li>
         <div class="divider"></div>
       </ul>
@@ -29,16 +29,17 @@
 
 <script setup lang="ts">
 interface MenuListItem {
-  label: string
-  icon: string
+  label: string;
+  icon: string;
+  to: string;
 }
 
 const menuList: MenuListItem[] = [
-  { label: "Home", icon: "solar:home-2-bold" },
-  { label: "Explore", icon: "solar:turntable-music-note-bold" },
-  { label: "Library", icon: "solar:music-library-2-bold" },
-  { label: "Upload", icon: "solar:upload-track-2-bold" },
-  { label: "Playlist", icon: "solar:playlist-2-bold" },
+  { label: "Home", icon: "solar:home-2-bold", to: '/' },
+  { label: "Explore", icon: "solar:turntable-music-note-bold", to: '/explore' },
+  { label: "Library", icon: "solar:music-library-2-bold", to: '/library' },
+  { label: "Upload", icon: "solar:upload-track-2-bold", to: '/upload' },
+  { label: "Playlist", icon: "solar:playlist-2-bold", to: '/playlist' },
 ]
 
 </script>
