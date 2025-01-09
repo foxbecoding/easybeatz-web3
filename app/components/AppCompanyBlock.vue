@@ -1,39 +1,35 @@
 <template>
+  <footer class="block">
+    <div class="flex justify-around pb-4">
+      <button class="btn btn-ghost btn-square">
+        <Icon icon="simple-icons:x" class="text-3xl primary" />
+      </button>
+    </div>
+    <div class="px-4">
+      <NuxtLink v-for="link in guideLinks" :to="link.to" class="text-sm mr-4">
+        {{ link.title }}
+      </NuxtLink>
+    </div>
+
+    <div class="px-4 pt-2">
+      <p class="text-sm opacity-70">&copy {{ new Date().getFullYear() }} {{ company_name }} </p>
+    </div>
+  </footer>
 </template>
 
 <script setup lang="ts">
-
-interface LinkList {
+interface GuideLink {
   title: string,
   to: string
 }
 
 const config = useRuntimeConfig();
-const company_name = ref<string>(`${config.public.COMPANY_NAME}`)
-const auxLinks = ref<LinkList[]>([
+const company_name = `${config.public.COMPANY_NAME}`;
+const guideLinks: GuideLink[] = [
   { title: 'About', to: '/about' },
   { title: 'Contact', to: '/contact' },
-  { title: 'FAQ', to: '/faq' },
-  // { title: 'How it works', to: '/how-it-works' },
-  // { title: 'Blog', to: '/blog' },
-  { title: 'Terms', to: '/terms' },
-  { title: 'Privacy', to: '/privacy' },
-])
+  { title: 'Terms', to: '/terms-of-service' },
+  { title: 'Privacy', to: '/privacy-policy' },
+];
 
 </script>
-<style scoped>
-.aux-links {
-  text-decoration: none;
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-
-.aux-links:hover {
-  opacity: 0.65;
-}
-
-.legal-content {
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-</style>
