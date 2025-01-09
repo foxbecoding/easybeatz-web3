@@ -1,6 +1,6 @@
 <template>
   <div class="drawer lg:drawer-open">
-    <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+    <input id="app-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col ">
 
       <AppNavBar />
@@ -10,42 +10,33 @@
       </main>
 
     </div>
-    <div class="drawer-side">
-      <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-      <ul class="menu bg-base-200 text-base-content min-h-full w-80 px-4 py-2">
-        <!-- Sidebar content here -->
-        <img src="/logo.png" width="150px" class="px-4 pb-8" />
-        <li>
+    <div class="drawer-side min-h-full bg-base-200">
+      <label for="app-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+      <img src="/logo.png" width="200px" class="px-8 py-4" />
+      <ul class="menu bg-base-200 text-base-content w-80 px-4 py-2">
+        <li v-for="(item, i) in menuList" :key="i">
           <a class="text-lg">
-            <Icon icon="solar:home-2-bold" width="24" height="24" />
-            Home
-          </a>
-        </li>
-        <li>
-          <a class="text-lg">
-            <Icon icon="solar:turntable-music-note-bold" width="24" height="24" />
-            Explore
-          </a>
-        </li>
-        <li>
-          <a class="text-lg">
-            <Icon icon="solar:music-library-2-bold" width="24" height="24" />
-            Library
-          </a>
-        </li>
-        <li>
-          <a class="text-lg">
-            <Icon icon="solar:upload-track-2-bold" width="24" height="24" />
-            Upload
-          </a>
-        </li>
-        <li>
-          <a class="text-lg">
-            <Icon icon="solar:playlist-2-bold" width="24" height="24" />
-            Playlist
+            <Icon :icon="item.icon" class="text-2xl" />
+            {{ item.label }}
           </a>
         </li>
       </ul>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+export interface MenuListItem {
+  label: string
+  icon: string
+}
+
+const menuList: MenuListItem[] = [
+  { label: "Home", icon: "solar:home-2-bold" },
+  { label: "Explore", icon: "solar:turntable-music-note-bold" },
+  { label: "Library", icon: "solar:music-library-2-bold" },
+  { label: "Upload", icon: "solar:upload-track-2-bold" },
+  { label: "Playlist", icon: "solar:playlist-2-bold" },
+]
+
+</script>
