@@ -15,8 +15,8 @@
       <img src="/logo.png" width="200px" class="px-4 py-4" />
       <ul class="menu bg-base-200 text-base-content w-80 px-4 py-2">
         <li v-for="(item, i) in menuList" :key="i">
-          <NuxtLink class="text-lg" :to="item.to">
-            <Icon :icon="item.icon" class="text-2xl" />
+          <NuxtLink class="text-lg" :to="{ name: item.name }" active-class="bg-neutral">
+            <Icon :icon="item.icon" class="text-2xl mr-2" :class="activeLinkIcon(item.name)" />
             {{ item.label }}
           </NuxtLink>
         </li>
@@ -31,15 +31,19 @@
 interface MenuListItem {
   label: string;
   icon: string;
-  to: string;
+  name: string;
 }
 
 const menuList: MenuListItem[] = [
-  { label: "Home", icon: "solar:home-2-bold", to: '/' },
-  { label: "Explore", icon: "solar:turntable-music-note-bold", to: '/explore' },
-  { label: "Library", icon: "solar:music-library-2-bold", to: '/library' },
-  { label: "Upload", icon: "solar:upload-track-2-bold", to: '/upload' },
-  { label: "Playlist", icon: "solar:playlist-2-bold", to: '/playlist' },
-]
+  { label: "Home", icon: "solar:home-2-bold", name: "index" },
+  { label: "Explore", icon: "solar:turntable-music-note-bold", name: "explore" },
+  { label: "Library", icon: "solar:music-library-2-bold", name: "library" },
+  { label: "Upload", icon: "solar:upload-track-2-bold", name: "upload" },
+  { label: "Playlist", icon: "solar:playlist-2-bold", name: "playlist" },
+];
+
+const route = useRoute();
+
+const activeLinkIcon = (route_name: string) => route.name == route_name ? 'text-primary' : '';
 
 </script>
