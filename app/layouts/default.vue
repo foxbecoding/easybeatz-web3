@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-export interface MenuListItem {
+interface MenuListItem {
   label: string
   icon: string
 }
