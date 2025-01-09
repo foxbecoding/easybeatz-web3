@@ -22,6 +22,7 @@
         </li>
         <div class="divider"></div>
       </ul>
+      <AppCompanyBlock />
     </div>
   </div>
 </template>
