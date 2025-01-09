@@ -12,7 +12,7 @@
     </div>
     <div class="drawer-side min-h-full bg-base-200">
       <label for="app-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <img src="/logo.png" width="200px" class="px-4 py-4" />
+      <NuxtLink :to="{ name: 'index' }"><img src="/logo.png" width="200px" class="px-4 py-4" /></NuxtLink>
       <ul class="menu bg-base-200 text-base-content w-80 px-4 py-2">
         <li v-for="(item, i) in menuList" :key="i">
           <NuxtLink class="text-lg" :to="{ name: item.name }" active-class="bg-neutral">
