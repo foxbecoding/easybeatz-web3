@@ -16,9 +16,9 @@
         <button v-else class="btn btn-neutral btn-square mr-4">
           <Icon icon="solar:user-bold" class="text-2xl" />
         </button>
-        <button class="btn btn-neutral btn-square">
+        <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral btn-square">
           <Icon icon="solar:bag-music-2-bold" class="text-2xl" />
-        </button>
+        </NuxtLink>
       </div>
 
     </div>
