@@ -2,7 +2,7 @@
   <button @click="connectWallet()" class="btn btn-neutral text-xl">
     <Icon class="text-2xl" icon="solar:wallet-2-bold" />
     Login
-    <img src="/phantom-icon.svg" />
+    <Icon icon="token-branded:phantom" class="text-2xl" />
   </button>
 </template>
 
