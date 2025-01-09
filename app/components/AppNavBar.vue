@@ -17,7 +17,6 @@
           <Icon icon="solar:user-bold" class="text-2xl" />
         </button>
         <button class="btn btn-neutral btn-square">
-          <Icon v-if="false" icon="solar:cart-large-bold" class="text-2xl" />
           <Icon icon="solar:bag-music-2-bold" class="text-2xl" />
         </button>
       </div>
