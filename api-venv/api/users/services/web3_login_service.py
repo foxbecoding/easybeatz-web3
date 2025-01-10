@@ -26,7 +26,8 @@ class Web3LoginService:
 
         user = self.__find_or_create_user(self.pubkey)
         access_token = self.__authenticate_user(user)
-        
+        self.__save_user_login(user)
+
         return Response({"access_token": access_token, "pubkey": user.pubkey, "username": user.username}, status=status.HTTP_200_OK)
 
     def __verify_solana_signature(self, data):
@@ -69,3 +70,7 @@ class Web3LoginService:
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
         return access_token
+
+    def __save_user_login(self, user):
+        user_login = UserLogin(user = user)
+        user_login.save()
