@@ -1,3 +1,5 @@
+import { useAuthStore } from "@/store/auth";
+
 export interface ApiData {
   data?: object
   isMultiPart?: boolean
@@ -8,25 +10,25 @@ export interface ApiData {
 export const useApi = async (apiData: ApiData): Promise<any> => {
   const csrftoken: any = useCookie('csrftoken')
 
-  //const myHeaders = new Headers();
-  //myHeaders.append("Content-Type", "application/json");
+  const requestHeaders = new Headers();
+  requestHeaders.append("accept", "application/json");
+  requestHeaders.append("Content-Type", "application/json");
+  requestHeaders.append("X-CSRFToken", csrftoken.value);
 
-  const requestHeaders = ref<HeadersInit>({
-    'accept': 'application/json',
-    'Content-Type': 'application/json',
-    'X-CSRFToken': csrftoken.value
-  })
+  const authStore = useAuthStore();
+
+  if (authStore.accessToken) {
+    requestHeaders.append("Authorization", `Bearer ${authStore.accessToken}`)
+  }
 
   if (apiData.isMultiPart) {
-    requestHeaders.value = {
-      'X-CSRFToken': csrftoken.value
-    }
+    requestHeaders.append("X-CSRFToken", csrftoken.value);
   }
 
   return await $fetch(apiData.path, {
     method: apiData.method,
     body: apiData.data,
-    headers: requestHeaders.value,
+    headers: requestHeaders,
     credentials: 'include'
   });
 }
