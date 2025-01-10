@@ -36,43 +36,4 @@ class UserLoginViewSet(viewsets.ViewSet):
 
         return Response({"access_token": access_token, "pubkey": user.pubkey, "username": user.username}, status=status.HTTP_200_OK)
 
-    def verify_solana_signature(self, data):
-        signature_bytes = data['signedMessage']
-        pubkey_str = data['pubkey']
-        message = data['originalMessage']
-
-        try:
-            # Parse the public key
-            pubkey = Pubkey.from_string(pubkey_str)
-
-            # Decode the signature from base58
-            signature = Signature.from_bytes(signature_bytes)
-
-            # Convert the message into bytes (if it's a string)
-            if isinstance(message, str):
-                message = message.encode("utf-8")
-
-            # Verify the signature
-            is_valid = signature.verify(pubkey, message)
-            return is_valid
-
-        except Exception as e:
-            print(f"Verification failed: {e}")
-            return False
-
-    def verify_nonce(self, message, nonce):
-        # Verify that the message contains the expected nonce
-        return nonce in message
-
-    def find_or_create_user(self, pubkey):
-        user, created = User.objects.get_or_create(pubkey=pubkey)
-
-        # If the user wasn't created (it already exists), you can return the existing user
-        if not created:
-            return user
-        return user
-
-    def authenticate_user(self, user):
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-        return access_token
+    
