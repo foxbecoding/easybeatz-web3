@@ -2,11 +2,11 @@ import { useAuthStore } from "@/store/auth";
 import { useUserStore } from "@/store/user";
 import type { ApiData } from "@/composables/useApi";
 
-export const useAuth = async (): Promise<any> => {
+export const useAuth = () => {
   const authStore = useAuthStore();
   const userStore = useUserStore();
 
-  const requestLoginNonce = async (pubkey: string) => {
+  const requestLoginNonce = async (pubkey: string): Promise<string> => {
     const apiData: ApiData = {
       method: 'POST',
       path: '/api/web3-login-nonce/',
