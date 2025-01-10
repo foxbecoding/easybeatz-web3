@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import { useAuthStore } from "@/store/auth";
 import { useUserStore } from "@/store/user";
 import type { ApiData } from "@/composables/useApi";
@@ -43,10 +44,34 @@ export const useAuth = () => {
 
     userStore.setUserData(res.pubkey, res.username);
     authStore.setAuthData(res.access_token, true);
+    setTokenTimer(res.access_token);
+  }
+
+  const logout = () => {
+    useAuthStore().setAuthData(null, false);
+    useUserStore().setUserData(null, null);
+    useRouter().push({ name: "index" });
+    // TODO send api request to logout user
 
   }
 
-  const logout = () => { }
+  const setTokenTimer = (token: string) => {
+    // Decode the token
+    const decoded = jwtDecode(token);
+    const expiryTime = decoded.exp * 1000; // Convert to milliseconds
+
+    // Set up a timer to handle token expiration
+    const currentTime = Date.now();
+    const timeUntilExpiry = expiryTime - currentTime;
+
+    if (timeUntilExpiry > 0) {
+      setTimeout(() => {
+        logout(); // Or refresh the token
+      }, timeUntilExpiry);
+    } else {
+      logout();
+    }
+  }
 
   return {
     requestLoginNonce,
