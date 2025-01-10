@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from datetime import timedelta
 
 load_dotenv()
 
@@ -29,26 +30,24 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1)
+}
 
 # CORS origins
 ALLOWED_HOSTS = [
-    # 'easybeatz.com',
+    'easybeatz.com',
     'easybeatz.local',
-    'localhost'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    # 'https://easybeatz.com',
-    # 'http://easybeatz.local',
+    'https://easybeatz.com',
     'https://easybeatz.local',
-    # 'http://localhost:8000'
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
-    # 'https://easybeatz.com'
-    # 'http://easybeatz.local',
+    'https://easybeatz.com',
     'https://easybeatz.local',
-    # 'http://localhost:8000'
 )
 
 # Application definition
