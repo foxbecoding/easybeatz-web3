@@ -90,7 +90,7 @@ const authenticateUser = async (signature: any, message: string) => {
   }
 
   const userStore = useUserStore();
-  userStore.pubkey = res.pubkey
+  userStore.setUserData(res.pubkey, res.username);
 
   const authStore = useAuthStore();
   authStore.setAuthData(res.access_token, true);
