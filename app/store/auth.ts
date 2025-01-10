@@ -1,9 +1,9 @@
 export const useAuthStore = defineStore("use-auth-store", () => {
-  const accessKey = ref<string | null>(null);
+  const accessToken = ref<string | null>(null);
   const isAuthenticated = ref<boolean>(false);
 
   return {
-    accessKey,
+    accessToken,
     isAuthenticated,
   }
 })
