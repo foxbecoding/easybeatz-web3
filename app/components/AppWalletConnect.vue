@@ -7,11 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "@/store/auth";
-import { useUserStore } from "@/store/user";
-import type { ApiData } from "@/composables/useApi";
 
 const walletAddress = ref("");
+const { login, requestLoginNonce } = useAuth();
 
 const connectWallet = async () => {
 
@@ -22,7 +20,7 @@ const connectWallet = async () => {
       walletAddress.value = response.publicKey.toString();
 
       //Request login nonce
-      const nonce = await requestLoginNonce();
+      const nonce = await requestLoginNonce(walletAddress.value);
 
       // generate message to sign
       const message = generateMessage(nonce);
@@ -54,46 +52,8 @@ Nonce: ${nonce}`;
   return message;
 }
 
-const requestLoginNonce = async () => {
-  const apiData: ApiData = {
-    method: 'POST',
-    path: '/api/web3-login-nonce/',
-    data: {
-      pubkey: walletAddress.value
-    }
-  }
-
-  const res = await useApi(apiData)
-
-  if (res.error) {
-    throw new Error(`requestLoginNonce() - Response status: ${res.error}`);
-  }
-
-  return res.nonce;
-}
-
 const authenticateUser = async (signature: any, message: string) => {
-  const apiData: ApiData = {
-    method: 'POST',
-    path: '/api/web3-login/',
-    data: {
-      signedMessage: signature,
-      originalMessage: message,
-      pubkey: walletAddress.value
-    }
-  }
-
-  const res = await useApi(apiData);
-
-  if (res.error) {
-    throw new Error(`authenticateNonce() - Response status: ${res.error}`);
-  }
-
-  const userStore = useUserStore();
-  userStore.setUserData(res.pubkey, res.username);
-
-  const authStore = useAuthStore();
-  authStore.setAuthData(res.access_token, true);
+  login(signature, message, walletAddress.value);
 }
 
 </script>
