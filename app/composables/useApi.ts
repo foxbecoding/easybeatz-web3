@@ -17,8 +17,10 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
 
   const authStore = useAuthStore();
 
-  if (authStore.accessKey) {
-    requestHeaders.append("Authorization", `Bearer ${authStore.accessKey}`)
+  console.log("start: ", authStore.accessToken)
+  if (authStore.accessToken) {
+    console.log("end", authStore.accessToken)
+    requestHeaders.append("Authorization", `Bearer ${authStore.accessToken}`)
   }
 
   if (apiData.isMultiPart) {
