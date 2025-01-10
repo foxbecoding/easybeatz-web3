@@ -24,7 +24,27 @@ export const useAuth = async (): Promise<any> => {
     return res.nonce;
   }
 
-  const login = () => { }
+  const login = async (signature: any, message: string, pubkey: string): Promise<void> => {
+    const apiData: ApiData = {
+      method: 'POST',
+      path: '/api/web3-login/',
+      data: {
+        signedMessage: signature,
+        originalMessage: message,
+        pubkey
+      }
+    }
+
+    const res = await useApi(apiData);
+
+    if (res.error) {
+      throw new Error(`authenticateNonce() - Response status: ${res.error}`);
+    }
+
+    userStore.setUserData(res.pubkey, res.username);
+    authStore.setAuthData(res.access_token, true);
+
+  }
 
   const logout = () => { }
 
