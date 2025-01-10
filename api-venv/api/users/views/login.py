@@ -2,7 +2,6 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from ..models import User, UserLogin, UserLoginNonce 
 from ..serializers import Web3LoginSerializer
 from ..services import Web3LoginService
 
@@ -19,23 +18,3 @@ class UserLoginViewSet(viewsets.ViewSet):
 
         service = Web3LoginService(serializer.validated_data)
         return service.run()
-
-        pubkey = serializer.validated_data['pubkey']
-        message = serializer.validated_data['originalMessage']
-        nonce = UserLoginNonce.objects.filter(pubkey=pubkey).last()
-
-        if not nonce:
-            return Response({"error": "No nonce found for this wallet address"}, status=status.HTTP_400_BAD_REQUEST)
-
-        if not self.verify_nonce(message, nonce.nonce):
-            return Response({"error": "Invalid message or nonce"}, status=status.HTTP_400_BAD_REQUEST)
-
-        if not self.verify_solana_signature(serializer.validated_data):
-            return Response({"error": "Verification failed"}, status=status.HTTP_400_BAD_REQUEST)
-
-        user = self.find_or_create_user(pubkey)
-        access_token = self.authenticate_user(user)
-
-        return Response({"access_token": access_token, "pubkey": user.pubkey, "username": user.username}, status=status.HTTP_200_OK)
-
-    
