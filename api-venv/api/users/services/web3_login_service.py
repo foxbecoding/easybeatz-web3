@@ -10,7 +10,7 @@ class Web3LoginService:
         self.validated_data = data
         self.pubkey = data["pubkey"]
         self.message = data["originalMessage"]
-        self.signature = data["signature"]
+        self.signature = data["signedMessage"]
 
     def run(self) -> Response:
         nonce = UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
