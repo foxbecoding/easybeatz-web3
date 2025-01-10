@@ -93,8 +93,7 @@ const authenticateUser = async (signature: any, message: string) => {
   userStore.pubkey = res.pubkey
 
   const authStore = useAuthStore();
-  authStore.accessToken = res.access_token;
-  authStore.isAuthenticated = true;
+  authStore.setAuthData(res.access_token, true);
 }
 
 </script>
