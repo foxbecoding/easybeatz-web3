@@ -170,6 +170,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Static media files
+MEDIA_ROOT=os.getenv('MEDIA_ROOT')
+MEDIA_URL=os.getenv('MEDIA_URL')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
