@@ -73,9 +73,6 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'rest_framework.authentication.SessionAuthentication',
-    # ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
@@ -169,6 +166,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Static media files
+MEDIA_ROOT=os.getenv('MEDIA_ROOT')
+MEDIA_URL=os.getenv('MEDIA_URL')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
