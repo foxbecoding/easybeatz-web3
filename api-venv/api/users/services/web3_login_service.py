@@ -4,6 +4,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from solders.pubkey import Pubkey
 from solders.signature import Signature
 from ..models import User, UserLogin, UserLoginNonce
+from stations.models import Station
 
 class Web3LoginService:
     def __init__(self, data) -> None:
@@ -26,9 +27,10 @@ class Web3LoginService:
 
         user = self.__find_or_create_user(self.pubkey)
         access_token = self.__authenticate_user(user)
+        station = self.__get_station(user)
         self.__save_user_login(user)
 
-        return Response({"access_token": access_token, "pubkey": user.pubkey, "username": user.username}, status=status.HTTP_200_OK)
+        return Response({"access_token": access_token, "pubkey": user.pubkey, "username": user.username, "station": station}, status=status.HTTP_200_OK)
 
     def __verify_solana_signature(self, data):
         signature_bytes = data['signedMessage']
@@ -54,11 +56,11 @@ class Web3LoginService:
             print(f"Verification failed: {e}")
             return False
 
-    def __verify_nonce(self, message, nonce):
+    def __verify_nonce(self, message: str, nonce: str):
         # Verify that the message contains the expected nonce
         return nonce in message
 
-    def __find_or_create_user(self, pubkey):
+    def __find_or_create_user(self, pubkey: str):
         user, created = User.objects.get_or_create(pubkey=pubkey)
 
         # If the user wasn't created (it already exists), you can return the existing user
@@ -66,11 +68,15 @@ class Web3LoginService:
             return user
         return user
 
-    def __authenticate_user(self, user):
+    def __authenticate_user(self, user: User):
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
         return access_token
 
-    def __save_user_login(self, user):
+    def __save_user_login(self, user: User):
         user_login = UserLogin(user = user)
         user_login.save()
+
+    def __get_station(self, user: User) -> Station | None :
+        return Station.objects.filter(pk=user.pk).first() or None
+        
