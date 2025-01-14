@@ -32,7 +32,7 @@ class Web3LoginService:
 
         return Response({"access_token": access_token, "pubkey": user.pubkey, "username": user.username, "station": station}, status=status.HTTP_200_OK)
 
-    def __verify_solana_signature(self, data):
+    def __verify_solana_signature(self, data) -> bool:
         signature_bytes = data['signedMessage']
         pubkey_str = data['pubkey']
         message = data['originalMessage']
@@ -56,11 +56,11 @@ class Web3LoginService:
             print(f"Verification failed: {e}")
             return False
 
-    def __verify_nonce(self, message: str, nonce: str):
+    def __verify_nonce(self, message: str, nonce: str) -> bool:
         # Verify that the message contains the expected nonce
         return nonce in message
 
-    def __find_or_create_user(self, pubkey: str):
+    def __find_or_create_user(self, pubkey: str) -> User:
         user, created = User.objects.get_or_create(pubkey=pubkey)
 
         # If the user wasn't created (it already exists), you can return the existing user
@@ -68,12 +68,12 @@ class Web3LoginService:
             return user
         return user
 
-    def __authenticate_user(self, user: User):
+    def __authenticate_user(self, user: User) -> str:
         refresh = RefreshToken.for_user(user)
         access_token = str(refresh.access_token)
         return access_token
 
-    def __save_user_login(self, user: User):
+    def __save_user_login(self, user: User) -> None:
         user_login = UserLogin(user = user)
         user_login.save()
 
