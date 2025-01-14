@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'users.apps.UsersConfig',
+    'stations.apps.StationsConfig'
 ]
 
 REST_FRAMEWORK = {
