@@ -28,19 +28,4 @@ import { useAuthStore } from "@/store/auth"
 
 const authStore = useAuthStore();
 
-interface MenuLink {
-  to: string;
-  icon: string;
-  label: string;
-  show: boolean;
-}
-
-const menuLinks = computed<MenuLink[]>(() => [
-  { to: "", icon: "solar:station-bold", label: "Your Station", show: true },
-  { to: "", icon: "solar:heart-angle-bold", label: "Favorites", show: true },
-  { to: "", icon: "solar:chat-round-money-bold", label: "Purchases", show: true },
-  { to: "", icon: "solar:headphones-round-sound-bold", label: "Studio", show: true },
-  { to: "", icon: "solar:logout-2-bold", label: "Logout", show: authStore.isAuthenticated },
-]);
-
 </script>
