@@ -12,7 +12,7 @@
       </label>
 
       <div class="flex-none">
-        <AppWalletConnect class="mr-4" />
+        <AppWalletConnect v-if="!authStore.isAuthenticated" class="mr-4" />
 
         <div class="dropdown dropdown-bottom dropdown-end dropdown-hover">
           <button tabindex="0" role="button" class="btn btn-neutral btn-square mr-4">
