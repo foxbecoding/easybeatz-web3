@@ -10,6 +10,7 @@ class Station(models.Model):
     name = models.CharField(max_length=90)
     handle = models.CharField(max_length=60, unique=True)
     description = models.TextField(null=True, blank=True)
+    email = models.EmailField(max_length=254, unique=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
