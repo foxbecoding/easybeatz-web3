@@ -13,21 +13,7 @@
 
       <div class="flex-none">
         <AppWalletConnect v-if="!authStore.isAuthenticated" class="mr-4" />
-
-        <div class="dropdown dropdown-bottom dropdown-end dropdown-hover">
-          <button tabindex="0" role="button" class="btn btn-neutral btn-square mr-4">
-            <Icon icon="solar:user-bold" class="text-2xl" />
-          </button>
-
-          <ul tabindex="0" class="dropdown-content menu bg-neutral rounded-box z-[1] w-[300px] p-2 shadow">
-            <li v-show="link.show" v-for="(link, i) in menuLinks" :key="i">
-              <NuxtLink class="text-lg font-semibold">
-                <Icon :icon="link.icon" class="text-2xl mr-2" />
-                {{ link.label }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
+        <AppAccountMenu v-else class="mr-4" />
         <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral btn-square">
           <Icon icon="solar:bag-music-2-bold" class="text-2xl" />
         </NuxtLink>
