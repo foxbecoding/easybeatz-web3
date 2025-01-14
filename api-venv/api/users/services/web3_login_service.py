@@ -30,7 +30,7 @@ class Web3LoginService:
         station = self.__get_station(user)
         self.__save_user_login(user)
 
-        return Response({"access_token": access_token, "pubkey": user.pubkey, "username": user.username, "station": station}, status=status.HTTP_200_OK)
+        return Response({"access_token": access_token, "pubkey": user.pubkey,  "station": station}, status=status.HTTP_200_OK)
 
     def __verify_solana_signature(self, data) -> bool:
         signature_bytes = data['signedMessage']
