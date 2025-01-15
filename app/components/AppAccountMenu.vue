@@ -6,7 +6,7 @@
 
     <ul tabindex="0" class="dropdown-content menu bg-neutral rounded-box z-[1] w-[300px] p-2 shadow">
       <li v-for=" (item, i) in menuItems" :key="i">
-        <button class="text-lg font-semibold">
+        <button @click="item.clickHandler()" class="text-lg font-semibold">
           <Icon :icon="item.icon" class="text-2xl mr-2" />
           {{ item.label }}
         </button>
@@ -24,7 +24,7 @@ const router = useRouter();
 interface MenuItem {
   icon: string;
   label: string;
-  clickHandler?: Function;
+  clickHandler: Function;
 }
 
 
@@ -36,9 +36,9 @@ const stationClickHandler = () => {
 
 const menuItems = computed<MenuItem[]>(() => [
   { icon: "solar:station-bold", label: "Your Station", clickHandler: stationClickHandler },
-  { icon: "solar:heart-angle-bold", label: "Favorites" },
-  { icon: "solar:chat-round-money-bold", label: "Purchases" },
-  { icon: "solar:headphones-round-sound-bold", label: "Studio" },
-  { icon: "solar:logout-2-bold", label: "Logout" },
+  { icon: "solar:heart-angle-bold", label: "Favorites", clickHandler: () => {} },
+  { icon: "solar:chat-round-money-bold", label: "Purchases", clickHandler: () => {} },
+  { icon: "solar:headphones-round-sound-bold", label: "Studio", clickHandler: () => {} },
+  { icon: "solar:logout-2-bold", label: "Logout", clickHandler: () => {} },
 ]);
 </script>
