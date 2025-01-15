@@ -4,6 +4,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..serializers import StationSerializer
+from users.models import User
+from ..models import Station
 
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
@@ -12,6 +14,13 @@ class StationViewSet(viewsets.ViewSet):
 
     @action(detail=True, methods=['get'])
     def public_station(self, request, pk=None):
+        # Check if station exists
+        has_user = User.objects.filter(pubkey=str(pk)).exists()
+        if not has_user:
+            return Response({"error": "No Station"}, status=status.HTTP_404_NOT_FOUND)
+
         is_owner = str(request.user) == str(pk)
-        print(is_owner)
-        return Response(pk, status=status.HTTP_200_OK)
+        station = Station.objects.get(pk=str(pk)) | {"is_owner": is_owner}
+        serializer = StationSerializer(data=station)
+        data = serializer.validated_data
+        return Response(data, status=status.HTTP_200_OK)
