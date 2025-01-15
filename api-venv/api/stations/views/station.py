@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from ..serializers import StationSerializer
 from users.models import User
 from ..models import Station
+from datetime import datetime
 
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
@@ -23,4 +24,7 @@ class StationViewSet(viewsets.ViewSet):
         serialized_station = StationSerializer(station).data
         is_owner = str(request.user) == str(pk)
         serialized_station['is_owner'] = is_owner
-        return Response({"station": serialized_station}, status=status.HTTP_200_OK)
+        created_date = datetime.fromisoformat(serialized_station['created'].replace("Z", "+00:00"))
+        serialized_station['created'] = created_date.year
+        # serialized_station['created'] = serialized_station['created'].month
+        return Response(serialized_station, status=status.HTTP_200_OK)
