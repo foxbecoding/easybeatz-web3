@@ -5,33 +5,40 @@
     </button>
 
     <ul tabindex="0" class="dropdown-content menu bg-neutral rounded-box z-[1] w-[300px] p-2 shadow">
-      <li v-show="link.show" v-for="(link, i) in menuLinks" :key="i">
-        <NuxtLink class="text-lg font-semibold">
+      <li v-for=" (link, i) in menuLinks" :key="i">
+        <button class="text-lg font-semibold">
           <Icon :icon="link.icon" class="text-2xl mr-2" />
           {{ link.label }}
-        </NuxtLink>
+        </button>
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from "@/store/auth"
+import { useStationStore } from "@/store/station"
 
-const authStore = useAuthStore();
+const stationStore = useStationStore();
+const router = useRouter();
 
 interface MenuLink {
-  to: string;
   icon: string;
   label: string;
-  show: boolean;
+  clickHandler?: Function;
+}
+
+
+const stationClickHandler = () => {
+  if (!stationStore.hasStation) {
+    console.log("FOX");
+  }
 }
 
 const menuLinks = computed<MenuLink[]>(() => [
-  { to: "", icon: "solar:station-bold", label: "Your Station", show: true },
-  { to: "", icon: "solar:heart-angle-bold", label: "Favorites", show: true },
-  { to: "", icon: "solar:chat-round-money-bold", label: "Purchases", show: true },
-  { to: "", icon: "solar:headphones-round-sound-bold", label: "Studio", show: true },
-  { to: "", icon: "solar:logout-2-bold", label: "Logout", show: authStore.isAuthenticated },
+  { icon: "solar:station-bold", label: "Your Station", clickHandler: stationClickHandler },
+  { icon: "solar:heart-angle-bold", label: "Favorites" },
+  { icon: "solar:chat-round-money-bold", label: "Purchases" },
+  { icon: "solar:headphones-round-sound-bold", label: "Studio" },
+  { icon: "solar:logout-2-bold", label: "Logout" },
 ]);
 </script>
