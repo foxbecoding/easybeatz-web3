@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { useStationStore } from "@/store/station"
 
+const { logout } = useAuth();
 const stationStore = useStationStore();
 const router = useRouter();
 
@@ -39,6 +40,6 @@ const menuItems = computed<MenuItem[]>(() => [
   { icon: "solar:heart-angle-bold", label: "Favorites", clickHandler: () => {} },
   { icon: "solar:chat-round-money-bold", label: "Purchases", clickHandler: () => {} },
   { icon: "solar:headphones-round-sound-bold", label: "Studio", clickHandler: () => {} },
-  { icon: "solar:logout-2-bold", label: "Logout", clickHandler: () => {} },
+  { icon: "solar:logout-2-bold", label: "Logout", clickHandler: logout },
 ]);
 </script>
