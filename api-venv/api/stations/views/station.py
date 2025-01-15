@@ -22,5 +22,5 @@ class StationViewSet(viewsets.ViewSet):
         station = Station.objects.get(pk=user.pk) 
         serialized_station = StationSerializer(station).data
         is_owner = str(request.user) == str(pk)
-        
-        return Response({"station": serialized_station, "is_owner": is_owner}, status=status.HTTP_200_OK)
+        serialized_station['is_owner'] = is_owner
+        return Response({"station": serialized_station}, status=status.HTTP_200_OK)
