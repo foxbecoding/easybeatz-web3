@@ -6,10 +6,17 @@
 
     <ul tabindex="0" class="dropdown-content menu bg-neutral rounded-box z-[1] w-[300px] p-2 shadow">
       <li v-for=" (item, i) in menuItems" :key="i">
-        <button @click="item.clickHandler()" class="text-lg font-semibold">
+        <NuxtLink :to="item.to" class="text-lg font-semibold">
           <Icon :icon="item.icon" class="text-2xl mr-2" />
           {{ item.label }}
+        </NuxtLink>
+      </li>
+      <li>
+        <button @click="logout()" class="text-lg font-semibold">
+          <Icon icon="solar:logout-2-bold" class="text-2xl mr-2" />
+          Logout
         </button>
+
       </li>
     </ul>
   </div>
@@ -23,23 +30,15 @@ const stationStore = useStationStore();
 const router = useRouter();
 
 interface MenuItem {
+  to: string;
   icon: string;
   label: string;
-  clickHandler: Function;
-}
-
-
-const stationClickHandler = () => {
-  if (!stationStore.hasStation) {
-    console.log("FOX");
-  }
 }
 
 const menuItems = computed<MenuItem[]>(() => [
-  { icon: "solar:station-bold", label: "Your Station", clickHandler: stationClickHandler },
-  { icon: "solar:heart-angle-bold", label: "Favorites", clickHandler: () => {} },
-  { icon: "solar:chat-round-money-bold", label: "Purchases", clickHandler: () => {} },
-  { icon: "solar:headphones-round-sound-bold", label: "Studio", clickHandler: () => {} },
-  { icon: "solar:logout-2-bold", label: "Logout", clickHandler: logout },
+  { to: "/", icon: "solar:station-bold", label: "Your Station" },
+  { to: "/", icon: "solar:heart-angle-bold", label: "Favorites" },
+  { to: "/", icon: "solar:chat-round-money-bold", label: "Purchases" },
+  { to: "/", icon: "solar:headphones-round-sound-bold", label: "Studio" },
 ]);
 </script>
