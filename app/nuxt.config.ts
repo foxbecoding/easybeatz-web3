@@ -22,19 +22,15 @@ export default defineNuxtConfig({
 
   plugins: ["~/plugins/iconify.ts"],
 
-  modules: [
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/color-mode',
-    [
-      '@pinia/nuxt',
-      {
-        autoImports: [
-          'defineStore',
-          'acceptHMRUpdate',
-        ],
-      },
-    ]
-  ],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', [
+    '@pinia/nuxt',
+    {
+      autoImports: [
+        'defineStore',
+        'acceptHMRUpdate',
+      ],
+    },
+  ], '@nuxt/image'],
 
   tailwindcss: { exposeConfig: true },
 
