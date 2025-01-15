@@ -16,27 +16,27 @@
           <Icon icon="solar:logout-2-bold" class="text-2xl mr-2" />
           Logout
         </button>
-
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useStationStore } from "@/store/station"
+import { useStationStore } from "@/store/station";
+import { useUserStore } from "@/store/user";
 
 const { logout } = useAuth();
 const stationStore = useStationStore();
-const router = useRouter();
+const userStore = useUserStore();
 
 interface MenuItem {
-  to: string;
+  to: string | object;
   icon: string;
   label: string;
 }
 
 const menuItems = computed<MenuItem[]>(() => [
-  { to: "/", icon: "solar:station-bold", label: "Your Station" },
+  { to: { name: 'station-pubkey', params: { pubkey: userStore.pubkey } }, icon: "solar:station-bold", label: "Your Station" },
   { to: "/", icon: "solar:heart-angle-bold", label: "Favorites" },
   { to: "/", icon: "solar:chat-round-money-bold", label: "Purchases" },
   { to: "/", icon: "solar:headphones-round-sound-bold", label: "Studio" },
