@@ -5,10 +5,10 @@
     </button>
 
     <ul tabindex="0" class="dropdown-content menu bg-neutral rounded-box z-[1] w-[300px] p-2 shadow">
-      <li v-for=" (link, i) in menuLinks" :key="i">
+      <li v-for=" (item, i) in menuItems" :key="i">
         <button class="text-lg font-semibold">
-          <Icon :icon="link.icon" class="text-2xl mr-2" />
-          {{ link.label }}
+          <Icon :icon="item.icon" class="text-2xl mr-2" />
+          {{ item.label }}
         </button>
       </li>
     </ul>
@@ -21,7 +21,7 @@ import { useStationStore } from "@/store/station"
 const stationStore = useStationStore();
 const router = useRouter();
 
-interface MenuLink {
+interface MenuItem {
   icon: string;
   label: string;
   clickHandler?: Function;
@@ -34,7 +34,7 @@ const stationClickHandler = () => {
   }
 }
 
-const menuLinks = computed<MenuLink[]>(() => [
+const menuItems = computed<MenuItem[]>(() => [
   { icon: "solar:station-bold", label: "Your Station", clickHandler: stationClickHandler },
   { icon: "solar:heart-angle-bold", label: "Favorites" },
   { icon: "solar:chat-round-money-bold", label: "Purchases" },
