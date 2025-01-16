@@ -33,47 +33,32 @@
         <div class="skeleton h-4 w-48"></div>
       </div>
     </div>
+    {{ station }}
   </AppPageContainer>
 </template>
 
 <script setup lang="ts">
-import AppPageContainer from "@/components/AppPageContainer.vue";
 import { useAuthStore } from "@/store/auth";
 import { type Station, getStation } from "@/services/models/station";
 
 const route = useRoute();
 const config = useRuntimeConfig();
 const authStore = useAuthStore();
-const fetchPath = `${config.public.API_STATION}/${route.params.pubkey}/public_station`;
+const fetchPath = `${config.public.API_STATION}/${route.params.pubkey}/public_station/`;
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-const { data: station, status } = await useLazyFetch<Station>(fetchPath, {
+//await nextTick();
+//const { data: cachedStation } = useNuxtData<Station>(`station-${route.params.pubkey}`);
+
+const { data: station, error, status, } = await useLazyFetch<Station>(() => fetchPath, {
   server: false,
   key: `station-${route.params.pubkey}`,
+  watch: [isAuthenticated],
   onRequest({ request, options }) {
     if (authStore.accessToken) {
-      options.headers.set(' Authorization', `Bearer ${authStore.accessToken}`)
+      options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
     }
   },
-  onResponseError({ request, response, options }) {
-    // TODO switch to middleware
-    if (response.status === 404) {
-      navigateTo({ name: "station" })
-    }
-  }
-});
-
-watch(station, (newStation) => {
-  station.value = newStation as Station
-})
-
-watch(isAuthenticated, async (isAuth) => {
-  if (isAuth) {
-    const data = await getStation(String(route.params.pubkey)) as Station
-    if (!data.error) {
-      station.value = data
-    }
-  }
 })
 </script>
