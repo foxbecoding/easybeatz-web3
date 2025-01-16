@@ -8,7 +8,7 @@
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
         <p class="text-lg font-semibold">@{{ route.params.pubkey }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
-        <NuxtLink :to="{ name: 'station-id-edit', params: { id: route.params.pubkey } }" v-if="station.is_owner"
+        <NuxtLink :to="{ name: 'station-id-edit', params: { id: pubkey } }" v-if="station.is_owner"
           class="text-lg btn btn-neutral">
           Customize station</NuxtLink>
         <button v-else class="btn btn-primary text-lg">Subscribe</button>
@@ -36,26 +36,25 @@
       </div>
     </div>
   </AppPageContainer>
-  {{ route.name }}
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from "@/store/auth";
-import { type Station, getStation } from "@/services/models/station";
+import { type Station } from "@/services/models/station";
 
 const route = useRoute();
 const config = useRuntimeConfig();
 const authStore = useAuthStore();
-const fetchPath = `${config.public.API_STATION}/${route.params.pubkey}/public_station/`;
+const pubkey = ref(route.params.pubkey)
+const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`;
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-//await nextTick();
-//const { data: cachedStation } = useNuxtData<Station>(`station-${route.params.pubkey}`);
+//const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
 const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
   server: false,
-  key: `station-${route.params.pubkey}`,
+  key: `station-${pubkey.value}`,
   watch: [isAuthenticated],
   onRequest({ request, options }) {
     if (authStore.accessToken) {
