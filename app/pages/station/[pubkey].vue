@@ -48,7 +48,7 @@ const fetchPath = `${config.public.API_STATION}/${route.params.pubkey}/public_st
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
-const { status, data: station } = await useLazyFetch(fetchPath, {
+const { data: station, status } = await useLazyFetch<Station>(fetchPath, {
   server: false,
   key: `station-${route.params.pubkey}`,
   onRequest({ request, options }) {
@@ -65,13 +65,15 @@ const { status, data: station } = await useLazyFetch(fetchPath, {
 });
 
 watch(station, (newStation) => {
-  station.value = newStation
+  station.value = newStation as Station
 })
 
 watch(isAuthenticated, async (isAuth) => {
   if (isAuth) {
-    const data = await getStation(String(route.params.pubkey))
-    station.value = data
+    const data = await getStation(String(route.params.pubkey)) as Station
+    if (!data.error) {
+      station.value = data
+    }
   }
 })
 </script>
