@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import AppPageContainer from "@/components/AppPageContainer.vue";
 import { useAuthStore } from "@/store/auth";
-import type { ApiData } from "@/composables/useApi"
+import { type Station, getStation } from "@/services/models/station";
 
 const route = useRoute();
 const config = useRuntimeConfig();
@@ -70,8 +70,7 @@ watch(station, (newStation) => {
 
 watch(isAuthenticated, async (isAuth) => {
   if (isAuth) {
-    const apiData: ApiData = { method: 'GET', path: fetchPath }
-    const data = await useApi(apiData)
+    const data = await getStation(String(route.params.pubkey))
     station.value = data
   }
 })
