@@ -9,9 +9,18 @@ export interface Station {
     name: string | null;
 }
 
-export const getStation = async (pubkey: string): Promise<Station> => {
+export interface StationError {
+    error: any
+}
+
+export const getStation = async (pubkey: string): Promise<Station | StationError> => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/${pubkey}/public_station`;
     const apiData: ApiData = { method: 'GET', path: fetchPath }
-    return await useApi(apiData)
+    const data = await useApi(apiData)
+    if (data.error) {
+        console.error(data.error);
+        return data.error
+    }
+    return data
 }
