@@ -9,22 +9,35 @@
         <p class="text-lg font-semibold">@{{ route.params.pubkey }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
         <NuxtLink v-if="station.is_owner" class="text-lg btn btn-neutral">Customize station</NuxtLink>
-        <button v-else class="btn bg-neutral-content text-base-200 text-lg">Subscribe</button>
+        <button v-else class="btn btn-primary text-lg">Subscribe</button>
       </div>
     </div>
     <div class="divider mt-8"></div>
+    <div class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
+      <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
+        <div class="skeleton aspect-square w-full"></div>
+        <div class="skeleton h-4 w-full"></div>
+        <div class="skeleton h-4 w-48"></div>
+      </div>
+    </div>
   </AppPageContainer>
 </template>
 
 <script setup lang="ts">
 import AppPageContainer from "@/components/AppPageContainer.vue";
 import { useAuthStore } from "@/store/auth";
+import type { ApiData } from "@/composables/useApi"
 
 const route = useRoute();
 const config = useRuntimeConfig();
 const authStore = useAuthStore();
-const { status, data: station } = await useLazyFetch(`${config.public.API_STATION}/${route.params.pubkey}/public_station`, {
+const fetchPath = `${config.public.API_STATION}/${route.params.pubkey}/public_station`;
+const isAuthenticated = computed(() => authStore.isAuthenticated)
+const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+const { status, data: station, refresh, execute } = await useLazyFetch(fetchPath, {
   server: false,
+  key: `station-${route.params.pubkey}`,
   onRequest({ request, options }) {
     if (authStore.accessToken) {
       options.headers.set(' Authorization', `Bearer ${authStore.accessToken}`)
@@ -40,5 +53,13 @@ const { status, data: station } = await useLazyFetch(`${config.public.API_STATIO
 
 watch(station, (newStation) => {
   station.value = newStation
+})
+
+watch(isAuthenticated, async (isAuth) => {
+  if (isAuth) {
+    const apiData: ApiData = { method: 'GET', path: fetchPath }
+    const data = await useApi(apiData)
+    station.value = data
+  }
 })
 </script>
