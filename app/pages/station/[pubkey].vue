@@ -33,7 +33,6 @@
         <div class="skeleton h-4 w-48"></div>
       </div>
     </div>
-    {{ station }}
   </AppPageContainer>
 </template>
 
@@ -51,7 +50,7 @@ const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 //await nextTick();
 //const { data: cachedStation } = useNuxtData<Station>(`station-${route.params.pubkey}`);
 
-const { data: station, error, status, } = await useLazyFetch<Station>(() => fetchPath, {
+const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
   server: false,
   key: `station-${route.params.pubkey}`,
   watch: [isAuthenticated],
