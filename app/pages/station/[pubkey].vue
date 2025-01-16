@@ -8,7 +8,9 @@
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
         <p class="text-lg font-semibold">@{{ route.params.pubkey }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
-        <NuxtLink v-if="station.is_owner" class="text-lg btn btn-neutral">Customize station</NuxtLink>
+        <NuxtLink :to="{ name: 'station-id-edit', params: { id: route.params.pubkey } }" v-if="station.is_owner"
+          class="text-lg btn btn-neutral">
+          Customize station</NuxtLink>
         <button v-else class="btn btn-primary text-lg">Subscribe</button>
       </div>
     </div>
@@ -34,6 +36,7 @@
       </div>
     </div>
   </AppPageContainer>
+  {{ route.name }}
 </template>
 
 <script setup lang="ts">
