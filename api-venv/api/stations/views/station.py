@@ -31,6 +31,8 @@ class StationViewSet(viewsets.ViewSet):
         return Response(serialized_station, status=status.HTTP_200_OK)
 
     def partial_update(self, request, pk=None):
-        # check if owner
+        if str(request.user) != str(pk):
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+        
         print(request.user)
-        pass
+        return Response("Saved", status=status.HTTP_200_OK)
