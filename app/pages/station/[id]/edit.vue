@@ -63,7 +63,7 @@
       </label>
 
     </form>
-    <button @click="save()" class="btn btn-primary text-lg">Save</button>
+    <button @click="saveHandler()" class="btn btn-primary text-lg">Save</button>
   </AppPageContainer>
 </template>
 
@@ -101,7 +101,7 @@ watch(form, (newForm) => {
   console.log(newForm)
 });
 
-const save = async () => {
+const saveHandler = async () => {
   const res = await partialUpdateStation(pubkey, form);
 }
 
