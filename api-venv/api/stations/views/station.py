@@ -31,7 +31,7 @@ class StationViewSet(viewsets.ViewSet):
         return Response(serialized_station, status=status.HTTP_200_OK)
 
 
-    def create(self, request, pk=None):
+    def create(self, request):
         pass
 
     def partial_update(self, request, pk=None):
