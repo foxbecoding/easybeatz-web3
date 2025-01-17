@@ -1,6 +1,6 @@
 <template>
   <AppPageContainer>
-    <div v-if="station" class="flex">
+    <div v-if="status == 'success' && station" class="flex">
       <div class="mr-4 min-w-[200px]">
         <NuxtImg class="mask mask-squircle" src='/easy-glow.png' width="200" height="200" />
       </div>
@@ -13,27 +13,35 @@
         <button v-else class="btn btn-primary text-lg">Subscribe</button>
       </div>
     </div>
-    <div v-else class="flex">
-      <div class="mr-4 min-w-[200px]">
-        <div class="skeleton mask mask-squircle w-[200px] h-[200px]"></div>
+
+    <div v-if="status == 'idle' || status == 'pending'">
+      <div class="flex">
+        <div class="mr-4 min-w-[200px]">
+          <div class="skeleton mask mask-squircle w-[200px] h-[200px]"></div>
+        </div>
+        <div class="flex flex-col w-[500px] gap-4">
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-48"></div>
+          <div class="skeleton h-[48px] w-[120px]"></div>
+        </div>
       </div>
-      <div class="flex flex-col w-[500px] gap-4">
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-48"></div>
-        <div class="skeleton h-[48px] w-[120px]"></div>
+
+      <div class="divider mt-8"></div>
+
+      <div class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
+        <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
+          <div class="skeleton aspect-square w-full"></div>
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-48"></div>
+        </div>
       </div>
     </div>
 
-    <div class="divider mt-8"></div>
-
-    <div class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
-      <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
-        <div class="skeleton aspect-square w-full"></div>
-        <div class="skeleton h-4 w-full"></div>
-        <div class="skeleton h-4 w-48"></div>
-      </div>
+    <div v-if="status == 'error'">
+      BITCH {{ isOwner }}
     </div>
+
   </AppPageContainer>
 </template>
 
@@ -47,6 +55,7 @@ const authStore = useAuthStore();
 const pubkey = ref(route.params.pubkey)
 const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`;
 const isAuthenticated = computed(() => authStore.isAuthenticated)
+const isOwner = ref<boolean>(false)
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
@@ -60,5 +69,8 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
       options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
     }
   },
+  onResponseError({ request, response, options }) {
+    isOwner.value = response._data.is_owner;
+  }
 })
 </script>
