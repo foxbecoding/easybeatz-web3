@@ -34,5 +34,10 @@ class StationViewSet(viewsets.ViewSet):
         if str(request.user) != str(pk):
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
         
+        serializer = StationSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        
         print(request.user)
         return Response("Saved", status=status.HTTP_200_OK)
