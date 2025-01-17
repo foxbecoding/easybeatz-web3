@@ -46,14 +46,14 @@ export const useAuth = () => {
 
     userStore.setUserData(res.pubkey);
     authStore.setAuthData(res.access_token, true);
-    stationStore.setStationData(res.station);
+    //stationStore.setStationData(res.station);
     setTokenTimer(res.access_token);
   }
 
   const logout = () => {
     authStore.setAuthData(null, false);
     userStore.setUserData(null);
-    stationStore.setStationData("");
+    //stationStore.setStationData("");
     useRouter().push({ name: "index" });
     // TODO send api request to logout user
 
