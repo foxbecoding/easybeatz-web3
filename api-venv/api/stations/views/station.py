@@ -11,7 +11,7 @@ from datetime import datetime
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
         permission_classes = [AllowAny]
-        needs_auth = ['partial_update', 'update']
+        needs_auth = ['partial_update', 'update', 'create']
         if self.action in needs_auth: permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
@@ -29,6 +29,10 @@ class StationViewSet(viewsets.ViewSet):
         created_date = datetime.fromisoformat(serialized_station['created'].replace("Z", "+00:00"))
         serialized_station['created'] = created_date.year
         return Response(serialized_station, status=status.HTTP_200_OK)
+
+
+    def create(self, request, pk=None):
+        pass
 
     def partial_update(self, request, pk=None):
         if str(request.user) != str(pk):
