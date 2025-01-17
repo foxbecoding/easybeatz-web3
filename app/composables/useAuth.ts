@@ -46,7 +46,7 @@ export const useAuth = () => {
 
     userStore.setUserData(res.pubkey);
     authStore.setAuthData(res.access_token, true);
-    //stationStore.setStationData(res.station);
+    stationStore.setStationData(res.has_station);
     setTokenTimer(res.access_token);
   }
 
