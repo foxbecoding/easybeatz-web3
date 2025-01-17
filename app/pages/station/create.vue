@@ -50,7 +50,7 @@
 
       <label class="form-control w-full max-w-lg">
         <div class="label">
-          <span class="label-text text-lg font-bold">Description</span>
+          <span class="label-text text-lg font-bold">Description(optional)</span>
         </div>
         <textarea v-model="form.description" id="description" name="description"
           class="textarea textarea-ghost bg-neutral w-full max-w-lg h-48" :class="formDescriptionError"
