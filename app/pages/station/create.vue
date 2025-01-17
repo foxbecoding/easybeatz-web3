@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Station, partialUpdateStation } from "@/services/models/station";
+import { type Station, updateStation } from "@/services/models/station";
 import { useUserStore } from "@/store/user";
 
 definePageMeta({
@@ -99,7 +99,7 @@ const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
 const submitHandler = async () => {
-  const res = await partialUpdateStation(pubkey, form);
+  const res = await updateStation(pubkey, form);
   if (res.error) {
     console.log("Error: ", res.error)
     const obj = res.error
