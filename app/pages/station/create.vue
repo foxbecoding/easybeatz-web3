@@ -63,7 +63,10 @@
       </label>
 
     </form>
-    <button @click="submitHandler()" class="btn btn-primary text-lg">Save</button>
+    <button @click="!isLoading ? submitHandler() : false" class="btn btn-primary text-lg">
+      {{ !isLoading ? 'Submit' : 'Processing' }}
+      <span v-if="isLoading" class="loading loading-dots loading-md"></span>
+    </button>
   </AppPageContainer>
 </template>
 
@@ -77,6 +80,7 @@ definePageMeta({
 
 const userStore = useUserStore();
 const pubkey = userStore.pubkey as string;
+const isLoading = ref(false);
 const form = reactive({
   name: '',
   handle: '',
@@ -99,17 +103,25 @@ const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
 const submitHandler = async () => {
+  isLoading.value = true;
   const res = await createStation(form);
   if (res.error) {
-    const obj = res.error
-    Object.keys(formErrors).forEach(key => {
-      if (key in obj) {
-        formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
-      } else {
-        formErrors[key] = '';
-      }
-    });
+    errorHandler(res);
+    setTimeout(() => { isLoading.value = false }, 1000);
+    return
   }
+  setTimeout(() => { isLoading.value = false }, 3000);
+}
+
+const errorHandler = (res: any) => {
+  const obj = res.error
+  Object.keys(formErrors).forEach(key => {
+    if (key in obj) {
+      formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
+    } else {
+      formErrors[key] = '';
+    }
+  });
 }
 
 </script>
