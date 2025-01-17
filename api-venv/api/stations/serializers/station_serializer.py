@@ -9,7 +9,6 @@ class StationSerializer(serializers.ModelSerializer):
             'handle', 
             'description', 
             'email',
-            'created'
         ]
 
     def validate(self, attrs):
