@@ -2,11 +2,11 @@ import { type ApiData } from "@/composables/useApi"
 
 export interface Station {
     created: string;
-    description: string | null;
-    email: string | null;
-    handle: string | null;
+    description: string;
+    email: string;
+    handle: string;
     is_owner: boolean;
-    name: string | null;
+    name: string;
     error?: any;
 }
 
@@ -21,10 +21,21 @@ export const getStation = async (pubkey: string): Promise<Station> => {
     return res
 }
 
-export const partialUpdateStation = async (pubkey: string, data: object): Promise<Station> => {
+export const createStation = async (data: object): Promise<Station> => {
+    const config = useRuntimeConfig();
+    const fetchPath = `${config.public.API_STATION}/`;
+    const apiData: ApiData = { method: 'POST', path: fetchPath, data }
+    const res = await useApi(apiData)
+    if (res.error) {
+        console.error(res.error);
+    }
+    return res
+}
+
+export const updateStation = async (pubkey: string, data: object): Promise<Station> => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
-    const apiData: ApiData = { method: 'PATCH', path: fetchPath, data }
+    const apiData: ApiData = { method: 'PUT', path: fetchPath, data }
     const res = await useApi(apiData)
     if (res.error) {
         console.error(res.error);
