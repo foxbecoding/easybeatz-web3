@@ -69,13 +69,14 @@
 
 <script setup lang="ts">
 import { type Station, partialUpdateStation } from "@/services/models/station";
+import { useUserStore } from "@/store/user";
 
 definePageMeta({
   middleware: ["auth"]
 })
 
-const route = useRoute();
-const pubkey = String(route.params.id)
+const userStore = useUserStore();
+const pubkey = userStore.pubkey as string;
 const form = reactive({
   name: '',
   handle: '',
