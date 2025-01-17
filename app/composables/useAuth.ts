@@ -53,7 +53,7 @@ export const useAuth = () => {
   const logout = () => {
     authStore.setAuthData(null, false);
     userStore.setUserData(null);
-    //stationStore.setStationData("");
+    stationStore.setStationData(false);
     useRouter().push({ name: "index" });
     // TODO send api request to logout user
 
