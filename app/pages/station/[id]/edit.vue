@@ -63,18 +63,19 @@
       </label>
 
     </form>
+    <button @click="save()" class="btn btn-primary text-lg">Save</button>
   </AppPageContainer>
 </template>
 
 <script setup lang="ts">
-import { type Station } from "@/services/models/station";
+import { type Station, partialUpdateStation } from "@/services/models/station";
 
 definePageMeta({
   middleware: ["auth"]
 })
 
 const route = useRoute();
-const pubkey = route.params.pubkey
+const pubkey = String(route.params.pubkey)
 const form = reactive({
   name: '',
   handle: '',
@@ -99,5 +100,9 @@ const formDescriptionError = computed(() => formErrors.description ? 'textarea-e
 watch(form, (newForm) => {
   console.log(newForm)
 });
+
+const save = async () => {
+  const res = await partialUpdateStation(pubkey, form);
+}
 
 </script>
