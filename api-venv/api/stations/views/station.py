@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from ..serializers import StationSerializer
+from ..serializers import StationSerializer, PublicStationSerializer
 from users.models import User
 from ..models import Station
 from datetime import datetime
@@ -15,24 +15,15 @@ class StationViewSet(viewsets.ViewSet):
         if self.action in needs_auth: permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-    @action(detail=True, methods=['get'])
-    def public_station(self, request, pk=None):
-        # Check if station exists
-        user = User.objects.filter(pubkey=str(pk)).first()
-        if not user:
-            return Response({"error": "No Station"}, status=status.HTTP_404_NOT_FOUND)
-
-        station = Station.objects.get(pk=user.pk) 
-        serialized_station = StationSerializer(station).data
-        is_owner = str(request.user) == str(pk)
-        serialized_station['is_owner'] = is_owner
-        created_date = datetime.fromisoformat(serialized_station['created'].replace("Z", "+00:00"))
-        serialized_station['created'] = created_date.year
-        return Response(serialized_station, status=status.HTTP_200_OK)
-
 
     def create(self, request):
-        pass
+        serializer = StationSerializer(data=request.data)
+
+        if not serializer.is_valid():
+            return Response({"error": serializer.errors})
+        
+        print(request.user)
+        return Response("Saved", status=status.HTTP_200_OK)
 
     def partial_update(self, request, pk=None):
         if str(request.user) != str(pk):
@@ -45,3 +36,20 @@ class StationViewSet(viewsets.ViewSet):
         
         print(request.user)
         return Response("Saved", status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['get'])
+    def public_station(self, request, pk=None):
+        # Check if station exists
+        is_owner = str(request.user) == str(pk)
+        station_exists = Station.objects.filter(pk=str(pk)).first()
+        if not station_exists:
+            return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND)
+
+        station = Station.objects.get(pk=user.pk) 
+        serialized_station = PublicStationSerializer(station).data
+        serialized_station['is_owner'] = is_owner
+        created_date = datetime.fromisoformat(serialized_station['created'].replace("Z", "+00:00"))
+        serialized_station['created'] = created_date.year
+        return Response(serialized_station, status=status.HTTP_200_OK)
+
+
