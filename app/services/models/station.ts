@@ -1,4 +1,4 @@
-import type { ApiData } from "@/composables/useApi"
+import { type ApiData } from "@/composables/useApi"
 
 export interface Station {
     created: string;
@@ -12,11 +12,22 @@ export interface Station {
 
 export const getStation = async (pubkey: string): Promise<Station> => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_STATION}/${pubkey}/public_station`;
+    const fetchPath = `${config.public.API_STATION}/${pubkey}/public_station/`;
     const apiData: ApiData = { method: 'GET', path: fetchPath }
-    const data = await useApi(apiData)
-    if (data.error) {
-        console.error(data.error);
+    const res = await useApi(apiData)
+    if (res.error) {
+        console.error(res.error);
     }
-    return data
+    return res
+}
+
+export const partialUpdateStation = async (pubkey: string, data: object): Promise<Station> => {
+    const config = useRuntimeConfig();
+    const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
+    const apiData: ApiData = { method: 'PATCH', path: fetchPath, data }
+    const res = await useApi(apiData)
+    if (res.error) {
+        console.error(res.error);
+    }
+    return res
 }
