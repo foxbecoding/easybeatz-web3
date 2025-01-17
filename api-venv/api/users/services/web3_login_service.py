@@ -27,9 +27,10 @@ class Web3LoginService:
 
         user = self.__find_or_create_user(self.pubkey)
         access_token = self.__authenticate_user(user)
+        has_station = self.__has_station(user)
         self.__save_user_login(user)
 
-        return Response({"access_token": access_token, "pubkey": user.pubkey}, status=status.HTTP_200_OK)
+        return Response({"access_token": access_token, "pubkey": user.pubkey, "has_station": has_station}, status=status.HTTP_200_OK)
 
     def __verify_solana_signature(self, data) -> bool:
         signature_bytes = data['signedMessage']
@@ -66,6 +67,9 @@ class Web3LoginService:
         if not created:
             return user
         return user
+
+    def __has_station(self, user: User) -> bool:
+        return Station.objects.filter(pk=user.pk).exist()
 
     def __authenticate_user(self, user: User) -> str:
         refresh = RefreshToken.for_user(user)
