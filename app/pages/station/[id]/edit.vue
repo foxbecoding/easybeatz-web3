@@ -75,7 +75,7 @@ definePageMeta({
 })
 
 const route = useRoute();
-const pubkey = String(route.params.pubkey)
+const pubkey = String(route.params.id)
 const form = reactive({
   name: '',
   handle: '',
