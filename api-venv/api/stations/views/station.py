@@ -41,8 +41,9 @@ class StationViewSet(viewsets.ViewSet):
     def public_station(self, request, pk=None):
         # Check if station exists
         is_owner = str(request.user) == str(pk)
-        station_exists = Station.objects.filter(pk=str(pk)).first()
-        if not station_exists:
+        user = User.objects.filter(pubkey=str(pk)).first()
+        station_exists = Station.objects.filter(pk=user.pk).first()
+        if not user or not station_exists:
             return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND)
 
         station = Station.objects.get(pk=user.pk) 
