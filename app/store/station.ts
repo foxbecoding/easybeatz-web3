@@ -1,12 +1,12 @@
 export const useStationStore = defineStore("use-station-store", () => {
-  const station = ref<string>();
+  const has_station = ref<boolean>(false);
 
-  const setStationData = (_station: string): void => {
-    station.value = _station;
+  const setStationData = (_has_station: boolean): void => {
+    has_station.value = _has_station;
   }
 
   return {
-    station,
+    has_station,
     setStationData,
   }
 })
