@@ -10,8 +10,10 @@
         </div>
         <input v-model="form.name" id="name" name="name" type="text" placeholder="Enter station name"
           class="input input-ghost bg-neutral w-full max-w-lg" :class="formNameError" />
-        <div class="label invisible">
-          <span class="label-text-alt">Bottom Left label</span>
+        <div class="label" :class="!formErrors.name ? 'invisible' : ''">
+          <span class="label-text-alt text-error">
+            {{ formErrors.name }}
+          </span>
         </div>
       </label>
 
@@ -25,8 +27,10 @@
           <input v-model="form.handle" id="handle" name="handle" type="text" placeholder="Set your handle"
             class="grow w-full max-w-lg" :class="formHandleError" />
         </label>
-        <div class="label invisible">
-          <span class="label-text-alt">Bottom Left label</span>
+        <div class="label" :class="!formErrors.handle ? 'invisible' : ''">
+          <span class="label-text-alt text-error">
+            {{ formErrors.handle }}
+          </span>
         </div>
       </label>
 
@@ -37,8 +41,10 @@
         </div>
         <input v-model="form.email" id="email" name="email" type="email" placeholder="Provide email address"
           class="input input-ghost bg-neutral w-full max-w-lg" :class="formEmailError" />
-        <div class="label invisible">
-          <span class="label-text-alt">Bottom Left label</span>
+        <div class="label" :class="!formErrors.email ? 'invisible' : ''">
+          <span class="label-text-alt text-error">
+            {{ formErrors.email }}
+          </span>
         </div>
       </label>
 
