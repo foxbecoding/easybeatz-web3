@@ -22,10 +22,10 @@
           <span class="label-text text-lg font-bold">Handle</span>
           <span class="label-text">Choose your unique handle by adding letters and numbers.</span>
         </div>
-        <label class="input input-ghost bg-neutral flex items-center">
+        <label class="input input-ghost bg-neutral flex items-center" :class="formHandleError">
           <Icon icon="streamline:sign-at-solid" />
           <input v-model="form.handle" id="handle" name="handle" type="text" placeholder="Set your handle"
-            class="grow w-full max-w-lg" :class="formHandleError" />
+            class="grow w-full max-w-lg" />
         </label>
         <div class="label" :class="!formErrors.handle ? 'invisible' : ''">
           <span class="label-text-alt text-error">
@@ -83,7 +83,7 @@ const form = reactive({
   description: ''
 });
 
-const formErrors = reactive({
+const formErrors = reactive<any>({
   name: '',
   handle: '',
   email: '',
@@ -97,12 +97,15 @@ const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
 const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
-watch(form, (newForm) => {
-  console.log(newForm)
-});
-
 const saveHandler = async () => {
   const res = await partialUpdateStation(pubkey, form);
+  if (res.error) {
+    console.log("Error: ", res.error)
+    const obj = res.error
+    Object.keys(obj).forEach(key => {
+      formErrors[`${key}`] = obj[key]
+    });
+  }
 }
 
 </script>
