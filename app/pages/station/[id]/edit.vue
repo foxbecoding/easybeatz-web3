@@ -9,7 +9,7 @@
           <span class="label-text">Choose a station name that represents your brand and content.</span>
         </div>
         <input v-model="form.name" id="name" name="name" type="text" placeholder="Enter station name"
-          class="input input-ghost bg-neutral w-full max-w-lg" />
+          class="input input-ghost bg-neutral w-full max-w-lg" :class="formNameError" />
         <div class="label invisible">
           <span class="label-text-alt">Bottom Left label</span>
         </div>
@@ -20,12 +20,10 @@
           <span class="label-text text-lg font-bold">Handle</span>
           <span class="label-text">Choose your unique handle by adding letters and numbers.</span>
         </div>
-
-
-        <label class="input input-ghost bg-neutral flex items-center gap-2">
+        <label class="input input-ghost bg-neutral flex items-center">
           <Icon icon="streamline:sign-at-solid" />
           <input v-model="form.handle" id="handle" name="handle" type="text" placeholder="Set your handle"
-            class="grow w-full max-w-lg" />
+            class="grow w-full max-w-lg" :class="formHandleError" />
         </label>
         <div class="label invisible">
           <span class="label-text-alt">Bottom Left label</span>
@@ -37,8 +35,8 @@
           <span class="label-text text-lg font-bold">Email</span>
           <span class="label-text">Let people know how to contact you with business inquiries</span>
         </div>
-        <input v-model="form.email" id="email" name="email" type="email" placeholder="provide email address"
-          class="input input-ghost bg-neutral w-full max-w-lg" />
+        <input v-model="form.email" id="email" name="email" type="email" placeholder="Provide email address"
+          class="input input-ghost bg-neutral w-full max-w-lg" :class="formEmailError" />
         <div class="label invisible">
           <span class="label-text-alt">Bottom Left label</span>
         </div>
@@ -49,10 +47,12 @@
           <span class="label-text text-lg font-bold">Description</span>
         </div>
         <textarea v-model="form.description" id="description" name="description"
-          class="textarea textarea-ghost bg-neutral w-full max-w-lg h-48"
+          class="textarea textarea-ghost bg-neutral w-full max-w-lg h-48" :class="formDescriptionError"
           placeholder="Tell listeners about your station."></textarea>
         <div class="label">
-          <span class="label-text-alt invisible">Your bio</span>
+          <span class="label-text-alt text-error" :class="!formErrors.description ? 'invisible' : ''">
+            {{ formErrors.description }}
+          </span>
         </div>
       </label>
 
@@ -72,10 +72,24 @@ const form = reactive({
   handle: '',
   email: '',
   description: ''
-})
+});
+
+const formErrors = reactive({
+  name: '',
+  handle: '',
+  email: '',
+  description: ''
+});
+
+const inputErrorClass = 'input-error';
+
+const formNameError = computed(() => formErrors.name ? inputErrorClass : '')
+const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
+const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
+const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
 watch(form, (newForm) => {
   console.log(newForm)
-})
+});
 
 </script>
