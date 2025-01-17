@@ -69,7 +69,7 @@ class Web3LoginService:
         return user
 
     def __has_station(self, user: User) -> bool:
-        return Station.objects.filter(pk=user.pk).exist()
+        return Station.objects.filter(pk=user.pk).exists()
 
     def __authenticate_user(self, user: User) -> str:
         refresh = RefreshToken.for_user(user)
