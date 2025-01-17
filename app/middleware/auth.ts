@@ -8,8 +8,4 @@ export default defineNuxtRouteMiddleware((to, from) => {
   if (!authStore.isAuthenticated) {
     return navigateTo({ name: 'index' });
   }
-
-  if (to.name == 'station-id-edit' && (userStore.pubkey != to.params.id)) {
-    return navigateTo({ name: 'index' });
-  }
 })
