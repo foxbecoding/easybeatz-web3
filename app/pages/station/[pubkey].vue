@@ -38,10 +38,13 @@
       </div>
     </div>
 
-    <div v-if="status == 'error'">
-      BITCH {{ isOwner }}
+    <div v-if="status == 'error'" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <Icon icon="solar:station-outline" class="text-9xl mx-auto" />
+      <div class="flex flex-col gap-2">
+        <span class="text-xl">{{ isOwner ? 'Create your station' : 'Station does not exists' }}</span>
+        <NuxtLink v-if="isOwner" :to="{ name: 'station-create' }" class="btn btn-primary text-lg"> Create</NuxtLink>
+      </div>
     </div>
-
   </AppPageContainer>
 </template>
 
