@@ -50,7 +50,7 @@
 
       <label class="form-control w-full max-w-lg">
         <div class="label">
-          <span class="label-text text-lg font-bold">Description</span>
+          <span class="label-text text-lg font-bold">Description(optional)</span>
         </div>
         <textarea v-model="form.description" id="description" name="description"
           class="textarea textarea-ghost bg-neutral w-full max-w-lg h-48" :class="formDescriptionError"
@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Station, createStation } from "@/services/models/station";
+import { type Station, updateStation } from "@/services/models/station";
 import { useUserStore } from "@/store/user";
 
 definePageMeta({
@@ -99,12 +99,16 @@ const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
 const saveHandler = async () => {
-  const res = await createStation(form);
+  const res = await updateStation(pubkey, form);
   if (res.error) {
     console.log("Error: ", res.error)
     const obj = res.error
-    Object.keys(obj).forEach(key => {
-      formErrors[`${key}`] = obj[key]
+    Object.keys(formErrors).forEach(key => {
+      if (key in obj) {
+        formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
+      } else {
+        formErrors[key] = '';
+      }
     });
   }
 }
