@@ -102,6 +102,9 @@ const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
 const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
+
+const toast = useToast();
+
 const submitHandler = async () => {
   isLoading.value = true;
   const res = await createStation(form);
@@ -111,6 +114,7 @@ const submitHandler = async () => {
     return
   }
   setTimeout(() => { isLoading.value = false }, 3000);
+  toast.setToast('Station created', 'SUCCESS')
 }
 
 const errorHandler = (res: any) => {
