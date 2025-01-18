@@ -28,5 +28,5 @@ class StationSerializer(serializers.ModelSerializer):
             user=user_ins,
             **validated_data
         )
-        station_ins.save()
-        return
+        return station_ins.save()
+        
