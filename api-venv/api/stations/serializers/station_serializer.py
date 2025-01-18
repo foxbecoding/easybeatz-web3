@@ -13,20 +13,20 @@ class StationSerializer(serializers.ModelSerializer):
         ]
 
     def validate(self, attrs):
-        request = self.context['request']
+        handle = attrs['handle']
 
         # check if handle is valid
-        if attrs['handle'] and not str(attrs['handle']).isalnum():
+        if handle and not str(handle).isalnum():
             raise serializers.ValidationError({"handle": "Handle can only contain strings and numbers."})
+        return attrs
 
-        user = User.objects.filter(pubkey=request.user).first()
+    def create(self, validated_data):
+        request = self.context['request']
+        user_ins = User.objects.filter(pubkey=request.user).first()
 
         station_ins = Station(
-            user=user,
-            name=attrs['name'],
-            handle=attrs['handle'],
-            description=attrs['description'],
-            email=attrs['email'],
+            user=user_ins,
+            **validated_data
         )
         station_ins.save()
-        return attrs
+        return
