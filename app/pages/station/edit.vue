@@ -68,11 +68,11 @@
 </template>
 
 <script setup lang="ts">
-import { type Station, updateStation } from "@/services/models/station";
+import { updateStation } from "@/services/models/station";
 import { useUserStore } from "@/store/user";
 
 definePageMeta({
-  middleware: ["auth"]
+  middleware: ["auth", "station"]
 })
 
 const userStore = useUserStore();
