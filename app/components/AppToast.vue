@@ -1,5 +1,5 @@
 <template>
-  <div v-show="toastStore.show" class="toast toast-end">
+  <div v-show="toastStore.show" class="toast toast-center">
     <div class="alert" :class="toastStore.alertClass">
       <span>{{ toastStore.text }}</span>
     </div>
