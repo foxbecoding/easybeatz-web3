@@ -7,6 +7,7 @@
       <div class="divider my-0" style="height: 0rem"></div>
       <main class="relative" style="height: 100%">
         <slot />
+        <AppToast />
       </main>
 
     </div>
