@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from ..serializers import StationSerializer, PublicStationSerializer
+from ..serializers import StationSerializer, PublicStationSerializer, EditStationSerializer
 from users.models import User
 from ..models import Station
 from datetime import datetime
@@ -24,7 +24,7 @@ class StationViewSet(viewsets.ViewSet):
     def update(self, request, pk=None):
         if str(request.user) != str(pk):
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        serializer = StationSerializer(data=request.data)
+        serializer = EditStationSerializer(data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         
