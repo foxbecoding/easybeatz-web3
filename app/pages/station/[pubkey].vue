@@ -6,7 +6,7 @@
       </div>
       <div>
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
-        <p class="text-lg font-semibold">@{{ route.params.pubkey }}</p>
+        <p class="text-lg font-semibold">@{{ station.handle }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
         <NuxtLink v-if="station.is_owner" :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral">
           Customize station</NuxtLink>
@@ -27,6 +27,18 @@
         </div>
       </div>
 
+      <div v-if="false" class="divider mt-8"></div>
+
+      <div v-if="false" class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
+        <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
+          <div class="skeleton aspect-square w-full"></div>
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-48"></div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="status == 'idle' || status == 'pending' || status == 'success'">
       <div class="divider mt-8"></div>
 
       <div class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
@@ -36,6 +48,7 @@
           <div class="skeleton h-4 w-48"></div>
         </div>
       </div>
+
     </div>
 
     <div v-if="status == 'error'" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
