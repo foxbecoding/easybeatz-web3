@@ -1,6 +1,6 @@
 <template>
   <AppPageContainer>
-    <h1 class="text-3xl font-bold">Customize Station</h1>
+    <h1 class="text-3xl font-bold">Create station</h1>
     <form id="form" class="mt-8">
 
       <label class="form-control w-full max-w-lg">
