@@ -23,16 +23,14 @@ class StationSerializer(serializers.ModelSerializer):
         request = self.context['request']
         user_ins = User.objects.filter(pubkey=request.user).first()
 
-        station_ins = Station(
+        return Station(
             user=user_ins,
             **validated_data
         )
-        return station_ins.save()
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.handle = validated_data.get('handle', instance.handle)
         instance.description = validated_data.get('description', instance.description)
         instance.email = validated_data.get('email', instance.email)
-        instance.save()
         return instance
