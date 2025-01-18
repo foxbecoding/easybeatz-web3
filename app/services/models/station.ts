@@ -12,9 +12,9 @@ export interface Station {
 
 export const getStation = async (pubkey: string): Promise<Station> => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_STATION}/${pubkey}/public_station/`;
-    const apiData: ApiData = { method: 'GET', path: fetchPath }
-    const res = await useApi(apiData)
+    const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
+    const apiData: ApiData = { method: 'GET', path: fetchPath };
+    const res = await useApi(apiData);
     if (res.error) {
         console.error(res.error);
     }
@@ -24,8 +24,8 @@ export const getStation = async (pubkey: string): Promise<Station> => {
 export const createStation = async (data: object): Promise<Station> => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/`;
-    const apiData: ApiData = { method: 'POST', path: fetchPath, data }
-    const res = await useApi(apiData)
+    const apiData: ApiData = { method: 'POST', path: fetchPath, data };
+    const res = await useApi(apiData);
     if (res.error) {
         console.error(res.error);
     }
@@ -35,8 +35,8 @@ export const createStation = async (data: object): Promise<Station> => {
 export const updateStation = async (pubkey: string, data: object): Promise<Station> => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
-    const apiData: ApiData = { method: 'PUT', path: fetchPath, data }
-    const res = await useApi(apiData)
+    const apiData: ApiData = { method: 'PUT', path: fetchPath, data };
+    const res = await useApi(apiData);
     if (res.error) {
         console.error(res.error);
     }
@@ -46,7 +46,7 @@ export const updateStation = async (pubkey: string, data: object): Promise<Stati
 export const hasStationChecker = async () => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/has_station/`;
-    const apiData: ApiData = { method: 'GET', path: fetchPath }
-    const res = await useApi(apiData)
+    const apiData: ApiData = { method: 'GET', path: fetchPath };
+    const res = await useApi(apiData);
     return res
 }
