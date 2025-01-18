@@ -114,7 +114,7 @@ const submitHandler = async () => {
   }
   setTimeout(() => { isLoading.value = false }, 3000);
   toast.setToast('Station created', 'SUCCESS')
-  navigateTo({ name: "station-pubkey", params: { pubkey: pubkey } })
+  return navigateTo({ name: "station-pubkey", params: { pubkey: pubkey }, replace: true })
 }
 
 const errorHandler = (res: any) => {
