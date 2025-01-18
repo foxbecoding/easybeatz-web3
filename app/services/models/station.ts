@@ -42,3 +42,11 @@ export const updateStation = async (pubkey: string, data: object): Promise<Stati
     }
     return res
 }
+
+export const hasStationChecker = async () => {
+    const config = useRuntimeConfig();
+    const fetchPath = `${config.public.API_STATION}/has_station/`;
+    const apiData: ApiData = { method: 'GET', path: fetchPath }
+    const res = await useApi(apiData)
+    return res
+}
