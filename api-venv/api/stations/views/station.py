@@ -15,7 +15,6 @@ class StationViewSet(viewsets.ViewSet):
         if self.action in needs_auth: permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-
     def create(self, request): 
         serializer = StationSerializer(data=request.data, context={'request': request})
         if not serializer.is_valid():
