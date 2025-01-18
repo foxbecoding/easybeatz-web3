@@ -11,3 +11,9 @@ class EditStationSerializer(serializers.ModelSerializer):
             'email',
         ]
 
+
+    def validate(self, attrs):
+
+        # check if handle is valid
+        if attrs['handle'] and not str(attrs['handle']).isalnum():
+            raise serializers.ValidationError({"handle": "Handle can only contain strings and numbers."})
