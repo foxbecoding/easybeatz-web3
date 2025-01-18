@@ -16,11 +16,10 @@ class StationViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
 
-    def create(self, request):
-        serializer = StationSerializer(data=request.data)
+    def create(self, request): 
+        serializer = StationSerializer(data=request.data, context={'request': request})
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
-        serializer.save()
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
     def update(self, request, pk=None):
