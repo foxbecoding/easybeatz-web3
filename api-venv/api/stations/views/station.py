@@ -25,7 +25,9 @@ class StationViewSet(viewsets.ViewSet):
     def update(self, request, pk=None):
         if str(request.user) != str(pk):
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        serializer = EditStationSerializer(data=request.data)
+        user = User.objects.filter(pubkey=str(request.user)).first()
+        station_ins = Station.objects.get(pk=str(user.pk))
+        serializer = StationSerializer(station_ins, data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         serializer.save()
