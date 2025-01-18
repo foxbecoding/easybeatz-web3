@@ -14,11 +14,10 @@ class StationSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         request = self.context['request']
-        
+
         # check if handle is valid
         if attrs['handle'] and not str(attrs['handle']).isalnum():
             raise serializers.ValidationError({"handle": "Handle can only contain strings and numbers."})
-
 
         user = User.objects.filter(pubkey=request.user).first()
 
@@ -29,7 +28,5 @@ class StationSerializer(serializers.ModelSerializer):
             description=attrs['description'],
             email=attrs['email'],
         )
-
         station_ins.save()
-
         return attrs
