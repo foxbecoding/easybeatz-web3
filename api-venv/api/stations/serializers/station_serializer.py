@@ -15,7 +15,6 @@ class StationSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         handle = attrs['handle']
 
-        # check if handle is valid
         if handle and not str(handle).isalnum():
             raise serializers.ValidationError({"handle": "Handle can only contain strings and numbers."})
         return attrs
@@ -29,4 +28,11 @@ class StationSerializer(serializers.ModelSerializer):
             **validated_data
         )
         return station_ins.save()
-        
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.handle = validated_data.get('handle', instance.handle)
+        instance.description = validated_data.get('description', instance.description)
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
+        return instance
