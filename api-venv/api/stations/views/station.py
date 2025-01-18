@@ -29,6 +29,7 @@ class StationViewSet(viewsets.ViewSet):
         serializer = StationSerializer(data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
+        
         serializer.save()
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
