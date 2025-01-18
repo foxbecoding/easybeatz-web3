@@ -1,20 +1,26 @@
 export const useToastStore = defineStore("use-toast-store", () => {
   const show = ref<boolean>(false);
   const text = ref<string>("");
+  const alertClass = ref<string>("")
 
-  const setShow = (_show: boolean) => {
+  const setToast = (_show: boolean, _text: string, _alertClass: string) => {
     show.value = _show;
+    text.value = _text;
+    alertClass.value = _alertClass;
   }
 
-  const setText = (_text: string) => {
-    text.value = _text;
+  const clearToast = () => {
+    show.value = false;
+    text.value = "";
+    alertClass.value = "";
   }
 
   return {
     show,
     text,
-    setShow,
-    setText
+    alertClass,
+    setToast,
+    clearToast
   }
 })
 
