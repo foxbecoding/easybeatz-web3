@@ -79,17 +79,17 @@ const props = defineProps<{
   title: string;
   type: "CREATE" | "EDIT";
   pubkey?: string;
-  station?: PropType<Station>;
+  station?: Station | null;
 }>();
 
 const emit = defineEmits(['submit'])
 const isLoading = ref(false);
 
 const form = reactive<any>({
-  name: '',
-  handle: '',
-  email: '',
-  description: ''
+  name: props.station ? props.station.name : '',
+  handle: props.station ? props.station.handle : '',
+  email: props.station ? props.station.email : '',
+  description: props.station ? props.station.description : ''
 });
 
 const formErrors = reactive<any>({
@@ -98,6 +98,16 @@ const formErrors = reactive<any>({
   email: '',
   description: ''
 });
+
+
+
+//watch(station, (newStation: any) => {
+//  if (newStation) {
+//    Object.keys(form).forEach(key => {
+//      form[`${key}`] = newStation[key];
+//    });
+//  }
+//})
 
 
 const inputErrorClass = 'input-error';
