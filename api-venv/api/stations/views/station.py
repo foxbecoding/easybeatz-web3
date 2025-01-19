@@ -20,7 +20,7 @@ class StationViewSet(viewsets.ViewSet):
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         serializer.create(serializer.validated_data)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
         if str(request.user) != str(pk):
