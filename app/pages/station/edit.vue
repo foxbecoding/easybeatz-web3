@@ -71,17 +71,35 @@
 </template>
 
 <script setup lang="ts">
-import { updateStation } from "@/services/models/station";
+import { type Station, updateStation } from "@/services/models/station";
 import { useUserStore } from "@/store/user";
+import { useAuthStore } from "@/store/auth";
+
 
 definePageMeta({
   middleware: ["auth", "station"]
 })
 
 const userStore = useUserStore();
+const authStore = useAuthStore();
+const config = useRuntimeConfig();
 const pubkey = userStore.pubkey as string;
+const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
 const isLoading = ref(false);
-const form = reactive({
+
+const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
+  server: false,
+  key: `station-edit-${pubkey}`,
+  onRequest({ request, options }) {
+    if (authStore.accessToken) {
+      options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
+    }
+  },
+  onResponseError({ request, response, options }) {
+  }
+})
+
+const form = reactive<any>({
   name: '',
   handle: '',
   email: '',
@@ -94,6 +112,15 @@ const formErrors = reactive<any>({
   email: '',
   description: ''
 });
+
+
+watch(station, (newStation: any) => {
+  if (newStation) {
+    Object.keys(form).forEach(key => {
+      form[`${key}`] = newStation[key];
+    });
+  }
+})
 
 const inputErrorClass = 'input-error';
 
