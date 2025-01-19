@@ -1,5 +1,5 @@
 <template>
-  <AppPageContainer>
+  <div>
     <h1 class="text-3xl font-bold">{{ props.title }}</h1>
     <form id="form" class="mt-8">
 
@@ -67,38 +67,22 @@
       {{ !isLoading ? 'Submit' : 'Processing' }}
       <span v-if="isLoading" class="loading loading-dots loading-md"></span>
     </button>
-  </AppPageContainer>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { type Station, updateStation } from "@/services/models/station";
-import { useUserStore } from "@/store/user";
-import { useAuthStore } from "@/store/auth";
+import { type Station, createStation, updateStation } from "@/services/models/station";
 import { type PropType } from "vue"
 
 const props = defineProps<{
   title: string;
-  station: PropType<Station>;
+  type: "CREATE" | "EDIT";
+  pubkey?: string;
+  station?: PropType<Station>;
 }>();
 
-const userStore = useUserStore();
-const authStore = useAuthStore();
-const config = useRuntimeConfig();
-const pubkey = userStore.pubkey as string;
-const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
+const emit = defineEmits(['submit'])
 const isLoading = ref(false);
-
-const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
-  server: false,
-  key: `station-edit-${pubkey}`,
-  onRequest({ request, options }) {
-    if (authStore.accessToken) {
-      options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
-    }
-  },
-  onResponseError({ request, response, options }) {
-  }
-})
 
 const form = reactive<any>({
   name: '',
@@ -115,14 +99,6 @@ const formErrors = reactive<any>({
 });
 
 
-watch(station, (newStation: any) => {
-  if (newStation) {
-    Object.keys(form).forEach(key => {
-      form[`${key}`] = newStation[key];
-    });
-  }
-})
-
 const inputErrorClass = 'input-error';
 
 const formNameError = computed(() => formErrors.name ? inputErrorClass : '')
@@ -130,18 +106,23 @@ const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
 const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
-const toast = useToast();
+const modelHandler = async () => {
+  if (props.type == 'CREATE') {
+    return await createStation(form);
+  }
+  return await updateStation(String(props.pubkey), form);
+}
 
 const submitHandler = async () => {
   isLoading.value = true;
-  const res = await updateStation(pubkey, form);
+  const res = await modelHandler();
   if (res.error) {
     errorHandler(res);
     setTimeout(() => { isLoading.value = false }, 1000);
     return
   }
   setTimeout(() => { isLoading.value = false }, 3000);
-  toast.setToast('Station upated', 'SUCCESS')
+  emit('submit')
 }
 
 const errorHandler = (res: any) => {
