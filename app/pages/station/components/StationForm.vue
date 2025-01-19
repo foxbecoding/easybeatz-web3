@@ -73,7 +73,6 @@
 
 <script setup lang="ts">
 import { type Station, createStation, updateStation } from "@/services/models/station";
-import { type PropType } from "vue"
 
 const props = defineProps<{
   title: string;
@@ -98,17 +97,6 @@ const formErrors = reactive<any>({
   email: '',
   description: ''
 });
-
-
-
-//watch(station, (newStation: any) => {
-//  if (newStation) {
-//    Object.keys(form).forEach(key => {
-//      form[`${key}`] = newStation[key];
-//    });
-//  }
-//})
-
 
 const inputErrorClass = 'input-error';
 
