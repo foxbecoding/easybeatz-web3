@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="text-3xl font-bold">{{ props.title }}</h1>
-    <form id="form" class="mt-8">
 
+    <form id="form" class="mt-8">
       <label class="form-control w-full max-w-lg">
         <div class="label flex flex-col items-start">
           <span class="label-text text-lg font-bold">Name</span>
@@ -61,12 +61,13 @@
           </span>
         </div>
       </label>
-
     </form>
+
     <button @click="!isLoading ? submitHandler() : false" class="btn btn-primary text-lg">
       {{ !isLoading ? 'Submit' : 'Processing' }}
       <span v-if="isLoading" class="loading loading-dots loading-md"></span>
     </button>
+
   </div>
 </template>
 
