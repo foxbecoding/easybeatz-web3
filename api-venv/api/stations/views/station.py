@@ -11,7 +11,7 @@ from datetime import datetime
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
         permission_classes = [AllowAny]
-        needs_auth = ['partial_update', 'update', 'create', 'has_station']
+        needs_auth = ['partial_update', 'update', 'create', 'has_station', 'retrieve']
         if self.action in needs_auth: permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
@@ -21,6 +21,15 @@ class StationViewSet(viewsets.ViewSet):
             return Response({"error": serializer.errors})
         serializer.create(serializer.validated_data)
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+    def retrieve(self, request, pk=None):
+        if str(request.user) != str(pk):
+            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+        user = User.objects.filter(pubkey=str(pk)).first()
+        station = Station.objects.get(pk=user.pk) 
+        serialized_station = StationSerializer(station).data
+        return Response(serialized_station, status=status.HTTP_200_OK)
+
 
     def update(self, request, pk=None):
         if str(request.user) != str(pk):
