@@ -46,7 +46,7 @@ export const updateStation = async (pubkey: string, data: object): Promise<Stati
 export const uploadStationPicture = async (data: object) => {
     try {
         const config = useRuntimeConfig();
-        const fetchPath = `${config.public.API_STATION}/upload/`;
+        const fetchPath = `${config.public.API_STATION_PICTURE}/upload/`;
         const apiData: ApiData = { method: 'POST', path: fetchPath, data, isMultiPart: true };
         const res = await useApi(apiData);
         if (res.error) {
