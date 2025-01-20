@@ -14,7 +14,7 @@ class StationPicture(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    image = models.ImageField(upload_to=custom_image_upload_path)
+    image = models.ImageField(upload_to=custom_image_upload_path, default="")
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
