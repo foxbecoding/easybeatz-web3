@@ -10,10 +10,11 @@ from ..models import StationPicture
 class StationPictureViewSet(viewsets.ViewSet):
     def get_permissions(self):
         permission_classes = [AllowAny]
-        needs_auth = ['partial_update', 'update', 'create']
+        needs_auth = ['upload']
         if self.action in needs_auth: permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-    def create(self, request): 
-        pass
 
+    @action(detail=False, methods=['post'])
+    def upload(self, request):
+        pass
