@@ -95,3 +95,12 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
   }
 })
 </script>
+
+<style scoped>
+.uploadbtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
