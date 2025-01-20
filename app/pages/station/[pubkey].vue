@@ -77,7 +77,6 @@ const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false);
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-const showUploadBtn = ref(false);
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
