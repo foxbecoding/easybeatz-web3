@@ -99,7 +99,9 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
 
 const onFileChange = () => { }
 
-const triggerFileInput = () => { }
+const triggerFileInput = () => {
+  fileInput.value.click()
+}
 
 </script>
 
