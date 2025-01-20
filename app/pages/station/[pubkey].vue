@@ -7,8 +7,8 @@
           class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
         </button>
-        <!-- Hidden File Input -->
-        <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif" @change="onFileChange" class="hidden" />
+        <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif"
+          @change="onFileChange" class="hidden" />
       </div>
       <div>
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
@@ -79,6 +79,7 @@ const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false);
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const fileInput = ref();
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
