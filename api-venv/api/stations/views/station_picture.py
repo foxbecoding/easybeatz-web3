@@ -17,4 +17,8 @@ class StationPictureViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['post'])
     def upload(self, request):
+        # check if user has station
+        # get use station
+        # serialize data
+        # create or update
         pass
