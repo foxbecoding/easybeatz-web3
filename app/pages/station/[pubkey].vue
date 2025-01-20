@@ -100,6 +100,7 @@ const picMouseoverHandler = () => {
 }
 
 const picMouseoutHandler = () => {
+  showUploadBtn.value = false;
 }
 
 </script>
