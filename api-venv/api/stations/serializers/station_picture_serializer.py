@@ -19,7 +19,7 @@ class StationPictureSerializer(serializers.ModelSerializer):
         # Check image format
         try:
             image = Image.open(value)
-            if image.format.lower() not in allowed_formats:
+            if str(image.format).lower() not in allowed_formats:
                 raise serializers.ValidationError({"picture": f"Unsupported image format. Allowed formats are: {', '.join(allowed_formats)}."})
 
             # Check image dimensions
