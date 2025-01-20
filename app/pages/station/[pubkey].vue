@@ -101,7 +101,6 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
 
 const onFileChange = (event: any) => {
   const file = event.target.files[0];
-  console.log(file);
   if (!file) return;
 
   // Generate preview
