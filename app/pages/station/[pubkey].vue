@@ -1,8 +1,12 @@
 <template>
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
-      <div class="mr-4 min-w-[200px]">
+      <div class="mr-4 min-w-[200px] relative">
         <NuxtImg class="mask mask-squircle" src='/easy-glow.png' width="200" height="200" />
+        <button v-if="station.is_owner" class="btn btn-neutral mask mask-squircle"
+          :class="!showUploadBtn ? 'hidden' : ''">
+          <Icon icon="solar:camera-add-bold" class="text-xl" />
+        </button>
       </div>
       <div>
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
@@ -73,6 +77,7 @@ const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false)
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+const showUploadBtn = ref(false)
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
