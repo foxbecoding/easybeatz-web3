@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       API_WEB3_LOGIN: process.env.API_WEB3_LOGIN,
       API_WEB3_LOGIN_NONCE: process.env.API_WEB3_LOGIN_NONCE,
       API_STATION: process.env.API_STATION,
+      API_STATION_PICTURE: process.env.API_STATION_PICTURE,
     }
   },
 
