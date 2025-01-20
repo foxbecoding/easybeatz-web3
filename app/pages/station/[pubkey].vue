@@ -94,12 +94,6 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
     isOwner.value = response._data.is_owner;
   }
 });
-
-
-const picMouseoutHandler = () => {
-  showUploadBtn.value = false;
-}
-
 </script>
 
 <style scoped>
