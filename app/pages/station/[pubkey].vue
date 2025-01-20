@@ -7,6 +7,8 @@
           class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
         </button>
+        <!-- Hidden File Input -->
+        <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif" @change="onFileChange" class="hidden" />
       </div>
       <div>
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
@@ -93,6 +95,9 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
     isOwner.value = response._data.is_owner;
   }
 });
+
+const onFileChange = () => { }
+
 </script>
 
 <style scoped>
