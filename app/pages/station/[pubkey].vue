@@ -70,7 +70,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/store/auth";
-import { type Station } from "@/services/models/station";
+import { type Station, uploadStationPicture } from "@/services/models/station";
 
 const route = useRoute();
 const config = useRuntimeConfig();
@@ -99,7 +99,7 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
   }
 });
 
-const onFileChange = (event: any) => {
+const onFileChange = async (event: any) => {
   const file = event.target.files[0];
   if (!file) return;
 
@@ -111,8 +111,14 @@ const onFileChange = (event: any) => {
   reader.readAsDataURL(file);
 }
 
+const uploadPicture = async (file: any) => {
+  const res = await uploadStationPicture({ picture: file });
+  console.log("res: ", res);
+
+}
+
 const triggerFileInput = () => {
-  fileInput.value.click()
+  fileInput.value.click();
 }
 
 </script>
