@@ -43,6 +43,10 @@ export const updateStation = async (pubkey: string, data: object): Promise<Stati
     return res
 }
 
+export const modifyStationPicture = async (data: object) => {
+
+}
+
 export const hasStationChecker = async (): Promise<boolean> => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/has_station/`;
