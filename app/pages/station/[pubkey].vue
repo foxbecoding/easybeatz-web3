@@ -1,7 +1,7 @@
 <template>
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
-      <div class="mr-4 min-w-[200px] relative">
+      <div class="mr-4 min-w-[200px] relative" @mouseover="" @mouseout="">
         <NuxtImg class="mask mask-squircle" src='/easy-glow.png' width="200" height="200" />
         <button v-if="station.is_owner" class="btn btn-neutral mask mask-squircle upload-button"
           :class="!showUploadBtn ? 'hidden' : ''">
@@ -94,6 +94,11 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
     isOwner.value = response._data.is_owner;
   }
 })
+
+const picMouseoverHandler = () => {
+
+}
+
 </script>
 
 <style scoped>
