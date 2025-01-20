@@ -3,7 +3,7 @@
     <div v-if="status == 'success' && station" class="flex">
       <div class="mr-4 min-w-[200px] group relative">
         <NuxtImg class="mask mask-squircle" src='/easy-glow.png' width="200" height="200" />
-        <button v-if="station.is_owner"
+        <button v-if="station.is_owner" @click="triggerFileInput"
           class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
         </button>
