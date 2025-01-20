@@ -99,7 +99,7 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
   }
 });
 
-const onFileChange = async (event: any) => {
+const onFileChange = (event: any) => {
   const file = event.target.files[0];
   if (!file) return;
 
@@ -109,6 +109,7 @@ const onFileChange = async (event: any) => {
     imagePreview.value = e.target.result;// Base64 preview URL
   };
   reader.readAsDataURL(file);
+  uploadPicture(file)
 }
 
 const uploadPicture = async (file: any) => {
