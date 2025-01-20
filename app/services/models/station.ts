@@ -43,8 +43,19 @@ export const updateStation = async (pubkey: string, data: object): Promise<Stati
     return res
 }
 
-export const modifyStationPicture = async (data: object) => {
-
+export const uploadStationPicture = async (data: object) => {
+    try {
+        const config = useRuntimeConfig();
+        const fetchPath = `${config.public.API_STATION}/upload/`;
+        const apiData: ApiData = { method: 'POST', path: fetchPath, data, isMultiPart: true };
+        const res = await useApi(apiData);
+        if (res.error) {
+            throw new Error(res.error);
+        }
+        return res
+    } catch (e: any) {
+        console.error(e);
+    }
 }
 
 export const hasStationChecker = async (): Promise<boolean> => {
