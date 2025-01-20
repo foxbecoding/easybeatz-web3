@@ -2,7 +2,8 @@
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
       <div class="mr-4 min-w-[200px] h-[200px] group relative">
-        <NuxtImg class="mask mask-squircle" src='/easy-glow.png' width="200" height="200" />
+        <NuxtImg class="mask mask-squircle" :src="imagePreview ? imagePreview : '/easy-glow.png'" width="200"
+          height="200" />
         <button v-show="station.is_owner" @click="triggerFileInput"
           class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
@@ -80,6 +81,7 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false);
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const fileInput = ref();
+const imagePreview = ref();
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
@@ -97,7 +99,18 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
   }
 });
 
-const onFileChange = () => { }
+const onFileChange = (event: any) => {
+  const file = event.target.files[0];
+  console.log(file);
+  if (!file) return;
+
+  // Generate preview
+  const reader = new FileReader();
+  reader.onload = (e: any) => {
+    imagePreview.value = e.target.result;// Base64 preview URL
+  };
+  reader.readAsDataURL(file);
+}
 
 const triggerFileInput = () => {
   fileInput.value.click()
