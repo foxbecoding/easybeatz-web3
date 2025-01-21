@@ -1,7 +1,7 @@
 <template>
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
-      <div class="mr-4 min-w-[200px] h-[200px] group relative">
+      <div class="mr-4 min-w-[200px] h-[200px] group relative mask mask-squircle bg-neutral p-1 box-content">
         <NuxtImg class="mask mask-squircle max-h-[200px] max-w-[200px]" :src="stationPicture" width="200"
           height="200" />
         <button v-show="station.is_owner" @click="triggerFileInput"
@@ -81,7 +81,6 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false);
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const fileInput = ref();
-const imagePreview = ref();
 const defaultStationImage = '/easy-glow.png'
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
@@ -100,7 +99,7 @@ const { data: station, error, status, refresh } = await useLazyFetch<Station>(fe
   }
 });
 
-const stationPicture = computed(() => station.value?.picture ? `https://media.easybeatz.local/` + station.value?.picture : defaultStationImage);
+const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}/` + station.value?.picture : defaultStationImage);
 
 const onFileChange = (event: any) => {
   const file: File = event.target.files[0];
