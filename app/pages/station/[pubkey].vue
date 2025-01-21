@@ -113,10 +113,13 @@ const onFileChange = (event: any) => {
 const uploadPicture = async (file: File) => {
   const formData = new FormData;
   formData.append('picture', file);
-  console.log("formData: ", formData)
   const res = await uploadStationPicture(formData);
-  console.log("res: ", res);
-
+  const toast = useToast();
+  if (!res.error) {
+    toast.setToast("Picture uploaded successfully", "SUCCESS");
+    return;
+  }
+  toast.setToast(res.error, "ERROR")
 }
 
 const triggerFileInput = () => {
