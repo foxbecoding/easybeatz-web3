@@ -5,7 +5,7 @@
         <NuxtImg class="mask mask-squircle max-h-[200px] max-w-[200px]" :src="stationPicture" width="200"
           height="200" />
         <button v-show="station.is_owner" @click="triggerFileInput"
-          class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
+          class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-95">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
         </button>
         <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif"
@@ -15,9 +15,9 @@
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
         <p class="text-lg font-semibold">@{{ station.handle }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
-        <NuxtLink v-if="station.is_owner" :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral">
+        <NuxtLink v-if="station.is_owner" :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral rounded-[1rem]">
           Customize station</NuxtLink>
-        <button v-else class="btn btn-primary text-lg">Subscribe</button>
+        <button v-else class="btn btn-secondary rounded-[1rem] text-lg">Subscribe</button>
       </div>
     </div>
 
@@ -38,7 +38,7 @@
 
       <div v-if="false" class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
         <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
-          <div class="skeleton aspect-square w-full"></div>
+          <div class="skeleton aspect-square mask mask-squircle w-full"></div>
           <div class="skeleton h-4 w-full"></div>
           <div class="skeleton h-4 w-48"></div>
         </div>
@@ -50,9 +50,9 @@
 
       <div class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
         <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
-          <div class="skeleton aspect-square w-full"></div>
+          <div class="skeleton aspect-square mask mask-squircle w-full"></div>
           <div class="skeleton h-4 w-full"></div>
-          <div class="skeleton h-4 w-48"></div>
+          <div class="skeleton h-4 w-full"></div>
         </div>
       </div>
 
@@ -62,7 +62,8 @@
       <Icon icon="solar:station-outline" class="text-9xl mx-auto" />
       <div class="flex flex-col gap-2">
         <span class="text-xl">{{ isOwner ? 'Create your station' : 'Station does not exists' }}</span>
-        <NuxtLink v-if="isOwner" :to="{ name: 'station-create' }" class="btn btn-primary text-lg"> Create</NuxtLink>
+        <NuxtLink v-if="isOwner" :to="{ name: 'station-create' }" class="btn btn-primary rounded-[1rem] text-lg"> Create
+        </NuxtLink>
       </div>
     </div>
   </AppPageContainer>
