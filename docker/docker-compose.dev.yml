@@ -64,6 +64,8 @@ services:
       - api
     networks:
       - app-network
+    extra_hosts:
+      - "media.easybeatz.local:127.0.0.1"
 
 volumes:
   pgdata:
