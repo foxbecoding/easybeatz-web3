@@ -2,7 +2,8 @@
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
       <div class="mr-4 min-w-[200px] h-[200px] group relative">
-        <NuxtImg class="mask mask-squircle" :src="stationPicture || '/easy-glow.png'" width="200" height="200" />
+        <NuxtImg class="mask mask-squircle max-h-[200px] max-w-[200px]" :src="stationPicture" width="200"
+          height="200" />
         <button v-show="station.is_owner" @click="triggerFileInput"
           class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
@@ -81,10 +82,11 @@ const isOwner = ref<boolean>(false);
 const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const fileInput = ref();
 const imagePreview = ref();
+const defaultStationImage = '/easy-glow.png'
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
-const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
+const { data: station, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
   server: false,
   key: `station-${pubkey.value}`,
   watch: [isAuthenticated],
@@ -98,22 +100,17 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
   }
 });
 
-
-
-const stationPicture = computed(() => {
-  return `https://media.easybeatz.local/media/${station.value?.picture}`
-
-})
+const stationPicture = computed(() => station.value?.picture ? `https://media.easybeatz.local/` + station.value?.picture : defaultStationImage);
 
 const onFileChange = (event: any) => {
   const file: File = event.target.files[0];
   if (!file) return;
-
-  // Generate preview
-  imagePreview.value = URL.createObjectURL(file)
-
   //upload picture
   uploadPicture(file)
+}
+
+const triggerFileInput = () => {
+  fileInput.value.click();
 }
 
 const uploadPicture = async (file: File) => {
@@ -122,16 +119,11 @@ const uploadPicture = async (file: File) => {
   const res = await uploadStationPicture(formData);
   const toast = useToast();
   if (!res.error) {
+    await refresh()
     toast.setToast("Picture uploaded successfully", "SUCCESS");
     return;
   }
-  toast.setToast(res.error, "ERROR")
 }
-
-const triggerFileInput = () => {
-  fileInput.value.click();
-}
-
 </script>
 
 <style scoped>
