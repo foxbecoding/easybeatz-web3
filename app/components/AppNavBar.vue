@@ -14,7 +14,7 @@
       <div class="flex-none">
         <AppWalletConnect v-if="!authStore.isAuthenticated" class="mr-4" />
         <AppAccountMenu v-else class="mr-4" />
-        <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral btn-square">
+        <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral mask mask-squircle btn-square">
           <Icon icon="solar:bag-music-2-bold" class="text-2xl" />
         </NuxtLink>
       </div>
