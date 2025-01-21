@@ -7,6 +7,7 @@ export default defineNuxtConfig({
       SITE_NAME: process.env.SITE_NAME,
       SITE_DOMAIN: process.env.SITE_DOMAIN,
       SITE_URL: process.env.SITE_URL,
+      MEDIA_URL: process.env.MEDIA_URL,
       API_WEB3_LOGIN: process.env.API_WEB3_LOGIN,
       API_WEB3_LOGIN_NONCE: process.env.API_WEB3_LOGIN_NONCE,
       API_STATION: process.env.API_STATION,
