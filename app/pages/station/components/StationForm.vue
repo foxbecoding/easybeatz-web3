@@ -63,7 +63,7 @@
       </label>
     </form>
 
-    <button @click="!isLoading ? submitHandler() : false" class="btn btn-primary text-lg">
+    <button @click="!isLoading ? submitHandler() : false" class="btn btn-primary rounded-[1rem] text-lg">
       {{ !isLoading ? 'Submit' : 'Processing' }}
       <span v-if="isLoading" class="loading loading-dots loading-md"></span>
     </button>
