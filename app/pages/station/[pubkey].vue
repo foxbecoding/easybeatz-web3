@@ -100,20 +100,24 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
 });
 
 const onFileChange = (event: any) => {
-  const file = event.target.files[0];
+  const file: File = event.target.files[0];
   if (!file) return;
 
   // Generate preview
-  const reader = new FileReader();
-  reader.onload = (e: any) => {
-    imagePreview.value = e.target.result;// Base64 preview URL
-  };
-  reader.readAsDataURL(file);
+  //const reader = new FileReader();
+  //reader.onload = (e: any) => {
+  //  imagePreview.value = e.target.result;// Base64 preview URL
+  //};
+  //reader.readAsDataURL(file);
+  imagePreview.value = URL.createObjectURL(file)
   uploadPicture(file)
 }
 
-const uploadPicture = async (file: any) => {
-  const res = await uploadStationPicture({ picture: file });
+const uploadPicture = async (file: File) => {
+  const formData = new FormData;
+  formData.append('picture', file);
+  console.log("formData: ", formData)
+  const res = await uploadStationPicture(formData);
   console.log("res: ", res);
 
 }
