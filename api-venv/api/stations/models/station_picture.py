@@ -12,6 +12,7 @@ class StationPicture(models.Model):
     station = models.OneToOneField(
         Station,
         on_delete=models.CASCADE,
+        related_name='picture',
         primary_key=True,
     )
     picture = models.ImageField(upload_to=custom_image_upload_path, default="")
