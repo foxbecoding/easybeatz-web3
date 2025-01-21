@@ -62,8 +62,10 @@ class StationViewSet(viewsets.ViewSet):
         serialized_station['is_owner'] = is_owner
         created_date = datetime.fromisoformat(serialized_station['created'].replace("Z", "+00:00"))
         serialized_station['created'] = created_date.year
-        picture = StationPicture.objects.get(pk=serialized_station.get('picture'))
-        serialized_station['picture'] = str(picture.picture)
+        picture = StationPicture.objects.filter(pk=serialized_station.get('picture')).first()
+        serialized_station['picture'] = ""
+        if picture: 
+            serialized_station['picture'] = str(picture.picture)
         return Response(serialized_station, status=status.HTTP_200_OK)
 
 
