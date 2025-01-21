@@ -11,17 +11,17 @@ export const useApi = async (apiData: ApiData): Promise<any> => {
   const csrftoken: any = useCookie('csrftoken')
 
   const requestHeaders = new Headers();
-  requestHeaders.append("accept", "application/json");
-  requestHeaders.append("Content-Type", "application/json");
-  requestHeaders.append("X-CSRFToken", csrftoken.value);
-
   const authStore = useAuthStore();
 
   if (authStore.accessToken) {
     requestHeaders.append("Authorization", `Bearer ${authStore.accessToken}`)
   }
 
-  if (apiData.isMultiPart) {
+  if (!apiData.isMultiPart) {
+    requestHeaders.append("accept", "application/json");
+    requestHeaders.append("Content-Type", "application/json");
+    requestHeaders.append("X-CSRFToken", csrftoken.value);
+  } else {
     requestHeaders.append("X-CSRFToken", csrftoken.value);
   }
 

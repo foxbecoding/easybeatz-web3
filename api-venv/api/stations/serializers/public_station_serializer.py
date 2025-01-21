@@ -9,5 +9,6 @@ class PublicStationSerializer(serializers.ModelSerializer):
             'handle', 
             'description', 
             'email',
-            'created'
+            'created',
+            'picture'
         ]

@@ -7,6 +7,7 @@ export interface Station {
     handle: string;
     is_owner: boolean;
     name: string;
+    picture: string;
     error?: any;
 }
 
@@ -43,7 +44,19 @@ export const updateStation = async (pubkey: string, data: object): Promise<Stati
     return res
 }
 
-export const hasStationChecker = async () => {
+export const uploadStationPicture = async (data: object) => {
+    try {
+        const config = useRuntimeConfig();
+        const fetchPath = `${config.public.API_STATION_PICTURE}/upload/`;
+        const apiData: ApiData = { method: 'POST', path: fetchPath, data, isMultiPart: true };
+        const res = await useApi(apiData);
+        return res
+    } catch (e: any) {
+        console.error(e);
+    }
+}
+
+export const hasStationChecker = async (): Promise<boolean> => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/has_station/`;
     const apiData: ApiData = { method: 'GET', path: fetchPath };

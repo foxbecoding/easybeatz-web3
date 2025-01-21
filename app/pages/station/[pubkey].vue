@@ -1,8 +1,15 @@
 <template>
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
-      <div class="mr-4 min-w-[200px]">
-        <NuxtImg class="mask mask-squircle" src='/easy-glow.png' width="200" height="200" />
+      <div class="mr-4 min-w-[200px] h-[200px] group relative mask mask-squircle bg-neutral p-1 box-content">
+        <NuxtImg class="mask mask-squircle max-h-[200px] max-w-[200px]" :src="stationPicture" width="200"
+          height="200" />
+        <button v-show="station.is_owner" @click="triggerFileInput"
+          class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
+          <Icon icon="solar:camera-add-bold" class="text-xl" />
+        </button>
+        <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif"
+          @change="onFileChange" class="hidden" />
       </div>
       <div>
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
@@ -63,7 +70,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/store/auth";
-import { type Station } from "@/services/models/station";
+import { type Station, uploadStationPicture } from "@/services/models/station";
 
 const route = useRoute();
 const config = useRuntimeConfig();
@@ -71,12 +78,14 @@ const authStore = useAuthStore();
 const pubkey = ref(route.params.pubkey)
 const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`;
 const isAuthenticated = computed(() => authStore.isAuthenticated)
-const isOwner = ref<boolean>(false)
-const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+const isOwner = ref<boolean>(false);
+const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const fileInput = ref();
+const defaultStationImage = '/easy-glow.png'
 
 //const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
-const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
+const { data: station, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
   server: false,
   key: `station-${pubkey.value}`,
   watch: [isAuthenticated],
@@ -88,5 +97,39 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
   onResponseError({ request, response, options }) {
     isOwner.value = response._data.is_owner;
   }
-})
+});
+
+const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}/` + station.value?.picture : defaultStationImage);
+
+const onFileChange = (event: any) => {
+  const file: File = event.target.files[0];
+  if (!file) return;
+  //upload picture
+  uploadPicture(file)
+}
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+}
+
+const uploadPicture = async (file: File) => {
+  const formData = new FormData;
+  formData.append('picture', file);
+  const res = await uploadStationPicture(formData);
+  const toast = useToast();
+  if (!res.error) {
+    await refresh()
+    toast.setToast("Picture uploaded successfully", "SUCCESS");
+    return;
+  }
+}
 </script>
+
+<style scoped>
+.upload-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+}
+</style>
