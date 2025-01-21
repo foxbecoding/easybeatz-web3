@@ -53,7 +53,7 @@ Nonce: ${nonce}`;
 }
 
 const authenticateUser = async (signature: any, message: string) => {
-  login(signature, message, walletAddress.value);
+  await login(signature, message, walletAddress.value);
 }
 
 </script>
