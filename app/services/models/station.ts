@@ -50,10 +50,6 @@ export const uploadStationPicture = async (data: object) => {
         const fetchPath = `${config.public.API_STATION_PICTURE}/upload/`;
         const apiData: ApiData = { method: 'POST', path: fetchPath, data, isMultiPart: true };
         const res = await useApi(apiData);
-        console.log("res: ", res)
-        if (res.error) {
-            throw new Error(res.error);
-        }
         return res
     } catch (e: any) {
         console.error(e);
