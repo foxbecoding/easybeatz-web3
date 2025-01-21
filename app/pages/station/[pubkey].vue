@@ -2,8 +2,7 @@
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
       <div class="mr-4 min-w-[200px] h-[200px] group relative">
-        <NuxtImg class="mask mask-squircle" :src="imagePreview ? imagePreview : '/easy-glow.png'" width="200"
-          height="200" />
+        <NuxtImg class="mask mask-squircle" :src="stationPicture || '/easy-glow.png'" width="200" height="200" />
         <button v-show="station.is_owner" @click="triggerFileInput"
           class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
@@ -98,6 +97,13 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
     isOwner.value = response._data.is_owner;
   }
 });
+
+
+
+const stationPicture = computed(() => {
+  return `https://media.easybeatz.local/media/${station.value?.picture}`
+
+})
 
 const onFileChange = (event: any) => {
   const file: File = event.target.files[0];
