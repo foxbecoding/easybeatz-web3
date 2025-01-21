@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..serializers import StationSerializer, PublicStationSerializer
 from users.models import User
-from ..models import Station
+from ..models import Station, StationPicture
 from datetime import datetime
 
 class StationViewSet(viewsets.ViewSet):
@@ -62,6 +62,8 @@ class StationViewSet(viewsets.ViewSet):
         serialized_station['is_owner'] = is_owner
         created_date = datetime.fromisoformat(serialized_station['created'].replace("Z", "+00:00"))
         serialized_station['created'] = created_date.year
+        picture = StationPicture.objects.get(pk=serialized_station.get('picture'))
+        serialized_station['picture'] = str(picture.picture)
         return Response(serialized_station, status=status.HTTP_200_OK)
 
 
