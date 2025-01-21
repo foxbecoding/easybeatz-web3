@@ -1,13 +1,11 @@
 import { jwtDecode } from 'jwt-decode';
 import { useAuthStore } from "@/store/auth";
 import { useUserStore } from "@/store/user";
-import { useStationStore } from "@/store/station";
 import type { ApiData } from "@/composables/useApi";
 
 export const useAuth = () => {
   const authStore = useAuthStore();
   const userStore = useUserStore();
-  const stationStore = useStationStore();
 
   const requestLoginNonce = async (pubkey: string): Promise<string> => {
     const apiData: ApiData = {
@@ -46,14 +44,12 @@ export const useAuth = () => {
 
     userStore.setUserData(res.pubkey);
     authStore.setAuthData(res.access_token, true);
-    stationStore.setStationData(res.has_station);
     setTokenTimer(res.access_token);
   }
 
   const logout = () => {
     authStore.setAuthData(null, false);
     userStore.setUserData(null);
-    stationStore.setStationData(false);
     useRouter().push({ name: "index" });
     // TODO send api request to logout user
 
