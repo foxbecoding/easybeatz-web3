@@ -21,17 +21,11 @@ class StationPictureViewSet(viewsets.ViewSet):
         # check if user has station
         user = User.objects.filter(pubkey=str(request.user)).first()
         station = Station.objects.filter(pk=user.pk).first()
-
         if not station:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-
         request.data['station'] = station
         serializer = StationPictureSerializer(data=request.data)
-
         if not serializer.is_valid():
             return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
-        
         serializer.save()
-
         return Response("Picture uploaded successfully", status=status.HTTP_200_OK)
