@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from ..serializers import StationPictureSerializer
+from ..serializers import StationPictureSerializer, UpdateStationPictureSerializer
 from ..models import Station, StationPicture
 from users.models import User
 
@@ -23,9 +23,13 @@ class StationPictureViewSet(viewsets.ViewSet):
         station = Station.objects.filter(pk=user.pk).first()
         if not station:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        request.data['station'] = station
-        serializer = StationPictureSerializer(data=request.data)
+        station_picture = StationPicture.objects.filter(pk=station.pk).first()
+        if not station_picture:
+            request.data['station'] = station
+            serializer = StationPictureSerializer(data=request.data)
+        else:
+            serializer = UpdateStationPictureSerializer(station_picture, data=request.data)
         if not serializer.is_valid():
-            return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": serializer.errors})
         serializer.save()
         return Response("Picture uploaded successfully", status=status.HTTP_200_OK)
