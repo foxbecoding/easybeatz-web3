@@ -17,7 +17,7 @@
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
         <NuxtLink v-if="station.is_owner" :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral rounded-[1rem]">
           Customize station</NuxtLink>
-        <button v-else class="btn btn-primary text-lg">Subscribe</button>
+        <button v-else class="btn btn-primary rounded-[1rem] text-lg">Subscribe</button>
       </div>
     </div>
 
@@ -62,7 +62,8 @@
       <Icon icon="solar:station-outline" class="text-9xl mx-auto" />
       <div class="flex flex-col gap-2">
         <span class="text-xl">{{ isOwner ? 'Create your station' : 'Station does not exists' }}</span>
-        <NuxtLink v-if="isOwner" :to="{ name: 'station-create' }" class="btn btn-primary rounded-[1rem] text-lg"> Create</NuxtLink>
+        <NuxtLink v-if="isOwner" :to="{ name: 'station-create' }" class="btn btn-primary rounded-[1rem] text-lg"> Create
+        </NuxtLink>
       </div>
     </div>
   </AppPageContainer>
