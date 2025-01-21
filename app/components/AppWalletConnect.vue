@@ -1,5 +1,5 @@
 <template>
-  <button @click="connectWallet()" class="btn btn-neutral text-xl">
+  <button @click="!isConnecting ? connectWallet() : false" class="btn btn-neutral text-xl" :disabled="isConnecting">
     <Icon class="text-2xl" icon="solar:wallet-2-bold" />
     Login
     <Icon icon="token-branded:phantom" class="text-2xl" />
@@ -10,11 +10,13 @@
 
 const walletAddress = ref("");
 const { login, requestLoginNonce } = useAuth();
+const isConnecting = ref(false)
 
 const connectWallet = async () => {
 
   if (window.phantom?.solana) {
     try {
+      isConnecting.value = true;
       // Request wallet connection
       const response = await window.phantom.solana.connect();
       walletAddress.value = response.publicKey.toString();
@@ -30,12 +32,14 @@ const connectWallet = async () => {
 
       // Now that the wallet is connected, authenticate user
       await authenticateUser(signedMessage.signature, message);
-
+      isConnecting.value = false;
     } catch (error) {
       console.error("Failed to connect wallet", error);
+      isConnecting.value = false;
     }
   } else {
     alert("Phantom Wallet not found. Please install phantom wallet in your browser.");
+    isConnecting.value = false;
   }
 }
 
