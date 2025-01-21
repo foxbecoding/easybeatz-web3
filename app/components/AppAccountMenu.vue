@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown dropdown-bottom dropdown-end dropdown-hover">
-    <button tabindex="0" role="button" class="btn btn-neutral btn-square">
+    <button tabindex="0" role="button" class="btn btn-neutral btn-square mask mask-squircle">
       <Icon icon="solar:user-bold" class="text-2xl" />
     </button>
 
@@ -22,11 +22,9 @@
 </template>
 
 <script setup lang="ts">
-import { useStationStore } from "@/store/station";
 import { useUserStore } from "@/store/user";
 
 const { logout } = useAuth();
-const stationStore = useStationStore();
 const userStore = useUserStore();
 
 interface MenuItem {
