@@ -5,7 +5,7 @@
         <NuxtImg class="mask mask-squircle max-h-[200px] max-w-[200px]" :src="stationPicture" width="200"
           height="200" />
         <button v-show="station.is_owner" @click="triggerFileInput"
-          class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-75">
+          class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-95">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
         </button>
         <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif"
