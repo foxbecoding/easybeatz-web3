@@ -3,7 +3,7 @@
     <div class="mx-auto w-full max-w-[2560px] px-4 sm:px-8 2xl:px-16 flex items-center justify-between">
 
       <div class="flex">
-        <a class="btn btn-neutral text-xl">Button</a>
+        <a class="btn btn-neutral rounded-[1rem] text-xl">Create</a>
       </div>
 
       <label class="input bg-neutral input-ghost flex items-center gap-2 max-w-[480px] w-full">
