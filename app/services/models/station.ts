@@ -7,6 +7,7 @@ export interface Station {
     handle: string;
     is_owner: boolean;
     name: string;
+    picture: string;
     error?: any;
 }
 
