@@ -1,7 +1,7 @@
 <template>
   <footer class="block">
     <div class="flex justify-around pb-4">
-      <button class="btn btn-ghost btn-square">
+      <button class="btn btn-ghost btn-square mask mask-squircle">
         <Icon icon="simple-icons:x" class="text-3xl primary" />
       </button>
     </div>
