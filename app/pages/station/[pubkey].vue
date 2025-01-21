@@ -104,12 +104,9 @@ const onFileChange = (event: any) => {
   if (!file) return;
 
   // Generate preview
-  //const reader = new FileReader();
-  //reader.onload = (e: any) => {
-  //  imagePreview.value = e.target.result;// Base64 preview URL
-  //};
-  //reader.readAsDataURL(file);
   imagePreview.value = URL.createObjectURL(file)
+
+  //upload picture
   uploadPicture(file)
 }
 
