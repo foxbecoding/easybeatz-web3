@@ -5,7 +5,7 @@ from .track import Track
 def audio_file_path(instance, filename):
     """Generate a unique file path for new audio file using UUID."""
     ext = filename.split('.')[-1]
-    new_filename = f"{uuid.uuid4()}.{ext}"
+    new_filename = f"{uuid.uuid4().hex}.{ext}"
     return os.path.join('track/mp3/', new_filename)
 
 class TrackMp3(models.Model):
