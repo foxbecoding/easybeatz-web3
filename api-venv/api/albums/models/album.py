@@ -11,7 +11,7 @@ class Album(models.Model):
     )
     genres = models.ManyToManyField(Genre, related_name='albums')
     title = models.CharField(max_length=120, default='')
-    aid = models.CharField(default='', unique=TrueG
+    aid = models.CharField(default='', unique=True)
     slug = models.SlugField(blank=True, default='')
     bio = models.TextField()
     created = models.DateTimeField(auto_now_add=True, null=True)
