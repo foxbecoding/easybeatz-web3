@@ -70,7 +70,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'users.apps.UsersConfig',
-    'stations.apps.StationsConfig'
+    'stations.apps.StationsConfig',
+    'albums.apps.AlbumsConfig',
+    'genres.apps.GenresConfig',
+    'moods.apps.MoodsConfig',
 ]
 
 REST_FRAMEWORK = {
