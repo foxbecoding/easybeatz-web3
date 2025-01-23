@@ -13,5 +13,5 @@ class TrackViewSet(viewsets.ViewSet):
         if self.action in needs_auth: permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-    def create(self, request): 
+    def create(self, request):
         pass
