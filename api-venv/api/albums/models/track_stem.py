@@ -14,7 +14,7 @@ class TrackStem(models.Model):
         on_delete=models.CASCADE,
         related_name='stems',
     )
-    name = models.CharField(max_length="120", default="")
+    name = models.CharField(max_length=120, default="")
     audio = models.FileField(upload_to=audio_file_path, default="")
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
