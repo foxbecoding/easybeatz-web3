@@ -14,6 +14,7 @@ class Track(models.Model):
     tid = models.CharField(default='', unique=True)
     slug = models.SlugField(blank=True, default='')
     order_no = models.SmallIntegerField(default=0)
+    is_exclusive_sold = models.BooleanField(blank=True, default=False)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
