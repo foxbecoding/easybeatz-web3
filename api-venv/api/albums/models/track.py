@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.utils.text import slugify
 from .album import Album
@@ -21,4 +22,6 @@ class Track(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        if not self.tid:
+            self.tid = uuid.uuid4().hex
         super().save(*args, **kwargs)
