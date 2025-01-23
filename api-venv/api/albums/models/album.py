@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from genres.models import Genre
 from stations.models import Station
@@ -20,4 +21,6 @@ class Album(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        if not self.aid:
+            self.aid = uuid.uuid4().hex
         super().save(*args, **kwargs)
