@@ -1,6 +1,5 @@
 import uuid
 from django.db import models
-from genres.models import Genre
 from stations.models import Station
 from django.utils.text import slugify
 
@@ -10,7 +9,6 @@ class Album(models.Model):
         on_delete=models.CASCADE,
         related_name='albums'
     )
-    genres = models.ManyToManyField(Genre, related_name='albums')
     title = models.CharField(max_length=120, default='')
     aid = models.CharField(default='', unique=True)
     slug = models.SlugField(blank=True, default='')
