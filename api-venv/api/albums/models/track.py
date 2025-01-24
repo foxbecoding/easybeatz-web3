@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from .album import Album
 from moods.models import Mood
+from genres.models import Genre
 
 class Track(models.Model):
     album = models.ForeignKey(
@@ -10,6 +11,7 @@ class Track(models.Model):
         on_delete=models.CASCADE,
         related_name='tracks'
     )
+    genre = models.ForeignKey(Genre, on_delete=models.SET_NULL, related_name='albums')
     mood = models.ForeignKey(Mood, on_delete=models.CASCADE, related_name='tracks')
     title = models.CharField(max_length=120, default='')
     tid = models.CharField(default='', unique=True)
