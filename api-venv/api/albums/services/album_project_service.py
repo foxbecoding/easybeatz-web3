@@ -9,8 +9,17 @@ class AlbumProjectService:
     def __init__(self, data) -> None:
         self.data = data
         self.album = {}
+        self.album_cover = {}
         self.tracks = []
 
-    def run(self):
-        print(self.data)
+    def set_data(self):
+        self.__set_album_data() 
+        print(self.album)
+
+
+    def __set_album_data(self):
+        self.album = {
+            "title": self.data.get(f'album[title]'),
+            "bio": self.data.get(f'album[bio]'),
+        }
 
