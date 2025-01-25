@@ -17,7 +17,7 @@ class AlbumProjectService:
         print(self.album)
 
 
-    def validate_data(self):
+    def validate_form_data(self):
         pass
 
     def __set_album_data(self):
