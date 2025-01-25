@@ -7,7 +7,7 @@ from stations.models import Station
 
 class AlbumProjectService:
     def __init__(self, data) -> None:
-        self.data = data
+        self.form_data = data
         self.album = {}
         self.album_cover = {}
         self.tracks = []
@@ -22,7 +22,7 @@ class AlbumProjectService:
 
     def __set_album_data(self):
         self.album = {
-            "title": self.data.get(f'album[title]'),
-            "bio": self.data.get(f'album[bio]'),
+            "title": self.form_data.get(f'album[title]'),
+            "bio": self.form_data.get(f'album[bio]'),
         }
 
