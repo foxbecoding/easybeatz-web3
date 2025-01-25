@@ -17,6 +17,9 @@ class AlbumProjectService:
         print(self.album)
 
 
+    def validate_data(self):
+        pass
+
     def __set_album_data(self):
         self.album = {
             "title": self.data.get(f'album[title]'),
