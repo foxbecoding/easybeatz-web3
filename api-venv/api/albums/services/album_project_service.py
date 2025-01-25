@@ -8,19 +8,19 @@ from stations.models import Station
 class AlbumProjectService:
     def __init__(self, data) -> None:
         self.form_data = data
-        self.album = {}
-        self.album_cover = {}
-        self.tracks = []
+        self.album_form_data = {}
+        self.album_cover_form_data = {}
+        self.tracks_form_data = []
         self.__set_form_data()
 
 
     def __set_form_data(self):
         self.__set_album_form_data() 
-        print(self.album)
+        print(self.album_form_data)
 
 
     def __set_album_form_data(self):
-        self.album = {
+        self.album_form_data = {
             "title": self.form_data.get(f'album[title]'),
             "bio": self.form_data.get(f'album[bio]'),
         }
