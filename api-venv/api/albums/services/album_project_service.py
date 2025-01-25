@@ -9,7 +9,6 @@ class AlbumProjectService:
     def __init__(self, data) -> None:
         self.form_data = data
         self.album_form_data = {}
-        self.album_cover_form_data = {}
         self.tracks_form_data = []
         self.__set_form_data()
 
@@ -23,6 +22,7 @@ class AlbumProjectService:
         self.album_form_data = {
             "title": self.form_data.get(f'album[title]'),
             "bio": self.form_data.get(f'album[bio]'),
+            "picture": self.form_data.get(f'album[cover]')
         }
 
     def is_form_data_valid(self) -> bool:
