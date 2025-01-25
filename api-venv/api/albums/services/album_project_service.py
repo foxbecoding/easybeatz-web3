@@ -15,11 +15,11 @@ class AlbumProjectService:
 
 
     def __set_form_data(self):
-        self.__set_album_data() 
+        self.__set_album_form_data() 
         print(self.album)
 
 
-    def __set_album_data(self):
+    def __set_album_form_data(self):
         self.album = {
             "title": self.form_data.get(f'album[title]'),
             "bio": self.form_data.get(f'album[bio]'),
