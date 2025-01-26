@@ -14,7 +14,8 @@ class AlbumProjectService:
 
 
     def __set_form_data(self):
-        self.__set_album_form_data() 
+        self.__set_album_form_data()
+        self.__set_tracks_form_data()
 
     def __set_album_form_data(self):
         self.album_form_data = {
