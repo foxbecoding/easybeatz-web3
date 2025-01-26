@@ -15,8 +15,6 @@ class AlbumProjectService:
 
     def __set_form_data(self):
         self.__set_album_form_data() 
-        print(self.album_form_data)
-
 
     def __set_album_form_data(self):
         self.album_form_data = {
@@ -24,6 +22,8 @@ class AlbumProjectService:
             "bio": self.form_data.get(f'album[bio]'),
             "picture": self.form_data.get(f'album[cover]')
         }
+
+    def __set_tracks_form_data(self):
 
     def is_form_data_valid(self) -> bool:
         return False 
