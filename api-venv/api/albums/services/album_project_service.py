@@ -58,7 +58,7 @@ class AlbumProjectService:
         return True 
 
     def __is_tracks_form_data_valid(self) -> bool:
-        pass
+        return True
 
     def is_form_data_valid(self) -> bool:
         if not self.__is_album_form_data_valid():
