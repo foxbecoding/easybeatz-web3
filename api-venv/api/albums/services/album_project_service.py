@@ -26,26 +26,26 @@ class AlbumProjectService:
     def __set_tracks_form_data(self):
         track_count = int(self.form_data.get(f'track_count'))
         for i in range(track_count):
-            genre_count = int(self.form_data.get(f'tracks[{i}][genre_count]'))
-            collab_count = int(self.form_data.get(f'tracks[{i}][collab_count]'))
-            stem_count = int(self.form_data.get(f'tracks[{i}][stem_count]'))
-            track = {
-                'index': i,
-                'title': self.form_data.get(f'tracks[{i}][title]'),
-                'genres': [self.form_data.get(f'tracks[{i}][genres][{gi}]') for gi in range(genre_count)],
-                'mood': self.form_data.get(f'tracks[{i}][mood]'),
-                'mp3': self.form_data.get(f'tracks[{i}][mp3]'),
-                'bpm': self.form_data.get(f'tracks[{i}][bpm]'),
-                'has_exclusive': bool(self.form_data.get(f'tracks[{i}][has_exclusive]')),
-                'price':self.form_data.get(f'tracks[{i}][price]'),
-                'exclusive_price': self.form_data.get(f'tracks[{i}][exclusive_price]'),
-                'collaborators': [self.form_data.get(f'tracks[{i}][collaborators][{ci}]') for ci in range(collab_count)],
-                'stems': [self.__stem_form_data_builder(i, si) for si in range(stem_count)],
-            }
+            track = self.__track_form_data_builder(i) 
             self.tracks_form_data.append(track)
 
     def __track_form_data_builder(self, index):
-        pass
+        genre_count = int(self.form_data.get(f'tracks[{index}][genre_count]'))
+        collab_count = int(self.form_data.get(f'tracks[{index}][collab_count]'))
+        stem_count = int(self.form_data.get(f'tracks[{index}][stem_count]'))
+        return {
+            'index': index,
+            'title': self.form_data.get(f'tracks[{index}][title]'),
+            'genres': [self.form_data.get(f'tracks[{index}][genres][{gi}]') for gi in range(genre_count)],
+            'mood': self.form_data.get(f'tracks[{index}][mood]'),
+            'mp3': self.form_data.get(f'tracks[{index}][mp3]'),
+            'bpm': self.form_data.get(f'tracks[{index}][bpm]'),
+            'has_exclusive': bool(self.form_data.get(f'tracks[{index}][has_exclusive]')),
+            'price':self.form_data.get(f'tracks[{index}][price]'),
+            'exclusive_price': self.form_data.get(f'tracks[{index}][exclusive_price]'),
+            'collaborators': [self.form_data.get(f'tracks[{index}][collaborators][{ci}]') for ci in range(collab_count)],
+            'stems': [self.__stem_form_data_builder(index, si) for si in range(stem_count)],
+        }
 
     def __stem_form_data_builder(self, track_index, stem_index):
         return { 
