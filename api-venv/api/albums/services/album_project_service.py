@@ -22,7 +22,7 @@ class AlbumProjectService:
         self.album_form_data = {
             "title": self.form_data.get(f'album[title]'),
             "bio": self.form_data.get(f'album[bio]'),
-            "picture": self.form_data.get(f'album[cover]')
+            "cover": self.form_data.get(f'album[cover]')
         }
 
     def __set_tracks_form_data(self):
@@ -39,7 +39,7 @@ class AlbumProjectService:
                 'mp3': self.form_data.get(f'tracks[{i}][mp3]'),
                 'bpm': self.form_data.get(f'tracks[{i}][bpm]'),
                 'has_exclusive': bool(self.form_data.get(f'tracks[{i}][has_exclusive]')),
-                'price': self.form_data.get(f'tracks[{i}][price]'),
+                'price':self.form_data.get(f'tracks[{i}][price]'),
                 'exclusive_price': self.form_data.get(f'tracks[{i}][exclusive_price]'),
                 'collaborators': [self.form_data.get(f'tracks[{i}][collaborators][{ci}]') for ci in range(collab_count)],
                 'stems': [self.__stem_form_data_builder(i, si) for si in range(stem_count)],
