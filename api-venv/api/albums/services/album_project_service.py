@@ -44,6 +44,9 @@ class AlbumProjectService:
             }
             self.tracks_form_data.append(track)
 
+    def __track_form_data_builder(self, index):
+        pass
+
     def __stem_form_data_builder(self, track_index, stem_index):
         return { 
             "name": self.form_data.get(f'tracks[{track_index}][stems][{stem_index}][name]'),
