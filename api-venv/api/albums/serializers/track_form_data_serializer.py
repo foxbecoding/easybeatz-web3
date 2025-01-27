@@ -2,8 +2,16 @@ from rest_framework import serializers
 
 class TrackFormSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=120)
-    # bio = serializers.CharField(allow_null=True)
-    # cover = serializers.ImageField()
+    genres = serializers.ListField()
+    mood = serializers.CharField()
+    mp3 = serializers.FileField()
+    wav = serializers.FileField(allow_empty_file=True)
+    bpm = serializers.CharField()
+    has_exclusive = serializers.BooleanField()
+    price = serializers.CharField()
+    exclusive_price = serializers.CharField(allow_blank=True)
+    collaborators = serializers.ListField(allow_empty=True)
+    stems = serializers.ListField(allow_empty=True)
 
     # def validate_cover(self, value):
         # return value
