@@ -37,6 +37,7 @@ class AlbumProjectService:
             'genres': [self.form_data.get(f'tracks[{index}][genres][{gi}]') for gi in range(genre_count)],
             'mood': self.form_data.get(f'tracks[{index}][mood]'),
             'mp3': self.form_data.get(f'tracks[{index}][mp3]'),
+            'wav': self.form_data.get(f'tracks[{index}][wav]'),
             'bpm': self.form_data.get(f'tracks[{index}][bpm]'),
             'has_exclusive': bool(self.form_data.get(f'tracks[{index}][has_exclusive]')),
             'price':self.form_data.get(f'tracks[{index}][price]'),
