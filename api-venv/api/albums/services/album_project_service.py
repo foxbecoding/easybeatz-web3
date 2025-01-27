@@ -50,10 +50,15 @@ class AlbumProjectService:
             "file": self.form_data.get(f'tracks[{track_index}][stems][{stem_index}][file]')
         }
 
-    def is_form_data_valid(self):
+    def __is_album_form_data_valid(self) -> bool:
         album_serializer = AlbumFormSerializer(data=self.album_form_data)
         if not album_serializer.is_valid():
             self.errors = album_serializer.errors
+            return False
+        return True 
+
+    def is_form_data_valid(self) -> bool:
+        if not self.__is_album_form_data_valid():
             return False
         self.errors = None
         return True
