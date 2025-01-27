@@ -52,6 +52,9 @@ class AlbumProjectService:
             "file": self.form_data.get(f'tracks[{track_index}][stems][{stem_index}][file]')
         }
 
+    def __validate_album_form_data(self):
+        pass
+
     def is_form_data_valid(self) -> bool:
         return False 
 
