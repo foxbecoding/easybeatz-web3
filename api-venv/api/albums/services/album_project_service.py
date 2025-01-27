@@ -1,10 +1,12 @@
+from rest_framework.schemas.coreapi import serializers
 from users.models import User
 from stations.models import Station
-from ..serializers.album_form_data_serializer import AlbumFormSerializer
+from ..serializers import AlbumFormSerializer, TrackFormSerializer
 
 class AlbumProjectService:
-    def __init__(self, data) -> None:
-        self.form_data = data
+    def __init__(self, request) -> None:
+        self.request = request
+        self.form_data = request.data
         self.album_form_data = {}
         self.tracks_form_data = []
         self.errors = None
@@ -60,6 +62,10 @@ class AlbumProjectService:
         return True 
 
     def __is_tracks_form_data_valid(self) -> bool:
+        serializer = TrackFormSerializer(data=self.tracks_form_data, context={'request': self.request})
+        if not serializer.is_valid():
+            self.errors = serializer.errors
+            return False
         return True
 
     def is_form_data_valid(self) -> bool:
