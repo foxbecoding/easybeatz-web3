@@ -12,6 +12,7 @@ class AlbumProjectService:
         self.form_data = data
         self.album_form_data = {}
         self.tracks_form_data = []
+        self.errors = None
         self.__set_form_data()
 
 
@@ -56,6 +57,8 @@ class AlbumProjectService:
     def is_form_data_valid(self):
         album_serializer = AlbumFormSerializer(data=self.album_form_data)
         if not album_serializer.is_valid():
-            return Response({ "errors":  album_serializer.errors})
+            self.errors = album_serializer.errors
+            return False
+        self.errors = None
         return True
 
