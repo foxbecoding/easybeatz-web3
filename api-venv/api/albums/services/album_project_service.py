@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from users.models import User
 from stations.models import Station
+from ..serializers.album_form_data_serializer import AlbumFormSerializer
 from pprint import pprint
 
 class AlbumProjectService:
@@ -53,7 +54,10 @@ class AlbumProjectService:
         }
 
     def __validate_album_form_data(self):
-        pass
+        serializer = AlbumFormSerializer(data=self.album_form_data)
+        if not serializer.is_valid():
+            return serializer.errors
+        return True
 
     def __validate_tracks_form_data(self):
         pass
