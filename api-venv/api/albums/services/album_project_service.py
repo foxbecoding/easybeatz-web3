@@ -1,7 +1,6 @@
 from users.models import User
 from stations.models import Station
 from ..serializers.album_form_data_serializer import AlbumFormSerializer
-from pprint import pprint
 
 class AlbumProjectService:
     def __init__(self, data) -> None:
@@ -10,7 +9,6 @@ class AlbumProjectService:
         self.tracks_form_data = []
         self.errors = None
         self.__set_form_data()
-
 
     def __set_form_data(self):
         self.__set_album_form_data()
