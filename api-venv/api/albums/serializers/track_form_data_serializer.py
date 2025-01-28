@@ -87,12 +87,12 @@ class TrackFormSerializer(serializers.Serializer):
     def validate_genres(self, value):
         index = self.context['index']
         for genre_index, pk in enumerate(value):
-            if not Genre.object.filter(pk=str(pk)).exists():
+            if not Genre.objects.filter(pk=str(pk)).exists():
                 raise serializers.ValidationError({ f"track_{index}": { f"genre_{genre_index}": "Genre does not exists" } })
         return value
 
     def validate_mood(self, value):
         index = self.context['index']
-        if not Mood.object.filter(pk=str(value)).exists():
+        if not Mood.objects.filter(pk=str(value)).exists():
             raise serializers.ValidationError({ f"track_{index}": "Mood does not exists."})
         return value
