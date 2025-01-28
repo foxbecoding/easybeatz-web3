@@ -4,9 +4,8 @@ from stations.models import Station
 from ..serializers import AlbumFormSerializer, TrackFormSerializer
 
 class AlbumProjectService:
-    def __init__(self, request) -> None:
-        self.request = request
-        self.form_data = request.data
+    def __init__(self, request_data) -> None:
+        self.form_data = request_data
         self.album_form_data = {}
         self.tracks_form_data = []
         self.errors = None
@@ -62,7 +61,7 @@ class AlbumProjectService:
         return True 
 
     def __is_tracks_form_data_valid(self) -> bool:
-        serializer = TrackFormSerializer(data=self.tracks_form_data, context={'request': self.request}, many=True)
+        serializer = TrackFormSerializer(data=self.tracks_form_data, context={'tracks_form_data': self.tracks_form_data}, many=True)
         if not serializer.is_valid():
             self.errors = serializer.errors
             return False
