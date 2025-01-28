@@ -30,5 +30,17 @@ class TrackFormSerializer(serializers.Serializer):
         return value
 
     def validate_wav(self, value):
-       pass 
+        if value is None:  # If the value is null, skip validation
+            return value
 
+        if not value.name.lower().endswith('.wav'):
+            raise serializers.ValidationError("The file must have a .wav extension.")
+
+        # Check if the file is a valid WAV file
+        try:
+            from mutagen.wave import WAVE
+            WAVE(value)
+        except Exception:
+            raise serializers.ValidationError("The file is not a valid WAV file.")
+
+        return value
