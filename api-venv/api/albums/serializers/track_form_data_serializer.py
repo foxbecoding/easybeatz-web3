@@ -5,14 +5,11 @@ class TrackFormSerializer(serializers.Serializer):
     genres = serializers.ListField()
     mood = serializers.CharField()
     mp3 = serializers.FileField()
-    wav = serializers.FileField(allow_empty_file=True)
+    wav = serializers.FileField(allow_empty_file=True, allow_null=True)
     bpm = serializers.CharField()
     has_exclusive = serializers.BooleanField()
     price = serializers.CharField()
     exclusive_price = serializers.CharField(allow_blank=True)
     collaborators = serializers.ListField(allow_empty=True)
     stems = serializers.ListField(allow_empty=True)
-
-    # def validate_cover(self, value):
-        # return value
 
