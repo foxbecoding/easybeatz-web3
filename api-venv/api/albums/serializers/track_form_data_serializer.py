@@ -16,32 +16,33 @@ class TrackFormSerializer(serializers.Serializer):
     stems = serializers.ListField(allow_empty=True)
 
     def validate_mp3(self, value):
-        if value is None:  # If the value is null, skip validation
-            return value
+        track_index = self.context['index']
 
         if not value.name.lower().endswith('.mp3'):
-            raise serializers.ValidationError("The file must have a .mp3 extension.")
+            raise serializers.ValidationError({ f"track_{track_index}": "The file must have a .mp3 extension." })
 
         # Check if the file is a valid MP3 file
         try:
             MP3(value)
         except Exception:
-            raise serializers.ValidationError("The file is not a valid MP3 file.")
+            raise serializers.ValidationError({ f"track_{track_index}": "The file is not a valid MP3 file." })
 
         return value
 
     def validate_wav(self, value):
+        track_index = self.context['index']
+
         if value is None:  # If the value is null, skip validation
             return value
 
         if not value.name.lower().endswith('.wav'):
-            raise serializers.ValidationError("The file must have a .wav extension.")
+            raise serializers.ValidationError({ f"track_{track_index}": "The file must have a .wav extension." })
 
         # Check if the file is a valid WAV file
         try:
             WAVE(value)
         except Exception:
-            raise serializers.ValidationError("The file is not a valid WAV file.")
+            raise serializers.ValidationError({ f"track_{track_index}": "The file is not a valid WAV file." })
 
         return value
 
