@@ -15,3 +15,7 @@ class TrackFormSerializer(serializers.Serializer):
 
     def validate_mp3(self, value):
         pass
+
+    def validate_wav(self, value):
+        pass
+
