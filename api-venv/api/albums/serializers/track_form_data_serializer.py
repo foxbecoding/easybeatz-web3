@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from mutagen.mp3 import MP3
 from mutagen.wave import WAVE
+from genres.models import Genre
+from moods.models import Mood
 
 class TrackFormSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=120)
@@ -80,4 +82,11 @@ class TrackFormSerializer(serializers.Serializer):
         track_data, index = [self.context['track_data'], self.context['index']]
         if value and not track_data['stems']:
             raise serializers.ValidationError({f"track_{index}": "Exclusive tracks must have stems"})
+        return value
+
+    def validate_genres(self, value):
+        index = self.context['index']
+        for genre_index, pk in enumerate(value):
+            if not Genre.object.filter(pk=str(pk)).exists():
+                raise serializers.ValidationError({ f"track_{index}": { f"genre_{genre_index}": "Genre does not exists" } })
         return value
