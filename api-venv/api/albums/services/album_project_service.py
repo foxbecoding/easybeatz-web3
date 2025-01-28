@@ -77,3 +77,5 @@ class AlbumProjectService:
         self.errors = None
         return True
 
+    def save(self):
+        pass
