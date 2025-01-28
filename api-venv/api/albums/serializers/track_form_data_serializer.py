@@ -75,8 +75,9 @@ class TrackFormSerializer(serializers.Serializer):
         return value
 
     def validate_has_exclusive(self, value):
-        if value and not self.stems:
-            raise serializers.ValidationError("Exclusive tracks must have stems")
+        track_data, index = [self.context['track_data'], self.context['index']]
+        if value and not track_data['stems']:
+            raise serializers.ValidationError({f"track_{index}": "Exclusive tracks must have stems"})
         return value
 
 
