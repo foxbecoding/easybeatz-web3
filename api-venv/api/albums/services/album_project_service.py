@@ -62,10 +62,11 @@ class AlbumProjectService:
         return True 
 
     def __is_tracks_form_data_valid(self) -> bool:
-        serializer = TrackFormSerializer(data=self.tracks_form_data, context={'tracks_form_data': self.tracks_form_data}, many=True)
-        if not serializer.is_valid():
-            self.errors = serializer.errors
-            return False
+        for index, track_data in enumerate(self.tracks_form_data):
+            serializer = TrackFormSerializer(data=track_data, context={'track_data': track_data, 'index': index})
+            if not serializer.is_valid():
+                self.errors = serializer.errors
+                return False
         return True
 
     def is_form_data_valid(self) -> bool:
