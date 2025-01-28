@@ -73,3 +73,14 @@ class TrackFormSerializer(serializers.Serializer):
                 raise serializers.ValidationError({ "index": index, "message": f"File in item is not a valid WAV file." })
 
         return value
+
+    def validate(self, attrs):
+        tracks = self.context['tracks_form_data']
+
+        for track in tracks:
+            if track['has_exclusive'] and not track['stems']:
+                raise serializers.ValidationError({ "track": "Exclusive tracks must have stems", "index": track["stems"] })
+
+        return attrs
+
+
