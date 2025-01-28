@@ -16,63 +16,63 @@ class TrackFormSerializer(serializers.Serializer):
     stems = serializers.ListField(allow_empty=True)
 
     def validate_mp3(self, value):
-        track_index = self.context['index']
+        index = self.context['index']
 
         if not value.name.lower().endswith('.mp3'):
-            raise serializers.ValidationError({ f"track_{track_index}": "The file must have a .mp3 extension." })
+            raise serializers.ValidationError({ f"track_{index}": "The file must have a .mp3 extension." })
 
         # Check if the file is a valid MP3 file
         try:
             MP3(value)
         except Exception:
-            raise serializers.ValidationError({ f"track_{track_index}": "The file is not a valid MP3 file." })
+            raise serializers.ValidationError({ f"track_{index}": "The file is not a valid MP3 file." })
 
         return value
 
     def validate_wav(self, value):
-        track_index = self.context['index']
+        index = self.context['index']
 
         if value is None:  # If the value is null, skip validation
             return value
 
         if not value.name.lower().endswith('.wav'):
-            raise serializers.ValidationError({ f"track_{track_index}": "The file must have a .wav extension." })
+            raise serializers.ValidationError({ f"track_{index}": "The file must have a .wav extension." })
 
         # Check if the file is a valid WAV file
         try:
             WAVE(value)
         except Exception:
-            raise serializers.ValidationError({ f"track_{track_index}": "The file is not a valid WAV file." })
+            raise serializers.ValidationError({ f"track_{index}": "The file is not a valid WAV file." })
 
         return value
 
     def validate_stems(self, value):
-        track_index = self.context['index']
+        index = self.context['index']
         if not value:  # Allow empty list
             return value
 
         # Ensure each item in the list is a dictionary with `name` and `file`
         for index, item in enumerate(value):
             if not isinstance(item, dict):
-                raise serializers.ValidationError({ f"track_{track_index}": { f"stem_{index}": "Item in the stems list must be a dictionary." } })
+                raise serializers.ValidationError({ f"track_{index}": { f"stem_{index}": "Item in the stems list must be a dictionary." } })
 
             # Check that `name` is provided and is not empty
             name = item.get('name')
             if not name:
-                raise serializers.ValidationError({ f"track_{track_index}": { f"stem_{index}": "Item in the stems list must have a non-empty `name`." } })
+                raise serializers.ValidationError({ f"track_{index}": { f"stem_{index}": "Item in the stems list must have a non-empty `name`." } })
 
             # Check that `file` is a WAV file
             file = item.get('file')
             if not file:
-                raise serializers.ValidationError({ f"track_{track_index}": { f"stem_{index}": "Item in the stems list must have a `file`." } })
+                raise serializers.ValidationError({ f"track_{index}": { f"stem_{index}": "Item in the stems list must have a `file`." } })
             if not file.name.lower().endswith('.wav'):
-                raise serializers.ValidationError({ f"track_{track_index}": { f"stem_{index}": "File in item must have a .wav extension." } })
+                raise serializers.ValidationError({ f"track_{index}": { f"stem_{index}": "File in item must have a .wav extension." } })
 
             # Validate that the file is a valid WAV file by checking its content
             try:
                 WAVE(file)
             except Exception:
-                raise serializers.ValidationError({ f"track_{track_index}": { f"stem_{index}": "File in item is not a valid WAV file." } })
+                raise serializers.ValidationError({ f"track_{index}": { f"stem_{index}": "File in item is not a valid WAV file." } })
 
         return value
 
