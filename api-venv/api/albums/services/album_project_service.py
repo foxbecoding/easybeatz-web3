@@ -32,6 +32,7 @@ class AlbumProjectService:
         genre_count = int(self.form_data.get(f'tracks[{index}][genre_count]'))
         collab_count = int(self.form_data.get(f'tracks[{index}][collab_count]'))
         stem_count = int(self.form_data.get(f'tracks[{index}][stem_count]'))
+        has_exclusive = self.form_data.get(f'tracks[{index}][has_exclusive]') == 'True'
         return {
             'index': index,
             'title': self.form_data.get(f'tracks[{index}][title]'),
@@ -40,7 +41,7 @@ class AlbumProjectService:
             'mp3': self.form_data.get(f'tracks[{index}][mp3]'),
             'wav': self.form_data.get(f'tracks[{index}][wav]'),
             'bpm': self.form_data.get(f'tracks[{index}][bpm]'),
-            'has_exclusive': bool(self.form_data.get(f'tracks[{index}][has_exclusive]')),
+            'has_exclusive': has_exclusive,
             'price':self.form_data.get(f'tracks[{index}][price]'),
             'exclusive_price': self.form_data.get(f'tracks[{index}][exclusive_price]'),
             'collaborators': [self.form_data.get(f'tracks[{index}][collaborators][{ci}]') for ci in range(collab_count)],
