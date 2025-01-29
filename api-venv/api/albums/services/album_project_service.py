@@ -1,8 +1,8 @@
 from rest_framework.schemas.coreapi import serializers
 from users.models import User
 from stations.models import Station
-from ..models import Album, AlbumCover, Track, TrackMp3, TrackWav, TrackStem, TrackPrice, TrackCollaborator, TrackExclusivePrice
 from ..serializers import AlbumFormSerializer, TrackFormSerializer
+from ..serializers import CreateAlbumSerializer
 
 class AlbumProjectService:
     def __init__(self, request_data) -> None:
@@ -78,7 +78,13 @@ class AlbumProjectService:
         self.errors = None
         return True
 
+    def __save_album(self, station: Station):
+        album_data = { "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] } 
+        album_serializer = CreateAlbumSerializer(data=album_data)
+        album_serializer.is_valid()
+        album_ins = album_serializer.save()
+        return album_ins
+
     def save(self, station: Station):
-        album = Album(station=station, title=self.album_form_data['title'], bio=self.album_form_data['bio'])
-        album_ins = album.save()
-        print(f"Album: {album_ins}")
+        album_ins = self.__save_album(station)
+        print(album_ins)
