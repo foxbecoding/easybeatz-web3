@@ -1,6 +1,7 @@
 from rest_framework.schemas.coreapi import serializers
-from users.models import User
 from ..models import *
+from genres.models import Genre
+from moods.models import Mood
 from stations.models import Station
 from ..serializers import AlbumFormSerializer, TrackFormSerializer
 
@@ -78,7 +79,18 @@ class AlbumProjectService:
         return True
 
     def __track_model_data_builder(self, album: Album):
-        pass
+        tracks_data = []
+        for index, track in enumerate(self.tracks_form_data):
+            genres =  Genre.objects.filter(pk__in=track['genres'])
+            mood = Mood.objects.get(pk=track['mood'])
+            data = {
+                'album': album,
+                'title': track['title'],
+                'genres': genres,
+                'mood': mood,
+                'order_no': index
+            }
+            tracks_data.append(data)
 
     def __save_model_data(self, data, model):
         instance = model(**data)
@@ -88,4 +100,6 @@ class AlbumProjectService:
     def save(self, station: Station):
         album = self.__save_model_data({ "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] }, Album)
         album_cover = self.__save_model_data({ "album": album, "picture": self.album_form_data['cover'] }, AlbumCover)
-        # track: Track = {}
+        tracks_data = self.__track_model_data_builder(album)
+
+
