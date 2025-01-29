@@ -78,12 +78,6 @@ class AlbumProjectService:
         self.errors = None
         return True
 
-    def __save_album(self, station: Station) -> Album:
-        data = { "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] } 
-        instance = Album(**data)
-        instance.save()
-        return instance
-
     def __save_model_data(self, data, model):
         instance = model(**data)
         instance.save()
