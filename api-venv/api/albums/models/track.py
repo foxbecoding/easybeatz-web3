@@ -14,6 +14,7 @@ class Track(models.Model):
     genres = models.ManyToManyField(Genre, related_name='tracks')
     mood = models.ForeignKey(Mood, on_delete=models.CASCADE, related_name='tracks')
     title = models.CharField(max_length=120, default='')
+    bpm = models.CharField(default='')
     tid = models.CharField(default='', unique=True)
     slug = models.SlugField(blank=True, default='')
     order_no = models.SmallIntegerField(default=0)
