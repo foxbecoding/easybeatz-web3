@@ -80,12 +80,15 @@ class AlbumProjectService:
 
     def __save_album(self, station: Station) -> Album:
         data = { "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] } 
-        album = Album(**data)
-        album.save()
-        return album
+        instance = Album(**data)
+        instance.save()
+        return instance
 
-   def __save_album_cover(self, album: Album) -> None:
-        pass 
+    def __save_model_data(self, data, model):
+        instance = model(**data)
+        instance.save()
+        return instance
 
     def save(self, station: Station):
-        album = self.__save_album(station)
+        album = self.__save_model_data({ "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] }, Album)
+        album_cover = self.__save_model_data({ "album": album, "picture": self.album_form_data['cover'] }, AlbumCover)
