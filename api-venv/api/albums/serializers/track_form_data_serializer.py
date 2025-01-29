@@ -17,6 +17,9 @@ class TrackFormSerializer(serializers.Serializer):
     collaborators = serializers.ListField(allow_empty=True)
     stems = serializers.ListField(allow_empty=True)
 
+    def validate_price(self, value):
+        pass
+
     def validate_mp3(self, value):
         index = self.context['index']
 
