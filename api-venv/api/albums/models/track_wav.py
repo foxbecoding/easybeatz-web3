@@ -16,7 +16,7 @@ class TrackWav(models.Model):
         primary_key=True,
     )
     audio = models.FileField(upload_to=audio_file_path, default="")
-    provided_by_eb = models.BooleanField(default=False)
+    provided_by_eb = models.BooleanField(blank=True, default=False)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
