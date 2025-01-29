@@ -84,7 +84,8 @@ class AlbumProjectService:
         album.save()
         return album
 
-    
+   def __save_album_cover(self, album: Album) -> None:
+        pass 
 
     def save(self, station: Station):
         album = self.__save_album(station)
