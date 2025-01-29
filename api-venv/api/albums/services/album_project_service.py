@@ -88,6 +88,7 @@ class AlbumProjectService:
                 'title': track['title'],
                 'genres': genres,
                 'mood': mood,
+                'bpm': track['bpm'],
                 'order_no': index
             }
             tracks_data.append(data)
@@ -98,8 +99,53 @@ class AlbumProjectService:
         return instance
 
     def save(self, station: Station):
+        # Save Album data
         album = self.__save_model_data({ "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] }, Album)
-        album_cover = self.__save_model_data({ "album": album, "picture": self.album_form_data['cover'] }, AlbumCover)
-        tracks_data = self.__track_model_data_builder(album)
 
+        # Save AlbumCover
+        self.__save_model_data({ "album": album, "picture": self.album_form_data['cover'] }, AlbumCover)
 
+        # Process for save Tracks and related models
+        for index, track_data in enumerate(self.tracks_form_data):
+
+            # 1.) Save Track
+            genres =  Genre.objects.filter(pk__in=track_data['genres'])
+            mood = Mood.objects.get(pk=track_data['mood'])
+            track_model_data = {
+                'album': album,
+                'title': track_data['title'],
+                'bpm': track_data['bpm'],
+                'mood': mood,
+                'order_no': index
+            }
+            track = self.__save_model_data(track_model_data, Track)
+            track.genres.set(genres)
+
+            # 2.) Save TrackPrice
+            self.__save_model_data({ 'track': track, 'value': track_data['price'] }, TrackPrice)
+
+            # 3.) Save TrackMp3
+            self.__save_model_data({ 'track': track, 'audio': track_data['mp3'] }, TrackMp3)
+
+            # 4.) Save TrackWav
+            if track_data['wav']:
+                self.__save_model_data({ 'track': track, 'audio': track_data['wav'] }, TrackWav)
+
+            # 5.) Save TrackCollaborators
+            if track_data['collaborators']:
+                collabs = []
+                for collab in track_data['collaborators']:
+                    collab_data = TrackCollaborator(track=track, pubkey=collab)
+                    collabs.append(collab_data)
+                TrackCollaborator.objects.bulk_create(collabs)
+
+            if track_data['has_exclusive']:
+                # 6.) Save TrackExclusivePrice
+                self.__save_model_data({ 'track': track, 'value': track_data['exclusive_price'] }, TrackExclusivePrice)
+
+                # 7.) Save TrackStems
+                stems = []
+                for stem in track_data['stems']:
+                    stem_data = TrackStem(track=track, name=stem['name'], audio=stem['file'])
+                    stems.append(stem_data)
+                TrackStem.objects.bulk_create(stems)
