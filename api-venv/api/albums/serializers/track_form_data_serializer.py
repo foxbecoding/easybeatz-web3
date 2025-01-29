@@ -32,6 +32,10 @@ class TrackFormSerializer(serializers.Serializer):
 
     def validate_exclusive_price(self, value):
         index = self.context['index']
+
+        if not value:
+            return value
+
         if not value.isdigit():
             raise serializers.ValidationError({ f"track_{index}": "Exclusive price can only contain numbers. eg: 5, 50, 500" })
 
@@ -108,6 +112,10 @@ class TrackFormSerializer(serializers.Serializer):
         track_data, index = [self.context['track_data'], self.context['index']]
         if value and not track_data['stems']:
             raise serializers.ValidationError({f"track_{index}": "Exclusive tracks must have stems"})
+        
+        if value and not track_data['exclusive_price']:
+            raise serializers.ValidationError({f"track_{index}": "Exclusive tracks must have a exclusive price"})
+
         return value
 
     def validate_genres(self, value):
