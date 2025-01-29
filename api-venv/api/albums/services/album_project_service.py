@@ -78,6 +78,9 @@ class AlbumProjectService:
         self.errors = None
         return True
 
+    def __track_model_data_builder(self, album: Album):
+        pass
+
     def __save_model_data(self, data, model):
         instance = model(**data)
         instance.save()
@@ -86,3 +89,4 @@ class AlbumProjectService:
     def save(self, station: Station):
         album = self.__save_model_data({ "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] }, Album)
         album_cover = self.__save_model_data({ "album": album, "picture": self.album_form_data['cover'] }, AlbumCover)
+        # track: Track = {}
