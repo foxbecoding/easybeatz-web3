@@ -20,6 +20,9 @@ class TrackFormSerializer(serializers.Serializer):
     def validate_price(self, value):
         pass
 
+    def validate_exclusive_price(self, value):
+        pass
+
     def validate_mp3(self, value):
         index = self.context['index']
 
