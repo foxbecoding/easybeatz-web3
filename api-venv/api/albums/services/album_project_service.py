@@ -1,6 +1,7 @@
 from rest_framework.schemas.coreapi import serializers
 from users.models import User
 from stations.models import Station
+from ..models import Album, AlbumCover, Track, TrackMp3, TrackWav, TrackStem, TrackPrice, TrackCollaborator, TrackExclusivePrice
 from ..serializers import AlbumFormSerializer, TrackFormSerializer
 
 class AlbumProjectService:
@@ -77,5 +78,7 @@ class AlbumProjectService:
         self.errors = None
         return True
 
-    def save(self):
-        pass
+    def save(self, station: Station):
+        album = Album(station=station, title=self.album_form_data['title'], bio=self.album_form_data['bio'])
+        album_ins = album.save()
+        print(f"Album: {album_ins}")
