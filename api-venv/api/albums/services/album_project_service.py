@@ -35,7 +35,6 @@ class AlbumProjectService:
         stem_count = int(self.form_data.get(f'tracks[{index}][stem_count]'))
         has_exclusive = self.form_data.get(f'tracks[{index}][has_exclusive]') == 'True'
         return {
-            'index': index,
             'title': self.form_data.get(f'tracks[{index}][title]'),
             'genres': [self.form_data.get(f'tracks[{index}][genres][{gi}]') for gi in range(genre_count)],
             'mood': self.form_data.get(f'tracks[{index}][mood]'),
