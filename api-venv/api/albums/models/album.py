@@ -22,3 +22,6 @@ class Album(models.Model):
         if not self.aid:
             self.aid = uuid.uuid4().hex
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.pk)
