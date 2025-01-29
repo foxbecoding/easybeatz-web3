@@ -30,9 +30,18 @@ class TrackFormSerializer(serializers.Serializer):
 
         return value
 
-
     def validate_exclusive_price(self, value):
-        pass
+        index = self.context['index']
+        if not value.isdigit():
+            raise serializers.ValidationError({ f"track_{index}": "Exclusive price can only contain numbers. eg: 5, 50, 500" })
+
+        if value.startswith("0") and len(value) > 1:
+            raise serializers.ValidationError({ f"track_{index}": "Exclusive price cannot contain leading zeros. eg: 5, 50, 500" })
+
+        if value == "0":
+            raise serializers.ValidationError({ f"track_{index}": "Exclusive price cannot be 0." })
+
+        return value
 
     def validate_mp3(self, value):
         index = self.context['index']
