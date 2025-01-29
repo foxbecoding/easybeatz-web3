@@ -18,7 +18,18 @@ class TrackFormSerializer(serializers.Serializer):
     stems = serializers.ListField(allow_empty=True)
 
     def validate_price(self, value):
-        pass
+        index = self.context['index']
+        if not value.isdigit():
+            raise serializers.ValidationError({ f"track_{index}": "Price can only contain numbers. eg: 5, 50, 500" })
+
+        if value.startswith("0") and len(value) > 1:
+            raise serializers.ValidationError({ f"track_{index}": "Price cannot contain leading zeros. eg: 5, 50, 500" })
+
+        if value == "0":
+            raise serializers.ValidationError({ f"track_{index}": "Price cannot be 0." })
+
+        return value
+
 
     def validate_exclusive_price(self, value):
         pass
