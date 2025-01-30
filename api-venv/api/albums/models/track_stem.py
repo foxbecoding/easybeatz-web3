@@ -5,18 +5,17 @@ from .track import Track
 def audio_file_path(instance, filename):
     """Generate a unique file path for new audio file using UUID."""
     ext = filename.split('.')[-1]
-    new_filename = f"{uuid.uuid4()}.{ext}"
-    return os.path.join('track/wav/', new_filename)
+    new_filename = f"{uuid.uuid4().hex}.{ext}"
+    return os.path.join('track/stems/', new_filename)
 
-class TrackWav(models.Model):
-    track = models.OneToOneField(
+class TrackStem(models.Model):
+    track = models.ForeignKey(
         Track,
         on_delete=models.CASCADE,
-        related_name='wav',
-        primary_key=True,
+        related_name='stems',
     )
+    name = models.CharField(max_length=120, default="")
     audio = models.FileField(upload_to=audio_file_path, default="")
-    provided_by_eb = models.BooleanField(blank=True, default=False)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
