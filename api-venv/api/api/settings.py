@@ -181,3 +181,6 @@ MEDIA_URL=os.getenv('MEDIA_URL')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 314572800
+FILE_UPLOAD_MAX_MEMORY_SIZE = 314572800
