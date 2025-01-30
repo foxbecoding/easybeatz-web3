@@ -15,8 +15,14 @@
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
         <p class="text-lg font-semibold">@{{ station.handle }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
-        <NuxtLink v-if="station.is_owner" :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral rounded-[1rem]">
-          Customize station</NuxtLink>
+        <div v-if="station.is_owner" class="flex">
+          <NuxtLink :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral rounded-[1rem]">
+            Customize station
+          </NuxtLink>
+          <NuxtLink :to="{ name: 'station-edit' }" class="text-lg btn btn-secondary rounded-[1rem] ml-4">
+            Create project
+          </NuxtLink>
+        </div>
         <button v-else class="btn btn-secondary rounded-[1rem] text-lg">Subscribe</button>
       </div>
     </div>
