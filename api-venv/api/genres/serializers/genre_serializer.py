@@ -4,5 +4,5 @@ from ..models import Genre
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = []
+        fields = ['pk', 'name', 'slug']
 
