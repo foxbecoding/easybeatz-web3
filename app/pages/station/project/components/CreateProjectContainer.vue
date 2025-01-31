@@ -8,4 +8,10 @@ const props = defineProps<{
 }>();
 </script>
 
-<template></template>
+<template>
+  <ul class="steps w-full">
+    <li class="step step-primary">Project details</li>
+    <li class="step step-primary">Tracks</li>
+    <li class="step">Review</li>
+  </ul>
+</template>
