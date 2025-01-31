@@ -1,3 +1,68 @@
+<script setup lang="ts">
+import { type Station, createStation, updateStation } from "@/services/models/station";
+
+const props = defineProps<{
+  title: string;
+  type: "CREATE" | "EDIT";
+  pubkey?: string;
+  station?: Station | null;
+}>();
+
+const emit = defineEmits(['submit'])
+const isLoading = ref(false);
+
+const form = reactive<any>({
+  name: props.station ? props.station.name : '',
+  handle: props.station ? props.station.handle : '',
+  email: props.station ? props.station.email : '',
+  description: props.station ? props.station.description : ''
+});
+
+const formErrors = reactive<any>({
+  name: '',
+  handle: '',
+  email: '',
+  description: ''
+});
+
+const inputErrorClass = 'input-error';
+
+const formNameError = computed(() => formErrors.name ? inputErrorClass : '')
+const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
+const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
+const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
+
+const modelHandler = async () => {
+  if (props.type == 'CREATE') {
+    return await createStation(form);
+  }
+  return await updateStation(String(props.pubkey), form);
+}
+
+const submitHandler = async () => {
+  isLoading.value = true;
+  const res = await modelHandler();
+  if (res.error) {
+    errorHandler(res);
+    setTimeout(() => { isLoading.value = false }, 1000);
+    return
+  }
+  setTimeout(() => { isLoading.value = false }, 3000);
+  emit('submit')
+}
+
+const errorHandler = (res: any) => {
+  const obj = res.error
+  Object.keys(formErrors).forEach(key => {
+    if (key in obj) {
+      formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
+    } else {
+      formErrors[key] = '';
+    }
+  });
+}
+</script>
+
 <template>
   <div>
     <h1 class="text-3xl font-bold">{{ props.title }}</h1>
@@ -70,68 +135,3 @@
 
   </div>
 </template>
-
-<script setup lang="ts">
-import { type Station, createStation, updateStation } from "@/services/models/station";
-
-const props = defineProps<{
-  title: string;
-  type: "CREATE" | "EDIT";
-  pubkey?: string;
-  station?: Station | null;
-}>();
-
-const emit = defineEmits(['submit'])
-const isLoading = ref(false);
-
-const form = reactive<any>({
-  name: props.station ? props.station.name : '',
-  handle: props.station ? props.station.handle : '',
-  email: props.station ? props.station.email : '',
-  description: props.station ? props.station.description : ''
-});
-
-const formErrors = reactive<any>({
-  name: '',
-  handle: '',
-  email: '',
-  description: ''
-});
-
-const inputErrorClass = 'input-error';
-
-const formNameError = computed(() => formErrors.name ? inputErrorClass : '')
-const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
-const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
-const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
-
-const modelHandler = async () => {
-  if (props.type == 'CREATE') {
-    return await createStation(form);
-  }
-  return await updateStation(String(props.pubkey), form);
-}
-
-const submitHandler = async () => {
-  isLoading.value = true;
-  const res = await modelHandler();
-  if (res.error) {
-    errorHandler(res);
-    setTimeout(() => { isLoading.value = false }, 1000);
-    return
-  }
-  setTimeout(() => { isLoading.value = false }, 3000);
-  emit('submit')
-}
-
-const errorHandler = (res: any) => {
-  const obj = res.error
-  Object.keys(formErrors).forEach(key => {
-    if (key in obj) {
-      formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
-    } else {
-      formErrors[key] = '';
-    }
-  });
-}
-</script>
