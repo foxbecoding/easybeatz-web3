@@ -19,7 +19,7 @@
           <NuxtLink :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral rounded-[1rem]">
             Customize station
           </NuxtLink>
-          <NuxtLink :to="{ name: 'station-edit' }" class="text-lg btn btn-secondary rounded-[1rem] ml-4">
+          <NuxtLink :to="{ name: 'station-project-create' }" class="text-lg btn btn-secondary rounded-[1rem] ml-4">
             Create project
           </NuxtLink>
         </div>
