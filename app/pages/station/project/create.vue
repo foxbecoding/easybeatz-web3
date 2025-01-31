@@ -20,9 +20,14 @@ const pubkey = userStore.pubkey as string;
 const fetchGenrePath = `${config.public.API_GENRE}/${pubkey}/`;
 const fetchMoodPath = `${config.public.API_MOOD}/${pubkey}/`;
 
-const { data: genre, error: genre_error, status: genre_status, } = await useLazyFetch<Genre>(fetchGenrePath, {
+const { data: genre, error: genre_error, status: genre_status } = await useLazyFetch<Genre>(fetchGenrePath, {
   server: false,
   key: `station-genres-for-project-create`,
+});
+
+const { data: mood, error: mood_error, status: mood_status } = await useLazyFetch<Mood>(fetchMoodPath, {
+  server: false,
+  key: `station-moods-for-project-create`,
 });
 
 const toast = useToast();
