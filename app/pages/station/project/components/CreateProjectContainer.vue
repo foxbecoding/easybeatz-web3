@@ -19,7 +19,7 @@ const { albumForm, isStep1, isStep2, isStep3, isStep2Active } = useCreateProject
         <li class="step" :class="isStep2Active ? 'step-primary' : ''">Tracks</li>
         <li class="step" :class="isStep3 ? 'step-primary' : ''">Review</li>
       </ul>
-      <div class="py-4">
+      <div class="pt-4">
         <AlbumForm v-if="!isStep2 || !isStep3" />
       </div>
     </div>
