@@ -7,6 +7,29 @@ const albumCoverForm = {
   text: "*Recommended: For best quality, provide a square image that is at least 200x200 pixels."
 }
 
+const fileInput = ref();
+const previewUrl = ref<string | null>(null);
+
+const onFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (!file) return;
+
+  // Revoke the previous URL to avoid memory leaks
+  if (previewUrl.value) {
+    URL.revokeObjectURL(previewUrl.value);
+  }
+
+  // Create a new URL for the selected file
+  previewUrl.value = URL.createObjectURL(file);
+  albumForm.cover = file;
+  console.log(previewUrl.value)
+};
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+}
+
 </script>
 
 <template>
@@ -15,9 +38,12 @@ const albumCoverForm = {
   <p class="text-lg font-bold mb-2">{{ albumCoverForm.label }}</p>
   <p class="mb-4 max-w-[400px] block md:hidden"> {{ albumCoverForm.text }} </p>
   <div class="flex">
-    <button class="btn btn-base-100 btn-square h-[120px] w-[120px]">
+    <button @click="triggerFileInput" class="btn btn-base-100 btn-square h-[120px] w-[120px]">
       <Icon icon="solar:camera-add-bold" class="text-4xl" />
     </button>
+
+    <input ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif" @change="onFileChange"
+      class="hidden" />
     <p class="ml-4 max-w-[300px] hidden md:block"> {{ albumCoverForm.text }} </p>
   </div>
 
