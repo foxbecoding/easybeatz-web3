@@ -1,7 +1,9 @@
 <script setup lang="ts">
 
+const { albumForm, isStep2, isStep1Completed } = useCreateProject();
+
 const albumCoverForm = {
-  label: "Add project cover",
+  label: "Project cover",
   text: "*Recommended: For best quality, provide a square image that is at least 200x200 pixels."
 }
 
@@ -9,7 +11,8 @@ const albumCoverForm = {
 
 <template>
 
-  <h4 class="text-2xl font-bold md:mb-4">{{ albumCoverForm.label }}</h4>
+  <h4 class="text-2xl font-bold mb-4">Add project details</h4>
+  <p class="text-lg font-bold mb-2">{{ albumCoverForm.label }}</p>
   <p class="mb-4 max-w-[400px] block md:hidden"> {{ albumCoverForm.text }} </p>
   <div class="flex">
     <button class="btn btn-base-100 btn-square h-[120px] w-[120px]">
@@ -17,4 +20,32 @@ const albumCoverForm = {
     </button>
     <p class="ml-4 max-w-[300px] hidden md:block"> {{ albumCoverForm.text }} </p>
   </div>
+
+  <form id="form">
+    <label class="form-control w-full max-w-lg my-4">
+      <div class="label flex flex-col items-start">
+        <span class="label-text text-lg font-bold">Title</span>
+        <span class="label-text">Choose a title that represents your project.</span>
+      </div>
+      <input v-model="albumForm.title" id="name" name="name" type="text" placeholder="Enter project title"
+        class="input input-ghost bg-base-100 w-full max-w-lg" />
+    </label>
+
+    <label class="form-control w-full max-w-lg">
+      <div class="label">
+        <span class="label-text text-lg font-bold">Description(optional)</span>
+      </div>
+      <textarea v-model="albumForm.bio" id="bio" name="bio"
+        class="textarea textarea-ghost bg-base-100 w-full max-w-lg h-48"
+        placeholder="Tell listeners what your project is about."></textarea>
+    </label>
+  </form>
+
+  <div class="w-full mt-4 flex justify-end">
+    <button class="btn btn-secondary text-lg rounded-[1rem]" :disabled="!isStep1Completed">
+      Next
+      <Icon icon="solar:alt-arrow-right-line-duotone" class="text-2xl" />
+    </button>
+  </div>
+
 </template>
