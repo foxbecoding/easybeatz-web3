@@ -1,3 +1,60 @@
+<script setup lang="ts">
+
+const walletAddress = ref("");
+const { login, requestLoginNonce } = useAuth();
+const isConnecting = ref(false)
+
+const connectWallet = async () => {
+
+  if (window.phantom?.solana) {
+    try {
+      isConnecting.value = true;
+      // Request wallet connection
+      const response = await window.phantom.solana.connect();
+      walletAddress.value = response.publicKey.toString();
+
+      //Request login nonce
+      const nonce = await requestLoginNonce(walletAddress.value);
+
+      // generate message to sign
+      const message = generateMessage(nonce);
+
+      // Request the user to sign the message
+      const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
+
+      // Now that the wallet is connected, authenticate user
+      await authenticateUser(signedMessage.signature, message);
+      isConnecting.value = false;
+    } catch (error) {
+      console.error("Failed to connect wallet", error);
+      isConnecting.value = false;
+    }
+  } else {
+    alert("Phantom Wallet not found. Please install phantom wallet in your browser.");
+    isConnecting.value = false;
+  }
+}
+
+const generateMessage = (nonce: string): string => {
+  const message = `Welcome to EasyBeatz! 
+
+Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos) and Privacy Policy (https://easybeatz.com/privacy). 
+
+This request will not trigger a blockchain transaction or cost any gas fees. 
+
+Wallet address: ${walletAddress.value}
+
+Nonce: ${nonce}`;
+  return message;
+}
+
+const authenticateUser = async (signature: any, message: string) => {
+  login(signature, message, walletAddress.value);
+}
+
+</script>
+
+
 <template>
   <button @click="!isConnecting ? connectWallet() : false" class="btn btn-neutral rounded-[1rem] text-xl"
     :disabled="isConnecting">
