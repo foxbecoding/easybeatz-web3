@@ -17,12 +17,14 @@ export const useCreateProject = () => {
 
   const isStep1Completed = computed(() => albumForm.title && albumForm.cover ? true : false);
 
+  const isStep2Active = computed(() => isStep1.value && isStep2.value && isStep1Completed.value ? true : false);
 
   return {
     isStep1,
     isStep2,
     isStep3,
     isStep1Completed,
+    isStep2Active,
 
   }
 
