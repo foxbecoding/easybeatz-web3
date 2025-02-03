@@ -44,7 +44,7 @@ const triggerFileInput = () => {
       <button v-if="previewUrl" @click="triggerFileInput" class="btn glass mask mask-squircle upload-button opacity-80">
         <Icon icon="solar:camera-add-bold" class="text-xl" />
       </button>
-      <input ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif" @change="onFileChange"
+      <input ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif,.bmp,.webp" @change="onFileChange"
         class="hidden" />
     </div>
     <p class="ml-4 max-w-[300px] hidden md:block"> {{ albumCoverForm.text }} </p>
