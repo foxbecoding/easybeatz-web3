@@ -55,6 +55,7 @@ export const useCreateProject = () => {
     isStep3,
     isStep1Completed,
     isStep2Active,
+    validateAlbumForm,
   }
 
 }
