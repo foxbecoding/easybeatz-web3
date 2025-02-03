@@ -1,4 +1,3 @@
-from rest_framework.schemas.coreapi import serializers
 from ..models import *
 from genres.models import Genre
 from moods.models import Mood
