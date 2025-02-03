@@ -8,7 +8,7 @@ class AlbumFormSerializer(serializers.Serializer):
 
     def validate_cover(self, value):
         # Allowed file types
-        allowed_formats = ['png', 'jpeg', 'jpg', 'avif']
+        allowed_formats = ['png', 'jpeg', 'jpg', 'avif', 'webp', 'bmp']
 
         try:
             image = Image.open(value)
