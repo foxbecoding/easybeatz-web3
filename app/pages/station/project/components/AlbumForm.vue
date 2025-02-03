@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const { albumForm, isStep2, isStep1Completed } = useCreateProject();
 
 const albumCoverForm = {
@@ -28,11 +27,9 @@ const onFileChange = (event: Event) => {
 const triggerFileInput = () => {
   fileInput.value.click();
 }
-
 </script>
 
 <template>
-
   <h4 class="text-2xl font-bold mb-4">Add project details</h4>
   <p class="text-lg font-bold mb-2">{{ albumCoverForm.label }}</p>
   <p class="mb-4 max-w-[400px] block md:hidden"> {{ albumCoverForm.text }} </p>
@@ -80,7 +77,6 @@ const triggerFileInput = () => {
       <Icon icon="solar:alt-arrow-right-line-duotone" class="text-2xl" />
     </button>
   </div>
-
 </template>
 
 <style scoped>
