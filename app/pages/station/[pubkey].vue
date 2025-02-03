@@ -65,8 +65,8 @@ const uploadPicture = async (file: File) => {
           class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-95">
           <Icon icon="solar:camera-add-bold" class="text-xl" />
         </button>
-        <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif"
-          @change="onFileChange" class="hidden" />
+        <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput"
+          accept=".png,.jpg,.jpeg,.avif,.bmp,.webp" @change="onFileChange" class="hidden" />
       </div>
       <div>
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
