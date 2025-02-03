@@ -77,21 +77,6 @@ class AlbumProjectService:
         self.errors = None
         return True
 
-    def __track_model_data_builder(self, album: Album):
-        tracks_data = []
-        for index, track in enumerate(self.tracks_form_data):
-            genres =  Genre.objects.filter(pk__in=track['genres'])
-            mood = Mood.objects.get(pk=track['mood'])
-            data = {
-                'album': album,
-                'title': track['title'],
-                'genres': genres,
-                'mood': mood,
-                'bpm': track['bpm'],
-                'order_no': index
-            }
-            tracks_data.append(data)
-
     def __save_model_data(self, data, model):
         instance = model(**data)
         instance.save()
