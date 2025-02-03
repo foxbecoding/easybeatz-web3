@@ -20,6 +20,7 @@ class AlbumProjectViewSet(viewsets.ViewSet):
 
         # run service
         service = AlbumProjectService(request.data)
+        service.set_form_data()
         if not service.is_form_data_valid():
             return Response({"errors": service.errors})
         service.save(station)
