@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
-import AlbumForm from "./AlbumForm.vue"
+import AlbumForm from "./AlbumForm.vue";
+import TrackForm from "./TrackForm.vue";
 
 const props = defineProps<{
   genres: Genre[] | null;
@@ -21,6 +22,7 @@ const { albumForm, isStep1, isStep2, isStep3, isStep2Active } = useCreateProject
       </ul>
       <div class="pt-4">
         <AlbumForm v-if="!isStep2 || !isStep3" />
+        <TrackForm v-else-if="isStep2 && !isStep3" />
       </div>
     </div>
   </div>
