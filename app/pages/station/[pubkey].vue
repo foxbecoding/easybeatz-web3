@@ -1,3 +1,60 @@
+<script setup lang="ts">
+import { useAuthStore } from "@/store/auth";
+import { type Station, uploadStationPicture } from "@/services/models/station";
+
+const route = useRoute();
+const config = useRuntimeConfig();
+const authStore = useAuthStore();
+const pubkey = ref(route.params.pubkey)
+const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`;
+const isAuthenticated = computed(() => authStore.isAuthenticated)
+const isOwner = ref<boolean>(false);
+const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const fileInput = ref();
+const defaultStationImage = '/easy-glow.png'
+
+//const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
+
+const { data: station, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
+  server: false,
+  key: `station-${pubkey.value}`,
+  watch: [isAuthenticated],
+  onRequest({ request, options }) {
+    if (authStore.accessToken) {
+      options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
+    }
+  },
+  onResponseError({ request, response, options }) {
+    isOwner.value = response._data.is_owner;
+  }
+});
+
+const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}/` + station.value?.picture : defaultStationImage);
+
+const onFileChange = (event: any) => {
+  const file: File = event.target.files[0];
+  if (!file) return;
+  //upload picture
+  uploadPicture(file)
+}
+
+const triggerFileInput = () => {
+  fileInput.value.click();
+}
+
+const uploadPicture = async (file: File) => {
+  const formData = new FormData;
+  formData.append('picture', file);
+  const res = await uploadStationPicture(formData);
+  const toast = useToast();
+  if (!res.error) {
+    await refresh()
+    toast.setToast("Picture uploaded successfully", "SUCCESS");
+    return;
+  }
+}
+</script>
+
 <template>
   <AppPageContainer>
     <div v-if="status == 'success' && station" class="flex">
@@ -74,63 +131,6 @@
     </div>
   </AppPageContainer>
 </template>
-
-<script setup lang="ts">
-import { useAuthStore } from "@/store/auth";
-import { type Station, uploadStationPicture } from "@/services/models/station";
-
-const route = useRoute();
-const config = useRuntimeConfig();
-const authStore = useAuthStore();
-const pubkey = ref(route.params.pubkey)
-const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`;
-const isAuthenticated = computed(() => authStore.isAuthenticated)
-const isOwner = ref<boolean>(false);
-const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-const fileInput = ref();
-const defaultStationImage = '/easy-glow.png'
-
-//const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
-
-const { data: station, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
-  server: false,
-  key: `station-${pubkey.value}`,
-  watch: [isAuthenticated],
-  onRequest({ request, options }) {
-    if (authStore.accessToken) {
-      options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
-    }
-  },
-  onResponseError({ request, response, options }) {
-    isOwner.value = response._data.is_owner;
-  }
-});
-
-const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}/` + station.value?.picture : defaultStationImage);
-
-const onFileChange = (event: any) => {
-  const file: File = event.target.files[0];
-  if (!file) return;
-  //upload picture
-  uploadPicture(file)
-}
-
-const triggerFileInput = () => {
-  fileInput.value.click();
-}
-
-const uploadPicture = async (file: File) => {
-  const formData = new FormData;
-  formData.append('picture', file);
-  const res = await uploadStationPicture(formData);
-  const toast = useToast();
-  if (!res.error) {
-    await refresh()
-    toast.setToast("Picture uploaded successfully", "SUCCESS");
-    return;
-  }
-}
-</script>
 
 <style scoped>
 .upload-button {
