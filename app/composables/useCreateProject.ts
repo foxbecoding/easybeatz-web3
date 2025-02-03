@@ -4,6 +4,25 @@ interface AlbumForm {
   bio: string;
 }
 
+interface TrackStemForm {
+  name: string;
+  file: File | null;
+}
+
+interface TrackForm {
+  bpm: string;
+  collaborators: string[];
+  exclusive_price: string;
+  genres: string[];
+  has_exclusive: boolean;
+  mood: string;
+  mp3: File | null;
+  price: string;
+  stems: TrackStemForm[];
+  title: string;
+  wav?: File | null;
+}
+
 export const useCreateProject = () => {
   const isStep1 = ref(true);
   const isStep2 = ref(false);
