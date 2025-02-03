@@ -42,14 +42,16 @@ export const useCreateProject = () => {
 
   const validateAlbumForm = async () => {
     const formData = new FormData;
-    formData.append('title', albumForm.title)
-    formData.append('cover', albumForm.cover)
-    formData.append('bio', albumForm.bio)
+    formData.append('album[title]', albumForm.title)
+    formData.append('album[cover]', albumForm.cover)
+    formData.append('album[bio]', albumForm.bio)
     const res = await albumFormValidator(formData)
-    if ('errors' in res) {
+    if (res.errors) {
+      console.error(res.errors)
       return
     }
-    isStep2.value = true
+    isStep2.value = true;
+    console.log(isStep2.value)
   }
 
   return {
