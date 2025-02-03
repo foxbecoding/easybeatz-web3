@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { albumForm, isStep2, isStep1Completed } = useCreateProject();
+const { albumForm, isStep2, isStep1Completed, validateAlbumForm } = useCreateProject();
 
 const albumCoverForm = {
   label: "Project cover",
@@ -72,7 +72,7 @@ const triggerFileInput = () => {
   </form>
 
   <div class="w-full mt-4 flex justify-end">
-    <button class="btn btn-secondary text-lg rounded-[1rem]" :disabled="!isStep1Completed">
+    <button @click="validateAlbumForm()" class="btn btn-secondary text-lg rounded-[1rem]" :disabled="!isStep1Completed">
       Next
       <Icon icon="solar:alt-arrow-right-line-duotone" class="text-2xl" />
     </button>
