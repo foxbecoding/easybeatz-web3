@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { albumForm, isStep2, isStep1Completed, validateAlbumForm } = useCreateProject();
+const { albumForm, isStep1Completed, validateAlbumForm } = useCreateProject();
 
 const albumCoverForm = {
   label: "Project cover",
