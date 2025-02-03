@@ -30,7 +30,7 @@ export const useCreateProject = () => {
   const isStep2 = ref(false);
   const isStep3 = ref(false);
 
-  const albumForm = reactive<AlbumForm>({
+  const albumForm = reactive<AlbumForm | any>({
     title: '',
     cover: null,
     bio: ''
@@ -41,7 +41,11 @@ export const useCreateProject = () => {
   const isStep2Active = computed(() => isStep1.value && isStep2.value && isStep1Completed.value ? true : false);
 
   const validateAlbumForm = async () => {
-    const res = await albumFormValidator(albumForm)
+    const formData = new FormData;
+    formData.append('title', albumForm.title)
+    formData.append('cover', albumForm.cover)
+    formData.append('bio', albumForm.bio)
+    const res = await albumFormValidator(formData)
     if ('errors' in res) {
       return
     }
