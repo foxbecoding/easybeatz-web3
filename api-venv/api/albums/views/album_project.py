@@ -25,7 +25,7 @@ class AlbumProjectViewSet(viewsets.ViewSet):
         if not service.is_form_data_valid():
             return Response({"errors": service.errors})
         service.save(station)
-        return Response("Easy Beatz", status=status.HTTP_200_OK)
+        return Response("Album created", status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])
     def validate_album_form(self, request):
