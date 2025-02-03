@@ -10,8 +10,6 @@ class AlbumProjectService:
         self.album_form_data = {}
         self.tracks_form_data = []
         self.errors = None
-
-    def run(self):
         self.__set_form_data()
 
     def __set_form_data(self):
