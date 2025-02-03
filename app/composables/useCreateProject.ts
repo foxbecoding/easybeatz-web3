@@ -1,3 +1,5 @@
+import { albumFormValidator } from "@/services/models/album";
+
 interface AlbumForm {
   title: string;
   cover: File | null;
@@ -37,6 +39,14 @@ export const useCreateProject = () => {
   const isStep1Completed = computed(() => albumForm.title && albumForm.cover ? true : false);
 
   const isStep2Active = computed(() => isStep1.value && isStep2.value && isStep1Completed.value ? true : false);
+
+  const validateAlbumForm = async () => {
+    const res = await albumFormValidator(albumForm)
+    if ('errors' in res) {
+      return
+    }
+    isStep2.value = true
+  }
 
   return {
     albumForm,
