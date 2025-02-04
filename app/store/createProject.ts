@@ -45,16 +45,39 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     const res = await albumFormValidator(formData)
     if (res.errors) {
       console.error(res.errors)
-      return
+      return false;
     }
-    activeSteps.value.push('step2')
-    step.value = ('step2')
+    return true;
+  }
+
+  const next = () => {
+    if (step.value === 'step1') {
+      activeSteps.value.push('step2');
+      step.value = ('step2');
+    } else if (step.value === 'step2') {
+      activeSteps.value.push('step3');
+      step.value = ('step3');
+    }
+  }
+
+  const back = () => {
+    if (step.value === 'step2') {
+      activeSteps.value.filter(step => step === 'step2');
+      //activeSteps.value = activeSteps.value.filter(x => x === 'step2');
+      step.value = 'step1';
+    } else if (step.value === 'step3') {
+      activeSteps.value.filter(step => step === 'step3');
+      //activeSteps.value = activeSteps.value.filter(x => x === 'step2');
+      step.value = 'step2';
+    }
   }
 
   return {
     albumForm,
     activeSteps,
+    back,
     isStep1Completed,
+    next,
     step,
     validateAlbumForm,
   }
