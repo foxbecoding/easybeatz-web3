@@ -29,6 +29,15 @@ const onFileChange = (event: Event) => {
 const triggerFileInput = () => {
   fileInput.value.click();
 }
+
+const nextStepHandler = async () => {
+  const res = await createProjectStore.validateAlbumForm()
+  if (!res) {
+    return
+  }
+  createProjectStore.next();
+}
+
 </script>
 
 <template>
@@ -53,7 +62,7 @@ const triggerFileInput = () => {
   </div>
 
 
-  <form id="form">
+  <form id="form" @keydown.enter.prevent>
     <label class="form-control w-full max-w-lg my-4">
       <div class="label flex flex-col items-start">
         <span class="label-text text-lg font-bold">Title</span>
@@ -74,7 +83,7 @@ const triggerFileInput = () => {
   </form>
 
   <div class="w-full mt-4 flex justify-end">
-    <button @click="createProjectStore.isStep1Completed ? createProjectStore.validateAlbumForm() : false"
+    <button @click="createProjectStore.isStep1Completed ? nextStepHandler() : false"
       class="btn btn-secondary text-lg rounded-[1rem]" :disabled="!createProjectStore.isStep1Completed">
       Next
       <Icon icon="solar:alt-arrow-right-line-duotone" class="text-2xl" />
