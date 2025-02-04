@@ -16,7 +16,6 @@ const activeSteps = computed<string[]>(() => createProjectStore.activeSteps);
 </script>
 
 <template>
-  {{ activeSteps }}
   <div class="card bg-neutral max-w-[1200px] w-full shadow-md block mx-auto">
     <div class="card-body">
       <ul class="steps w-full">
