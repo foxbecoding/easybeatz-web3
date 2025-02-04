@@ -20,7 +20,7 @@ interface TrackForm {
   mood: string;
   mp3: File | null;
   price: string;
-  stems: TrackStemForm[];
+  stems: TrackStemForm[] | [];
   title: string;
   wav?: File | null;
 }
@@ -31,6 +31,22 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     cover: null,
     bio: ''
   });
+
+  const trackForm: TrackForm = {
+    bpm: '',
+    collaborators: [],
+    exclusive_price: '',
+    genres: [],
+    has_exclusive: false,
+    mood: '',
+    mp3: null,
+    price: '',
+    stems: [],
+    title: '',
+    wav: null
+  };
+
+  const trackFormFields = ref<TrackForm[]>([trackForm]);
 
   const isStep1Completed = computed(() => albumForm.title && albumForm.cover ? true : false);
   const activeSteps = ref<string[]>(['step1'])
