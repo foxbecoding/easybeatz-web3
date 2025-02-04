@@ -26,10 +26,6 @@ interface TrackForm {
 }
 
 export const useCreateProject = () => {
-  const isStep1 = ref(true);
-  const isStep2 = ref(false);
-  const isStep3 = ref(false);
-
   const albumForm = reactive<AlbumForm | any>({
     title: '',
     cover: null,
@@ -37,8 +33,8 @@ export const useCreateProject = () => {
   });
 
   const isStep1Completed = computed(() => albumForm.title && albumForm.cover ? true : false);
-
-  const isStep2Active = computed(() => isStep1.value && isStep2.value && isStep1Completed.value ? true : false);
+  const step = ref('step1')
+  const activeStep = computed(() => step.value)
 
   const validateAlbumForm = async () => {
     const formData = new FormData;
@@ -50,17 +46,14 @@ export const useCreateProject = () => {
       console.error(res.errors)
       return
     }
-    isStep2.value = true;
-    console.log(isStep2.value)
+    step.value = 'step2';
+    console.log(`test: ${activeStep.value}`)
   }
 
   return {
     albumForm,
-    isStep1,
-    isStep2,
-    isStep3,
+    activeStep,
     isStep1Completed,
-    isStep2Active,
     validateAlbumForm,
   }
 
