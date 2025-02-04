@@ -4,6 +4,7 @@ import { type Mood } from "@/services/models/mood";
 import { useCreateProjectStore } from "@/store/createProject";
 import AlbumForm from "./AlbumForm.vue";
 import TrackForm from "./TrackForm.vue";
+import Review from "./Review.vue";
 
 const props = defineProps<{
   genres: Genre[] | null;
@@ -12,6 +13,7 @@ const props = defineProps<{
 
 const createProjectStore = useCreateProjectStore();
 const activeSteps = computed<string[]>(() => createProjectStore.activeSteps);
+const activeStep = computed(() => createProjectStore.step);
 
 </script>
 
@@ -25,8 +27,9 @@ const activeSteps = computed<string[]>(() => createProjectStore.activeSteps);
         <li class="step" :class="activeSteps.includes('step3') ? 'step-primary' : ''">Review</li>
       </ul>
       <div class="pt-4">
-        <AlbumForm v-if="createProjectStore.step === 'step1'" />
-        <TrackForm v-if="createProjectStore.step === 'step2'" />
+        <AlbumForm v-if="activeStep === 'step1'" />
+        <TrackForm v-if="activeStep === 'step2'" />
+        <Review v-if="activeStep === 'step3'" />
       </div>
     </div>
   </div>
