@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { albumForm, isStep1Completed, validateAlbumForm } = useCreateProject();
+import { useCreateProjectStore } from "@/store/createProject";
+
+const createProjectStore = useCreateProjectStore();
 
 const albumCoverForm = {
   label: "Project cover",
@@ -21,7 +23,7 @@ const onFileChange = (event: Event) => {
 
   // Create a new URL for the selected file
   previewUrl.value = URL.createObjectURL(file);
-  albumForm.cover = file;
+  createProjectStore.albumForm.cover = file;
 };
 
 const triggerFileInput = () => {
@@ -57,22 +59,23 @@ const triggerFileInput = () => {
         <span class="label-text text-lg font-bold">Title</span>
         <span class="label-text">Choose a title that represents your project.</span>
       </div>
-      <input v-model="albumForm.title" id="name" name="name" type="text" placeholder="Enter project title"
-        class="input input-ghost bg-base-100 w-full max-w-lg" />
+      <input v-model="createProjectStore.albumForm.title" id="name" name="name" type="text"
+        placeholder="Enter project title" class="input input-ghost bg-base-100 w-full max-w-lg" />
     </label>
 
     <label class="form-control w-full max-w-lg">
       <div class="label">
         <span class="label-text text-lg font-bold">Description(optional)</span>
       </div>
-      <textarea v-model="albumForm.bio" id="bio" name="bio"
+      <textarea v-model="createProjectStore.albumForm.bio" id="bio" name="bio"
         class="textarea textarea-ghost bg-base-100 w-full max-w-lg h-48"
         placeholder="Tell listeners what your project is about."></textarea>
     </label>
   </form>
 
   <div class="w-full mt-4 flex justify-end">
-    <button @click="isStep1Completed ? validateAlbumForm() : false" class="btn btn-secondary text-lg rounded-[1rem]" :disabled="!isStep1Completed">
+    <button @click="createProjectStore.isStep1Completed ? createProjectStore.validateAlbumForm() : false"
+      class="btn btn-secondary text-lg rounded-[1rem]" :disabled="!createProjectStore.isStep1Completed">
       Next
       <Icon icon="solar:alt-arrow-right-line-duotone" class="text-2xl" />
     </button>
