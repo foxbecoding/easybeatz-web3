@@ -62,12 +62,10 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const back = () => {
     if (step.value === 'step2') {
-      activeSteps.value.filter(step => step === 'step2');
-      //activeSteps.value = activeSteps.value.filter(x => x === 'step2');
+      activeSteps.value = activeSteps.value.filter(step => step !== 'step2');
       step.value = 'step1';
     } else if (step.value === 'step3') {
-      activeSteps.value.filter(step => step === 'step3');
-      //activeSteps.value = activeSteps.value.filter(x => x === 'step2');
+      activeSteps.value = activeSteps.value.filter(step => step !== 'step3');
       step.value = 'step2';
     }
   }
