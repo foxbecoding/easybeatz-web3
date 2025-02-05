@@ -24,6 +24,10 @@ const sanitizeInput = (index: any, event: any) => {
   createProjectStore.trackFormFields[index]['price'] = value;
 };
 
+const addTrack = () => {
+  createProjectStore.addTrack()
+}
+
 </script>
 
 <template>
@@ -53,7 +57,7 @@ const sanitizeInput = (index: any, event: any) => {
       </div>
     </div>
   </form>
-  <button class="btn btn-secondary text-lg">
+  <button @click="addTrack" class="btn btn-secondary text-lg">
     <Icon icon="material-symbols:music-note-add-rounded" class="text-2xl" />
     Add new track
   </button>
