@@ -33,7 +33,7 @@ const addTrack = () => {
   </div>
 
   <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box">
+    <div class="modal-box lg:translate-x-[150px]">
       <h3 class="text-lg font-bold">Add track</h3>
       <form>
         <div v-for="(track, t) in createProjectStore.trackFormFields" :key="t">
