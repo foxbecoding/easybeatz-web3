@@ -99,8 +99,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     }
   }
 
-  const addTrack = (): TrackForm => {
-    return {
+  const addTrack = () => {
+    trackFormFields.value.push({
       bpm: '',
       collaborators: [],
       exclusive_price: '',
@@ -112,7 +112,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
       stems: [],
       title: '',
       wav: null
-    }
+    });
   }
 
   return {
