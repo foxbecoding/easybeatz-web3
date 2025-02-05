@@ -34,9 +34,10 @@ const addTrack = () => {
 
   <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box lg:translate-x-[150px]">
-      <h3 class="text-lg font-bold">Add track</h3>
+      <h2 class="text-2xl font-bold">Add track</h2>
       <form>
-        <div class="mb-4">
+        <div class="flex flex-col gap-2 mt-4">
+          <h3 class="text-xl font-bold"> Details</h3>
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Title</span>
@@ -45,8 +46,6 @@ const addTrack = () => {
             <input v-model="projectStore.trackForm.title" id="title" name="title" type="text"
               placeholder="Enter track title" class="input input-ghost bg-neutral w-full" />
           </label>
-        </div>
-        <div class="mb-4">
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Price</span>
@@ -55,6 +54,7 @@ const addTrack = () => {
               placeholder="Enter track price" class="input input-ghost bg-neutral w-full" />
           </label>
         </div>
+        <div class="divider" />
       </form>
       <div class="modal-action">
         <form id="form" method="dialog">
