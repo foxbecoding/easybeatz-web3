@@ -3,14 +3,6 @@ import { useCreateProjectStore } from "@/store/createProject";
 
 const createProjectStore = useCreateProjectStore();
 
-const nextStepHandler = async () => {
-  createProjectStore.next();
-}
-
-const backStepHandler = async () => {
-  createProjectStore.back();
-}
-
 const sanitizeInput = (index: any, event: any) => {
   let value = event.target.value;
 
@@ -32,46 +24,46 @@ const addTrack = () => {
 
 <template>
   <h1 class="text-2xl font-bold">Add project tracks</h1>
-  {{ createProjectStore.trackFormFields }}
-  <form id="form" class="mt-4">
-    <div v-for="(track, t) in createProjectStore.trackFormFields" :key="t">
-      <p class="text-xl font-bold">Track {{ t + 1 }}</p>
-      <div class="mb-4">
-        <label class="form-control w-full max-w-lg">
-          <div class="label flex flex-col items-start">
-            <span class="label-text text-lg font-bold">Title</span>
-            <span class="label-text">Choose a title for your track.</span>
-          </div>
-          <input v-model="track.title" id="title" name="title" type="text" placeholder="Enter track title"
-            class="input input-ghost bg-base-100 w-full max-w-lg" />
-        </label>
-      </div>
-      <div class="mb-4">
-        <label class="form-control w-full max-w-lg">
-          <div class="label flex flex-col items-start">
-            <span class="label-text text-lg font-bold">Price</span>
-          </div>
-          <input v-model="track.price" @input="sanitizeInput(t, $event)" id="price" name="price" type="number"
-            placeholder="Enter track price" class="input input-ghost bg-base-100 w-full max-w-lg" />
-        </label>
-      </div>
-    </div>
-  </form>
+
   <div class="my-4">
-    <button @click="addTrack()" class="btn btn-secondary text-md">
+    <button onclick="add_track_modal.showModal()" class="btn btn-secondary text-md">
       <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
       Add new track
     </button>
   </div>
 
-  <div class="flex justify-between">
-    <button @click="backStepHandler()" class="btn text-lg rounded-[1rem]">
-      <Icon icon="solar:alt-arrow-left-line-duotone" class="text-2xl" />
-      Back
-    </button>
-    <button @click="nextStepHandler()" class="btn btn-secondary text-lg rounded-[1rem]">
-      Next
-      <Icon icon="solar:alt-arrow-right-line-duotone" class="text-2xl" />
-    </button>
-  </div>
+  <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">Add track</h3>
+      <form>
+        <div v-for="(track, t) in createProjectStore.trackFormFields" :key="t">
+          <p class="text-xl font-bold">Track {{ t + 1 }}</p>
+          <div class="mb-4">
+            <label class="form-control w-full">
+              <div class="label flex flex-col items-start">
+                <span class="label-text text-lg font-bold">Title</span>
+                <span class="label-text">Choose a title for your track.</span>
+              </div>
+              <input v-model="track.title" id="title" name="title" type="text" placeholder="Enter track title"
+                class="input input-ghost bg-neutral w-full" />
+            </label>
+          </div>
+          <div class="mb-4">
+            <label class="form-control w-full">
+              <div class="label flex flex-col items-start">
+                <span class="label-text text-lg font-bold">Price</span>
+              </div>
+              <input v-model="track.price" @input="sanitizeInput(t, $event)" id="price" name="price" type="number"
+                placeholder="Enter track price" class="input input-ghost bg-neutral w-full" />
+            </label>
+          </div>
+        </div>
+      </form>
+      <div class="modal-action">
+        <form id="form" method="dialog">
+          <button class="btn">Close</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </template>
