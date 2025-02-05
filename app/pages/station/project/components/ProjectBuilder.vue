@@ -19,6 +19,7 @@ const createProjectStore = useCreateProjectStore();
     <div class="card-body p-0">
       <AlbumForm />
       <div class="divider" />
+      <TrackForm />
     </div>
   </div>
 
