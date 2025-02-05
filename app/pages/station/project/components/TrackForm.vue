@@ -57,7 +57,7 @@ const addTrack = () => {
       </div>
     </div>
   </form>
-  <button @click="addTrack" class="btn btn-secondary text-lg">
+  <button @click="addTrack()" class="btn btn-secondary text-lg">
     <Icon icon="material-symbols:music-note-add-rounded" class="text-2xl" />
     Add new track
   </button>
