@@ -47,7 +47,19 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     wav: null
   };
 
-  const trackFormFields = ref<TrackForm[]>([trackForm]);
+  const trackFormFields = ref<TrackForm[]>([{
+    bpm: '',
+    collaborators: [],
+    exclusive_price: '',
+    genres: [],
+    has_exclusive: false,
+    mood: '',
+    mp3: null,
+    price: '',
+    stems: [],
+    title: '',
+    wav: null
+  }]);
 
   const isStep1Completed = computed(() => albumForm.title && albumForm.cover ? true : false);
   const activeSteps = ref<string[]>(['step1'])
@@ -87,9 +99,26 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     }
   }
 
+  const addTrack = (): TrackForm => {
+    return {
+      bpm: '',
+      collaborators: [],
+      exclusive_price: '',
+      genres: [],
+      has_exclusive: false,
+      mood: '',
+      mp3: null,
+      price: '',
+      stems: [],
+      title: '',
+      wav: null
+    }
+  }
+
   return {
-    albumForm,
     activeSteps,
+    addTrack,
+    albumForm,
     back,
     coverPreviewUrl,
     isStep1Completed,
