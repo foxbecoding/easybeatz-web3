@@ -61,10 +61,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     wav: null
   }]);
 
-  const isStep1Completed = computed(() => albumForm.title && albumForm.cover ? true : false);
-  const activeSteps = ref<string[]>(['step1'])
-  const step = ref('step1')
-
 
   const validateAlbumForm = async () => {
     const formData = new FormData;
@@ -77,26 +73,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
       return false;
     }
     return true;
-  }
-
-  const next = () => {
-    if (step.value === 'step1') {
-      activeSteps.value.push('step2');
-      step.value = ('step2');
-    } else if (step.value === 'step2') {
-      activeSteps.value.push('step3');
-      step.value = ('step3');
-    }
-  }
-
-  const back = () => {
-    if (step.value === 'step2') {
-      activeSteps.value = activeSteps.value.filter(step => step !== 'step2');
-      step.value = 'step1';
-    } else if (step.value === 'step3') {
-      activeSteps.value = activeSteps.value.filter(step => step !== 'step3');
-      step.value = 'step2';
-    }
   }
 
   const addTrack = () => {
@@ -116,14 +92,9 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   }
 
   return {
-    activeSteps,
     addTrack,
     albumForm,
-    back,
     coverPreviewUrl,
-    isStep1Completed,
-    next,
-    step,
     trackForm,
     trackFormFields,
     validateAlbumForm,
