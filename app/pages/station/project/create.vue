@@ -1,7 +1,6 @@
 <template>
   <AppPageContainer>
-    <CreateProjectContainer v-if="genre_status === 'success' && mood_status === 'success'" :genres="genres"
-      :moods="moods" />
+    <ProjectBuilder v-if="genre_status === 'success' && mood_status === 'success'" :genres="genres" :moods="moods" />
   </AppPageContainer>
 </template>
 
@@ -10,7 +9,7 @@ import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
 import { useUserStore } from "@/store/user";
 import { useAuthStore } from "@/store/auth";
-import CreateProjectContainer from "./components/CreateProjectContainer.vue"
+import ProjectBuilder from "./components/ProjectBuilder.vue"
 
 definePageMeta({
   middleware: ["auth", "station"]
