@@ -9,7 +9,7 @@ const albumCoverForm = {
 }
 
 const fileInput = ref();
-const previewUrl = ref<string | null>(null);
+const previewUrl = computed(() => createProjectStore.coverPreviewUrl);
 
 const onFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -22,7 +22,7 @@ const onFileChange = (event: Event) => {
   }
 
   // Create a new URL for the selected file
-  previewUrl.value = URL.createObjectURL(file);
+  createProjectStore.coverPreviewUrl = URL.createObjectURL(file);
   createProjectStore.albumForm.cover = file;
 };
 
