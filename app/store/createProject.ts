@@ -49,7 +49,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const tracks = ref<TrackForm[]>([]);
 
-
   const validateAlbumForm = async () => {
     const formData = new FormData;
     formData.append('album[title]', albumForm.title)
@@ -63,8 +62,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     return true;
   }
 
-  const addTrack = (track: TrackForm) => {
-    tracks.value.push(track);
+  const addTrack = () => {
+    tracks.value.push(trackForm);
   }
 
   return {
