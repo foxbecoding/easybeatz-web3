@@ -13,8 +13,10 @@
     </div>
     <div class="lg:drawer-side z-40 bg-base-200 hidden">
       <label for="app-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <aside class="bg-base-200 w-80">
-        <NuxtLink :to="{ name: 'index' }"><img src="/logo.png" width="200px" class="px-4 py-4" /></NuxtLink>
+      <aside class="bg-base-200 w-80" style="padding-top: 8px;">
+        <NuxtLink :to="{ name: 'index' }">
+          <NuxtImg src="/logo.png" width="200px" class="px-4 pb-4" />
+        </NuxtLink>
         <ul class="menu bg-base-200 text-base-content w-80 px-4 py-2">
           <li v-for="(item, i) in menuList" :key="i">
             <NuxtLink class="text-lg rounded-[1rem] font-semibold" :to="{ name: item.name }" active-class="bg-neutral">
@@ -25,7 +27,6 @@
           <div class="divider"></div>
         </ul>
         <AppCompanyBlock />
-
       </aside>
     </div>
   </div>
