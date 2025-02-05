@@ -29,15 +29,6 @@ const onFileChange = (event: Event) => {
 const triggerFileInput = () => {
   fileInput.value.click();
 }
-
-const nextStepHandler = async () => {
-  const res = await createProjectStore.validateAlbumForm()
-  if (!res) {
-    return
-  }
-  createProjectStore.next();
-}
-
 </script>
 
 <template>
@@ -46,9 +37,9 @@ const nextStepHandler = async () => {
   <p class="mb-4 max-w-[400px] block md:hidden"> {{ albumCoverForm.text }} </p>
 
   <div class="flex">
-    <div class="group bg-base-100 rounded-[1rem] relative w-[120px] h-[120px]">
+    <div class="group bg-neutral rounded-[1rem] relative w-[120px] h-[120px]">
       <button v-if="!previewUrl" @click="triggerFileInput"
-        class="btn btn-base-100 btn-square rounded-[1rem] h-full w-full">
+        class="btn btn-neutral btn-square rounded-[1rem] h-full w-full">
         <Icon icon="solar:camera-add-bold" class="text-4xl" />
       </button>
       <NuxtImg v-else class="rounded-[1rem]" :src="previewUrl" width="120px" height="120px" />
@@ -63,32 +54,24 @@ const nextStepHandler = async () => {
 
 
   <form id="form" @keydown.enter.prevent>
-    <label class="form-control w-full max-w-lg my-4">
+    <label class="form-control w-full my-4">
       <div class="label flex flex-col items-start">
         <span class="label-text text-lg font-bold">Title</span>
         <span class="label-text">Choose a title that represents your project.</span>
       </div>
       <input v-model="createProjectStore.albumForm.title" id="name" name="name" type="text"
-        placeholder="Enter project title" class="input input-ghost bg-base-100 w-full max-w-lg" />
+        placeholder="Enter project title" class="input input-ghost bg-neutral w-full" />
     </label>
 
-    <label class="form-control w-full max-w-lg">
+    <label class="form-control w-full">
       <div class="label">
         <span class="label-text text-lg font-bold">Description(optional)</span>
       </div>
       <textarea v-model="createProjectStore.albumForm.bio" id="bio" name="bio"
-        class="textarea textarea-ghost bg-base-100 w-full max-w-lg h-48"
+        class="textarea textarea-ghost bg-neutral w-full h-48"
         placeholder="Tell listeners what your project is about."></textarea>
     </label>
   </form>
-
-  <div class="w-full mt-4 flex justify-end">
-    <button @click="createProjectStore.isStep1Completed ? nextStepHandler() : false"
-      class="btn btn-secondary text-lg rounded-[1rem]" :disabled="!createProjectStore.isStep1Completed">
-      Next
-      <Icon icon="solar:alt-arrow-right-line-duotone" class="text-2xl" />
-    </button>
-  </div>
 </template>
 
 <style scoped>
