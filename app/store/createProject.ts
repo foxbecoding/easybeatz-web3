@@ -26,6 +26,7 @@ interface TrackForm {
 }
 
 export const useCreateProjectStore = defineStore("use-create-project-store", () => {
+  const coverPreviewUrl = ref<string | null>(null);
   const albumForm = reactive<AlbumForm | any>({
     title: '',
     cover: null,
@@ -90,9 +91,12 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     albumForm,
     activeSteps,
     back,
+    coverPreviewUrl,
     isStep1Completed,
     next,
     step,
+    trackForm,
+    trackFormFields,
     validateAlbumForm,
   }
 })
