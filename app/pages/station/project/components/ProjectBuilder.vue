@@ -21,6 +21,9 @@ const createProjectStore = useCreateProjectStore();
       <div class="divider" />
       <TrackForm />
     </div>
+    <div class="card-actions">
+      <button class="btn btn-primary w-full rounded-[1rem] text-lg">Submit</button>
+    </div>
   </div>
 
 </template>
