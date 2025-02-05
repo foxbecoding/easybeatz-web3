@@ -33,7 +33,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     bio: ''
   });
 
-  const trackForm: TrackForm = {
+  const trackForm = reactive<TrackForm | any>({
     bpm: '',
     collaborators: [],
     exclusive_price: '',
@@ -45,21 +45,9 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     stems: [],
     title: '',
     wav: null
-  };
+  });
 
-  const trackFormFields = ref<TrackForm[]>([{
-    bpm: '',
-    collaborators: [],
-    exclusive_price: '',
-    genres: [],
-    has_exclusive: false,
-    mood: '',
-    mp3: null,
-    price: '',
-    stems: [],
-    title: '',
-    wav: null
-  }]);
+  const tracks = ref<TrackForm[]>([]);
 
 
   const validateAlbumForm = async () => {
@@ -75,20 +63,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     return true;
   }
 
-  const addTrack = () => {
-    trackFormFields.value.push({
-      bpm: '',
-      collaborators: [],
-      exclusive_price: '',
-      genres: [],
-      has_exclusive: false,
-      mood: '',
-      mp3: null,
-      price: '',
-      stems: [],
-      title: '',
-      wav: null
-    });
+  const addTrack = (track: TrackForm) => {
+    tracks.value.push(track);
   }
 
   return {
@@ -96,7 +72,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     albumForm,
     coverPreviewUrl,
     trackForm,
-    trackFormFields,
     validateAlbumForm,
   }
 })
