@@ -51,16 +51,18 @@ const addTrack = () => {
           <div class="label flex flex-col items-start">
             <span class="label-text text-lg font-bold">Price</span>
           </div>
-          <input v-model="track.price" @input="sanitizeInput(t, $event)" id="price" name="price"
+          <input v-model="track.price" @input="sanitizeInput(t, $event)" id="price" name="price" type="number"
             placeholder="Enter track price" class="input input-ghost bg-base-100 w-full max-w-lg" />
         </label>
       </div>
     </div>
   </form>
-  <button @click="addTrack()" class="btn btn-secondary text-lg">
-    <Icon icon="material-symbols:music-note-add-rounded" class="text-2xl" />
-    Add new track
-  </button>
+  <div class="my-4">
+    <button @click="addTrack()" class="btn btn-secondary text-md">
+      <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
+      Add new track
+    </button>
+  </div>
 
   <div class="flex justify-between">
     <button @click="backStepHandler()" class="btn text-lg rounded-[1rem]">
