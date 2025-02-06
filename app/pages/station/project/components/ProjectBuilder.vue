@@ -11,6 +11,7 @@ const props = defineProps<{
 }>();
 
 const createProjectStore = useCreateProjectStore();
+const isProjectValid = computed(() => createProjectStore.isProjectValid);
 
 </script>
 
@@ -22,7 +23,7 @@ const createProjectStore = useCreateProjectStore();
       <TrackForm :genres="genres" :moods="moods" />
     </div>
     <div class="card-actions">
-      <button class="btn btn-primary w-full rounded-[1rem] text-lg">Submit</button>
+      <button class="btn btn-primary w-full rounded-[1rem] text-lg" :disabled="!isProjectValid">Submit</button>
     </div>
   </div>
 
