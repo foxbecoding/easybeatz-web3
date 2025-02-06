@@ -96,7 +96,7 @@ const onMediaChange = (e: any) => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Genres</span>
             </div>
-            <select v-model="selectedGenre" class="select select-ghost bg-neutral w-full">
+            <select v-model="selectedGenre" class="select select-ghost bg-neutral w-full" id="genres" name="genres">
               <option disabled selected>Select a genre</option>
               <option v-for="(genre, g) in genres" :key="g" :value="genre.pk" selected>
                 {{ genre.name }}
