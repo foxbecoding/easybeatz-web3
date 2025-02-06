@@ -33,7 +33,19 @@ const numbersOnlyInput = (event: any) => {
 const addTrack = () => {
   projectStore.addTrack()
 }
+
+const onMediaChange = (e: any) => {
+  const file: File = e.target.files[0];
+  const fileType = e.target.files[0].type;
+  if (fileType == 'audio/mpeg') {
+    projectStore.setMp3File(file);
+  } else if (fileType == 'audio/wav') {
+    projectStore.setWavFile(file);
+  }
+}
+
 </script>
+
 
 <template>
   <h1 class="text-2xl font-bold">Add project tracks</h1>
@@ -114,14 +126,14 @@ const addTrack = () => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">MP3</span>
             </div>
-            <input type="file" class="file-input w-full" accept=".mp3" />
+            <input @change="onMediaChange" type="file" class="file-input w-full" accept=".mp3" />
           </label>
 
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">WAV(optional)</span>
             </div>
-            <input type="file" class="file-input w-full" accept=".wav" />
+            <input @change="onMediaChange" type="file" class="file-input w-full" accept=".wav" />
           </label>
         </section>
 
@@ -146,8 +158,9 @@ const addTrack = () => {
         </section>
       </form>
       <div class="modal-action">
-        <form id="form" method="dialog">
-          <button class="btn">Close</button>
+        <form id="form" method="dialog" class="flex justify-end gap-2">
+          <button class="btn btn-neutral">Close</button>
+          <button @click="addTrack()" class="btn btn-primary">Add track</button>
         </form>
       </div>
     </div>
