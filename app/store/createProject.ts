@@ -47,7 +47,22 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     wav: null
   });
 
-  const isTrackFormValid = computed(() => { });
+  const isTrackFormValid = computed(() => {
+    let validationFields = ['bpm', 'genres', 'mood', 'mp3', 'price', 'title'];
+    if (trackForm.has_exclusive) {
+      validationFields.push('exclusive_price', 'stems')
+    }
+
+    const validatedFields = validationFields.map((field: keyof typeof trackForm) => {
+      if (field == 'genres' || field == 'stems') {
+        return trackForm[field].length > 0 ? true : false;
+      }
+
+      return !!trackForm[field];
+    })
+
+    return validatedFields.every(value => value === true);
+  });
 
   const tracks = ref<TrackForm[]>([]);
 
@@ -97,6 +112,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     albumForm,
     clearTrackForm,
     coverPreviewUrl,
+    isTrackFormValid,
     setGenresField,
     setMp3File,
     setWavFile,
