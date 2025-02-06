@@ -47,6 +47,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     wav: null
   });
 
+  const isTrackFormValid = computed(() => { });
+
   const tracks = ref<TrackForm[]>([]);
 
   const validateAlbumForm = async () => {
