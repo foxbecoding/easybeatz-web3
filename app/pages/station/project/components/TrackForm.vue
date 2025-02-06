@@ -12,6 +12,8 @@ const props = defineProps<{
 const selectedGenre = ref();
 const projectStore = useCreateProjectStore();
 
+const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
+
 watch(selectedGenre, (newSelected) => {
   projectStore.setGenresField(String(newSelected));
 })
@@ -160,7 +162,8 @@ const onMediaChange = (e: any) => {
       <div class="modal-action">
         <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
           <button class="btn btn-neutral">Close</button>
-          <button @click="addTrack()" class="btn btn-primary">Add track</button>
+          <button @click="isTrackFormValid ? addTrack() : false" class="btn btn-primary"
+            :disabled="!isTrackFormValid">Add track</button>
         </form>
       </div>
     </div>
