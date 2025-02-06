@@ -59,7 +59,7 @@ const onMediaChange = (e: any) => {
   <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box lg:translate-x-[150px]">
       <h2 class="text-2xl font-bold">Add track</h2>
-      <form id="track-form" ref="trackForm">
+      <form id="track-form">
         <section class="flex flex-col gap-2 mt-4">
           <h3 class="text-xl font-bold">Details</h3>
           <label class="form-control w-full">
