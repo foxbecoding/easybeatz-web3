@@ -15,6 +15,7 @@ const trackForm = ref();
 const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
 
 watch(selectedGenre, (newSelected) => {
+  if (!newSelected) return false;
   projectStore.setGenresField(String(newSelected));
 })
 
@@ -32,7 +33,13 @@ const numbersOnlyInput = (key: string, event: any) => {
 };
 
 const addTrack = () => {
-  projectStore.addTrack()
+  projectStore.addTrack();
+  resetForm();
+}
+
+const resetForm = () => {
+  trackForm.value.reset();
+  selectedGenre.value = null;
 }
 
 const onMediaChange = (e: any) => {
