@@ -16,7 +16,7 @@ watch(selectedGenre, (newSelected) => {
   projectStore.setGenresField(String(newSelected));
 })
 
-const numbersOnlyInput = (event: any) => {
+const numbersOnlyInput = (key: string, event: any) => {
   let value = event.target.value;
 
   // Remove non-digit characters
@@ -26,7 +26,7 @@ const numbersOnlyInput = (event: any) => {
   value = value.replace(/^0+/, '');
 
   // Update the corresponding item in the array
-  projectStore.trackForm['price'] = value;
+  projectStore.trackForm[key] = value;
 };
 
 const addTrack = () => {
