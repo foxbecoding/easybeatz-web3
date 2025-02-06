@@ -75,16 +75,16 @@ const onMediaChange = (e: any) => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Price</span>
             </div>
-            <input v-model="projectStore.trackForm.price" @input="numbersOnlyInput" id="price" name="price"
-              type="number" placeholder="Enter track price" class="input input-ghost bg-neutral w-full" />
+            <input v-model="projectStore.trackForm.price" @input="numbersOnlyInput('price', $event)" id="price"
+              name="price" type="number" placeholder="Enter track price" class="input input-ghost bg-neutral w-full" />
           </label>
 
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">BPM</span>
             </div>
-            <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput" id="bpm" name="bpm" type="number"
-              placeholder="Enter track bpm" class="input input-ghost bg-neutral w-full" />
+            <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput('bpm', $event)" id="bpm" name="bpm"
+              type="number" placeholder="Enter track bpm" class="input input-ghost bg-neutral w-full" />
           </label>
         </section>
 
