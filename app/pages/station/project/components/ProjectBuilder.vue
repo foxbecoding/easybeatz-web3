@@ -19,7 +19,7 @@ const createProjectStore = useCreateProjectStore();
     <div class="card-body p-0">
       <AlbumForm />
       <div class="divider" />
-      <TrackForm />
+      <TrackForm :genres="genres" :moods="moods" />
     </div>
     <div class="card-actions">
       <button class="btn btn-primary w-full rounded-[1rem] text-lg">Submit</button>
