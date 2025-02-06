@@ -33,7 +33,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     bio: ''
   });
 
-  const trackForm = reactive<TrackForm | any>({
+  const trackForm = reactive<TrackForm>({
     bpm: '',
     collaborators: [],
     exclusive_price: '',
@@ -65,6 +65,20 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   const addTrack = () => {
     const track = JSON.parse(JSON.stringify(trackForm));
     tracks.value.push(track);
+  }
+
+  const clearTrackForm = () => {
+    trackForm.bpm = '';
+    trackForm.collaborators = [];
+    trackForm.exclusive_price = '';
+    trackForm.genres = [];
+    trackForm.has_exclusive = false;
+    trackForm.mood = '';
+    trackForm.mp3 = null;
+    trackForm.price = '';
+    trackForm.stems = [];
+    trackForm.title = '';
+    trackForm.wav = null;
   }
 
   const setMp3File = (file: File) => trackForm.mp3 = file;
