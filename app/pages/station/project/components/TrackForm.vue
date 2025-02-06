@@ -9,6 +9,7 @@ const props = defineProps<{
   moods: Mood[] | null;
 }>();
 
+const toast = useToast();
 const selectedGenre = ref();
 const projectStore = useCreateProjectStore();
 const trackForm = ref();
@@ -35,6 +36,7 @@ const numbersOnlyInput = (key: string, event: any) => {
 const addTrack = () => {
   projectStore.addTrack();
   resetForm();
+  toast.setToast('Track added', 'INFO');
 }
 
 const resetForm = () => {
