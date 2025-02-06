@@ -158,7 +158,7 @@ const onMediaChange = (e: any) => {
         </section>
       </form>
       <div class="modal-action">
-        <form id="form" method="dialog" class="flex justify-end gap-2">
+        <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
           <button class="btn btn-neutral">Close</button>
           <button @click="addTrack()" class="btn btn-primary">Add track</button>
         </form>
