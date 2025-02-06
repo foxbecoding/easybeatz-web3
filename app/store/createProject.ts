@@ -64,6 +64,12 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     return validatedFields.every(value => value === true);
   });
 
+  const isAlbumFormValid = computed(() => {
+    let validationFields = ['title', 'cover'];
+    const validatedFields = validationFields.map((field: keyof typeof albumForm) => !!albumForm[field]);
+    return validatedFields.every(value => value === true);
+  });
+
   const tracks = ref<TrackForm[]>([]);
 
   const validateAlbumForm = async () => {
