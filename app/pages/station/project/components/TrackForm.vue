@@ -47,7 +47,6 @@ const onMediaChange = (e: any) => {
 
 </script>
 
-
 <template>
   <h1 class="text-2xl font-bold">Add project tracks</h1>
   {{ projectStore.trackForm }}
