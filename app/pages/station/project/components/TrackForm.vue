@@ -9,7 +9,13 @@ const props = defineProps<{
   moods: Mood[] | null;
 }>();
 
+const selectedGenre = ref();
 const projectStore = useCreateProjectStore();
+
+watch(selectedGenre, (newSelected) => {
+  projectStore.trackForm.genres = [];
+  projectStore.trackForm.genres.push(String(newSelected));
+})
 
 const numbersOnlyInput = (event: any) => {
   let value = event.target.value;
@@ -74,13 +80,49 @@ const addTrack = () => {
         <div class="divider" />
 
         <section class="flex flex-col gap-2 mt-4">
-          <h3 class="text-xl font-bold">Genres and Mood</h3>
+          <h3 class="text-xl font-bold">Genres and Moods</h3>
+          <label class="form-control w-full">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-bold">Genres</span>
+            </div>
+            <select v-model="selectedGenre" class="select select-ghost bg-neutral w-full">
+              <option disabled selected>Select a genre</option>
+              <option v-for="(genre, g) in genres" :key="g" :value="genre.pk" selected>
+                {{ genre.name }}
+              </option>
+            </select>
+          </label>
+
+          <label class="form-control w-full">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-bold">Moods</span>
+            </div>
+            <select v-model="projectStore.trackForm.mood" class="select select-ghost bg-neutral w-full">
+              <option disabled selected>Select a mood</option>
+              <option v-for="(mood, m) in moods" :key="m" :value="mood.pk" selected>
+                {{ mood.name }}
+              </option>
+            </select>
+          </label>
         </section>
 
         <div class="divider" />
 
         <section class="flex flex-col gap-2 mt-4">
           <h3 class="text-xl font-bold">MP3 and WAV</h3>
+          <label class="form-control w-full">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-bold">MP3</span>
+            </div>
+            <input type="file" class="file-input w-full" accept=".mp3" />
+          </label>
+
+          <label class="form-control w-full">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-bold">WAV(optional)</span>
+            </div>
+            <input type="file" class="file-input w-full" accept=".wav" />
+          </label>
         </section>
 
         <div class="divider" />
