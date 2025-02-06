@@ -13,8 +13,6 @@ const selectedGenre = ref();
 const projectStore = useCreateProjectStore();
 
 watch(selectedGenre, (newSelected) => {
-  projectStore.trackForm.genres = [];
-  projectStore.trackForm.genres.push(String(newSelected));
   projectStore.setGenresField(String(newSelected));
 })
 
