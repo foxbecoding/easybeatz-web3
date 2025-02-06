@@ -109,6 +109,7 @@ const onMediaChange = (e: any) => {
               <span class="label-text text-lg font-bold">Moods</span>
             </div>
             <select v-model="projectStore.trackForm.mood" id="moods" name="moods"
+              class="select select-ghost bg-neutral w-full">
               <option disabled selected>Select a mood</option>
               <option v-for="(mood, m) in moods" :key="m" :value="mood.pk" selected>
                 {{ mood.name }}
