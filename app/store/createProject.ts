@@ -120,6 +120,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     albumForm,
     clearTrackForm,
     coverPreviewUrl,
+    isProjectValid,
     isTrackFormValid,
     setGenresField,
     setMp3File,
