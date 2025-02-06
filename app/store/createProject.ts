@@ -63,9 +63,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   }
 
   const addTrack = () => {
-    tracks.value.push(toRaw(trackForm));
-    trackForm.title = '';
-    console.log(tracks.value)
+    const track = JSON.parse(JSON.stringify(trackForm));
+    tracks.value.push(track);
   }
 
   const setMp3File = (file: File) => trackForm.mp3 = file;
