@@ -66,10 +66,15 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     tracks.value.push(trackForm);
   }
 
+  const setMp3File = (file: File) => trackForm.mp3 = file;
+  const setWavFile = (file: File) => trackForm.wav = file;
+
   return {
     addTrack,
     albumForm,
     coverPreviewUrl,
+    setMp3File,
+    setWavFile,
     trackForm,
     validateAlbumForm,
   }
