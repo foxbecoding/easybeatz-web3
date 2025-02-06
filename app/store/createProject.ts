@@ -82,6 +82,11 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     trackForm.wav = null;
   }
 
+  const setGenresField = (genre_pk: string) => {
+    trackForm.genres = [];
+    trackForm.genres.push(genre_pk);
+  }
+
   const setMp3File = (file: File) => trackForm.mp3 = file;
   const setWavFile = (file: File) => trackForm.wav = file;
 
@@ -90,6 +95,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     albumForm,
     clearTrackForm,
     coverPreviewUrl,
+    setGenresField,
     setMp3File,
     setWavFile,
     trackForm,
