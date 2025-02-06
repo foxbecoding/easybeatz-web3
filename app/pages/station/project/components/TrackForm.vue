@@ -9,7 +9,8 @@ const props = defineProps<{
   moods: Mood[] | null;
 }>();
 
-const toast = useToast();
+
+const showToast = ref(false);
 const selectedGenre = ref();
 const projectStore = useCreateProjectStore();
 const trackForm = ref();
@@ -36,12 +37,19 @@ const numbersOnlyInput = (key: string, event: any) => {
 const addTrack = () => {
   projectStore.addTrack();
   resetForm();
-  toast.setToast('Track added', 'INFO');
+  setShowToast();
 }
 
 const resetForm = () => {
   trackForm.value.reset();
   selectedGenre.value = null;
+}
+
+const setShowToast = () => {
+  showToast.value = true;
+  setTimeout(() => {
+    showToast.value = false;
+  }, 3000)
 }
 
 const onMediaChange = (e: any) => {
@@ -167,6 +175,13 @@ const onMediaChange = (e: any) => {
           </div>
         </section>
       </form>
+
+      <div v-show="showToast" class="toast toast-start">
+        <div class="alert alert-info">
+          <span>Track added</span>
+        </div>
+      </div>
+
       <div class="modal-action">
         <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
           <button class="btn btn-neutral">Close</button>
