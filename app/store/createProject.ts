@@ -65,6 +65,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   const addTrack = () => {
     const track = JSON.parse(JSON.stringify(trackForm));
     tracks.value.push(track);
+    clearTrackForm();
   }
 
   const clearTrackForm = () => {
