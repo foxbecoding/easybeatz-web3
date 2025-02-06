@@ -126,7 +126,7 @@ const onMediaChange = (e: any) => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">MP3</span>
             </div>
-            <input @change="onMediaChange" type="file" class="file-input w-full" accept=".mp3" />
+            <input @change="onMediaChange" type="file" class="file-input w-full" accept=".mp3" id="mp3" name="mp3" />
           </label>
 
           <label class="form-control w-full">
