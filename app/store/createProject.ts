@@ -70,6 +70,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     return validatedFields.every(value => value === true);
   });
 
+  const isProjectValid = computed(() => isAlbumFormValid.value && tracks.value.length > 0 ? true : false);
+
   const tracks = ref<TrackForm[]>([]);
 
   const validateAlbumForm = async () => {
