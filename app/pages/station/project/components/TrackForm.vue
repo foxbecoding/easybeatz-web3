@@ -3,7 +3,7 @@ import { useCreateProjectStore } from "@/store/createProject";
 
 const projectStore = useCreateProjectStore();
 
-const sanitizeInput = (event: any) => {
+const numbersOnlyInput = (event: any) => {
   let value = event.target.value;
 
   // Remove non-digit characters
@@ -36,8 +36,8 @@ const addTrack = () => {
     <div class="modal-box lg:translate-x-[150px]">
       <h2 class="text-2xl font-bold">Add track</h2>
       <form>
-        <div class="flex flex-col gap-2 mt-4">
-          <h3 class="text-xl font-bold"> Details</h3>
+        <section class="flex flex-col gap-2 mt-4">
+          <h3 class="text-xl font-bold">Details</h3>
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Title</span>
@@ -46,15 +46,57 @@ const addTrack = () => {
             <input v-model="projectStore.trackForm.title" id="title" name="title" type="text"
               placeholder="Enter track title" class="input input-ghost bg-neutral w-full" />
           </label>
+
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Price</span>
             </div>
-            <input v-model="projectStore.trackForm.price" @input="sanitizeInput" id="price" name="price" type="number"
-              placeholder="Enter track price" class="input input-ghost bg-neutral w-full" />
+            <input v-model="projectStore.trackForm.price" @input="numbersOnlyInput" id="price" name="price"
+              type="number" placeholder="Enter track price" class="input input-ghost bg-neutral w-full" />
           </label>
-        </div>
+
+          <label class="form-control w-full">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-bold">BPM</span>
+            </div>
+            <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput" id="bpm" name="bpm" type="number"
+              placeholder="Enter track bpm" class="input input-ghost bg-neutral w-full" />
+          </label>
+        </section>
+
         <div class="divider" />
+
+        <section class="flex flex-col gap-2 mt-4">
+          <h3 class="text-xl font-bold">Genres and Mood</h3>
+        </section>
+
+        <div class="divider" />
+
+        <section class="flex flex-col gap-2 mt-4">
+          <h3 class="text-xl font-bold">MP3 and WAV</h3>
+        </section>
+
+        <div class="divider" />
+
+        <section class="flex flex-col gap-2 mt-4">
+          <h3 class="text-xl font-bold">Collaborators</h3>
+        </section>
+
+        <div class="divider" />
+
+        <section class="flex flex-col gap-2 mt-4">
+          <div class="flex flex-col">
+            <h3 v-if="projectStore.trackForm.has_exclusive" class="text-xl font-bold">Exclusive details</h3>
+            <div class="form-control">
+              <label class="label cursor-pointer justify-start gap-4">
+                <span class="label-text text-lg">Sell as exclusive?</span>
+                <input v-model="projectStore.trackForm.has_exclusive" type="checkbox" class="checkbox" />
+              </label>
+            </div>
+          </div>
+        </section>
+
+
       </form>
       <div class="modal-action">
         <form id="form" method="dialog">
