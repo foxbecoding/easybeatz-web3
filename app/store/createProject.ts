@@ -11,6 +11,10 @@ interface TrackStemForm {
   file: File | null;
 }
 
+interface CollaboratorForm {
+  pubkey: string;
+}
+
 interface TrackForm {
   bpm: string;
   collaborators: string[];
