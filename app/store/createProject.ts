@@ -17,7 +17,7 @@ interface CollaboratorForm {
 
 interface TrackForm {
   bpm: string;
-  collaborators: string[];
+  collaborators: CollaboratorForm[];
   exclusive_price: string;
   genres: string[];
   has_exclusive: boolean;
