@@ -143,6 +143,12 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   watch(selectedGenre, (newSelected) => {
     if (!newSelected) return false;
     setGenresField(String(newSelected));
+  });
+
+  watch(() => trackForm.has_exclusive, (newValue) => {
+    if (newValue && !trackForm.stems.length) {
+      addStem();
+    }
   })
 
   return {
