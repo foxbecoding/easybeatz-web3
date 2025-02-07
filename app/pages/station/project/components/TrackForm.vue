@@ -105,8 +105,11 @@ const onMediaChange = (e: any) => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Price</span>
             </div>
-            <input v-model="projectStore.trackForm.price" @input="numbersOnlyInput('price', $event)" id="price"
-              name="price" type="number" placeholder="Enter track price" class="input input-ghost bg-neutral w-full" />
+            <label class="input input-ghost bg-neutral flex items-center">
+              <Icon icon="material-symbols:attach-money-rounded" width="24" height="24" />
+              <input v-model="projectStore.trackForm.price" @input="numbersOnlyInput('price', $event)" id="price"
+                name="price" type="number" placeholder="Enter track price" class="grow w-full" />
+            </label>
           </label>
 
           <label class="form-control w-full">
@@ -169,7 +172,6 @@ const onMediaChange = (e: any) => {
 
         <div class="divider" />
 
-        <section class="flex flex-col gap-2 mt-4">
           <h3 class="text-xl font-bold">Collaborators</h3>
         </section>
 
