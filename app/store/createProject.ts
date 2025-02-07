@@ -130,9 +130,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const addCollab = () => trackForm.collaborators.push({ pubkey: '' });
 
-  const removeCollab = (index: number) => {
-    trackForm.collaborators.splice(index, 1);
-  }
+  const removeCollab = (index: number) => trackForm.collaborators.splice(index, 1);
 
   const addStem = () => {
     trackForm.stems.push({ name: '', file: null })
