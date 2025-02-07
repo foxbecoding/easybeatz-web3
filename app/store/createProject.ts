@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash/cloneDeep';
 import { albumFormValidator } from "@/services/models/album";
 
 interface AlbumForm {
@@ -100,7 +101,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   }
 
   const addTrack = () => {
-    const track = JSON.parse(JSON.stringify(trackForm));
+    const track = cloneDeep(trackForm);
     tracks.value.push(track);
     clearTrackForm();
   }
