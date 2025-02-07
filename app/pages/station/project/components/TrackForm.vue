@@ -42,6 +42,10 @@ const addTrack = () => {
   setShowToast();
 }
 
+const addCollab = () => {
+  projectStore.addCollab();
+}
+
 const resetForm = () => {
   trackForm.value.reset();
   selectedGenre.value = null;
