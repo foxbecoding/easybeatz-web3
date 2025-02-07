@@ -128,9 +128,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   const setMp3File = (file: File) => trackForm.mp3 = file;
   const setWavFile = (file: File) => trackForm.wav = file;
 
-  const addCollab = () => {
-    trackForm.collaborators.push({ pubkey: '' })
-  }
+  const addCollab = () => trackForm.collaborators.push({ pubkey: '' });
 
   const removeCollab = (index: number) => {
     trackForm.collaborators.splice(index, 1);
