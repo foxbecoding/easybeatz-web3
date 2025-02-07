@@ -172,7 +172,33 @@ const onMediaChange = (e: any) => {
 
         <div class="divider" />
 
-          <h3 class="text-xl font-bold">Collaborators</h3>
+        <section class="flex flex-col gap-4 mt-4">
+          <div class="flex flex-col gap-1">
+            <h3 class="text-xl font-bold">Collaborators</h3>
+            <p class="text-md">
+              *Split profits evenly amongst you and collaborators by adding thier Solana wallet address.
+            </p>
+          </div>
+          <div v-if="projectStore.trackForm.collaborators.length > 0" class="flex flex-col gap-2">
+            <div v-for="(collab, c) in projectStore.trackForm.collaborators" :key="c">
+              <label class="form-control w-full">
+                <div class="label flex flex-col items-start">
+                  <span class="label-text text-lg font-bold">Collab {{ c + 1 }}</span>
+                </div>
+                <label class="input input-ghost bg-neutral flex items-center">
+                  <input v-model="collab.pubkey" :id="`collab_${c}`" :name="`collab_${c}`" type="text"
+                    placeholder="Enter wallet address" class="grow w-full" />
+                  <Icon @click.stop="removeCollab(c)" icon="solar:trash-bin-minimalistic-bold"
+                    class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60" width="24" height="24" />
+                </label>
+              </label>
+            </div>
+          </div>
+
+          <a @click="addCollab()" class="btn btn-secondary rounded-[1rem] w-40">
+            <Icon icon="solar:user-plus-rounded-bold" width="24" height="24" />
+            Add collab
+          </a>
         </section>
 
         <div class="divider" />
