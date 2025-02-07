@@ -10,9 +10,9 @@ const props = defineProps<{
 }>();
 
 
-const showToast = ref(false);
-const selectedGenre = ref();
 const projectStore = useCreateProjectStore();
+const showToast = ref(false);
+const selectedGenre = ref(projectStore.trackForm.genres[0]);
 const trackForm = ref();
 const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
 
