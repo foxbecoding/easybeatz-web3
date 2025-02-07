@@ -124,6 +124,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   }
 
   return {
+    addCollab,
     addTrack,
     albumForm,
     clearTrackForm,
