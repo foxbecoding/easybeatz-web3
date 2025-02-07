@@ -59,8 +59,15 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     }
 
     const validatedFields = validationFields.map((field: keyof typeof trackForm) => {
-      if (field == 'genres' || field == 'stems') {
+      if (field == 'genres') {
         return trackForm[field].length > 0 ? true : false;
+      }
+
+      if (field == 'stems') {
+        const validStems = trackForm.stems.map(stem => {
+          return stem.name && stem.file ? true : false;
+        })
+        return validStems.every(value => value === true);
       }
 
       return !!trackForm[field];
