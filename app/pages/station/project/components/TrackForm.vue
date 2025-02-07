@@ -12,16 +12,9 @@ const props = defineProps<{
 
 const projectStore = useCreateProjectStore();
 const showToast = ref(false);
-const selectedGenre = ref(projectStore.trackForm.genres[0]);
 const trackForm = ref();
 const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
-
 const tracks = computed(() => projectStore.tracks);
-
-watch(selectedGenre, (newSelected) => {
-  if (!newSelected) return false;
-  projectStore.setGenresField(String(newSelected));
-})
 
 const numbersOnlyInput = (key: string, event: any) => {
   let value = event.target.value;
@@ -42,18 +35,15 @@ const addTrack = () => {
   setShowToast();
 }
 
-const addCollab = () => {
-  projectStore.addCollab();
-}
+const addCollab = () => projectStore.addCollab();
 
-const removeCollab = (index: number) => {
-  projectStore.removeCollab(index);
-}
+const removeCollab = (index: number) => projectStore.removeCollab(index);
 
-const resetForm = () => {
-  trackForm.value.reset();
-  selectedGenre.value = null;
-}
+const addStem = () => projectStore.addStem();
+
+const removeStem = (index: number) => projectStore.removeStem(index);
+
+const resetForm = () => trackForm.value.reset();
 
 const setShowToast = () => {
   showToast.value = true;
@@ -72,7 +62,13 @@ const onMediaChange = (e: any) => {
   }
 }
 
+const onStemChange = (index: number, e: any) => {
+  const file: File = e.target.files[0];
+  projectStore.setStemFile(index, file);
+}
+
 </script>
+
 
 <template>
   <h1 class="text-2xl font-bold">Add project tracks</h1>
@@ -129,7 +125,8 @@ const onMediaChange = (e: any) => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">Genres</span>
             </div>
-            <select v-model="selectedGenre" class="select select-ghost bg-neutral w-full" id="genres" name="genres">
+            <select v-model="projectStore.selectedGenre" class="select select-ghost bg-neutral w-full" id="genres"
+              name="genres">
               <option disabled selected>Select a genre</option>
               <option v-for="(genre, g) in genres" :key="g" :value="genre.pk" selected>
                 {{ genre.name }}
@@ -159,14 +156,16 @@ const onMediaChange = (e: any) => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">MP3</span>
             </div>
-            <input @change="onMediaChange" type="file" class="file-input w-full" accept=".mp3" id="mp3" name="mp3" />
+            <input @change="onMediaChange" type="file" class="file-input file-input-bordered w-full" accept=".mp3"
+              id="mp3" name="mp3" />
           </label>
 
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">WAV(optional)</span>
             </div>
-            <input @change="onMediaChange" type="file" class="file-input w-full" accept=".wav" id="wav" name="wav" />
+            <input @change="onMediaChange" type="file" class="file-input file-input-bordered w-full" accept=".wav"
+              id="wav" name="wav" />
           </label>
         </section>
 
@@ -189,7 +188,8 @@ const onMediaChange = (e: any) => {
                   <input v-model="collab.pubkey" :id="`collab_${c}`" :name="`collab_${c}`" type="text"
                     placeholder="Enter wallet address" class="grow w-full" />
                   <Icon @click.stop="removeCollab(c)" icon="solar:trash-bin-minimalistic-bold"
-                    class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60" width="24" height="24" />
+                    class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
+                    height="24" />
                 </label>
               </label>
             </div>
@@ -208,7 +208,7 @@ const onMediaChange = (e: any) => {
             <h3 v-if="projectStore.trackForm.has_exclusive" class="text-xl font-bold">Exclusive details</h3>
             <div class="form-control">
               <label class="label cursor-pointer justify-start gap-4">
-                <span class="label-text text-lg">Sell as exclusive?</span>
+                <span class="label-text text-lg">Add an exclusive price?</span>
                 <input v-model="projectStore.trackForm.has_exclusive" type="checkbox" class="checkbox" />
               </label>
             </div>
@@ -219,16 +219,41 @@ const onMediaChange = (e: any) => {
               <span class="label-text text-lg font-bold">Exclusive price</span>
             </div>
             <label class="input input-ghost bg-neutral flex items-center">
-              <Icon icon="material-symbols:attach-money-rounded" width="24" height="24" />
+              <Icon icon="material-symbols:attach-money-rounded" class="text-warning" width="24" height="24" />
               <input v-model="projectStore.trackForm.exclusive_price"
                 @input="numbersOnlyInput('exclusive_price', $event)" id="exclusive_price" name="exclusive_price"
                 type="number" placeholder="Enter track exclusive price" class="grow w-full" />
             </label>
           </label>
+
+          <div v-if="projectStore.trackForm.has_exclusive" class="flex flex-col gap-3">
+            <div class="label flex flex-col items-start">
+              <h3 class="label-text text-xl font-bold">Stems</h3>
+              <p>Upload the stems wav files.</p>
+            </div>
+            <div v-for="(stem, s) in projectStore.trackForm.stems" :key="s" class="flex flex-col gap-2">
+              <div class="flex gap-4">
+                <span class="label-text text-lg font-bold">Stem {{ s + 1 }}</span>
+                <Icon @click="removeStem(s)" icon="solar:trash-bin-minimalistic-bold"
+                  class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
+                  height="24" />
+              </div>
+              <input v-model="stem.name" :id="`stem_${s}`" :name="`stem_${s}`" type="text" placeholder="Enter stem name"
+                class="input input-ghost bg-neutral w-full" />
+              <input @change="onStemChange(s, $event)" type="file" class="file-input file-input-bordered w-full"
+                accept=".wav" :id="`stem_file_${s}`" :name="`stem_file_${s}`" />
+            </div>
+          </div>
+
+          <a v-if="projectStore.trackForm.has_exclusive" @click="addStem()"
+            class="btn btn-secondary rounded-[1rem] w-40">
+            <Icon icon="solar:add-square-bold" width="24" height="24" />
+            Add stem
+          </a>
         </section>
       </form>
 
-      <div v-show="showToast" class="toast toast-start">
+      <div v-show="showToast" class="toast">
         <div class="alert alert-info">
           <span>Track added</span>
         </div>
