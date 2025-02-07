@@ -24,7 +24,7 @@ interface TrackForm {
   mood: string;
   mp3: File | null;
   price: string;
-  stems: TrackStemForm[] | [];
+  stems: TrackStemForm[];
   title: string;
   wav?: File | null;
 }
