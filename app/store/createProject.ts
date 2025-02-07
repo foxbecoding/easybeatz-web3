@@ -137,6 +137,10 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     trackForm.stems.splice(index, 1);
   }
 
+  const resetSelectedGenre = () => {
+    selectedGenre.value = null;
+  }
+
   return {
     addCollab,
     addStem,
