@@ -84,6 +84,8 @@ const onMediaChange = (e: any) => {
     </button>
   </div>
 
+  {{ tracks }}
+
   <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box lg:translate-x-[150px]">
       <h2 class="text-2xl font-bold">Add track</h2>
