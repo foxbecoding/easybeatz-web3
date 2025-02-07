@@ -203,7 +203,7 @@ const onMediaChange = (e: any) => {
 
         <div class="divider" />
 
-        <section class="flex flex-col gap-2 mt-4">
+        <section class="flex flex-col gap-4 mt-4">
           <div class="flex flex-col">
             <h3 v-if="projectStore.trackForm.has_exclusive" class="text-xl font-bold">Exclusive details</h3>
             <div class="form-control">
