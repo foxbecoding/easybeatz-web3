@@ -134,9 +134,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const addStem = () => trackForm.stems.push({ name: '', file: null });
 
-  const removeStem = (index: number) => {
-    trackForm.stems.splice(index, 1);
-  }
 
   const resetSelectedGenre = () => {
     selectedGenre.value = null;
