@@ -138,6 +138,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const setStemFile = (index: number, file: File) => trackForm.stems[index].file = file;
 
+  const resetSelectedGenre = () => selectedGenre.value = null;
+
   watch(selectedGenre, (newSelected) => {
     if (!newSelected) return false;
     setGenresField(String(newSelected));
