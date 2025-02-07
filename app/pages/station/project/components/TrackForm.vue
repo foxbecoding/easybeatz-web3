@@ -16,6 +16,8 @@ const projectStore = useCreateProjectStore();
 const trackForm = ref();
 const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
 
+const tracks = computed(() => projectStore.tracks);
+
 watch(selectedGenre, (newSelected) => {
   if (!newSelected) return false;
   projectStore.setGenresField(String(newSelected));
