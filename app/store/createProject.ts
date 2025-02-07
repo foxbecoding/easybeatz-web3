@@ -123,6 +123,10 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     trackForm.collaborators.push({ pubkey: '' })
   }
 
+  const removeCollab = (index: number) => {
+    trackForm.collaborators.splice(index, 1);
+  }
+
   return {
     addCollab,
     addTrack,
@@ -131,6 +135,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     coverPreviewUrl,
     isProjectValid,
     isTrackFormValid,
+    removeCollab,
     setGenresField,
     setMp3File,
     setWavFile,
