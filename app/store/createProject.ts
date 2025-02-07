@@ -141,6 +141,11 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     selectedGenre.value = null;
   }
 
+  watch(selectedGenre, (newSelected) => {
+    if (!newSelected) return false;
+    setGenresField(String(newSelected));
+  })
+
   return {
     addCollab,
     addStem,
