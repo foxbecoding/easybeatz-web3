@@ -46,6 +46,10 @@ const addCollab = () => {
   projectStore.addCollab();
 }
 
+const removeCollab = (index: number) => {
+  projectStore.removeCollab(index);
+}
+
 const resetForm = () => {
   trackForm.value.reset();
   selectedGenre.value = null;
