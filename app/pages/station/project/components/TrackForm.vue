@@ -213,6 +213,18 @@ const onMediaChange = (e: any) => {
               </label>
             </div>
           </div>
+
+          <label v-if="projectStore.trackForm.has_exclusive" class="form-control w-full">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-bold">Exclusive price</span>
+            </div>
+            <label class="input input-ghost bg-neutral flex items-center">
+              <Icon icon="material-symbols:attach-money-rounded" width="24" height="24" />
+              <input v-model="projectStore.trackForm.exclusive_price"
+                @input="numbersOnlyInput('exclusive_price', $event)" id="exclusive_price" name="exclusive_price"
+                type="number" placeholder="Enter track exclusive price" class="grow w-full" />
+            </label>
+          </label>
         </section>
       </form>
 
