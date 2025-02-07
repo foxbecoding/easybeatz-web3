@@ -3,12 +3,10 @@ import { useCreateProjectStore } from "@/store/createProject";
 import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
 
-
 const props = defineProps<{
   genres: Genre[] | null;
   moods: Mood[] | null;
 }>();
-
 
 const projectStore = useCreateProjectStore();
 const showToast = ref(false);
