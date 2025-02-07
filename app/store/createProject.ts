@@ -110,6 +110,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     trackForm.stems = [];
     trackForm.title = '';
     trackForm.wav = null;
+    selectedGenre.value = null;
   }
 
   const setGenresField = (genre_pk: string) => {
