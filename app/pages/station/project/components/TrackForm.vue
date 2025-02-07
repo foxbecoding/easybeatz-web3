@@ -78,7 +78,7 @@ const onMediaChange = (e: any) => {
   <h1 class="text-2xl font-bold">Add project tracks</h1>
   {{ projectStore.trackForm }}
   <div class="my-4">
-    <button onclick="add_track_modal.showModal()" class="btn btn-secondary text-lg">
+    <button onclick="add_track_modal.showModal()" class="btn btn-secondary text-lg rounded-[1rem]">
       <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
       Add new track
     </button>
