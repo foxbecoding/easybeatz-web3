@@ -17,7 +17,7 @@ const isProjectValid = computed(() => createProjectStore.isProjectValid);
 
 <template>
   <div class="card bg-base-100 max-w-[600px] w-full block mx-auto">
-    <div class="card-body p-0">
+    <div class="card-body px-0 pt-0 pb-4">
       <AlbumForm />
       <div class="divider" />
       <TrackForm :genres="genres" :moods="moods" />
