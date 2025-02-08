@@ -33,7 +33,7 @@ const addTrack = () => {
   setShowToast();
 }
 
-const removeTrack = () => projectStore.removeTrack();
+const removeTrack = (index: number) => projectStore.removeTrack(index);
 
 const addCollab = () => projectStore.addCollab();
 
@@ -72,7 +72,6 @@ const onStemChange = (index: number, e: any) => {
 
 <template>
   <h1 class="text-2xl font-bold">Add project tracks</h1>
-  {{ projectStore.trackForm }}
   <div class="my-4">
     <button onclick="add_track_modal.showModal()" class="btn btn-secondary text-lg rounded-[1rem]">
       <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
@@ -80,7 +79,19 @@ const onStemChange = (index: number, e: any) => {
     </button>
   </div>
 
-  {{ tracks }}
+  <div class="flex flex-col w-full">
+    <div v-for="(track, t) in tracks" :key="t" class="flex justify-between p-2 rounded-[1rem]">
+      <div class="flex gap-4 items-center">
+        <NuxtImg :src="projectStore.coverPreviewUrl" height="48px" width="48px" />
+        <span>{{ track.title }}</span>
+      </div>
+      <div class="flex gap-4 items-center">
+        <span>{{ track.price }}</span>
+        <Icon @click.stop="removeTrack(t)" icon="solar:trash-bin-minimalistic-bold"
+          class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24" height="24" />
+      </div>
+    </div>
+  </div>
 
   <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box lg:translate-x-[150px]">
