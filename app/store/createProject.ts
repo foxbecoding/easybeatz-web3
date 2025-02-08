@@ -106,6 +106,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     clearTrackForm();
   }
 
+  const removeTrack = (index: number) => tracks.value.splice(index, 1);
+
   const clearTrackForm = () => {
     trackForm.bpm = '';
     trackForm.collaborators = [];
@@ -163,6 +165,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     isTrackFormValid,
     removeCollab,
     removeStem,
+    removeTrack,
     resetSelectedGenre,
     selectedGenre,
     setGenresField,
