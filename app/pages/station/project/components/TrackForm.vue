@@ -88,13 +88,14 @@ const onStemChange = (index: number, e: any) => {
           <span>{{ track.title }}</span>
         </div>
         <div class="flex gap-4 items-center">
-          <span>{{ track.price }}</span>
+          <span>${{ track.price }}</span>
           <Icon @click.stop="removeTrack(t)" icon="solar:trash-bin-minimalistic-bold"
             class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24" height="24" />
         </div>
       </div>
     </div>
   </div>
+
 
   <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box lg:translate-x-[150px]">
