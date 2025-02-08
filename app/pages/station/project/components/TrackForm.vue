@@ -71,13 +71,12 @@ const onStemChange = (index: number, e: any) => {
 
 
 <template>
-  <h1 class="text-2xl font-bold">Add project tracks</h1>
-  <div class="my-4">
-    <button onclick="add_track_modal.showModal()" class="btn btn-secondary text-lg rounded-[1rem]">
+  <div class="flex flex-col gap-4">
+    <h1 class="text-2xl font-bold">Add project tracks</h1>
+    <button onclick="add_track_modal.showModal()" class="btn btn-secondary text-lg rounded-[1rem] w-48">
       <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
       Add new track
     </button>
-  </div>
 
   <div class="flex flex-col w-full">
     <div v-for="(track, t) in tracks" :key="t" class="flex justify-between p-2 rounded-[1rem]">
