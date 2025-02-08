@@ -79,10 +79,11 @@ const onStemChange = (index: number, e: any) => {
     </button>
 
     <div class="flex flex-col w-full">
-      <div v-for="(track, t) in tracks" :key="t" class="flex justify-between p-2 rounded-[1rem] bg-neutral">
+      <div v-for="(track, t) in tracks" :key="t"
+        class="flex justify-between p-2 rounded-[1rem] bg-neutral cursor-pointer opacity-100 hover:opacity-80 active:opacity-60">
         <div class="flex gap-4 items-center">
           <div class="w-[48px] h-[48px]">
-            <NuxtImg :src="projectStore.coverPreviewUrl" class="rounded-[0.5rem]" />
+            <NuxtImg :src="projectStore.coverPreviewUrl" class="rounded-[0.5rem]" alt="project cover" />
           </div>
           <span>{{ track.title }}</span>
         </div>
