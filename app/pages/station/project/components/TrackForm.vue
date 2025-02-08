@@ -33,6 +33,8 @@ const addTrack = () => {
   setShowToast();
 }
 
+const removeTrack = () => projectStore.removeTrack();
+
 const addCollab = () => projectStore.addCollab();
 
 const removeCollab = (index: number) => projectStore.removeCollab(index);
