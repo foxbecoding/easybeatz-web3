@@ -78,16 +78,19 @@ const onStemChange = (index: number, e: any) => {
       Add new track
     </button>
 
-  <div class="flex flex-col w-full">
-    <div v-for="(track, t) in tracks" :key="t" class="flex justify-between p-2 rounded-[1rem]">
-      <div class="flex gap-4 items-center">
-        <NuxtImg :src="projectStore.coverPreviewUrl" height="48px" width="48px" />
-        <span>{{ track.title }}</span>
-      </div>
-      <div class="flex gap-4 items-center">
-        <span>{{ track.price }}</span>
-        <Icon @click.stop="removeTrack(t)" icon="solar:trash-bin-minimalistic-bold"
-          class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24" height="24" />
+    <div class="flex flex-col w-full">
+      <div v-for="(track, t) in tracks" :key="t" class="flex justify-between p-2 rounded-[1rem] bg-neutral">
+        <div class="flex gap-4 items-center">
+          <div class="w-[48px] h-[48px]">
+            <NuxtImg :src="projectStore.coverPreviewUrl" class="rounded-[0.5rem]" />
+          </div>
+          <span>{{ track.title }}</span>
+        </div>
+        <div class="flex gap-4 items-center">
+          <span>{{ track.price }}</span>
+          <Icon @click.stop="removeTrack(t)" icon="solar:trash-bin-minimalistic-bold"
+            class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24" height="24" />
+        </div>
       </div>
     </div>
   </div>
