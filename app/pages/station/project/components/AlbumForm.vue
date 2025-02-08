@@ -42,7 +42,7 @@ const triggerFileInput = () => {
         class="btn btn-neutral btn-square rounded-[1rem] h-full w-full">
         <Icon icon="solar:camera-add-bold" class="text-4xl" />
       </button>
-      <NuxtImg v-else class="rounded-[1rem]" :src="previewUrl" width="120px" height="120px" />
+      <NuxtImg v-else class="rounded-[1rem]" :src="previewUrl" width="120px" height="120px" alt="project cover" />
       <button v-if="previewUrl" @click="triggerFileInput" class="btn glass mask mask-squircle upload-button opacity-80">
         <Icon icon="solar:camera-add-bold" class="text-xl" />
       </button>
@@ -51,7 +51,6 @@ const triggerFileInput = () => {
     </div>
     <p class="ml-4 max-w-[300px] hidden md:block"> {{ albumCoverForm.text }} </p>
   </div>
-
 
   <form id="form" @keydown.enter.prevent>
     <label class="form-control w-full my-4">
