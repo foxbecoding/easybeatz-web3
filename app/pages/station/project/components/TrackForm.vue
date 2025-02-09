@@ -60,6 +60,8 @@ const openEditTrack = (index: number) => {
 const submit = () => {
   if (isEditMode.value) {
     editTrack();
+    showDialog.value = false;
+    toast.setToast('Track edited', 'INFO')
     return;
   }
   addTrack();
