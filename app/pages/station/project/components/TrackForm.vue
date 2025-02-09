@@ -107,15 +107,12 @@ const onStemChange = (index: number, e: any) => {
   const file: File = e.target.files[0];
   projectStore.setStemFile(index, file);
 }
-
-
 </script>
-
 
 <template>
   <div class="flex flex-col gap-4">
     <h1 class="text-2xl font-bold">Add project tracks</h1>
-    <button @click="setDialog('add', true)" class="btn btn-secondary text-lg rounded-[1rem] w-48">
+    <button @click="setDialog('add')" class="btn btn-secondary text-lg rounded-[1rem] w-48">
       <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
       Add new track
     </button>
