@@ -56,6 +56,14 @@ const openEditTrack = (index: number) => {
   setDialog('edit', true);
 }
 
+const submit = () => {
+  if (isEditMode.value) {
+    editTrack();
+    return;
+  }
+  addTrack();
+}
+
 const removeTrack = (index: number) => projectStore.removeTrack(index);
 
 const addCollab = () => projectStore.addCollab();
