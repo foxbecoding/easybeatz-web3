@@ -321,7 +321,7 @@ const onStemChange = (index: number, e: any) => {
 
       <div class="modal-action">
         <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
-          <button @click="showDialog = false" class="btn btn-neutral">Close</button>
+          <button class="btn btn-neutral">Close</button>
           <button @click="isTrackFormValid ? submit() : false" class="btn btn-primary" :disabled="!isTrackFormValid">{{
             !isEditMode ? 'Add' : 'Edit' }} track</button>
         </form>
