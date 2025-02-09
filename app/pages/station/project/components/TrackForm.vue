@@ -92,7 +92,7 @@ const onStemChange = (index: number, e: any) => {
         </div>
         <div class="flex gap-4 items-center">
           <span>${{ track.price }}</span>
-          <div class="tooltip" data-tip="Remove track">
+          <div class="tooltip" data-tip="Edit track">
             <Icon @click.stop="editTrack(t)" icon="solar:pen-bold"
               class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-warning" width="24"
               height="24" />
