@@ -9,6 +9,7 @@ const props = defineProps<{
 }>();
 
 const projectStore = useCreateProjectStore();
+const toast = useToast();
 const showToast = ref(false);
 const trackForm = ref();
 const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
