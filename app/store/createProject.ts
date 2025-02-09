@@ -106,6 +106,9 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     clearTrackForm();
   }
 
+  const editTrack = (index: number) => {
+  };
+
   const removeTrack = (index: number) => tracks.value.splice(index, 1);
 
   const clearTrackForm = () => {
