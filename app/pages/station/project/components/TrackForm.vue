@@ -14,7 +14,6 @@ const showToast = ref(false);
 const trackForm = ref();
 const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
 const tracks = computed(() => projectStore.tracks);
-const showDialog = ref(false);
 const isEditMode = ref(false);
 const editTrackIndex = ref(0);
 
@@ -31,7 +30,7 @@ const numbersOnlyInput = (key: string, event: any) => {
   projectStore.trackForm[key] = value;
 };
 
-const setDialog = (type: 'add' | 'edit', status: boolean) => {
+const setDialog = (type: 'add' | 'edit') => {
   if (type == 'add') {
     if (isEditMode.value) {
       projectStore.clearTrackForm();
@@ -40,7 +39,7 @@ const setDialog = (type: 'add' | 'edit', status: boolean) => {
   } else {
     isEditMode.value = true;
   }
-  showDialog.value = status;
+  document.getElementById('track_form_modal')?.showModal()
 }
 
 const addTrack = () => {
@@ -54,13 +53,13 @@ const editTrack = () => projectStore.editTrack(editTrackIndex.value);
 const openEditTrack = (index: number) => {
   projectStore.setEditTrackFields(index);
   editTrackIndex.value = index;
-  setDialog('edit', true);
+  setDialog('edit');
 }
 
 const submit = () => {
   if (isEditMode.value) {
     editTrack();
-    showDialog.value = false;
+    document.getElementById('track_form_modal')?.close();
     toast.setToast('Track edited', 'INFO')
     return;
   }
@@ -139,7 +138,7 @@ const onStemChange = (index: number, e: any) => {
     </div>
   </div>
 
-  <dialog id="add_track_modal" class="modal modal-bottom sm:modal-middle" :open="showDialog">
+  <dialog id="track_form_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box lg:translate-x-[150px]">
       <h2 class="text-2xl font-bold">{{ !isEditMode ? 'Add' : 'Edit' }} track</h2>
       <form id="track-form" ref="trackForm">
