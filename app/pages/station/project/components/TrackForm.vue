@@ -98,6 +98,7 @@ const onStemChange = (index: number, e: any) => {
   projectStore.setStemFile(index, file);
 }
 
+
 </script>
 
 
@@ -318,9 +319,9 @@ const onStemChange = (index: number, e: any) => {
 
       <div class="modal-action">
         <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
-          <button class="btn btn-neutral">Close</button>
-          <button @click="isTrackFormValid ? addTrack() : false" class="btn btn-primary"
-            :disabled="!isTrackFormValid">Add track</button>
+          <button @click="showDialog = false" class="btn btn-neutral">Close</button>
+          <button @click="isTrackFormValid ? submit() : false" class="btn btn-primary" :disabled="!isTrackFormValid">{{
+            !isEditMode ? 'Add' : 'Edit' }} track</button>
         </form>
       </div>
     </div>
