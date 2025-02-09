@@ -33,7 +33,7 @@ const addTrack = () => {
   setShowToast();
 }
 
-const editTrack = (index: number) => {};
+const editTrack = (index: number) => { };
 
 const removeTrack = (index: number) => projectStore.removeTrack(index);
 
@@ -93,8 +93,9 @@ const onStemChange = (index: number, e: any) => {
         <div class="flex gap-4 items-center">
           <span>${{ track.price }}</span>
           <div class="tooltip" data-tip="Remove track">
-            <Icon @click.stop="removeTrack(t)" icon="solar:pen-bold"
-              class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-warning" width="24" height="24" />
+            <Icon @click.stop="editTrack(t)" icon="solar:pen-bold"
+              class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-warning" width="24"
+              height="24" />
           </div>
           <div class="tooltip" data-tip="Remove track">
             <Icon @click.stop="removeTrack(t)" icon="solar:trash-bin-minimalistic-bold"
