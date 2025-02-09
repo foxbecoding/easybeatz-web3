@@ -15,6 +15,7 @@ const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
 const tracks = computed(() => projectStore.tracks);
 const showDialog = ref(false);
 const isEditMode = ref(false);
+const editTrackIndex = ref(0);
 
 const numbersOnlyInput = (key: string, event: any) => {
   let value = event.target.value;
