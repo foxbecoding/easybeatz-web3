@@ -50,6 +50,12 @@ const addTrack = () => {
 
 const editTrack = () => projectStore.editTrack(editTrackIndex.value);
 
+const openEditTrack = (index: number) => {
+  projectStore.setEditTrackFields(index);
+  editTrackIndex.value = index;
+  setDialog('edit', true);
+}
+
 const removeTrack = (index: number) => projectStore.removeTrack(index);
 
 const addCollab = () => projectStore.addCollab();
