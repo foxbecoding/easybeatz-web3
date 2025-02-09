@@ -85,8 +85,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const isProjectValid = computed(() => isAlbumFormValid.value && tracks.value.length > 0 ? true : false);
 
-  const tracks = ref<TrackForm[]>([]);
-
   const validateAlbumForm = async () => {
     const formData = new FormData;
     formData.append('album[title]', albumForm.title)
@@ -99,6 +97,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     }
     return true;
   }
+
+  const tracks = ref<TrackForm[]>([]);
 
   const addTrack = () => {
     const track = cloneDeep(trackForm);
