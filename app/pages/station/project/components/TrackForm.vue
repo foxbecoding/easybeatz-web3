@@ -33,7 +33,7 @@ const addTrack = () => {
   setShowToast();
 }
 
-const editTrack = (index: number) => {};
+const editTrack = (index: number) => projectStore.editTrack(index);
 
 const removeTrack = (index: number) => projectStore.removeTrack(index);
 
