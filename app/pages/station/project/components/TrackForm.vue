@@ -18,9 +18,16 @@ const isEditMode = ref(false);
 const editTrackIndex = ref(0);
 
 const numbersOnlyInput = (key: string, event: any) => {
+  const invalidChars = ['+', '-'];
+
+  if (invalidChars.includes(event.key)) {
+    event.preventDefault(); // Block '+' and '-' from being entered
+    return;
+  }
+
   let value = event.target.value;
 
-  // Remove non-digit characters
+  // Remove non-digit characters (just in case)
   value = value.replace(/\D/g, '');
 
   // Remove leading zeros
@@ -29,6 +36,7 @@ const numbersOnlyInput = (key: string, event: any) => {
   // Update the corresponding item in the array
   projectStore.trackForm[key] = value;
 };
+
 
 const setDialog = (type: 'add' | 'edit') => {
   if (type == 'add') {
@@ -159,8 +167,9 @@ const onStemChange = (index: number, e: any) => {
             </div>
             <label class="input input-ghost bg-neutral flex items-center">
               <Icon icon="material-symbols:attach-money-rounded" width="24" height="24" />
-              <input v-model="projectStore.trackForm.price" @input="numbersOnlyInput('price', $event)" id="price"
-                name="price" type="number" placeholder="Enter track price" class="grow w-full" />
+              <input v-model="projectStore.trackForm.price" @input="numbersOnlyInput('price', $event)"
+                @keydown="numbersOnlyInput('price', $event)" id="price" name="price" type="number"
+                placeholder="Enter track price" class="grow w-full" />
             </label>
           </label>
 
@@ -168,8 +177,9 @@ const onStemChange = (index: number, e: any) => {
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">BPM</span>
             </div>
-            <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput('bpm', $event)" id="bpm" name="bpm"
-              type="number" placeholder="Enter track bpm" class="input input-ghost bg-neutral w-full" />
+            <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput('bpm', $event)"
+              @keydown="numbersOnlyInput('bpm', $event)" id="bpm" name="bpm" type="number" placeholder="Enter track bpm"
+              class="input input-ghost bg-neutral w-full" />
           </label>
         </section>
 
@@ -279,7 +289,8 @@ const onStemChange = (index: number, e: any) => {
             <label class="input input-ghost bg-neutral flex items-center">
               <Icon icon="material-symbols:attach-money-rounded" class="text-warning" width="24" height="24" />
               <input v-model="projectStore.trackForm.exclusive_price"
-                @input="numbersOnlyInput('exclusive_price', $event)" id="exclusive_price" name="exclusive_price"
+                @input="numbersOnlyInput('exclusive_price', $event)"
+                @keydown="numbersOnlyInput('exclusive_price', $event)" id="exclusive_price" name="exclusive_price"
                 type="number" placeholder="Enter track exclusive price" class="grow w-full" />
             </label>
           </label>
