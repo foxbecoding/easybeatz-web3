@@ -313,7 +313,7 @@ const onStemChange = (index: number, e: any) => {
         </section>
       </form>
 
-      <div v-show="showToast" class="toast">
+      <div v-show="showToast" class="toast sticky">
         <div class="alert alert-info">
           <span>Track added</span>
         </div>
