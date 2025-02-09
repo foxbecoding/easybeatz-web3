@@ -13,6 +13,7 @@ const showToast = ref(false);
 const trackForm = ref();
 const isTrackFormValid = computed(() => projectStore.isTrackFormValid);
 const tracks = computed(() => projectStore.tracks);
+const showDialog = ref(false);
 
 const numbersOnlyInput = (key: string, event: any) => {
   let value = event.target.value;
