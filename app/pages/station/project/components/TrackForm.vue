@@ -30,6 +30,18 @@ const numbersOnlyInput = (key: string, event: any) => {
   projectStore.trackForm[key] = value;
 };
 
+const setDialog = (type: 'add' | 'edit', status: boolean) => {
+  if (type == 'add') {
+    if (isEditMode.value) {
+      projectStore.clearTrackForm();
+    }
+    isEditMode.value = false;
+  } else {
+    isEditMode.value = true;
+  }
+  showDialog.value = status;
+}
+
 const addTrack = () => {
   projectStore.addTrack();
   resetForm();
