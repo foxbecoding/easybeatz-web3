@@ -204,9 +204,11 @@ const onStemChange = (index: number, e: any) => {
                 <label class="input input-ghost bg-neutral flex items-center">
                   <input v-model="collab.pubkey" :id="`collab_${c}`" :name="`collab_${c}`" type="text"
                     placeholder="Enter wallet address" class="grow w-full" />
-                  <Icon @click.stop="removeCollab(c)" icon="solar:trash-bin-minimalistic-bold"
-                    class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
-                    height="24" />
+                  <div class="tooltip" data-tip="Remove collab">
+                    <Icon @click.stop="removeCollab(c)" icon="solar:trash-bin-minimalistic-bold"
+                      class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
+                      height="24" />
+                  </div>
                 </label>
               </label>
             </div>
