@@ -107,6 +107,8 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   }
 
   const editTrack = (index: number) => {
+    const track = tracks.value[index];
+    console.log(track);
   };
 
   const removeTrack = (index: number) => tracks.value.splice(index, 1);
@@ -164,6 +166,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     albumForm,
     clearTrackForm,
     coverPreviewUrl,
+    editTrack,
     isProjectValid,
     isTrackFormValid,
     removeCollab,
