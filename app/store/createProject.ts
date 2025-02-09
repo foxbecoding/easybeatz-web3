@@ -107,6 +107,10 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   }
 
   const editTrack = (index: number) => {
+    tracks.value[index] = cloneDeep(trackForm);
+    clearTrackForm();
+  }
+
     const track = tracks.value[index];
     console.log(track);
   };
