@@ -111,8 +111,15 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     clearTrackForm();
   }
 
+  const setEditTrackFields = (index: number) => {
+    clearTrackForm();
     const track = tracks.value[index];
-    console.log(track);
+    Object.keys(track).forEach(key => {
+      if (key == 'genres') {
+        selectedGenre.value = track[key][0];
+      }
+      trackForm[key] = track[key];
+    });
   };
 
   const removeTrack = (index: number) => tracks.value.splice(index, 1);
@@ -178,6 +185,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     removeTrack,
     resetSelectedGenre,
     selectedGenre,
+    setEditTrackFields,
     setGenresField,
     setMp3File,
     setStemFile,
