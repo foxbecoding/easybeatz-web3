@@ -253,9 +253,11 @@ const onStemChange = (index: number, e: any) => {
             <div v-for="(stem, s) in projectStore.trackForm.stems" :key="s" class="flex flex-col gap-2">
               <div class="flex gap-4">
                 <span class="label-text text-lg font-bold">Stem {{ s + 1 }}</span>
-                <Icon @click="removeStem(s)" icon="solar:trash-bin-minimalistic-bold"
-                  class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
-                  height="24" />
+                <div class="tooltip" data-tip="Remove stem">
+                  <Icon @click="removeStem(s)" icon="solar:trash-bin-minimalistic-bold"
+                    class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
+                    height="24" />
+                </div>
               </div>
               <input v-model="stem.name" :id="`stem_${s}`" :name="`stem_${s}`" type="text" placeholder="Enter stem name"
                 class="input input-ghost bg-neutral w-full" />
