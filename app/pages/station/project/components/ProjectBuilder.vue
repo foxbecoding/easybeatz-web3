@@ -12,7 +12,10 @@ const props = defineProps<{
 
 const createProjectStore = useCreateProjectStore();
 const isProjectValid = computed(() => createProjectStore.isProjectValid);
-const submitHandler = () => createProjectStore.submit();
+const submitHandler = () => {
+  if (!isProjectValid.value) return false;
+  createProjectStore.submit()
+};
 </script>
 
 <template>
@@ -23,7 +26,7 @@ const submitHandler = () => createProjectStore.submit();
       <TrackForm :genres="genres" :moods="moods" />
     </div>
     <div class="card-actions">
-      <button @click="isProjectValid ? submitHandler() : false" class="btn btn-primary w-full rounded-[1rem] text-lg"
+      <button @click="submitHandler()" class="btn btn-primary w-full rounded-[1rem] text-lg"
         :disabled="!isProjectValid">Submit</button>
     </div>
   </div>
