@@ -86,6 +86,11 @@ const setRemoveTrackModal = (title: string, index: number) => {
   document.getElementById('remove_track_modal')?.showModal();
 }
 
+const removeTrackHandler = () => {
+  projectStore.removeTrack(removingTrack.index);
+  document.getElementById('remove_track_modal')?.close();
+}
+
 const addCollabHandler = () => projectStore.addCollab();
 
 const removeCollabHandler = (index: number) => projectStore.removeCollab(index);
