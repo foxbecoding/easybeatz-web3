@@ -202,6 +202,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     setMp3File,
     setStemFile,
     setWavFile,
+    submit,
     trackForm,
     tracks,
     validateAlbumForm,
