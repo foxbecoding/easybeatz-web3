@@ -13,8 +13,19 @@ const props = defineProps<{
 const isLoading = ref(false);
 const createProjectStore = useCreateProjectStore();
 const isProjectValid = computed(() => createProjectStore.isProjectValid);
+const submitBtnLabel = computed(() => !isLoading.value ? 'Submit' : 'Submitting')
+
+const submitHandler = async () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
   if (!isProjectValid.value) return;
-  createProjectStore.submit()
+  const res = await createProjectStore.submit();
+  if (!res) {
+    isLoading.value = false;
+    return;
+  }
+  isLoading.value = false;
+  useToast().setToast('Project created', 'INFO');
 };
 </script>
 
