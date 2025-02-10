@@ -186,6 +186,48 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     });
   }
 
+  const tracksSubmitData = (formData: FormData) => {
+    formData.append('track_count', `${tracks.value.length}`);
+    tracks.value.forEach((track, i) => {
+      formData.append(`tracks[${i}][genre_count]`, `${track.genres.length}`);
+      formData.append(`tracks[${i}][collab_count]`, `${track.collaborators.length}`);
+      formData.append(`tracks[${i}][stem_count]`, `${track.stems.length}`);
+      Object.keys(track).forEach(key => {
+        if (key == 'wav' && !track.wav) return;
+        if (key == 'genres') {
+          track.genres.forEach((genre, gi) => {
+            formData.append(`tracks[${i}][${key}][${gi}]`, genre)
+          });
+          return;
+        } else if (key == 'collaborators') {
+          if (track.collaborators.length < 1) return;
+          track.collaborators.forEach((collab, ci) => {
+            formData.append(`tracks[${i}][${key}][${ci}]`, collab.pubkey)
+          });
+          return;
+        } else if (key == 'has_exclusive') {
+          const status = track[key] == true ? 'True' : 'False';
+          formData.append(`tracks[${i}][has_exclusive]`, status);
+          return;
+        } else if (key == 'exclusive_price') {
+          if (track.has_exclusive) {
+            formData.append(`tracks[${i}][exclusive_price]`, track.exclusive_price);
+          }
+          return;
+        } else if (key == 'stems') {
+          if (track.has_exclusive) {
+            track.stems.forEach((stem, si) => {
+              formData.append(`tracks[${i}][stems][${si}][name]`, stem.name);
+              formData.append(`tracks[${i}][stems][${si}][file]`, stem.file);
+            });
+          }
+          return;
+        }
+        formData.append(`tracks[${i}][${key}]`, track[key]);
+      })
+    })
+  }
+
   watch(selectedGenre, (newSelected) => {
     if (!newSelected) return false;
     setGenresField(String(newSelected));
