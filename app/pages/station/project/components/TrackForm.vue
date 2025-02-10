@@ -351,4 +351,16 @@ const onStemChange = (index: number, e: any) => {
       </div>
     </div>
   </dialog>
+
+  <dialog id="remove_track_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box lg:translate-x-[150px]">
+      <h3 class="text-xl font-bold">Removing track "{{ removingTrack.title }}"?</h3>
+      <div class="modal-action">
+        <form method="dialog" class="flex justify-end gap-2">
+          <button class="btn btn-neutral">Close</button>
+          <button @click="removeTrackHandler()" class="btn btn-error">Remove</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </template>
