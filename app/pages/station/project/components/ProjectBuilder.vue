@@ -30,5 +30,4 @@ const submitHandler = () => {
         :disabled="!isProjectValid">Submit</button>
     </div>
   </div>
-
 </template>
