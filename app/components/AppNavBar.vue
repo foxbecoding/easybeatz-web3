@@ -6,7 +6,7 @@
         <a class="btn btn-neutral rounded-[1rem] text-xl">Create</a>
       </div>
 
-      <label class="input bg-neutral input-ghost rounded-[1rem] flex items-center gap-2 max-w-[480px] w-full">
+      <label class="hidden input bg-neutral input-ghost rounded-[1rem] md:flex items-center gap-2 max-w-[480px] w-full">
         <input type="text" class="grow" placeholder="Search" />
         <Icon icon="solar:magnifer-linear" width="24" height="24" />
       </label>

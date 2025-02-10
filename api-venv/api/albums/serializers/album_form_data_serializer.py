@@ -3,12 +3,12 @@ from PIL import Image
 
 class AlbumFormSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=120)
-    bio = serializers.CharField(allow_null=True)
+    bio = serializers.CharField(allow_null=True, allow_blank=True)
     cover = serializers.ImageField()
 
     def validate_cover(self, value):
         # Allowed file types
-        allowed_formats = ['png', 'jpeg', 'jpg', 'avif']
+        allowed_formats = ['png', 'jpeg', 'jpg', 'avif', 'webp', 'bmp']
 
         try:
             image = Image.open(value)
