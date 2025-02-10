@@ -163,12 +163,10 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     const formData = new FormData;
     Object.keys(albumForm).forEach(key => {
       formData.append(`album[${key}]`, albumForm[key])
-
-    })
+    });
     //formData.append('album[title]', albumForm.title)
     //formData.append('album[cover]', albumForm.cover)
     //formData.append('album[bio]', albumForm.bio)
-    console.log(formData.entries())
   }
 
   watch(selectedGenre, (newSelected) => {
