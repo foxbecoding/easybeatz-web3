@@ -150,7 +150,7 @@ const onStemChange = (index: number, e: any) => {
               height="24" />
           </div>
           <div class="tooltip" data-tip="Remove track">
-            <Icon @click.stop="removeTrackHandler(t)" icon="solar:trash-bin-minimalistic-bold"
+            <Icon @click.stop="setRemoveTrackModal(track.title, t)" icon="solar:trash-bin-minimalistic-bold"
               class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24" height="24" />
           </div>
         </div>
