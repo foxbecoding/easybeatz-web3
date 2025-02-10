@@ -166,8 +166,20 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const resetSelectedGenre = () => selectedGenre.value = '';
 
-  const submit = () => {
+  const submit = async () => {
     const formData = new FormData;
+    albumSubmitData(formData);
+    tracksSubmitData(formData);
+    const res = await submitAlbumProject(formData)
+    if (res.errors) {
+      console.error(res.errors)
+      return false;
+    }
+    clearAlbumForm();
+    tracks.value = [];
+    return true;
+  }
+
     Object.keys(albumForm).forEach(key => {
       formData.append(`album[${key}]`, albumForm[key])
     });
