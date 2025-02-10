@@ -80,6 +80,12 @@ const removingTrack = reactive({
   index: 0,
 })
 
+const setRemoveTrackModal = (title: string, index: number) => {
+  removingTrack.title = title;
+  removingTrack.index = index;
+  document.getElementById('remove_track_modal')?.showModal();
+}
+
 const addCollabHandler = () => projectStore.addCollab();
 
 const removeCollabHandler = (index: number) => projectStore.removeCollab(index);
