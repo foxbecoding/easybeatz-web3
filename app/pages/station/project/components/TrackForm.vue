@@ -75,7 +75,10 @@ const submitTrackHandler = () => {
   addTrackHandler();
 }
 
-const removeTrackHandler = (index: number) => projectStore.removeTrack(index);
+const removingTrack = reactive({
+  title: '',
+  index: 0,
+})
 
 const addCollabHandler = () => projectStore.addCollab();
 
