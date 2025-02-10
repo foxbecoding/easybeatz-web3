@@ -38,7 +38,7 @@ const numbersOnlyInput = (key: string, event: any) => {
 };
 
 
-const setDialog = (type: 'add' | 'edit') => {
+const setDialogHandler = (type: 'add' | 'edit') => {
   if (type == 'add') {
     if (isEditMode.value) {
       projectStore.clearTrackForm();
@@ -50,44 +50,44 @@ const setDialog = (type: 'add' | 'edit') => {
   document.getElementById('track_form_modal')?.showModal()
 }
 
-const addTrack = () => {
+const addTrackHandler = () => {
   projectStore.addTrack();
-  resetForm();
-  setShowToast();
+  resetFormHandler();
+  toastHandler();
 }
 
-const editTrack = () => projectStore.editTrack(editTrackIndex.value);
+const editTrackHandler = () => projectStore.editTrack(editTrackIndex.value);
 
-const openEditTrack = (index: number) => {
+const openEditTrackHandler = (index: number) => {
   projectStore.setEditTrackFields(index);
   editTrackIndex.value = index;
-  setDialog('edit');
+  setDialogHandler('edit');
 }
 
 const submitTrackHandler = () => {
   if (!isTrackFormValid.value) return;
   if (isEditMode.value) {
-    editTrack();
+    editTrackHandler();
     document.getElementById('track_form_modal')?.close();
     toast.setToast('Track edited', 'INFO')
     return;
   }
-  addTrack();
+  addTrackHandler();
 }
 
-const removeTrack = (index: number) => projectStore.removeTrack(index);
+const removeTrackHandler = (index: number) => projectStore.removeTrack(index);
 
-const addCollab = () => projectStore.addCollab();
+const addCollabHandler = () => projectStore.addCollab();
 
-const removeCollab = (index: number) => projectStore.removeCollab(index);
+const removeCollabHandler = (index: number) => projectStore.removeCollab(index);
 
-const addStem = () => projectStore.addStem();
+const addStemHandler = () => projectStore.addStem();
 
-const removeStem = (index: number) => projectStore.removeStem(index);
+const removeStemHandler = (index: number) => projectStore.removeStem(index);
 
-const resetForm = () => trackForm.value.reset();
+const resetFormHandler = () => trackForm.value.reset();
 
-const setShowToast = () => {
+const toastHandler = () => {
   showToast.value = true;
   setTimeout(() => {
     showToast.value = false;
@@ -113,7 +113,7 @@ const onStemChange = (index: number, e: any) => {
 <template>
   <div class="flex flex-col gap-4">
     <h1 class="text-2xl font-bold">Add project tracks</h1>
-    <button @click="setDialog('add')" class="btn btn-secondary text-lg rounded-[1rem] w-48">
+    <button @click="setDialogHandler('add')" class="btn btn-secondary text-lg rounded-[1rem] w-48">
       <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
       Add new track
     </button>
@@ -131,12 +131,12 @@ const onStemChange = (index: number, e: any) => {
         <div class="flex gap-4 items-center">
           <span>${{ track.price }}</span>
           <div class="tooltip" data-tip="Edit track">
-            <Icon @click.stop="openEditTrack(t)" icon="solar:pen-bold"
+            <Icon @click.stop="openEditTrackHandler(t)" icon="solar:pen-bold"
               class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-warning" width="24"
               height="24" />
           </div>
           <div class="tooltip" data-tip="Remove track">
-            <Icon @click.stop="removeTrack(t)" icon="solar:trash-bin-minimalistic-bold"
+            <Icon @click.stop="removeTrackHandler(t)" icon="solar:trash-bin-minimalistic-bold"
               class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24" height="24" />
           </div>
         </div>
@@ -252,7 +252,7 @@ const onStemChange = (index: number, e: any) => {
                   <input v-model="collab.pubkey" :id="`collab_${c}`" :name="`collab_${c}`" type="text"
                     placeholder="Enter wallet address" class="grow w-full" />
                   <div class="tooltip" data-tip="Remove collab">
-                    <Icon @click.stop="removeCollab(c)" icon="solar:trash-bin-minimalistic-bold"
+                    <Icon @click.stop="removeCollabHandler(c)" icon="solar:trash-bin-minimalistic-bold"
                       class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
                       height="24" />
                   </div>
@@ -261,7 +261,7 @@ const onStemChange = (index: number, e: any) => {
             </div>
           </div>
 
-          <a @click="addCollab()" class="btn btn-secondary rounded-[1rem] w-40">
+          <a @click="addCollabHandler()" class="btn btn-secondary rounded-[1rem] w-40">
             <Icon icon="solar:user-plus-rounded-bold" width="24" height="24" />
             Add collab
           </a>
@@ -302,7 +302,7 @@ const onStemChange = (index: number, e: any) => {
               <div class="flex gap-4">
                 <span class="label-text text-lg font-bold">Stem {{ s + 1 }}</span>
                 <div class="tooltip" data-tip="Remove stem">
-                  <Icon @click="removeStem(s)" icon="solar:trash-bin-minimalistic-bold"
+                  <Icon @click="removeStemHandler(s)" icon="solar:trash-bin-minimalistic-bold"
                     class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
                     height="24" />
                 </div>
@@ -314,7 +314,7 @@ const onStemChange = (index: number, e: any) => {
             </div>
           </div>
 
-          <a v-if="projectStore.trackForm.has_exclusive" @click="addStem()"
+          <a v-if="projectStore.trackForm.has_exclusive" @click="addStemHandler()"
             class="btn btn-secondary rounded-[1rem] w-40">
             <Icon icon="solar:add-square-bold" width="24" height="24" />
             Add stem
