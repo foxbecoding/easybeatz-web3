@@ -64,7 +64,8 @@ const openEditTrack = (index: number) => {
   setDialog('edit');
 }
 
-const submit = () => {
+const submitTrackHandler = () => {
+  if (!isTrackFormValid.value) return;
   if (isEditMode.value) {
     editTrack();
     document.getElementById('track_form_modal')?.close();
@@ -330,7 +331,7 @@ const onStemChange = (index: number, e: any) => {
       <div class="modal-action">
         <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
           <button class="btn btn-neutral">Close</button>
-          <button @click="isTrackFormValid ? submit() : false" class="btn btn-primary" :disabled="!isTrackFormValid">{{
+          <button @click="submitTrackHandler()" class="btn btn-primary" :disabled="!isTrackFormValid">{{
             !isEditMode ? 'Add' : 'Edit' }} track</button>
         </form>
       </div>
