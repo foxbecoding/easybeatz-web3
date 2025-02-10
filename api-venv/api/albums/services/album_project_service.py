@@ -1,4 +1,3 @@
-from rest_framework.schemas.coreapi import serializers
 from ..models import *
 from genres.models import Genre
 from moods.models import Mood
@@ -11,20 +10,19 @@ class AlbumProjectService:
         self.album_form_data = {}
         self.tracks_form_data = []
         self.errors = None
-        self.__set_form_data()
 
-    def __set_form_data(self):
-        self.__set_album_form_data()
-        self.__set_tracks_form_data()
+    def set_form_data(self):
+        self._set_album_form_data()
+        self._set_tracks_form_data()
 
-    def __set_album_form_data(self):
+    def _set_album_form_data(self):
         self.album_form_data = {
             "title": self.form_data.get(f'album[title]'),
             "bio": self.form_data.get(f'album[bio]'),
             "cover": self.form_data.get(f'album[cover]')
         }
 
-    def __set_tracks_form_data(self):
+    def _set_tracks_form_data(self):
         track_count = int(self.form_data.get(f'track_count'))
         for i in range(track_count):
             track = self.__track_form_data_builder(i) 
@@ -55,14 +53,14 @@ class AlbumProjectService:
             "file": self.form_data.get(f'tracks[{track_index}][stems][{stem_index}][file]')
         }
 
-    def __is_album_form_data_valid(self) -> bool:
+    def _is_album_form_data_valid(self) -> bool:
         album_serializer = AlbumFormSerializer(data=self.album_form_data)
         if not album_serializer.is_valid():
             self.errors = album_serializer.errors
             return False
         return True 
 
-    def __is_tracks_form_data_valid(self) -> bool:
+    def _is_tracks_form_data_valid(self) -> bool:
         for index, track_data in enumerate(self.tracks_form_data):
             serializer = TrackFormSerializer(data=track_data, context={'track_data': track_data, 'index': index})
             if not serializer.is_valid():
@@ -71,27 +69,12 @@ class AlbumProjectService:
         return True
 
     def is_form_data_valid(self) -> bool:
-        if not self.__is_album_form_data_valid():
+        if not self._is_album_form_data_valid():
             return False
-        if not self.__is_tracks_form_data_valid():
+        if not self._is_tracks_form_data_valid():
             return False
         self.errors = None
         return True
-
-    def __track_model_data_builder(self, album: Album):
-        tracks_data = []
-        for index, track in enumerate(self.tracks_form_data):
-            genres =  Genre.objects.filter(pk__in=track['genres'])
-            mood = Mood.objects.get(pk=track['mood'])
-            data = {
-                'album': album,
-                'title': track['title'],
-                'genres': genres,
-                'mood': mood,
-                'bpm': track['bpm'],
-                'order_no': index
-            }
-            tracks_data.append(data)
 
     def __save_model_data(self, data, model):
         instance = model(**data)

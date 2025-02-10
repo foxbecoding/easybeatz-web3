@@ -13,7 +13,7 @@ class TrackFormSerializer(serializers.Serializer):
     bpm = serializers.CharField()
     has_exclusive = serializers.BooleanField()
     price = serializers.CharField()
-    exclusive_price = serializers.CharField(allow_blank=True)
+    exclusive_price = serializers.CharField(allow_blank=True, allow_null=True)
     collaborators = serializers.ListField(allow_empty=True)
     stems = serializers.ListField(allow_empty=True)
 

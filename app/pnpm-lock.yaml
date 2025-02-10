@@ -35,6 +35,9 @@ importers:
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       nuxt:
         specifier: 3.15.1
         version: 3.15.1(@parcel/watcher@2.5.0)(@types/node@22.10.5)(bufferutil@4.0.9)(db0@0.2.1)(idb-keyval@6.2.1)(ioredis@5.4.2)(magicast@0.3.5)(rollup@4.29.2)(terser@5.37.0)(typescript@5.7.2)(utf-8-validate@5.0.10)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.2)(terser@5.37.0)(yaml@2.7.0))(yaml@2.7.0)

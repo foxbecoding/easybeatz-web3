@@ -10,7 +10,7 @@ class UpdateStationPictureSerializer(serializers.ModelSerializer):
 
     def validate_picture(self, value):
         # Allowed file types
-        allowed_formats = ['png', 'jpeg', 'jpg', 'avif']
+        allowed_formats = ['png', 'jpeg', 'jpg', 'avif', 'webp', 'bmp']
 
         # Check file size
         # max_size_mb = 6
