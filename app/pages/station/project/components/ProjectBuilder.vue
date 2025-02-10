@@ -10,6 +10,7 @@ const props = defineProps<{
   moods: Mood[] | null;
 }>();
 
+const isLoading = ref(false);
 const createProjectStore = useCreateProjectStore();
 const isProjectValid = computed(() => createProjectStore.isProjectValid);
 const submitHandler = () => {
