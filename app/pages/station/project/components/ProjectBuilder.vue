@@ -13,7 +13,6 @@ const props = defineProps<{
 const isLoading = ref(false);
 const createProjectStore = useCreateProjectStore();
 const isProjectValid = computed(() => createProjectStore.isProjectValid);
-const submitHandler = () => {
   if (!isProjectValid.value) return;
   createProjectStore.submit()
 };
