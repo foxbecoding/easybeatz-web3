@@ -53,6 +53,13 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     wav: null
   });
 
+  const clearAlbumForm = () => {
+    albumForm.title = '';
+    albumForm.cover = null;
+    albumForm.bio = '';
+    coverPreviewUrl.value = '';
+  }
+
   const isTrackFormValid = computed(() => {
     let validationFields = ['bpm', 'genres', 'mood', 'mp3', 'price', 'title'];
     if (trackForm.has_exclusive) {
