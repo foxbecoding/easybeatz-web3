@@ -38,7 +38,10 @@ const submitHandler = async () => {
     </div>
     <div class="card-actions">
       <button @click="submitHandler()" class="btn btn-primary w-full rounded-[1rem] text-lg"
-        :disabled="!isProjectValid">Submit</button>
+        :disabled="!isProjectValid">
+        {{ submitBtnLabel }}
+        <span v-if="isLoading" class="loading loading-dots loading-md"></span>
+      </button>
     </div>
   </div>
 </template>
