@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const createProjectStore = useCreateProjectStore();
 const isProjectValid = computed(() => createProjectStore.isProjectValid);
-
+const submit = () => createProjectStore.submit();
 </script>
 
 <template>
