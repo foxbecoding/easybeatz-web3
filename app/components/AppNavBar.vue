@@ -1,4 +1,10 @@
 <template>
+  <div class="navbar bg-base-200 fixed left-0 z-50 mx-auto w-full max-w-[2560px] px-4 sm:px-8">
+    <div class="navbar-start">
+      <NuxtLink :to="{ name: 'index' }">
+        <NuxtImg src="/logo.png" width="200px" />
+      </NuxtLink>
+    </div>
 
       <div class="flex">
         <a class="btn btn-neutral rounded-[1rem] text-xl">Create</a>
