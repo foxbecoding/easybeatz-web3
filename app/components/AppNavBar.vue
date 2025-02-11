@@ -6,9 +6,12 @@
       </NuxtLink>
     </div>
 
+    <div class="navbar-center max-w-[600px] w-full">
+      <label class="hidden input bg-neutral input-ghost rounded-[1rem] md:flex items-center gap-2 w-full">
         <input type="text" class="grow" placeholder="Search" />
         <Icon icon="solar:magnifer-linear" width="24" height="24" />
       </label>
+    </div>
 
       <div class="flex-none">
         <AppWalletConnect v-if="!authStore.isAuthenticated" class="mr-4" />
