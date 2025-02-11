@@ -1,6 +1,4 @@
 <template>
-  <div class="navbar bg-base-100 relative">
-    <div class="mx-auto w-full max-w-[2560px] px-4 sm:px-8 2xl:px-16 flex items-center justify-between">
 
       <div class="flex">
         <a class="btn btn-neutral rounded-[1rem] text-xl">Create</a>
