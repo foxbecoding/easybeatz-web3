@@ -1,5 +1,5 @@
 <template>
-  <div class="drawer drawer-open">
+  <div class="drawer drawer-open bg-base-200">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col ">
 
