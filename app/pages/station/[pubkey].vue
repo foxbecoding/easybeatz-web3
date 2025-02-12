@@ -57,7 +57,7 @@ const uploadPicture = async (file: File) => {
 
 <template>
   <AppPageContainer>
-    <div v-if="status == 'success' && station" class="flex">
+    <div v-if="status == 'success' && station" class="flex flex-col md:flex-row items-center md:items-start">
       <div class="mr-4 min-w-[200px] h-[200px] group relative mask mask-squircle bg-neutral p-1 box-content">
         <NuxtImg class="mask mask-squircle max-h-[200px] max-w-[200px]" :src="stationPicture" width="200"
           height="200" />
@@ -68,7 +68,6 @@ const uploadPicture = async (file: File) => {
         <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput"
           accept=".png,.jpg,.jpeg,.avif,.bmp,.webp" @change="onFileChange" class="hidden" />
       </div>
-      <div>
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
         <p class="text-lg font-semibold">@{{ station.handle }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
