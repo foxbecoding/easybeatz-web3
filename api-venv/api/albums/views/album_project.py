@@ -8,7 +8,7 @@ from stations.permissions import HasStation
 
 class AlbumProjectViewSet(viewsets.ViewSet):
     def get_permissions(self):
-        permission_classes = [IsAuthenticated]
+        permission_classes = [IsAuthenticated, HasStation]
         return [permission() for permission in permission_classes]
 
     def create(self, request):
