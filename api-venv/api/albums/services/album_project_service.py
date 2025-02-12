@@ -82,7 +82,10 @@ class AlbumProjectService:
         instance.save()
         return instance
 
-    def save(self, station: Station):
+    def save(self, request):
+        user = User.objects.filter(pubkey=str(request.user)).first()
+        station: Station = Station.objects.filter(pk=user.pk).first()
+
         # Save Album data
         album = self.__save_model_data({ "station": station, "title": self.album_form_data['title'], "bio": self.album_form_data['bio'] }, Album)
 
