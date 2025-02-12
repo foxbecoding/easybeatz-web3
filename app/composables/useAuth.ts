@@ -4,13 +4,14 @@ import { useUserStore } from "@/store/user";
 import type { ApiData } from "@/composables/useApi";
 
 export const useAuth = () => {
+  const config = useRuntimeConfig();
   const authStore = useAuthStore();
   const userStore = useUserStore();
 
   const requestLoginNonce = async (pubkey: string): Promise<string> => {
     const apiData: ApiData = {
       method: 'POST',
-      path: '/api/web3-login-nonce/',
+      path: `${config.public.API_WEB3_LOGIN_NONCE}/`,
       data: {
         pubkey
       }
@@ -28,7 +29,7 @@ export const useAuth = () => {
   const login = async (signature: any, message: string, pubkey: string): Promise<void> => {
     const apiData: ApiData = {
       method: 'POST',
-      path: '/api/web3-login/',
+      path: `${config.public.API_WEB3_LOGIN}/`,
       data: {
         signedMessage: signature,
         originalMessage: message,
@@ -47,11 +48,13 @@ export const useAuth = () => {
     setTokenTimer(res.access_token);
   }
 
-  const logout = () => {
+  const logout = async () => {
+    //backend logout
+    const apiData: ApiData = { method: 'POST', path: `${config.public.API_LOGOUT}/` };
+    await useApi(apiData);
     authStore.setAuthData(null, false);
     userStore.setUserData(null);
     useRouter().push({ name: "index" });
-    // TODO send api request to logout user
 
   }
 
