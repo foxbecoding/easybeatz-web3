@@ -5,7 +5,7 @@
         <Icon icon="solar:hamburger-menu-linear" class="text-2xl" />
       </button>
       <NuxtLink :to="{ name: 'index' }">
-        <NuxtImg src="/logo.png" width="200px" />
+        <NuxtImg src="/logo.png" width="120px" />
       </NuxtLink>
     </div>
 
