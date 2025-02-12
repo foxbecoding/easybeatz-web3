@@ -56,7 +56,10 @@ const authenticateUser = async (signature: any, message: string) => {
 
 
 <template>
+  <button @click="connectWallet()"
+    class="btn btn-sm lg:btn-md btn-neutral rounded-[0.6rem] lg:rounded-[1rem] lg:text-lg" :disabled="isConnecting">
+    <Icon class="text-lg lg:text-xl" icon="solar:wallet-2-bold" />
     Login
-    <Icon icon="token-branded:phantom" class="text-2xl" />
+    <Icon icon="token-branded:phantom" class="text-lg lg:text-xl" />
   </button>
 </template>
