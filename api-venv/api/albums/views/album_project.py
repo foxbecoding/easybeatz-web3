@@ -12,13 +12,6 @@ class AlbumProjectViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request):
-        # Check if user has a station
-        user = User.objects.filter(pubkey=str(request.user)).first()
-        station = Station.objects.filter(pk=user.pk).first()
-        if not station:
-            return Response("Not Authorized", status=status.HTTP_401_UNAUTHORIZED)
-
-        # run service
         service = AlbumProjectService(request.data)
         service.set_form_data()
         if not service.is_form_data_valid():
