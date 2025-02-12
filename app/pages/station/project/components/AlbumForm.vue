@@ -29,6 +29,14 @@ const onFileChange = (event: Event) => {
 const triggerFileInput = () => {
   fileInput.value.click();
 }
+
+const img = useImage()
+const coverImgStyles = computed(() => {
+  const imgUrl = img(createProjectStore.coverPreviewUrl, { width: 100 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
+})
+
+//< NuxtImg v-else class="rounded-[1rem]" : src = "previewUrl" width = "120px" height = "120px" alt = "project cover" />
 </script>
 
 <template>
@@ -42,7 +50,7 @@ const triggerFileInput = () => {
         class="btn btn-neutral btn-square rounded-[1rem] h-full w-full">
         <Icon icon="solar:camera-add-bold" class="text-4xl" />
       </button>
-      <NuxtImg v-else class="rounded-[1rem]" :src="previewUrl" width="120px" height="120px" alt="project cover" />
+      <div :style="coverImgStyles" v-else class="aspect-sqaure w-[120px] h-[120px] rounded-[1rem]"></div>
       <button v-if="previewUrl" @click="triggerFileInput" class="btn glass mask mask-squircle upload-button opacity-80">
         <Icon icon="solar:camera-add-bold" class="text-xl" />
       </button>
