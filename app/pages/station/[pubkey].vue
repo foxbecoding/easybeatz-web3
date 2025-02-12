@@ -31,6 +31,12 @@ const { data: station, error, status, refresh } = await useLazyFetch<Station>(fe
 
 const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}/` + station.value?.picture : defaultStationImage);
 
+const img = useImage()
+const stationImgStyles = computed(() => {
+  const imgUrl = img(stationPicture.value, { width: 100 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
+})
+
 const onFileChange = (event: any) => {
   const file: File = event.target.files[0];
   if (!file) return;
