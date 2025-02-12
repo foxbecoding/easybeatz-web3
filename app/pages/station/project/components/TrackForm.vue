@@ -122,6 +122,11 @@ const onStemChange = (index: number, e: any) => {
   const file: File = e.target.files[0];
   projectStore.setStemFile(index, file);
 }
+const img = useImage()
+const coverImgStyles = computed(() => {
+  const imgUrl = img(projectStore.coverPreviewUrl, { width: 100 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
+})
 </script>
 
 <template>
@@ -136,9 +141,7 @@ const onStemChange = (index: number, e: any) => {
       <div v-for="(track, t) in tracks" :key="t"
         class="flex justify-between p-2 rounded-[1rem] bg-neutral cursor-pointer opacity-100 active:opacity-60">
         <div class="flex gap-4 items-center">
-          <div class="w-[48px] h-[48px] bg-base-100 rounded-[0.5rem]">
-            <NuxtImg v-if="projectStore.coverPreviewUrl" :src="projectStore.coverPreviewUrl" class="rounded-[0.5rem]"
-              alt="project cover" />
+          <div class="w-[48px] h-[48px] bg-base-100 rounded-[0.5rem]" :style="coverImgStyles">
           </div>
           <span>{{ track.title }}</span>
         </div>
