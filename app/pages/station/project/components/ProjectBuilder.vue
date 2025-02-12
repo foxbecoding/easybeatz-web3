@@ -30,7 +30,7 @@ const submitHandler = async () => {
 </script>
 
 <template>
-  <div class="card bg-base-100 max-w-[600px] w-full block mx-auto">
+  <div class="card bg-base-100 max-w-[600px] w-full block">
     <div class="card-body px-0 pt-0 pb-4">
       <AlbumForm />
       <div class="divider" />
