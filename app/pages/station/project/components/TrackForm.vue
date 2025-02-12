@@ -122,11 +122,13 @@ const onStemChange = (index: number, e: any) => {
   const file: File = e.target.files[0];
   projectStore.setStemFile(index, file);
 }
+
 const img = useImage()
 const coverImgStyles = computed(() => {
   const imgUrl = img(projectStore.coverPreviewUrl, { width: 100 })
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
 })
+
 </script>
 
 <template>
@@ -340,8 +342,8 @@ const coverImgStyles = computed(() => {
       </form>
 
       <div v-show="showToast" class="toast sticky">
-        <div class="alert alert-info">
-          <span>Track added</span>
+        <div class="alert alert-info flex">
+          <span class="mx-auto">Track added</span>
         </div>
       </div>
 
