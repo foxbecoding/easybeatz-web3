@@ -5,4 +5,5 @@ router = DefaultRouter()
 router.register(r"user", UserViewSet, basename="user")
 router.register(r"web3-login", UserLoginViewSet, basename="web3-login")
 router.register(r"web3-login-nonce", UserLoginNonceViewSet, basename="web3-login-nonce")
+router.register(r"logout", UserLogoutViewSet, basename="logout")
 urlpatterns = router.urls
