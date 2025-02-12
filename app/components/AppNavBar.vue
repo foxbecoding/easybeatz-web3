@@ -1,6 +1,6 @@
 <template>
   <div class="navbar bg-base-100 lg:bg-base-200 fixed left-0 z-50 mx-auto w-full max-w-[2560px] px-4 sm:px-8">
-    <div class="navbar-start">
+    <div class="navbar-start gap-4">
       <NuxtLink :to="{ name: 'index' }">
         <NuxtImg src="/logo.png" width="200px" />
       </NuxtLink>
