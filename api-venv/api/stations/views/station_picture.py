@@ -12,7 +12,7 @@ class StationPictureViewSet(viewsets.ViewSet):
     def get_permissions(self):
         permission_classes = [AllowAny]
         needs_auth = ['upload']
-        if self.action in needs_auth: permission_classes = [IsAuthenticated]
+        if self.action in needs_auth: permission_classes = [IsAuthenticated, HasStation]
         return [permission() for permission in permission_classes]
 
 
