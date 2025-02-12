@@ -3,6 +3,7 @@ from genres.models import Genre
 from moods.models import Mood
 from stations.models import Station
 from ..serializers import AlbumFormSerializer, TrackFormSerializer
+from users.models import User
 
 class AlbumProjectService:
     def __init__(self, request_data) -> None:
