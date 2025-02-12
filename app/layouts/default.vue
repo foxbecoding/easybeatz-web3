@@ -1,11 +1,11 @@
 <template>
-  <div class="drawer drawer-open">
+  <div class="drawer drawer-open lg:bg-base-200">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col ">
 
       <AppNavBar />
-      <div class="divider my-0" style="height: 0rem"></div>
-      <main class="relative" style="height: 100%">
+      <main class="bg-base-100 relative lg:fixed top-[64px] lg:w-full lg:max-w-[calc(100vw-320px)] lg:rounded-tl-[3rem] h-full"
+        style="height: 100%">
         <slot />
         <AppToast />
       </main>
