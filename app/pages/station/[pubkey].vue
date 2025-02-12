@@ -76,11 +76,12 @@ const uploadPicture = async (file: File) => {
           <NuxtLink :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral btn-block md:w-auto rounded-[1rem]">
             Customize station
           </NuxtLink>
-          <NuxtLink :to="{ name: 'station-project-create' }" class="text-lg btn btn-secondary rounded-[1rem] ml-4">
+          <NuxtLink :to="{ name: 'station-project-create' }"
+            class="text-lg btn btn-secondary btn-block md:w-auto rounded-[1rem]">
             Create project
           </NuxtLink>
         </div>
-        <button v-else class="btn btn-secondary rounded-[1rem] text-lg">Subscribe</button>
+        <button v-else class="btn btn-secondary btn-block md:w-auto rounded-[1rem] text-lg">Subscribe</button>
       </div>
     </div>
 
