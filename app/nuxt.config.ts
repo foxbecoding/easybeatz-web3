@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       MEDIA_URL: process.env.MEDIA_URL,
       API_ALBUM_PROJECT: process.env.API_ALBUM_PROJECT,
       API_GENRE: process.env.API_GENRE,
+      API_LOGOUT: process.env.API_LOGOUT,
       API_MOOD: process.env.API_MOOD,
       API_STATION: process.env.API_STATION,
       API_STATION_PICTURE: process.env.API_STATION_PICTURE,
