@@ -4,7 +4,8 @@
     <div class="drawer-content flex flex-col ">
 
       <AppNavBar />
-      <main class="bg-base-100 relative lg:fixed top-[64px] lg:w-full lg:max-w-[calc(100vw-320px)] lg:rounded-tl-[3rem] h-full"
+      <main
+        class="bg-base-100 relative lg:fixed top-[64px] lg:w-full lg:max-w-[calc(100vw-320px)] lg:rounded-tl-[3rem] h-full"
         style="height: 100%">
         <slot />
         <AppToast />
@@ -13,10 +14,7 @@
     </div>
     <div class="lg:drawer-side z-40 bg-base-200 hidden">
       <label for="app-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-      <aside class="bg-base-200 w-80" style="padding-top: 8px;">
-        <NuxtLink :to="{ name: 'index' }">
-          <NuxtImg src="/logo.png" width="200px" class="px-4 pb-4" />
-        </NuxtLink>
+      <aside class="bg-base-200 w-80" style="padding-top: 64px;">
         <ul class="menu bg-base-200 text-base-content w-80 px-4 py-2">
           <li v-for="(item, i) in menuList" :key="i">
             <NuxtLink class="text-lg rounded-[1rem] font-semibold" :to="{ name: item.name }" active-class="bg-neutral">
