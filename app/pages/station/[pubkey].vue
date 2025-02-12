@@ -68,6 +68,7 @@ const uploadPicture = async (file: File) => {
         <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput"
           accept=".png,.jpg,.jpeg,.avif,.bmp,.webp" @change="onFileChange" class="hidden" />
       </div>
+      <div class="text-center md:text-left w-full">
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
         <p class="text-lg font-semibold">@{{ station.handle }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.created }}</p>
