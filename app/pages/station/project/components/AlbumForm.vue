@@ -32,7 +32,7 @@ const triggerFileInput = () => {
 </script>
 
 <template>
-  <h4 class="text-2xl font-bold mb-4">Add project details</h4>
+  <h2 class="text-2xl font-bold mb-4">Add project details</h2>
   <p class="text-lg font-bold mb-2">{{ albumCoverForm.label }}</p>
   <p class="mb-4 max-w-[400px] block md:hidden"> {{ albumCoverForm.text }} </p>
 
