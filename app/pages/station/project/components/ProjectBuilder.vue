@@ -32,6 +32,7 @@ const submitHandler = async () => {
 <template>
   <div class="card bg-base-100 max-w-[600px] w-full block">
     <div class="card-body px-0 pt-0 pb-4">
+      <h1 class="text-3xl font-bold mb-4">Create project</h1>
       <AlbumForm />
       <div class="divider" />
       <TrackForm :genres="genres" :moods="moods" />
