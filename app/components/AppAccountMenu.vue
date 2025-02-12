@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown dropdown-bottom dropdown-end dropdown-hover">
-    <button tabindex="0" role="button" class="btn btn-neutral btn-square mask mask-squircle">
-      <Icon icon="solar:user-bold" class="text-2xl" />
+    <button tabindex="0" role="button" class="btn btn-neutral btn-square mask mask-squircle btn-sm lg:btn-md">
+      <Icon icon="solar:user-bold" class="text-lg lg:text-2xl" />
     </button>
 
     <ul tabindex="0" class="dropdown-content menu bg-neutral rounded-box rounded-[2rem] z-[1] w-[300px] p-2 shadow">

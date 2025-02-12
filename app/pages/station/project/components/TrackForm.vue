@@ -122,11 +122,18 @@ const onStemChange = (index: number, e: any) => {
   const file: File = e.target.files[0];
   projectStore.setStemFile(index, file);
 }
+
+const img = useImage()
+const coverImgStyles = computed(() => {
+  const imgUrl = img(projectStore.coverPreviewUrl, { width: 100 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
+})
+
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <h1 class="text-2xl font-bold">Add project tracks</h1>
+    <h2 class="text-2xl font-bold">Add project tracks</h2>
     <button @click="setDialogHandler('add')" class="btn btn-secondary text-lg rounded-[1rem] w-48">
       <Icon icon="material-symbols:music-note-add-rounded" class="text-xl" />
       Add new track
@@ -136,9 +143,7 @@ const onStemChange = (index: number, e: any) => {
       <div v-for="(track, t) in tracks" :key="t"
         class="flex justify-between p-2 rounded-[1rem] bg-neutral cursor-pointer opacity-100 active:opacity-60">
         <div class="flex gap-4 items-center">
-          <div class="w-[48px] h-[48px] bg-base-100 rounded-[0.5rem]">
-            <NuxtImg v-if="projectStore.coverPreviewUrl" :src="projectStore.coverPreviewUrl" class="rounded-[0.5rem]"
-              alt="project cover" />
+          <div class="w-[48px] h-[48px] bg-base-100 rounded-[0.5rem]" :style="coverImgStyles">
           </div>
           <span>{{ track.title }}</span>
         </div>
@@ -159,7 +164,7 @@ const onStemChange = (index: number, e: any) => {
   </div>
 
   <dialog id="track_form_modal" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box lg:translate-x-[150px]">
+    <div class="modal-box">
       <h2 class="text-2xl font-bold">{{ !isEditMode ? 'Add' : 'Edit' }} track</h2>
       <form id="track-form" ref="trackForm">
         <section class="flex flex-col gap-2 mt-4">
@@ -337,8 +342,8 @@ const onStemChange = (index: number, e: any) => {
       </form>
 
       <div v-show="showToast" class="toast sticky">
-        <div class="alert alert-info">
-          <span>Track added</span>
+        <div class="alert alert-info flex">
+          <span class="mx-auto">Track added</span>
         </div>
       </div>
 
@@ -353,7 +358,7 @@ const onStemChange = (index: number, e: any) => {
   </dialog>
 
   <dialog id="remove_track_modal" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box lg:translate-x-[150px]">
+    <div class="modal-box">
       <h3 class="text-xl font-bold">Removing track "{{ removingTrack.title }}"?</h3>
       <div class="modal-action">
         <form method="dialog" class="flex justify-end gap-2">
