@@ -21,8 +21,6 @@ class StationPictureViewSet(viewsets.ViewSet):
         # check if user has station
         user = User.objects.filter(pubkey=str(request.user)).first()
         station = Station.objects.filter(pk=user.pk).first()
-        if not station:
-            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
         station_picture = StationPicture.objects.filter(pk=station.pk).first()
         if not station_picture:
             request.data['station'] = station
