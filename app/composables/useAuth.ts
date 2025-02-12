@@ -47,11 +47,13 @@ export const useAuth = () => {
     setTokenTimer(res.access_token);
   }
 
-  const logout = () => {
+  const logout = async () => {
+    //backend logout
+    const apiData: ApiData = { method: 'POST', path: '/api/logout/' };
+    await useApi(apiData);
     authStore.setAuthData(null, false);
     userStore.setUserData(null);
     useRouter().push({ name: "index" });
-    // TODO send api request to logout user
 
   }
 
