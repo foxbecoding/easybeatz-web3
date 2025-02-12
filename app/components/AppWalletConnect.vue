@@ -5,7 +5,7 @@ const { login, requestLoginNonce } = useAuth();
 const isConnecting = ref(false)
 
 const connectWallet = async () => {
-
+  if (isConnecting.value) return;
   if (window.phantom?.solana) {
     try {
       isConnecting.value = true;
