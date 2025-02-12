@@ -159,7 +159,7 @@ const onStemChange = (index: number, e: any) => {
   </div>
 
   <dialog id="track_form_modal" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box lg:translate-x-[150px]">
+    <div class="modal-box">
       <h2 class="text-2xl font-bold">{{ !isEditMode ? 'Add' : 'Edit' }} track</h2>
       <form id="track-form" ref="trackForm">
         <section class="flex flex-col gap-2 mt-4">
