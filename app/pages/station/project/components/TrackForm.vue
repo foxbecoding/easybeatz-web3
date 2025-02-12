@@ -353,7 +353,7 @@ const onStemChange = (index: number, e: any) => {
   </dialog>
 
   <dialog id="remove_track_modal" class="modal modal-bottom sm:modal-middle">
-    <div class="modal-box lg:translate-x-[150px]">
+    <div class="modal-box">
       <h3 class="text-xl font-bold">Removing track "{{ removingTrack.title }}"?</h3>
       <div class="modal-action">
         <form method="dialog" class="flex justify-end gap-2">
