@@ -16,7 +16,7 @@ class AlbumProjectViewSet(viewsets.ViewSet):
         service.set_form_data()
         if not service.is_form_data_valid():
             return Response({"errors": service.errors})
-        service.save(station)
+        service.save(request)
         return Response("Album created", status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])
