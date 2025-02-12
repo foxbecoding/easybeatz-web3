@@ -63,17 +63,19 @@ const uploadPicture = async (file: File) => {
 
 <template>
   <AppPageContainer>
-    <div v-if="status == 'success' && station" class="flex flex-col md:flex-row items-center md:items-start">
-      <div class="mr-4 min-w-[200px] h-[200px] group relative mask mask-squircle bg-neutral p-1 box-content">
-        <NuxtImg class="mask mask-squircle max-h-[200px] max-w-[200px]" :src="stationPicture" width="200"
-          height="200" />
-        <button v-show="station.is_owner" @click="triggerFileInput"
-          class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-95">
-          <Icon icon="solar:camera-add-bold" class="text-xl" />
-        </button>
-        <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput"
-          accept=".png,.jpg,.jpeg,.avif,.bmp,.webp" @change="onFileChange" class="hidden" />
+    <div v-if="status == 'success' && station" class="flex flex-col md:flex-row gap-4 items-center md:items-start">
+      <div
+        class="min-w-[200px] h-[200px] mask mask-squircle bg-neutral p-1 box-content aspect-square flex items-center justify-center">
+        <div :style="stationImgStyles" class="min-w-[200px] h-[200px] group relative mask mask-squircle bg-neutral">
+          <button v-show="station.is_owner" @click="triggerFileInput"
+            class="btn btn-neutral mask mask-squircle upload-button opacity-0 group-hover:opacity-95">
+            <Icon icon="solar:camera-add-bold" class="text-xl" />
+          </button>
+          <input v-if="station.is_owner" ref="fileInput" type="file" id="fileInput"
+            accept=".png,.jpg,.jpeg,.avif,.bmp,.webp" @change="onFileChange" class="hidden" />
+        </div>
       </div>
+
       <div class="text-center md:text-left w-full">
         <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
         <p class="text-lg font-semibold">@{{ station.handle }}</p>
