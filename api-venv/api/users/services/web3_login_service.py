@@ -5,6 +5,7 @@ from solders.pubkey import Pubkey
 from solders.signature import Signature
 from ..models import User, UserLogin, UserLoginNonce
 from stations.models import Station
+from ..signals.user_login_signal import web3_login_done
 
 class Web3LoginService:
     def __init__(self, data) -> None:
@@ -73,5 +74,4 @@ class Web3LoginService:
         return access_token
 
     def __save_user_login(self, user: User) -> None:
-        user_login = UserLogin(user = user)
-        user_login.save()
+        web3_login_done.send(self.__class__, user=user)
