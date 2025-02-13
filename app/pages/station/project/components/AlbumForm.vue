@@ -33,7 +33,7 @@ const triggerFileInput = () => {
 const img = useImage()
 const coverImgStyles = computed(() => {
   const imgUrl = img(createProjectStore.coverPreviewUrl, { width: 100 })
-  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
 //< NuxtImg v-else class="rounded-[1rem]" : src = "previewUrl" width = "120px" height = "120px" alt = "project cover" />
