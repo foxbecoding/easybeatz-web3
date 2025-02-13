@@ -34,7 +34,7 @@ const stationPicture = computed(() => station.value?.picture ? `${config.public.
 const img = useImage()
 const stationImgStyles = computed(() => {
   const imgUrl = img(stationPicture.value, { width: 100 })
-  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
 const onFileChange = (event: any) => {

@@ -126,7 +126,7 @@ const onStemChange = (index: number, e: any) => {
 const img = useImage()
 const coverImgStyles = computed(() => {
   const imgUrl = img(projectStore.coverPreviewUrl, { width: 100 })
-  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover' }
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
 </script>
