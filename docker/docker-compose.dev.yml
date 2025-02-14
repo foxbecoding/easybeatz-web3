@@ -28,23 +28,6 @@ services:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
-    depends_on:
-      - db
-    networks:
-      - app-network
-
-  db:
-    container_name: db
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: easybeatz
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
     networks:
       - app-network
 
