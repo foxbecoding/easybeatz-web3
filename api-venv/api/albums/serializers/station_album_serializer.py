@@ -6,3 +6,14 @@ class AlbumCoverSerializer(serializers.ModelSerializer):
         model = AlbumCover
         fields = ['picture']
 
+class StationAlbumSerializer(serializers.ModelSerializer):
+    cover = AlbumCoverSerializer()
+
+    class Meta:
+        model = Album
+        fields = [
+            'aid',
+            'bio',
+            'title',
+            'cover'
+        ]
