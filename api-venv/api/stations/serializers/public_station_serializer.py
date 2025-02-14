@@ -5,10 +5,11 @@ class PublicStationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Station
         fields = [
-            'name', 
-            'handle', 
-            'description', 
-            'email',
+            'albums',
             'created',
+            'description',
+            'email',
+            'handle',
+            'name',
             'picture'
         ]
