@@ -29,6 +29,8 @@ const { data: fetchedStation, error, status, refresh } = await useLazyFetch<Stat
   }
 });
 
+const station = computed(() => fetchedStation.value || cachedStation.value)
+
 const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}/` + station.value?.picture : defaultStationImage);
 
 const img = useImage()
