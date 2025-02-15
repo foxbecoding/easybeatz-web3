@@ -61,6 +61,12 @@ const uploadPicture = async (file: File) => {
     return;
   }
 }
+
+const albumCoverStyles = (cover: string) => {
+  const img = useImage();
+  const imgUrl = img(`${config.public.MEDIA_URL}/${cover.replace('/media/', '')}`, { width: 100 });
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' };
+}
 </script>
 
 <template>
@@ -108,7 +114,7 @@ const uploadPicture = async (file: File) => {
         </div>
       </div>
 
-      <div v-if="false" class="divider mt-8"></div>
+      <div class="divider mt-8"></div>
 
       <div v-if="false" class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
         <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
