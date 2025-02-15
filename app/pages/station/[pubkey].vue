@@ -116,11 +116,11 @@ const albumCoverStyles = (cover: string) => {
 
       <div class="divider mt-8"></div>
 
-      <div v-if="false" class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
         <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
-          <div class="skeleton aspect-square mask mask-squircle w-full"></div>
+          <div class="skeleton aspect-square rounded-[1rem] w-full"></div>
           <div class="skeleton h-4 w-full"></div>
-          <div class="skeleton h-4 w-48"></div>
+          <div class="skeleton h-4 w-full"></div>
         </div>
       </div>
     </div>
