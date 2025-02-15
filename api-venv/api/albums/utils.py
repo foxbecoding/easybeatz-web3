@@ -13,7 +13,7 @@ def process_audio(track_mp3: TrackMp3) -> ContentFile:
     mp3 = AudioSegment.from_mp3(track_audio)
     mp3 = mp3.fade_in(5000).fade_out(5000)
     duration = mp3.duration_seconds
-    
+
     # Convert to a BytesIO buffer
     buffer = io.BytesIO()
     mp3.export(buffer, format="mp3")
