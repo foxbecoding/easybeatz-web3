@@ -125,17 +125,17 @@ const albumCoverStyles = (cover: string) => {
       </div>
     </div>
 
-    <div v-if="status == 'idle' || status == 'pending' || status == 'success'">
+    <div v-if="status == 'success' && station">
       <div class="divider mt-8"></div>
-
-      <div class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
-        <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
-          <div class="skeleton aspect-square mask mask-squircle w-full"></div>
-          <div class="skeleton h-4 w-full"></div>
-          <div class="skeleton h-4 w-full"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
+        <div v-for="(album, a) in station.albums" :key="a" class="flex flex-col w-full h-full gap-2">
+          <div class="aspect-square">
+            <div :style="albumCoverStyles(album.cover.picture)" class="w-full h-full rounded-[1rem]">
+            </div>
+          </div>
+          <p class="line-clamp-2 overflow-hidden text-ellipsis font-bold">{{ album.title }}</p>
         </div>
       </div>
-
     </div>
 
     <div v-if="status == 'error'" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
