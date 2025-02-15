@@ -1,6 +1,14 @@
 import { type ApiData } from "@/composables/useApi"
 
+interface StationAlbum {
+    aid: string,
+    bio: string,
+    title: string,
+    cover: { picture: string }
+}
+
 export interface Station {
+    albums: StationAlbum[];
     created: string;
     description: string;
     email: string;
