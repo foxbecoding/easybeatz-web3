@@ -13,9 +13,9 @@ const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const fileInput = ref();
 const defaultStationImage = '/easy-glow.png'
 
-//const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
+const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
-const { data: station, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
+const { data: fetchedStation, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
   server: false,
   key: `station-${pubkey.value}`,
   watch: [isAuthenticated],
@@ -28,6 +28,8 @@ const { data: station, error, status, refresh } = await useLazyFetch<Station>(fe
     isOwner.value = response._data.is_owner;
   }
 });
+
+const station = computed(() => fetchedStation.value || cachedStation.value)
 
 const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}/` + station.value?.picture : defaultStationImage);
 
@@ -58,6 +60,12 @@ const uploadPicture = async (file: File) => {
     toast.setToast("Picture uploaded successfully", "SUCCESS");
     return;
   }
+}
+
+const albumCoverStyles = (cover: string) => {
+  const img = useImage();
+  const imgUrl = img(`${config.public.MEDIA_URL}/${cover.replace('/media/', '')}`, { width: 100 });
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' };
 }
 </script>
 
@@ -106,28 +114,28 @@ const uploadPicture = async (file: File) => {
         </div>
       </div>
 
-      <div v-if="false" class="divider mt-8"></div>
+      <div class="divider mt-8"></div>
 
-      <div v-if="false" class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
         <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
-          <div class="skeleton aspect-square mask mask-squircle w-full"></div>
+          <div class="skeleton aspect-square rounded-[1rem] w-full"></div>
           <div class="skeleton h-4 w-full"></div>
-          <div class="skeleton h-4 w-48"></div>
+          <div class="skeleton h-4 w-full"></div>
         </div>
       </div>
     </div>
 
-    <div v-if="status == 'idle' || status == 'pending' || status == 'success'">
+    <div v-if="status == 'success' && station">
       <div class="divider mt-8"></div>
-
-      <div class="grid grid-cols-6 md:grid-cols-6 sm:grid-cols-2 gap-8">
-        <div v-for="i in demoAlbums" class="flex flex-col w-full gap-4">
-          <div class="skeleton aspect-square mask mask-squircle w-full"></div>
-          <div class="skeleton h-4 w-full"></div>
-          <div class="skeleton h-4 w-full"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
+        <div v-for="(album, a) in station.albums" :key="a" class="flex flex-col w-full h-full gap-2">
+          <div class="aspect-square">
+            <div :style="albumCoverStyles(album.cover.picture)" class="w-full h-full rounded-[1rem]">
+            </div>
+          </div>
+          <p class="line-clamp-2 overflow-hidden text-ellipsis font-bold">{{ album.title }}</p>
         </div>
       </div>
-
     </div>
 
     <div v-if="status == 'error'" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

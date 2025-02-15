@@ -5,6 +5,7 @@ from .models import *
 admin.site.register(Album)
 admin.site.register(AlbumCover)
 admin.site.register(Track)
+admin.site.register(TrackDisplay)
 admin.site.register(TrackMp3)
 admin.site.register(TrackWav)
 admin.site.register(TrackStem)
