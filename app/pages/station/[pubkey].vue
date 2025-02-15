@@ -15,7 +15,7 @@ const defaultStationImage = '/easy-glow.png'
 
 const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
-const { data: station, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
+const { data: fetchedStation, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
   server: false,
   key: `station-${pubkey.value}`,
   watch: [isAuthenticated],
