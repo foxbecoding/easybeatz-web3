@@ -13,7 +13,7 @@ const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const fileInput = ref();
 const defaultStationImage = '/easy-glow.png'
 
-//const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
+const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
 
 const { data: station, error, status, refresh } = await useLazyFetch<Station>(fetchPath, {
   server: false,
