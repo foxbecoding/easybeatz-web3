@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from ..models import Album, AlbumCover
-import os
 
 class AlbumCoverSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,6 +8,7 @@ class AlbumCoverSerializer(serializers.ModelSerializer):
 
 class StationAlbumSerializer(serializers.ModelSerializer):
     cover = AlbumCoverSerializer()
+    tracks_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Album
@@ -16,6 +16,9 @@ class StationAlbumSerializer(serializers.ModelSerializer):
             'aid',
             'bio',
             'title',
-            'tracks',
+            'tracks_count',
             'cover'
         ]
+
+    def get_tracks_count(self, obj):
+        return obj.tracks.count()
