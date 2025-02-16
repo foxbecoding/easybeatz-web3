@@ -4,7 +4,7 @@ interface StationAlbum {
     aid: string,
     bio: string,
     title: string,
-    cover: { picture: string }
+    cover_picture: string,
 }
 
 export interface Station {
