@@ -15,3 +15,5 @@ class PublicStationSerializer(serializers.ModelSerializer):
             'name',
             'picture'
         ]
+
+
