@@ -129,7 +129,8 @@ const albumCoverStyles = (cover: string) => {
 
     <div v-if="status == 'success' && station">
       <div class="divider mt-8"></div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
+      <div v-if="station.albums.length > 0"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
         <div v-for="(album, a) in station.albums" :key="a" class="flex flex-col w-full h-full gap-2">
           <div class="aspect-square">
             <div :style="albumCoverStyles(album.cover.picture)" class="w-full h-full rounded-[1rem]">
@@ -138,13 +139,23 @@ const albumCoverStyles = (cover: string) => {
           <p class="line-clamp-2 overflow-hidden text-ellipsis font-bold">{{ album.title }}</p>
         </div>
       </div>
+
+      <div v-else class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <Icon icon="solar:station-outline" class="text-9xl mx-auto" />
+        <div class="flex flex-col gap-2">
+          <span class="text-xl">
+            {{ isStationOwner ? 'Add projects to your station' : 'Nothing here yet' }}
+          </span>
+        </div>
+      </div>
     </div>
 
     <div v-if="status == 'error'" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <Icon icon="solar:station-outline" class="text-9xl mx-auto" />
       <div class="flex flex-col gap-2">
         <span class="text-xl">{{ isOwner ? 'Create your station' : 'Station does not exists' }}</span>
-        <NuxtLink v-if="isOwner" :to="{ name: 'station-create' }" class="btn btn-primary rounded-[1rem] text-lg"> Create
+        <NuxtLink v-if="isOwner" :to="{ name: 'station-create' }" class="btn btn-primary rounded-[1rem] text-lg">
+          Create
         </NuxtLink>
       </div>
     </div>
