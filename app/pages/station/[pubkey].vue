@@ -66,7 +66,7 @@ const uploadPicture = async (file: File) => {
 
 const albumCoverStyles = (cover: string) => {
   const img = useImage();
-  const imgUrl = img(`${config.public.MEDIA_URL}/${cover.replace('/media/', '')}`, { width: 100 });
+  const imgUrl = img(`${config.public.MEDIA_URL}${cover}`, { width: 100 });
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' };
 }
 </script>
