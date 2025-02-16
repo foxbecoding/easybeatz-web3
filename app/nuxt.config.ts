@@ -20,7 +20,7 @@ export default defineNuxtConfig({
   },
 
   devServer: {
-    host: '0.0.0.0',  // Listen on all interfaces (necessary for Docker)
+    host: '127.0.0.1',  // Listen on all interfaces (necessary for Docker)
     port: 3000,
   },
 

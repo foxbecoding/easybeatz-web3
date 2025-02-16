@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from ..models import Album, AlbumCover
+import os
 
 class AlbumCoverSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,5 +16,6 @@ class StationAlbumSerializer(serializers.ModelSerializer):
             'aid',
             'bio',
             'title',
+            'tracks',
             'cover'
         ]

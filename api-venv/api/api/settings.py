@@ -38,16 +38,19 @@ SIMPLE_JWT = {
 ALLOWED_HOSTS = [
     'easybeatz.com',
     'easybeatz.local',
+    '127.0.0.1'
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://easybeatz.com',
     'https://easybeatz.local',
+    'http://127.0.0.1'
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'https://easybeatz.com',
     'https://easybeatz.local',
+    'http://127.0.0.1'
 )
 
 # Application definition
