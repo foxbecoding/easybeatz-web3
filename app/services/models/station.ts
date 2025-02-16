@@ -4,18 +4,18 @@ interface StationAlbum {
     aid: string,
     bio: string,
     title: string,
-    cover: { picture: string }
+    cover_picture: string,
 }
 
 export interface Station {
     albums: StationAlbum[];
-    created: string;
+    launch_date: string;
     description: string;
     email: string;
     handle: string;
     is_owner: boolean;
     name: string;
-    picture: string;
+    station_picture: string;
     error?: any;
 }
 

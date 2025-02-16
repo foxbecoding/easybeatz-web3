@@ -58,14 +58,7 @@ class StationViewSet(viewsets.ViewSet):
             return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND)
 
         station = Station.objects.get(pk=user.pk) 
-        serialized_station = PublicStationSerializer(station).data
-        serialized_station['is_owner'] = is_owner
-        created_date = datetime.fromisoformat(serialized_station['created'].replace("Z", "+00:00"))
-        serialized_station['created'] = created_date.year
-        picture = StationPicture.objects.filter(pk=serialized_station.get('picture')).first()
-        serialized_station['picture'] = ""
-        if picture: 
-            serialized_station['picture'] = str(picture.picture)
+        serialized_station = PublicStationSerializer(station, context={"is_owner": is_owner}).data
         return Response(serialized_station, status=status.HTTP_200_OK)
 
 
