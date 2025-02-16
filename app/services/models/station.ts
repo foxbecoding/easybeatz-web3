@@ -9,13 +9,13 @@ interface StationAlbum {
 
 export interface Station {
     albums: StationAlbum[];
-    created: string;
+    launch_date: string;
     description: string;
     email: string;
     handle: string;
     is_owner: boolean;
     name: string;
-    picture: string;
+    station_picture: string;
     error?: any;
 }
 
