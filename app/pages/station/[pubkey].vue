@@ -33,7 +33,7 @@ const station = computed(() => fetchedStation.value || cachedStation.value)
 
 const isStationOwner = computed(() => station.value?.is_owner);
 
-const stationPicture = computed(() => station.value?.station_picture ? `${config.public.MEDIA_URL}/` + station.value?.station_picture : defaultStationImage);
+const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}` + station.value?.picture : defaultStationImage);
 
 const img = useImage()
 const stationImgStyles = computed(() => {
@@ -66,7 +66,7 @@ const uploadPicture = async (file: File) => {
 
 const albumCoverStyles = (cover_picture: string) => {
   const img = useImage();
-  const imgUrl = img(`${config.public.MEDIA_URL}/${cover_picture}`, { width: 100 });
+  const imgUrl = img(`${config.public.MEDIA_URL}${cover_picture}`, { width: 100 });
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' };
 }
 </script>
@@ -133,7 +133,7 @@ const albumCoverStyles = (cover_picture: string) => {
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
         <div v-for="(album, a) in station.albums" :key="a" class="flex flex-col w-full h-full gap-2">
           <div class="aspect-square">
-            <div :style="albumCoverStyles(album.cover_picture)" class="w-full h-full rounded-[1rem]">
+            <div :style="albumCoverStyles(album.cover)" class="w-full h-full rounded-[1rem]">
             </div>
           </div>
           <p class="line-clamp-2 overflow-hidden text-ellipsis font-bold">{{ album.title }}</p>
