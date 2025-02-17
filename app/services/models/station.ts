@@ -4,7 +4,7 @@ interface StationAlbum {
     aid: string,
     bio: string,
     title: string,
-    cover_picture: string,
+    cover: string,
 }
 
 export interface Station {
@@ -15,7 +15,7 @@ export interface Station {
     handle: string;
     is_owner: boolean;
     name: string;
-    station_picture: string;
+    picture: string;
     error?: any;
 }
 

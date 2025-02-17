@@ -9,7 +9,6 @@ from .create_track_stem_serializer import CreateTrackStemSerializer
 from .create_track_collaborator_serializer import CreateTrackCollaboratorSerializer
 from .create_track_price_serializer import CreateTrackPriceSerializer
 from .create_track_exclusive_price_serializer import CreateTrackExclusivePriceSerializer
-from .station_album_serializer import StationAlbumSerializer
 
 __all__ = [
     'AlbumFormSerializer',
@@ -23,5 +22,4 @@ __all__ = [
     'CreateTrackCollaboratorSerializer',
     'CreateTrackPriceSerializer',
     'CreateTrackExclusivePriceSerializer',
-    'StationAlbumSerializer',
 ]
