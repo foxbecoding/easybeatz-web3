@@ -52,11 +52,11 @@ class StationViewSet(viewsets.ViewSet):
 
     @action(detail=True, methods=['get'])
     def public_station(self, request, pk=None):
-        # Check if station exists
+        # Check if user and station exists
         is_owner = str(request.user) == str(pk)
         user = User.objects.filter(pubkey=str(pk)).first()
-        station = Station.objects.filter(pk=user.pk).first()
-        if not user or not station:
+        station_exists = Station.objects.filter(pk=user.pk).exists()
+        if not user or not station_exists:
             return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND)
 
         serialized_station = PublicStationSerializer(station, context={"is_owner": is_owner}).data
