@@ -59,7 +59,14 @@ class StationViewSet(viewsets.ViewSet):
         if not user or not station_exists:
             return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND)
 
-        serialized_station = PublicStationSerializer(station, context={"is_owner": is_owner}).data
-        return Response(serialized_station, status=status.HTTP_200_OK)
+        qs = Station.objects.prefetch_related(
+            Prefetch(
+                'albums',
+                queryset=Album.objects.annotate(track_count=Count('tracks')).only("aid", "bio", "cover", "title")
+            )
+        ).filter(pk=user.pk).first()
+
+        serialized_data = PublicStationSerializer(qs, context={"is_owner": is_owner}).data
+        return Response(serialized_data, status=status.HTTP_200_OK)
 
 
