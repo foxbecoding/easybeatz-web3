@@ -13,7 +13,7 @@ class AlbumsField(serializers.RelatedField):
             "aid": value.aid,
             "bio": value.bio,
             "title": value.title,
-            "tracks_count": value.tracks.count(),
+            "tracks_count": getattr(value, "tracks_count", 0),
             "cover": value.cover.picture.url,
         }
         return data
