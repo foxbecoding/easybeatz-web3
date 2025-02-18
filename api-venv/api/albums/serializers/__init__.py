@@ -1,4 +1,5 @@
 from .album_form_data_serializer import AlbumFormSerializer
+from .album_project_serializer import AlbumProjectSerializer
 from .track_form_data_serializer import TrackFormSerializer
 from .create_album_serializer import CreateAlbumSerializer
 from .create_album_cover_serializer import CreateAlbumCoverSerializer
@@ -12,6 +13,7 @@ from .create_track_exclusive_price_serializer import CreateTrackExclusivePriceSe
 
 __all__ = [
     'AlbumFormSerializer',
+    'AlbumProjectSerializer',
     'TrackFormSerializer',
     'CreateAlbumSerializer',
     'CreateAlbumCoverSerializer',
