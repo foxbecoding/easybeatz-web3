@@ -19,7 +19,6 @@ class AlbumCoverField(serializers.RelatedField):
     def to_representation(self, value):
         return value.picture.url
 
-class TracksField(serializers.RelatedField):
     def to_representation(self, value):
         display: TrackDisplay = value.display
         price: TrackPrice = value.price
