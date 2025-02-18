@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
+from stations.models import Station
+from ..managers import AlbumManager
+import uuid
 
 class Album(models.Model):
     station = models.ForeignKey(
