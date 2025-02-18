@@ -19,21 +19,24 @@ class AlbumCoverField(serializers.RelatedField):
     def to_representation(self, value):
         return value.picture.url
 
+class AlbumTracksField(serializers.RelatedField):
     def to_representation(self, value):
         display: TrackDisplay = value.display
         price: TrackPrice = value.price
-        exclusive_price: TrackExclusivePrice = value.exclusive_price
+        exclusive_price = getattr(value, "exclusive_price", None)
         mood: Mood = value.mood
+        genres = [{"name": genre.name, "slug": genre.slug} for genre in value.genres.all()]
 
         data = {
             "bpm": value.bpm,
             "duration": value.duration,
             "tid": value.tid,
             "title": value.title,
-            "display": display.audio,
+            "display": display.audio.url,
             "price": price.value,
-            "exclusive_price": exclusive_price.value,
-            "mood": { "name": mood.name, "slug": mood.slug }
+            "exclusive_price": exclusive_price,
+            "mood": { "name": mood.name, "slug": mood.slug },
+            "genres": genres[0]
         }
         return data
 
