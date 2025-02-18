@@ -51,19 +51,21 @@ class StationViewSet(viewsets.ViewSet):
 
     @action(detail=True, methods=['get'])
     def public_station(self, request, pk=None):
-        # Check if user and station exists
         is_owner = str(request.user) == str(pk)
         user_qs = User.objects.filter(pubkey=str(pk)).first()
-        station_exists = Station.objects.filter(pk=user_qs.pk).exists()
-        if not user_qs or not station_exists:
-            return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND)
-
         station_qs = Station.objects.prefetch_related(
             Prefetch(
                 'albums',
-                queryset=Album.objects.annotate(track_count=Count('tracks')).only("aid", "bio", "cover", "title")
+                queryset=Album.objects
+                .select_related('cover')
+                .annotate(track_count=Count('tracks'))
+                .only("aid", "bio", "title", "cover__picture")
             )
         ).filter(pk=user_qs.pk).first()
+
+        # Check if user and station exists
+        if not user_qs or not station_qs:
+            return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND) 
 
         serialized_data = PublicStationSerializer(station_qs, context={"is_owner": is_owner}).data
         return Response(serialized_data, status=status.HTTP_200_OK)
