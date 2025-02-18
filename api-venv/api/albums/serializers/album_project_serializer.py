@@ -11,6 +11,10 @@ class AlbumStationField(serializers.RelatedField):
         }
         return data
 
+class AlbumGenreField(serializers.RelatedField):
+    def to_representation(self, value):
+        return { "name": value.name, "slug": value.slug }
+
 class AlbumCoverField(serializers.RelatedField):
     def to_representation(self, value):
         return value.picture.url
