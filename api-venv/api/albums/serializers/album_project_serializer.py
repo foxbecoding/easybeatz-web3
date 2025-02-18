@@ -14,3 +14,8 @@ class AlbumStationField(serializers.RelatedField):
         }
         return data
 
+class AlbumCoverField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.picture.url
+
+class TracksField(serializers.RelatedField):
