@@ -37,3 +37,18 @@ class TracksField(serializers.RelatedField):
         }
         return data
 
+class AlbumProjectSerializer(serializers.ModelSerializer):
+    station = AlbumStationField(read_only=True)
+    tracks = TracksField(many=True, read_only=True)
+
+    class Meta:
+        model = Album
+        fields = [
+            'aid',
+            'bio',
+            'slug',
+            'title',
+            'total_duration',
+            'station',
+            'tracks',
+        ]
