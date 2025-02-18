@@ -53,6 +53,7 @@ class AlbumProjectSerializer(serializers.ModelSerializer):
             'bio',
             'title',
             'total_duration',
+            'cover',
             'station',
             'tracks',
         ]
