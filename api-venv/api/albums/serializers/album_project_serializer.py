@@ -51,7 +51,6 @@ class AlbumProjectSerializer(serializers.ModelSerializer):
         fields = [
             'aid',
             'bio',
-            'slug',
             'title',
             'total_duration',
             'station',
