@@ -14,3 +14,8 @@ class Station(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
+
+    @property
+    def picture_url(self):
+        return self.picture.picture.url if self.picture else None
+
