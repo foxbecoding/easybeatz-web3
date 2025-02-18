@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..services import AlbumProjectService, AlbumFormService
 from stations.permissions import HasStation
+from ..serializers import AlbumProjectSerializer
+from ..models import Album
 
 class AlbumProjectViewSet(viewsets.ViewSet):
     def get_permissions(self):
