@@ -23,6 +23,37 @@ class AlbumProjectViewSet(viewsets.ViewSet):
             return Response({"errors": service.errors})
         service.save(request)
         return Response("Album created", status=status.HTTP_200_OK)
+    
+    def retrieve(self, request, pk=None):
+        album_qs = Album.objects.prefetch_related(
+            Prefetch(
+                "tracks",
+                queryset=Track.objects
+                .prefetch_related(
+                    Prefetch(
+                        "genres",  
+                        queryset=Genre.objects.only("name", "slug")
+                    )
+                )
+                .select_related("display", "exclusive_price", "mood", "price")
+                .only(
+                    "bpm", "duration", "tid", "title",
+                    "display__audio",
+                    "exclusive_price__value",
+                    "mood__name",
+                    "mood__slug",
+                    "price__value",
+                )
+                .order_by("order_no")
+            )
+        ).annotate(
+            total_duration=Sum("tracks__duration") 
+        ).filter(aid=pk).first()
+
+        if not album_qs:
+            return Response({"error": "No Project"}, status=status.HTTP_404_NOT_FOUND) 
+
+        return Response("Album created", status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])
     def validate_album_form(self, request):
