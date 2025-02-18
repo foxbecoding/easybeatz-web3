@@ -43,6 +43,8 @@ class AlbumTracksField(serializers.RelatedField):
 class AlbumProjectSerializer(serializers.ModelSerializer):
     station = AlbumStationField(read_only=True)
     tracks = AlbumTracksField(many=True, read_only=True)
+    total_duration = serializers.IntegerField()
+    cover = AlbumCoverField(read_only=True)
 
     class Meta:
         model = Album
