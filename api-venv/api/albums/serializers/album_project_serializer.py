@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from ..models import Album, TrackDisplay, TrackPrice
 from moods.models import Mood
-from genres.models import Genre
-from datetime import datetime
 
 class AlbumStationField(serializers.RelatedField):
     def to_representation(self, value):
