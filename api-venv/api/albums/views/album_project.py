@@ -11,7 +11,9 @@ from genres.models import Genre
 
 class AlbumProjectViewSet(viewsets.ViewSet):
     def get_permissions(self):
-        permission_classes = [IsAuthenticated, HasStation]
+        permission_classes = [AllowAny]
+        needs_auth = ['create']
+        if self.action in needs_auth: permission_classes = [IsAuthenticated, HasStation]
         return [permission() for permission in permission_classes]
 
     def create(self, request):
