@@ -1,6 +1,4 @@
-import uuid
 from django.db import models
-from stations.models import Station
 from django.utils.text import slugify
 
 class Album(models.Model):
