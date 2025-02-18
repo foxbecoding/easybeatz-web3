@@ -18,7 +18,8 @@ class Album(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
-    objects = AlbumManager() 
+    objects = models.Manager()
+    manager = AlbumManager()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
