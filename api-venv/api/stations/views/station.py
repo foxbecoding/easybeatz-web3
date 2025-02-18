@@ -7,8 +7,6 @@ from rest_framework.decorators import action
 from ..serializers import StationSerializer, PublicStationSerializer
 from users.models import User
 from albums.models import Album
-from ..models import Station, StationPicture
-from datetime import datetime
 
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
