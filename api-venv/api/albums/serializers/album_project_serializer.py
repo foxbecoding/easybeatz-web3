@@ -6,6 +6,7 @@ class AlbumStationField(serializers.RelatedField):
     def to_representation(self, value):
         data = {
             "handle": value.handle,
+            "name": value.name,
             "picture": value.picture_url,
             "pubkey": value.user.pubkey
         }
