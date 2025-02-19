@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..services import AlbumProjectService, AlbumFormService
 from stations.permissions import HasStation
-from ..serializers import AlbumProjectSerializer
+from ..serializers import AlbumWithTracksSerializer
 from ..models import Album
 
 class AlbumProjectViewSet(viewsets.ViewSet):
@@ -27,7 +27,7 @@ class AlbumProjectViewSet(viewsets.ViewSet):
         album_qs = Album.albums.with_tracks_and_relations(pk)
         if not album_qs:
             return Response({"error": "No Project"}, status=status.HTTP_404_NOT_FOUND) 
-        serialized_data = AlbumProjectSerializer(album_qs).data
+        serialized_data = AlbumWithTracksSerializer(album_qs).data
         return Response(serialized_data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'])
