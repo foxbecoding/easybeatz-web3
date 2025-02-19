@@ -30,3 +30,8 @@ class Album(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+    @property
+    def uploaded_at(self):
+        created_date = datetime.fromisoformat(str(self.created).replace("Z", "+00:00"))
+        return f"Uploaded {created_date.year}"
