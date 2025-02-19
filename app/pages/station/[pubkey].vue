@@ -9,7 +9,7 @@ const pubkey = ref(route.params.pubkey)
 const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`;
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false);
-const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const demoAlbums = Array.from({ length: 12 }, (_, i) => i);
 const fileInput = ref();
 const defaultStationImage = '/easy-glow.png'
 
