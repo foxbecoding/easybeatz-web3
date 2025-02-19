@@ -7,11 +7,15 @@ export interface Album {
     cover: string;
     title: string;
     total_duration: number;
+    uploaded_at: string;
+    station: Station;
+    tracks: Track[];
 };
 
 export interface Track {
     bpm: string;
     duration: number;
+    formatted_duration: string;
     tid: string;
     title: string;
     display: string;
@@ -27,7 +31,6 @@ export interface Track {
         slug: string;
     };
 };
-
 
 export const submitAlbumProject = async (data: any) => {
     const config = useRuntimeConfig();
