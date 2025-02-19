@@ -30,6 +30,7 @@ class AlbumTracksField(serializers.RelatedField):
         data = {
             "bpm": value.bpm,
             "duration": value.duration,
+            "formatted_duration": value.formatted_duration,
             "order_no": value.order_no,
             "tid": value.tid,
             "title": value.title,
@@ -41,11 +42,15 @@ class AlbumTracksField(serializers.RelatedField):
         }
         return data
 
-class AlbumProjectSerializer(serializers.ModelSerializer):
+class AlbumWithTracksSerializer(serializers.ModelSerializer):
     station = AlbumStationField(read_only=True)
     tracks = AlbumTracksField(many=True, read_only=True)
     total_duration = serializers.IntegerField()
     cover = AlbumCoverField(read_only=True)
+    uploaded_at = serializers.SerializerMethodField()
+
+    def get_uploaded_at(self, obj):
+        return obj.uploaded_at
 
     class Meta:
         model = Album
@@ -54,6 +59,7 @@ class AlbumProjectSerializer(serializers.ModelSerializer):
             'bio',
             'title',
             'total_duration',
+            'uploaded_at',
             'cover',
             'station',
             'tracks',
