@@ -27,7 +27,7 @@ class AlbumManager(models.Manager):
                 )
                 .select_related("display", "exclusive_price", "mood", "price")
                 .only(
-                    "bpm", "duration", "tid", "title",
+                    "bpm", "duration", "order_no", "tid", "title",
                     "display__audio",
                     "exclusive_price__value",
                     "mood__name",
