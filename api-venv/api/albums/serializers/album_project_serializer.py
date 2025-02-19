@@ -33,7 +33,7 @@ class AlbumTracksField(serializers.RelatedField):
             "order_no": value.order_no,
             "tid": value.tid,
             "title": value.title,
-            "display": display.audio.url,
+            "display": value.display_url,
             "price": price.value,
             "exclusive_price": exclusive_price,
             "mood": { "name": mood.name, "slug": mood.slug },
