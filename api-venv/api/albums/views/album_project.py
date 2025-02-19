@@ -24,7 +24,7 @@ class AlbumProjectViewSet(viewsets.ViewSet):
         return Response("Album created", status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk=None):
-        album_qs = Album.objects.with_tracks_and_relations(pk)
+        album_qs = Album.manager.with_tracks_and_relations(pk)
         if not album_qs:
             return Response({"error": "No Project"}, status=status.HTTP_404_NOT_FOUND) 
         serialized_data = AlbumProjectSerializer(album_qs).data
