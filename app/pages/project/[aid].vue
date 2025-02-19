@@ -31,47 +31,42 @@ const albumTracks = computed(() => album.value?.tracks || [])
 const albumCover = computed(() => `${config.public.MEDIA_URL}` + album.value?.cover);
 
 const img = useImage()
-const projectImgStyles = computed(() => {
-  const imgUrl = img(projectCover.value, { width: 100 })
+const albumCoverStyles = computed(() => {
+  const imgUrl = img(albumCover.value, { width: 100 })
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
-const projectStationImgStyles = computed(() => {
-  const imgUrl = img(projectStationPicture.value, { width: 36, height: 36 })
-  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
-})
 </script>
 
 <template>
   <AppPageContainer>
-    <div v-if="status == 'success' && project" class="flex flex-col md:flex-row gap-4 items-center md:items-start">
-      <div :style="projectImgStyles" class="min-w-[300px] h-[300px] group relative bg-neutral rounded-[1rem]"></div>
-
-      <div class="flex flex-col gap-4 items-center md:items-start md:justify-between h-[300px] w-full max-w-[600px]">
-        <div class="text-center md:text-left w-full flex flex-col gap-2">
-          <p class="text-3xl font-bold">{{ project.title }}</p>
-          <NuxtLink class="flex gap-2 items-center justify-center md:justify-start"
-            :to="{ name: 'station-pubkey', params: { pubkey: project.station.pubkey } }">
-            <div
-              class="min-w-[36px] h-[36px] mask mask-squircle bg-neutral p-[20px] aspect-square flex items-center justify-center">
-              <div :style="projectStationImgStyles"
-                class="min-w-[36px] h-[36px] group relative mask mask-squircle bg-neutral">
-              </div>
-            </div>
-            <span class="text-xl font-semibold">{{ project.station.name }}</span>
-          </NuxtLink>
-        </div>
-        <div class="flex gap-2 items-center w-full">
-          <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
-            <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
-            Play
-          </button>
-          <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
-            <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
-            Shuffle
-          </button>
+    <div v-if="status == 'success' && album" class="flex flex-col gap-16">
+      <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
+        <div :style="albumCoverStyles" class="min-w-[300px] h-[300px] group relative bg-neutral rounded-[1rem]"></div>
+        <div
+          class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
+          <div class="text-center md:text-left w-full flex flex-col gap-2">
+            <p class="text-3xl font-bold">{{ album.title }}</p>
+            <AppStationBlock class="md:w-fit flex gap-2 items-center justify-center md:justify-start"
+              :station="album.station" />
+            <p class="opacity-70">{{ album.uploaded_at }}</p>
+          </div>
+          <div class="flex gap-2 items-center w-full">
+            <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+              <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
+              Play
+            </button>
+            <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+              <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
+              Shuffle
+            </button>
+          </div>
         </div>
       </div>
+
+      <AppTrackList :tracks="albumTracks" :station="album.station" :album-cover="albumCover" />
+
     </div>
+
   </AppPageContainer>
 </template>
