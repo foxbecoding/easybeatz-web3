@@ -27,6 +27,7 @@ const { data: fetchedProject, error, status, refresh } = await useLazyFetch<Albu
 });
 
 const project = computed(() => fetchedProject.value || cachedProject.value)
+const projectCover = computed(() => `${config.public.MEDIA_URL}` + project.value?.cover);
 </script>
 <template>
 </template>
