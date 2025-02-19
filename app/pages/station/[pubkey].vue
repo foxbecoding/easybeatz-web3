@@ -87,8 +87,8 @@ const albumCoverStyles = (cover_picture: string) => {
       </div>
 
       <div class="text-center md:text-left w-full">
-        <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
-        <p class="text-lg font-semibold">@{{ station.handle }}</p>
+        <p class="text-3xl font-bold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
+        <p class="text-xl font-semibold">@{{ station.handle }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.launch_date }}</p>
         <div v-if="station.is_owner" class="flex flex-col md:flex-row gap-4">
           <NuxtLink :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral btn-block md:w-auto rounded-[1rem]">
