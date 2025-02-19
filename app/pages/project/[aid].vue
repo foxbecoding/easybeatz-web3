@@ -26,6 +26,7 @@ const { data: fetchedProject, error, status, refresh } = await useLazyFetch<Albu
   }
 });
 
+const project = computed(() => fetchedProject.value || cachedProject.value)
 </script>
 <template>
 </template>
