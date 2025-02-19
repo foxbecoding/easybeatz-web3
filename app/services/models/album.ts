@@ -4,6 +4,7 @@ import { type Station } from "@/services/models/station";
 export interface Album {
     aid: string;
     bio: string;
+    cover: string;
     title: string;
     total_duration: number;
     cover: string;
