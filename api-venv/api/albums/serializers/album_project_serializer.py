@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Album, TrackDisplay, TrackPrice
+from ..models import Album, TrackPrice
 from moods.models import Mood
 
 class AlbumStationField(serializers.RelatedField):
