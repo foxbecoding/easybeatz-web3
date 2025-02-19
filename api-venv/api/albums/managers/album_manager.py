@@ -14,7 +14,7 @@ class AlbumManager(models.Manager):
         ).only(
             "aid", "bio", "title",
             "cover__picture",
-            "station__handle", "station__picture__picture", "station__user__pubkey"
+            "station__handle", "station__name", "station__picture__picture", "station__user__pubkey"
         ).prefetch_related(
             Prefetch(
                 "tracks",
