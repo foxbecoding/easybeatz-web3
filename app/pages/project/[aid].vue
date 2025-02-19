@@ -41,5 +41,37 @@ const projectStationImgStyles = computed(() => {
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 </script>
+
 <template>
+  <AppPageContainer>
+    <div v-if="status == 'success' && project" class="flex flex-col md:flex-row gap-4 items-center md:items-start">
+      <div :style="projectImgStyles" class="min-w-[300px] h-[300px] group relative bg-neutral rounded-[1rem]"></div>
+
+      <div class="flex flex-col gap-4 items-center md:items-start md:justify-between h-[300px] w-full max-w-[600px]">
+        <div class="text-center md:text-left w-full flex flex-col gap-2">
+          <p class="text-3xl font-bold">{{ project.title }}</p>
+          <NuxtLink class="flex gap-2 items-center justify-center md:justify-start"
+            :to="{ name: 'station-pubkey', params: { pubkey: project.station.pubkey } }">
+            <div
+              class="min-w-[36px] h-[36px] mask mask-squircle bg-neutral p-[20px] aspect-square flex items-center justify-center">
+              <div :style="projectStationImgStyles"
+                class="min-w-[36px] h-[36px] group relative mask mask-squircle bg-neutral">
+              </div>
+            </div>
+            <span class="text-xl font-semibold">{{ project.station.name }}</span>
+          </NuxtLink>
+        </div>
+        <div class="flex gap-2 items-center w-full">
+          <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+            <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
+            Play
+          </button>
+          <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+            <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
+            Shuffle
+          </button>
+        </div>
+      </div>
+    </div>
+  </AppPageContainer>
 </template>
