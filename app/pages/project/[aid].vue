@@ -12,7 +12,7 @@ const demoTracks = Array.from({ length: 12 }, (_, i) => i);
 
 const { data: cachedAlbum } = useNuxtData<Album>(`project-${aid.value}`);
 
-const { data: fetchedProject, error, status, refresh } = await useLazyFetch<Album>(fetchPath, {
+const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch<Album>(fetchPath, {
   server: false,
   key: `project-${aid.value}`,
   watch: [isAuthenticated],
@@ -26,9 +26,9 @@ const { data: fetchedProject, error, status, refresh } = await useLazyFetch<Albu
   }
 });
 
-const project = computed(() => fetchedProject.value || cachedProject.value)
-const projectCover = computed(() => `${config.public.MEDIA_URL}` + project.value?.cover);
-const projectStationPicture = computed(() => `${config.public.MEDIA_URL}` + project.value?.station.picture);
+const album = computed(() => fetchedAlbum.value || cachedAlbum.value)
+const albumTracks = computed(() => album.value?.tracks || [])
+const albumCover = computed(() => `${config.public.MEDIA_URL}` + album.value?.cover);
 
 const img = useImage()
 const projectImgStyles = computed(() => {
