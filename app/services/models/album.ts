@@ -7,14 +7,6 @@ export interface Album {
     cover: string;
     title: string;
     total_duration: number;
-    cover: string;
-    station: {
-        handle: string;
-        name: string;
-        picture: string;
-        pubkey: string;
-    };
-    tracks?: Track[];
 };
 
 export interface Track {
