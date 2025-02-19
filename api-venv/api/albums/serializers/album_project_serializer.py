@@ -22,7 +22,6 @@ class AlbumCoverField(serializers.RelatedField):
 
 class AlbumTracksField(serializers.RelatedField):
     def to_representation(self, value):
-        display: TrackDisplay = value.display
         price: TrackPrice = value.price
         exclusive_price = getattr(value, "exclusive_price", None)
         mood: Mood = value.mood
