@@ -30,6 +30,7 @@ class AlbumTracksField(serializers.RelatedField):
         data = {
             "bpm": value.bpm,
             "duration": value.duration,
+            "order_no": value.order_no,
             "tid": value.tid,
             "title": value.title,
             "display": display.audio.url,
