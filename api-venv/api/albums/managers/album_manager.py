@@ -7,7 +7,10 @@ class AlbumManager(models.Manager):
     def with_tracks_and_relations(self, aid):
         Track = apps.get_model('albums', 'Track')
 
-        return self.select_related(
+        # Ensure `aid` is iterable
+        aid_filter = Q(aid=aid) if isinstance(aid, str) else Q(aid__in=aid)
+
+        queryset = self.select_related(
             "cover",
             "station",
             "station__user"
@@ -38,5 +41,7 @@ class AlbumManager(models.Manager):
             )
         ).annotate(
             total_duration=Sum("tracks__duration")
-        ).filter(aid=aid).first()
+        ).filter(aid_filter)
 
+        # Return a single object if aid was a string, otherwise return the queryset
+        return queryset.first() if isinstance(aid, str) else queryset
