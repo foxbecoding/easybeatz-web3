@@ -8,7 +8,14 @@ const props = defineProps<{
   albumCover: string;
 }>();
 
+const config = useRuntimeConfig();
+const img = useImage();
+const albumCover = computed(() => props.albumCover);
 
+const albumCoverStyles = computed(() => {
+  const imgUrl = img(albumCover.value, { width: 108 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+})
 
 </script>
 
