@@ -131,13 +131,14 @@ const albumCoverStyles = (cover_picture: string) => {
       <div class="divider mt-8"></div>
       <div v-if="station.albums.length > 0"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-        <div v-for="(album, a) in station.albums" :key="a" class="flex flex-col w-full h-full gap-2">
+        <NuxtLink v-for="(album, a) in station.albums" :key="a"
+          :to="{ name: 'project-aid', params: { aid: album.aid } }" class="flex flex-col w-full h-full gap-2">
           <div class="aspect-square">
             <div :style="albumCoverStyles(album.cover)" class="w-full h-full rounded-[1rem]">
             </div>
           </div>
           <p class="line-clamp-2 overflow-hidden text-ellipsis font-bold">{{ album.title }}</p>
-        </div>
+        </NuxtLink>
       </div>
 
       <div v-else class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
