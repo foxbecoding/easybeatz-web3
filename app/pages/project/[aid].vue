@@ -28,6 +28,18 @@ const { data: fetchedProject, error, status, refresh } = await useLazyFetch<Albu
 
 const project = computed(() => fetchedProject.value || cachedProject.value)
 const projectCover = computed(() => `${config.public.MEDIA_URL}` + project.value?.cover);
+const projectStationPicture = computed(() => `${config.public.MEDIA_URL}` + project.value?.station.picture);
+
+const img = useImage()
+const projectImgStyles = computed(() => {
+  const imgUrl = img(projectCover.value, { width: 100 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+})
+
+const projectStationImgStyles = computed(() => {
+  const imgUrl = img(projectStationPicture.value, { width: 36, height: 36 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+})
 </script>
 <template>
 </template>
