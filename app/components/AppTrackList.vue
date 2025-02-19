@@ -8,7 +8,6 @@ const props = defineProps<{
   albumCover: string;
 }>();
 
-const config = useRuntimeConfig();
 const img = useImage();
 const albumCover = computed(() => props.albumCover);
 
