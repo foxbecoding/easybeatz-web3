@@ -88,3 +88,8 @@ class AlbumCreator:
         self.tracks_data = tracks_data
         self.user = user
 
+    def _save_model_data(self, data, model):
+        instance = model(**data)
+        instance.save()
+        return instance
+
