@@ -93,3 +93,30 @@ class AlbumCreator:
         instance.save()
         return instance
 
+    @transaction.atomic
+    def create_album(self):
+        station = get_object_or_404(Station, pk=self.user.pk)
+        album = self._save_model_data({ "station": station, "title": self.album_data['title'], "bio": self.album_data['bio'] }, Album)
+        self._save_model_data({ "album": album, "picture": self.album_data['cover'] }, AlbumCover)
+
+        for index, track_data in enumerate(self.tracks_data):
+            genres = Genre.objects.filter(pk__in=track_data['genres'])
+            mood = get_object_or_404(Mood, pk=track_data['mood'])
+            track_model_data = {
+                'album': album,
+                'title': track_data['title'],
+                'bpm': track_data['bpm'],
+                'mood': mood,
+                'order_no': index
+            }
+            track = self._save_model_data(track_model_data, Track)
+            track.genres.set(genres)
+
+            # Bulk create collaborators and stems
+            collaborators = [TrackCollaborator(track=track, pubkey=collab) for collab in track_data['collaborators']]
+            TrackCollaborator.objects.bulk_create(collaborators)
+
+            stems = [TrackStem(track=track, name=stem['name'], audio=stem['file']) for stem in track_data['stems']]
+            TrackStem.objects.bulk_create(stems)
+
+        return album
