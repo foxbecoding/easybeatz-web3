@@ -8,6 +8,7 @@ class UserLoginNonce(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
+    objects = models.Manager()
     def save(self, *args, **kwargs):
         self.nonce = str(uuid.uuid4())
 
