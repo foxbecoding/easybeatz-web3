@@ -67,3 +67,10 @@ class AlbumValidator:
             return False
         return True
 
+    def _is_album_data_valid(self):
+        serializer = AlbumFormSerializer(data=self.album_data)
+        if not serializer.is_valid():
+            self.errors.append(serializer.errors)
+            return False
+        return True 
+
