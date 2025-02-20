@@ -74,3 +74,11 @@ class AlbumValidator:
             return False
         return True 
 
+    def _is_tracks_data_valid(self):
+        for index, track_data in enumerate(self.tracks_data):
+            serializer = TrackFormSerializer(data=track_data, context={'track_data': track_data, 'index': index})
+            if not serializer.is_valid():
+                self.errors.append(serializer.errors)
+                return False
+        return True
+
