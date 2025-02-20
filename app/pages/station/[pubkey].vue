@@ -9,7 +9,7 @@ const pubkey = ref(route.params.pubkey)
 const fetchPath = `${config.public.API_STATION}/${pubkey.value}/public_station/`;
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false);
-const demoAlbums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const demoAlbums = Array.from({ length: 12 }, (_, i) => i);
 const fileInput = ref();
 const defaultStationImage = '/easy-glow.png'
 
@@ -87,8 +87,8 @@ const albumCoverStyles = (cover_picture: string) => {
       </div>
 
       <div class="text-center md:text-left w-full">
-        <p class="text-2xl font-semibold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
-        <p class="text-lg font-semibold">@{{ station.handle }}</p>
+        <p class="text-3xl font-bold">{{ station.name ? station.name : 'Unnamed Station' }}</p>
+        <p class="text-xl font-semibold">@{{ station.handle }}</p>
         <p class="mb-2 opacity-70">Joined {{ station.launch_date }}</p>
         <div v-if="station.is_owner" class="flex flex-col md:flex-row gap-4">
           <NuxtLink :to="{ name: 'station-edit' }" class="text-lg btn btn-neutral btn-block md:w-auto rounded-[1rem]">
@@ -131,13 +131,14 @@ const albumCoverStyles = (cover_picture: string) => {
       <div class="divider mt-8"></div>
       <div v-if="station.albums.length > 0"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
-        <div v-for="(album, a) in station.albums" :key="a" class="flex flex-col w-full h-full gap-2">
+        <NuxtLink v-for="(album, a) in station.albums" :key="a"
+          :to="{ name: 'project-aid', params: { aid: album.aid } }" class="flex flex-col w-full h-full gap-2">
           <div class="aspect-square">
             <div :style="albumCoverStyles(album.cover)" class="w-full h-full rounded-[1rem]">
             </div>
           </div>
           <p class="line-clamp-2 overflow-hidden text-ellipsis font-bold">{{ album.title }}</p>
-        </div>
+        </NuxtLink>
       </div>
 
       <div v-else class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
