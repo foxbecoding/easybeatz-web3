@@ -54,3 +54,4 @@ class FormDataProcessor:
             "file": self.form_data.get(f'tracks[{track_index}][stems][{stem_index}][file]')
         }
 
+class AlbumValidator:
