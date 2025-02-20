@@ -15,6 +15,7 @@ class Station(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
+    objects = models.Manager()
     @property
     def picture_url(self):
         return self.picture.picture.url if self.picture else None
