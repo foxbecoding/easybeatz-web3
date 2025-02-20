@@ -1,7 +1,9 @@
-import uuid
 from django.db import models
-from stations.models import Station
 from django.utils.text import slugify
+from stations.models import Station
+from ..managers import AlbumManager
+from datetime import datetime
+import uuid
 
 class Album(models.Model):
     station = models.ForeignKey(
@@ -17,6 +19,9 @@ class Album(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
+    objects = models.Manager()
+    albums = AlbumManager()
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         if not self.aid:
@@ -25,3 +30,8 @@ class Album(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+    @property
+    def uploaded_at(self):
+        created_date = datetime.fromisoformat(str(self.created).replace("Z", "+00:00"))
+        return f"Uploaded {created_date.year}"

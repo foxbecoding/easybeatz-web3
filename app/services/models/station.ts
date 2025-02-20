@@ -16,6 +16,7 @@ export interface Station {
     is_owner: boolean;
     name: string;
     picture: string;
+    pubkey: string;
     error?: any;
 }
 

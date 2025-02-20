@@ -29,3 +29,16 @@ class Track(models.Model):
         if not self.tid:
             self.tid = uuid.uuid4().hex
         super().save(*args, **kwargs)
+
+    @property
+    def display_url(self):
+        return self.display.audio.url if self.display else None
+    
+    @property
+    def formatted_duration(self):
+        hours, remainder = divmod(self.duration, 3600)
+        minutes, seconds = divmod(remainder, 60)
+
+        if hours > 0:
+            return f"{hours}:{minutes:02}:{seconds:02}"
+        return f"{minutes}:{seconds:02}"
