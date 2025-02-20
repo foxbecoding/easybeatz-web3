@@ -82,3 +82,4 @@ class AlbumValidator:
                 return False
         return True
 
+class AlbumCreator:
