@@ -55,3 +55,8 @@ class FormDataProcessor:
         }
 
 class AlbumValidator:
+    def __init__(self, album_data, tracks_data):
+        self.album_data = album_data
+        self.tracks_data = tracks_data
+        self.errors = []
+
