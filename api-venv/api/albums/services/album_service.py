@@ -83,3 +83,8 @@ class AlbumValidator:
         return True
 
 class AlbumCreator:
+    def __init__(self, album_data, tracks_data, user):
+        self.album_data = album_data
+        self.tracks_data = tracks_data
+        self.user = user
+
