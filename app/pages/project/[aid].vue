@@ -8,7 +8,7 @@ const config = useRuntimeConfig();
 const aid = ref(route.params.aid)
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const fetchPath = `${config.public.API_ALBUM_PROJECT}/${aid.value}/`;
-const demoTracks = Array.from({ length: 12 }, (_, i) => i);
+const demoTracks = Array.from({ length: 6 }, (_, i) => i);
 
 const { data: cachedAlbum } = useNuxtData<Album>(`project-${aid.value}`);
 
@@ -22,6 +22,7 @@ const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch<Album>
     }
   },
   onResponseError({ request, response, options }) {
+    return navigateTo({ name: 'index' })
     //isOwner.value = response._data.is_owner;
   }
 });
@@ -46,7 +47,7 @@ const albumCoverStyles = computed(() => {
         <div
           class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
           <div class="text-center md:text-left w-full flex flex-col gap-2">
-            <p class="text-3xl font-bold">{{ album.title }}</p>
+            <p class="text-2xl md:text-3xl font-bold">{{ album.title }}</p>
             <AppStationBlock class="md:w-fit flex gap-2 items-center justify-center md:justify-start"
               :station="album.station" />
             <p class="opacity-70">{{ album.uploaded_at }}</p>
@@ -63,10 +64,37 @@ const albumCoverStyles = computed(() => {
           </div>
         </div>
       </div>
-
       <AppTrackList :tracks="albumTracks" :station="album.station" :album-cover="albumCover" />
-
     </div>
 
+    <div v-if="status == 'idle' || status == 'pending'" class="flex flex-col gap-16">
+      <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
+        <div class="skeleton min-w-[300px] h-[300px] rounded-[1rem]"></div>
+        <div
+          class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
+          <div class="items-center md:items-start w-full flex flex-col gap-2">
+            <div class="skeleton h-[36px] w-full max-w-[300px]"></div>
+            <div class="flex gap-2">
+              <div class="skeleton h-[44px] w-[44px] mask mask-squircle"></div>
+              <div class="flex flex-col h-[44px] w-[120px] gap-2">
+                <div class="skeleton h-[16px] w-full"></div>
+                <div class="skeleton h-[16px] w-full"></div>
+              </div>
+            </div>
+            <div class="skeleton h-[20px] w-[120px]"></div>
+          </div>
+
+          <div class="flex gap-2 items-center w-full">
+            <div class="skeleton flex-1 rounded-[1rem] h-[48px]"></div>
+            <div class="skeleton flex-1 rounded-[1rem] h-[48px]"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 w-full">
+        <div v-for="demo in demoTracks" class="skeleton h-[128px]"></div>
+      </div>
+    </div>
   </AppPageContainer>
 </template>
