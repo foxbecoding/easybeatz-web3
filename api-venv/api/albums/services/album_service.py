@@ -60,3 +60,10 @@ class AlbumValidator:
         self.tracks_data = tracks_data
         self.errors = []
 
+    def is_valid(self):
+        if not self._is_album_data_valid():
+            return False
+        if not self._is_tracks_data_valid():
+            return False
+        return True
+
