@@ -6,3 +6,4 @@ from moods.models import Mood
 from stations.models import Station
 from ..serializers import AlbumFormSerializer, TrackFormSerializer
 
+class FormDataProcessor:
