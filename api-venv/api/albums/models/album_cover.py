@@ -19,3 +19,8 @@ class AlbumCover(models.Model):
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
+    objects = models.Manager()
+    
+    @property
+    def cover_url(self):
+        return self.picture.url if self.picture else None

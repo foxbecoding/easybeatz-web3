@@ -1,5 +1,7 @@
 from django.db import models
 from users.models import User
+from datetime import datetime
+from ..managers import StationManager
 
 class Station(models.Model):
     user = models.OneToOneField(
@@ -15,7 +17,14 @@ class Station(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
+    objects = models.Manager()
+    stations = StationManager()
+
     @property
     def picture_url(self):
-        return self.picture.picture.url if self.picture else None
+        return self.picture.picture_url if self.picture else None
 
+    @property
+    def formatted_launched_date(self):
+        created_date = datetime.fromisoformat(str(self.created).replace("Z", "+00:00"))
+        return f"Since {created_date.year}"

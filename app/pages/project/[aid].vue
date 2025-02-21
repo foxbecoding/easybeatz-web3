@@ -7,7 +7,7 @@ const authStore = useAuthStore();
 const config = useRuntimeConfig();
 const aid = ref(route.params.aid)
 const isAuthenticated = computed(() => authStore.isAuthenticated)
-const fetchPath = `${config.public.API_ALBUM_PROJECT}/${aid.value}/`;
+const fetchPath = `${config.public.API_ALBUM}/${aid.value}/retrieve_with_tracks_and_relations/`;
 const demoTracks = Array.from({ length: 6 }, (_, i) => i);
 
 const { data: cachedAlbum } = useNuxtData<Album>(`project-${aid.value}`);
