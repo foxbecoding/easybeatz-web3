@@ -100,6 +100,7 @@ class AlbumCreator:
         self._save_model_data({ "album": album, "picture": self.album_data['cover'] }, AlbumCover)
 
         for index, track_data in enumerate(self.tracks_data):
+            # 1.) Save Track
             genres = Genre.objects.filter(pk__in=track_data['genres'])
             mood = get_object_or_404(Mood, pk=track_data['mood'])
             track_model_data = {
@@ -112,10 +113,25 @@ class AlbumCreator:
             track = self._save_model_data(track_model_data, Track)
             track.genres.set(genres)
 
-            # Bulk create collaborators and stems
+            # 2.) Save TrackPrice
+            self._save_model_data({ 'track': track, 'value': track_data['price'] }, TrackPrice)
+
+            # 3.) Save TrackMp3
+            self._save_model_data({ 'track': track, 'audio': track_data['mp3'] }, TrackMp3)
+
+            # 4.) Save TrackWav
+            if track_data['wav']:
+                self._save_model_data({ 'track': track, 'audio': track_data['wav'] }, TrackWav)
+
+            # 5.) Save TrackExclusivePrice
+            if track_data['has_exclusive']:
+                self._save_model_data({ 'track': track, 'value': track_data['exclusive_price'] }, TrackExclusivePrice)
+
+            # 6.) Bulk create collaborators
             collaborators = [TrackCollaborator(track=track, pubkey=collab) for collab in track_data['collaborators']]
             TrackCollaborator.objects.bulk_create(collaborators)
 
+            # 7.) Bulk create stems
             stems = [TrackStem(track=track, name=stem['name'], audio=stem['file']) for stem in track_data['stems']]
             TrackStem.objects.bulk_create(stems)
 
