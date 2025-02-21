@@ -58,7 +58,7 @@ class StationViewSet(viewsets.ViewSet):
                 'albums',
                 queryset=Album.objects
                 .select_related('cover')
-                .annotate(track_count=Count('tracks'))
+                .prefetch_related('tracks')
                 .only("aid", "bio", "title", "cover__picture")
             )
         ).filter(pk=user_qs.pk).first()
