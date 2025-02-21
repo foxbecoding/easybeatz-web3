@@ -36,7 +36,7 @@ class AlbumTracksField(serializers.RelatedField):
             "title": value.title,
             "display": value.display_url,
             "price": price.value,
-            "exclusive_price": exclusive_price,
+            "exclusive_price": exclusive_price.value if exclusive_price else None,
             "mood": { "name": mood.name, "slug": mood.slug },
             "genres": genres[0]
         }
