@@ -10,14 +10,14 @@ class AlbumsField(serializers.RelatedField):
             "bio": value.bio,
             "title": value.title,
             "tracks_count": value.tracks_count,
-            "cover": value.cover.picture.url if value.cover else None,
+            "cover": value.cover.cover_url,
         }
         return data
 
 class StationWithAlbumsAndRelationsSerializer(serializers.ModelSerializer):
     albums = AlbumsField(many=True, read_only=True)
     is_owner = serializers.SerializerMethodField()
-    picture = StationPictureField(read_only=True)
+    picture = serializers.SerializerMethodField()
     formatted_launched_date = serializers.SerializerMethodField()
 
     class Meta:
