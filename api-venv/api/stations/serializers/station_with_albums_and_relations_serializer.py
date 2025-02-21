@@ -4,15 +4,13 @@ from albums.models import Album
 
 class AlbumsField(serializers.RelatedField):
     def to_representation(self, value: Album):
-
-        data = {
+        return {
             "aid": value.aid,
             "bio": value.bio,
+            "cover": value.cover.cover_url,
             "title": value.title,
             "tracks_count": value.tracks_count,
-            "cover": value.cover.cover_url,
         }
-        return data
 
 class StationWithAlbumsAndRelationsSerializer(serializers.ModelSerializer):
     albums = AlbumsField(many=True, read_only=True)
@@ -26,9 +24,9 @@ class StationWithAlbumsAndRelationsSerializer(serializers.ModelSerializer):
             'albums',
             'description',
             'email',
+            'formatted_launched_date',
             'handle',
             'is_owner',
-            'formatted_launched_date',
             'name',
             'picture',
         ]
