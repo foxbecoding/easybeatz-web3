@@ -18,6 +18,8 @@ class Station(models.Model):
     deleted = models.DateTimeField(null=True)
 
     objects = models.Manager()
+    stations = StationManager()
+
     @property
     def picture_url(self):
         return self.picture.picture.url if self.picture else None
