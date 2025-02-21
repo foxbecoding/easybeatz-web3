@@ -4,13 +4,12 @@ from moods.models import Mood
 
 class AlbumStationField(serializers.RelatedField):
     def to_representation(self, value):
-        data = {
+        return {
             "handle": value.handle,
             "name": value.name,
             "picture": value.picture_url,
             "pubkey": value.user.pubkey
         }
-        return data
 
 class AlbumGenreField(serializers.RelatedField):
     def to_representation(self, value):
@@ -27,20 +26,19 @@ class AlbumTracksField(serializers.RelatedField):
         mood: Mood = value.mood
         genres = [{"name": genre.name, "slug": genre.slug} for genre in value.genres.all()]
 
-        data = {
+        return {
             "bpm": value.bpm,
+            "display": value.display_url,
             "duration": value.duration,
+            "exclusive_price": exclusive_price.value if exclusive_price else None,
             "formatted_duration": value.formatted_duration,
+            "genres": genres[0],
+            "mood": { "name": mood.name, "slug": mood.slug },
             "order_no": value.order_no,
+            "price": price.value,
             "tid": value.tid,
             "title": value.title,
-            "display": value.display_url,
-            "price": price.value,
-            "exclusive_price": exclusive_price.value if exclusive_price else None,
-            "mood": { "name": mood.name, "slug": mood.slug },
-            "genres": genres[0]
         }
-        return data
 
 class AlbumWithTracksSerializer(serializers.ModelSerializer):
     station = AlbumStationField(read_only=True)
@@ -57,10 +55,10 @@ class AlbumWithTracksSerializer(serializers.ModelSerializer):
         fields = [
             'aid',
             'bio',
-            'title',
-            'total_duration',
-            'uploaded_at',
             'cover',
             'station',
+            'title',
+            'total_duration',
             'tracks',
+            'uploaded_at',
         ]
