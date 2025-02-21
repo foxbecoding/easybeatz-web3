@@ -1,5 +1,7 @@
 from django.db import models
 from users.models import User
+from datetime import datetime
+from ..managers import StationManager
 
 class Station(models.Model):
     user = models.OneToOneField(
