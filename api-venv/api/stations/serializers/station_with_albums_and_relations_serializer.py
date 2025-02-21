@@ -2,10 +2,6 @@ from rest_framework import serializers
 from ..models import Station
 from albums.models import Album
 
-class StationPictureField(serializers.RelatedField):
-    def to_representation(self, value: StationPicture):
-        return str(value.picture_url)
-
 class AlbumsField(serializers.RelatedField):
     def to_representation(self, value: Album):
 
