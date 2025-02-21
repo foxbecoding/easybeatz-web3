@@ -6,7 +6,7 @@ const route = useRoute();
 const config = useRuntimeConfig();
 const authStore = useAuthStore();
 const pubkey = ref(route.params.pubkey)
-const fetchPath = `${config.public.API_STATION}/${pubkey.value}/retrieve_with_albums/`;
+const fetchPath = `${config.public.API_STATION}/${pubkey.value}/retrieve_with_albums_and_relations/`;
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isOwner = ref<boolean>(false);
 const demoAlbums = Array.from({ length: 12 }, (_, i) => i);
