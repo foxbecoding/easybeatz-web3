@@ -24,11 +24,11 @@ class StationViewSet(viewsets.ViewSet):
         return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
-        if str(request.user) != str(pk):
+        user_pubkey = str(pk)
+        if str(request.user) != user_pubkey:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        user_qs = User.objects.filter(pubkey=str(pk)).first()
-        station = Station.objects.get(pk=user_qs.pk) 
-        serialized_station = StationSerializer(station).data
+        qs = Station.objects.select_related("user").get(user__pubkey=user_pubkey)
+        serialized_station = StationSerializer(qs).data
         return Response(serialized_station, status=status.HTTP_200_OK)
 
 
