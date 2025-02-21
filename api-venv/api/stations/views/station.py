@@ -31,13 +31,12 @@ class StationViewSet(viewsets.ViewSet):
         serialized_station = StationSerializer(qs).data
         return Response(serialized_station, status=status.HTTP_200_OK)
 
-
     def update(self, request, pk=None):
-        if str(request.user) != str(pk):
+        user_pubkey = str(pk)
+        if str(request.user) != user_pubkey:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        user_qs = User.objects.filter(pubkey=str(request.user)).first()
-        station_ins = Station.objects.get(pk=str(user_qs.pk))
-        serializer = StationSerializer(station_ins, data=request.data)
+        qs = Station.objects.select_related("user").get(user__pubkey=user_pubkey)
+        serializer = StationSerializer(qs, data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         serializer.save()
