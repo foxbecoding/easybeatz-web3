@@ -1,12 +1,9 @@
-from django.db.models import Count, Prefetch
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from ..serializers import StationSerializer, PublicStationSerializer
-from users.models import User
-from albums.models import Album
+from ..serializers import StationSerializer, StationWithAlbumsAndRelationsSerializer
 from ..models import Station
 
 class StationViewSet(viewsets.ViewSet):
@@ -24,20 +21,19 @@ class StationViewSet(viewsets.ViewSet):
         return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, pk=None):
-        if str(request.user) != str(pk):
+        user_pubkey = str(pk)
+        if str(request.user) != user_pubkey:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        user_qs = User.objects.filter(pubkey=str(pk)).first()
-        station = Station.objects.get(pk=user_qs.pk) 
-        serialized_station = StationSerializer(station).data
+        qs = Station.objects.select_related("user").get(user__pubkey=user_pubkey)
+        serialized_station = StationSerializer(qs).data
         return Response(serialized_station, status=status.HTTP_200_OK)
 
-
     def update(self, request, pk=None):
-        if str(request.user) != str(pk):
+        user_pubkey = str(pk)
+        if str(request.user) != user_pubkey:
             return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        user_qs = User.objects.filter(pubkey=str(request.user)).first()
-        station_ins = Station.objects.get(pk=str(user_qs.pk))
-        serializer = StationSerializer(station_ins, data=request.data)
+        qs = Station.objects.select_related("user").get(user__pubkey=user_pubkey)
+        serializer = StationSerializer(qs, data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         serializer.save()
@@ -45,29 +41,20 @@ class StationViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['get'])
     def has_station(self, request):
-        user_qs = User.objects.filter(pubkey=str(request.user)).first()
-        station_exists = Station.objects.filter(pk=user_qs.pk).exists()
-        return Response(station_exists, status=status.HTTP_200_OK)
+        user_pubkey = str(request.user)
+        qs_exists = Station.objects.select_related("user").filter(user__pubkey=user_pubkey).exists()
+        return Response(qs_exists, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['get'])
-    def public_station(self, request, pk=None):
-        is_owner = str(request.user) == str(pk)
-        user_qs = User.objects.filter(pubkey=str(pk)).first()
-        station_qs = Station.objects.prefetch_related(
-            Prefetch(
-                'albums',
-                queryset=Album.objects
-                .select_related('cover')
-                .annotate(track_count=Count('tracks'))
-                .only("aid", "bio", "title", "cover__picture")
-            )
-        ).filter(pk=user_qs.pk).first()
+    def retrieve_with_albums_and_relations(self, request, pk=None):
+        user_pubkey = str(pk)
+        is_owner = str(request.user) == user_pubkey
+        qs = Station.stations.with_albums_and_relations(user_pubkey)
 
-        # Check if user and station exists
-        if not user_qs or not station_qs:
+        if not qs:
             return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND) 
 
-        serialized_data = PublicStationSerializer(station_qs, context={"is_owner": is_owner}).data
+        serialized_data = StationWithAlbumsAndRelationsSerializer(qs, context={"is_owner": is_owner}).data
         return Response(serialized_data, status=status.HTTP_200_OK)
 
 

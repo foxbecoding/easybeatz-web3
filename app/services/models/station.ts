@@ -9,7 +9,7 @@ interface StationAlbum {
 
 export interface Station {
     albums: StationAlbum[];
-    launch_date: string;
+    formatted_launched_date: string;
     description: string;
     email: string;
     handle: string;

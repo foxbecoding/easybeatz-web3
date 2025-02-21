@@ -8,6 +8,7 @@ class Genre(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(blank=True, null=True)
 
+    objects = models.Manager()
     def save(self, *args, **kwargs): 
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)

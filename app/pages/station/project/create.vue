@@ -7,18 +7,13 @@
 <script setup lang="ts">
 import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
-import { useUserStore } from "@/store/user";
-import { useAuthStore } from "@/store/auth";
 import ProjectBuilder from "./components/ProjectBuilder.vue"
 
 definePageMeta({
   middleware: ["auth", "station"]
 });
 
-const userStore = useUserStore();
-const authStore = useAuthStore();
 const config = useRuntimeConfig();
-const pubkey = userStore.pubkey as string;
 const fetchGenrePath = `${config.public.API_GENRE}/`;
 const fetchMoodPath = `${config.public.API_MOOD}/`;
 
@@ -31,11 +26,4 @@ const { data: moods, error: mood_error, status: mood_status } = await useLazyFet
   server: false,
   key: `station-moods-for-project-create`,
 });
-
-const toast = useToast();
-
-const submitHandler = async () => {
-  toast.setToast('Station upated', 'SUCCESS')
-}
-
 </script>

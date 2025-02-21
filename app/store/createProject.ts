@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { albumFormValidator, submitAlbumProject } from "@/services/models/album";
+import { submitAlbumWithTracks } from "@/services/models/album";
 
 interface AlbumForm {
   title: string;
@@ -170,7 +170,7 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     const formData = new FormData;
     albumSubmitData(formData);
     tracksSubmitData(formData);
-    const res = await submitAlbumProject(formData)
+    const res = await submitAlbumWithTracks(formData);
     if (res.errors) {
       console.error(res.errors)
       return false;

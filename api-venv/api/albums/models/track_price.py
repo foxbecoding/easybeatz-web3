@@ -13,3 +13,4 @@ class TrackPrice(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
+    objects = models.Manager()

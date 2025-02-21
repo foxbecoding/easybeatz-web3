@@ -35,3 +35,7 @@ class Album(models.Model):
     def uploaded_at(self):
         created_date = datetime.fromisoformat(str(self.created).replace("Z", "+00:00"))
         return f"Uploaded {created_date.year}"
+
+    @property
+    def tracks_count(self):
+        return self.tracks.count()
