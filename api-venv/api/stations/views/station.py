@@ -54,7 +54,6 @@ class StationViewSet(viewsets.ViewSet):
         is_owner = str(request.user) == user_pubkey
         qs = Station.stations.with_albums_and_relations(user_pubkey)
 
-        # Check if user and station exists
         if not qs:
             return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND) 
 
