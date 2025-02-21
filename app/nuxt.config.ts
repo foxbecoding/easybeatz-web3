@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       SITE_DOMAIN: process.env.SITE_DOMAIN,
       SITE_URL: process.env.SITE_URL,
       MEDIA_URL: process.env.MEDIA_URL,
-      API_ALBUM_PROJECT: process.env.API_ALBUM_PROJECT,
+      API_ALBUM: process.env.API_ALBUM,
       API_GENRE: process.env.API_GENRE,
       API_LOGOUT: process.env.API_LOGOUT,
       API_MOOD: process.env.API_MOOD,
