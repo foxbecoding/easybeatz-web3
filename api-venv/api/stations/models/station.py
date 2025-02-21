@@ -22,5 +22,5 @@ class Station(models.Model):
 
     @property
     def picture_url(self):
-        return self.picture.picture.url if self.picture else None
+        return self.picture.picture_url if self.picture else None
 
