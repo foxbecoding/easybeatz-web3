@@ -49,25 +49,16 @@ class StationViewSet(viewsets.ViewSet):
         return Response(qs_exists, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['get'])
-    def retrieve_with_albums(self, request, pk=None):
-        is_owner = str(request.user) == str(pk)
-        queryset = Station.objects.select_related(
-            "user"
-        ).prefetch_related(
-            Prefetch(
-                'albums',
-                queryset=Album.objects
-                .select_related('cover')
-                .prefetch_related('tracks')
-                .only("aid", "bio", "title", "cover__picture")
-            )
-        ).filter(user__pubkey=pk).first()
+    def retrieve_with_albums_and_relations(self, request, pk=None):
+        user_pubkey = str(pk)
+        is_owner = str(request.user) == user_pubkey
+        qs = Station.stations.with_albums_and_relations(user_pubkey)
 
         # Check if user and station exists
-        if not queryset:
+        if not qs:
             return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND) 
 
-        serialized_data = PublicStationSerializer(queryset, context={"is_owner": is_owner}).data
+        serialized_data = StationWithAlbumsAndRelationsSerializer(qs, context={"is_owner": is_owner}).data
         return Response(serialized_data, status=status.HTTP_200_OK)
 
 
