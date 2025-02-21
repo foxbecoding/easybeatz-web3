@@ -9,11 +9,12 @@ class StationPictureField(serializers.RelatedField):
 
 class AlbumsField(serializers.RelatedField):
     def to_representation(self, value: Album):
+
         data = {
             "aid": value.aid,
             "bio": value.bio,
             "title": value.title,
-            "tracks_count": getattr(value, "tracks_count", 0),
+            "tracks_count": value.tracks_count,
             "cover": value.cover.picture.url if value.cover else None,
         }
         return data
