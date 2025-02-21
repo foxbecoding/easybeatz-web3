@@ -44,9 +44,9 @@ class StationViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['get'])
     def has_station(self, request):
-        user_qs = User.objects.filter(pubkey=str(request.user)).first()
-        station_exists = Station.objects.filter(pk=user_qs.pk).exists()
-        return Response(station_exists, status=status.HTTP_200_OK)
+        user_pubkey = str(request.user)
+        qs_exists = Station.objects.select_related("user").filter(user__pubkey=user_pubkey).exists()
+        return Response(qs_exists, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['get'])
     def retrieve_with_albums(self, request, pk=None):
