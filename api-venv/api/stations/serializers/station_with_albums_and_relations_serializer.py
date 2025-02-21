@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from ..models import Station, StationPicture
+from ..models import Station
 from albums.models import Album
-from datetime import datetime
 
 class StationPictureField(serializers.RelatedField):
     def to_representation(self, value: StationPicture):
