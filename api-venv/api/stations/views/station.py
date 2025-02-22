@@ -45,7 +45,9 @@ class StationViewSet(viewsets.ViewSet):
     @action(detail=True, methods=['get'])
     def retrieve_with_albums_and_relations(self, request, pk=None):
         user_pubkey = str(pk)
-        is_owner = str(request.user) == user_pubkey
+        is_owner = False
+        if request.user is not None:
+            is_owner = str(request.user) == user_pubkey
         qs = Station.stations.with_albums_and_relations(user_pubkey)
 
         if not qs:
