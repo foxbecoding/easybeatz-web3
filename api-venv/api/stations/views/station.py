@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..serializers import StationSerializer, StationWithAlbumsAndRelationsSerializer
 from ..models import Station
+from ..decorators import check_user_pubkey
 
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
@@ -20,19 +21,15 @@ class StationViewSet(viewsets.ViewSet):
         serializer.create(serializer.validated_data)
         return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
+    @check_user_pubkey
     def retrieve(self, request, pk=None):
-        user_pubkey = str(pk)
-        if str(request.user) != user_pubkey:
-            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        qs = Station.objects.select_related("user").get(user__pubkey=user_pubkey)
+        qs = Station.objects.select_related("user").get(user__pubkey=str(pk))
         serialized_station = StationSerializer(qs).data
         return Response(serialized_station, status=status.HTTP_200_OK)
 
+    @check_user_pubkey
     def update(self, request, pk=None):
-        user_pubkey = str(pk)
-        if str(request.user) != user_pubkey:
-            return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
-        qs = Station.objects.select_related("user").get(user__pubkey=user_pubkey)
+        qs = Station.objects.select_related("user").get(user__pubkey=str(pk))
         serializer = StationSerializer(qs, data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
