@@ -309,7 +309,8 @@ const coverImgStyles = computed(() => {
           <div class="flex flex-col gap-1">
             <h3 class="text-xl font-bold">Collaborators</h3>
             <p class="text-md">
-              *Split profits evenly amongst you and collaborators by adding thier Solana wallet address.
+              <span class="text-error">*</span>
+              Split profits evenly amongst you and collaborators by adding thier Solana wallet address.
             </p>
           </div>
           <div v-if="projectStore.trackForm.collaborators.length > 0" class="flex flex-col gap-2">
