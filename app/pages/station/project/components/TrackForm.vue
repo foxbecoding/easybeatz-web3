@@ -226,7 +226,7 @@ const coverImgStyles = computed(() => {
           <h3 class="text-xl font-bold">Genres and Moods</h3>
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
-              <span class="label-text text-lg font-bold">Genres</span>
+              <span class="label-text text-lg font-semibold">Genres</span>
             </div>
             <select v-model="projectStore.selectedGenre" class="select select-ghost bg-neutral w-full" id="genres"
               name="genres">
