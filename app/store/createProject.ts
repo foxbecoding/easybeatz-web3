@@ -240,7 +240,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     submit,
     trackForm,
     tracks,
-    validateAlbumForm,
   }
 })
 
