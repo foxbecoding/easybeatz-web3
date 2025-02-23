@@ -60,13 +60,22 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const isTrackFormValid = computed(() => {
     let validationFields = ['bpm', 'genres', 'mood', 'mp3', 'price', 'title'];
-    if (trackForm.has_exclusive) {
-      validationFields.push('exclusive_price', 'stems')
+
+    if (trackForm.stems.length > 0 || trackForm.exclusive_price) {
+      validationFields.push('stems')
+    }
+
+    if (trackForm.exclusive_price) {
+      validationFields.push('exclusive_price')
     }
 
     const validatedFields = validationFields.map((field: keyof typeof trackForm) => {
       if (field == 'genres') {
         return trackForm[field].length > 0 ? true : false;
+      }
+
+      if (field == 'exclusive_price') {
+        return trackForm['stems'].length > 0 ? true : false;
       }
 
       if (field == 'stems') {
