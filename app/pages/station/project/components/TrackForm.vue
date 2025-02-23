@@ -196,6 +196,10 @@ const coverImgStyles = computed(() => {
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-semibold">Exclusive price(optional)</span>
+              <p class="label-text text-md">
+                <span class="text-error">*</span>
+                {{ ExclusivesAndStemsMessage }}
+              </p>
             </div>
             <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput('bpm', $event)"
               @keydown="numbersOnlyInput('bpm', $event)" id="bpm" name="bpm" type="number" placeholder="Enter track bpm"
