@@ -18,6 +18,8 @@ const isEditMode = ref(false);
 const editTrackIndex = ref(0);
 const ExclusivesAndStemsMessage = "If you enter an exclusive price you must include stem files.";
 
+const submitHandlerLabel = computed(() => !isEditMode.value ? 'Add' : 'Edit')
+
 
 const numbersOnlyInput = (key: string, event: any) => {
   const invalidChars = ['+', '-'];
