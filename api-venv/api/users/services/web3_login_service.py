@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.exceptions import ValidationError
 from solders.pubkey import Pubkey
 from solders.signature import Signature
 from ..models import User, UserLogin, UserLoginNonce
@@ -10,39 +11,42 @@ from ..signals.user_login_signal import web3_login_done
 class Web3LoginService:
     def __init__(self, data) -> None:
         self.validated_data = data
-        self.pubkey = data["pubkey"]
-        self.message = data["originalMessage"]
-        self.signature = data["signedMessage"]
+        self.pubkey = data.get("pubkey")
+        self.message = data.get("originalMessage")
+        self.signature = data.get("signedMessage")
 
-    def run(self) -> Response:
-        nonce = UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
+    def run(self):
+        nonce = self._get_nonce()
 
         if not nonce:
             return Response({"error": "No nonce found for this wallet address"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not self.__verify_nonce(self.message, nonce.nonce):
+        if not self._verify_nonce(nonce.nonce):
             return Response({"error": "Invalid message or nonce"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not self.__verify_solana_signature(self.validated_data):
+        if not self._verify_solana_signature():
             return Response({"error": "Verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = self.__find_or_create_user(self.pubkey)
-        access_token = self.__authenticate_user(user)
-        self.__save_user_login(user)
-
+        user = self._find_or_create_user()
+        access_token = self._authenticate_user(user)
+        self._save_user_login(user)
         return Response({"access_token": access_token, "pubkey": user.pubkey}, status=status.HTTP_200_OK)
 
-    def __verify_solana_signature(self, data) -> bool:
-        signature_bytes = data['signedMessage']
-        pubkey_str = data['pubkey']
-        message = data['originalMessage']
+    def _get_nonce(self):
+        return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
+        
+    def _verify_nonce(self, nonce: str):
+        return nonce in self.message
+
+    def _verify_solana_signature(self):
+        message = self.message
 
         try:
             # Parse the public key
-            pubkey = Pubkey.from_string(pubkey_str)
+            pubkey = Pubkey.from_string(self.pubkey)
 
             # Decode the signature from base58
-            signature = Signature.from_bytes(signature_bytes)
+            signature = Signature.from_bytes(self.signature)
 
             # Convert the message into bytes (if it's a string)
             if isinstance(message, str):
@@ -56,22 +60,13 @@ class Web3LoginService:
             print(f"Verification failed: {e}")
             return False
 
-    def __verify_nonce(self, message: str, nonce: str) -> bool:
-        # Verify that the message contains the expected nonce
-        return nonce in message
-
-    def __find_or_create_user(self, pubkey: str) -> User:
-        user, created = User.objects.get_or_create(pubkey=pubkey)
-
-        # If the user wasn't created (it already exists), you can return the existing user
-        if not created:
-            return user
+    def _find_or_create_user(self) -> User:
+        user, _ = User.objects.get_or_create(pubkey=self.pubkey)
         return user
 
-    def __authenticate_user(self, user: User) -> str:
+    def _authenticate_user(self, user: User) -> str:
         refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-        return access_token
+        return str(refresh.access_token)
 
-    def __save_user_login(self, user: User) -> None:
+    def _save_user_login(self, user: User) -> None:
         web3_login_done.send(self.__class__, user=user)
