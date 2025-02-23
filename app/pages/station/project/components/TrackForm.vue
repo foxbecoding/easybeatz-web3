@@ -254,7 +254,7 @@ const coverImgStyles = computed(() => {
         <div class="divider" />
 
         <section class="flex flex-col gap-2 mt-4">
-          <h3 class="text-xl font-bold">MP3 and WAV</h3>
+          <h3 class="text-xl font-bold">Media files</h3>
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
               <span class="label-text text-lg font-bold">MP3</span>
