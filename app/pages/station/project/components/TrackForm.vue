@@ -17,6 +17,8 @@ const tracks = computed(() => projectStore.tracks);
 const isEditMode = ref(false);
 const editTrackIndex = ref(0);
 
+const submitHandlerLabel = computed( () => !isEditMode.value ? 'Add' : 'Edit')
+
 const numbersOnlyInput = (key: string, event: any) => {
   const invalidChars = ['+', '-'];
 
@@ -36,7 +38,6 @@ const numbersOnlyInput = (key: string, event: any) => {
   // Update the corresponding item in the array
   projectStore.trackForm[key] = value;
 };
-
 
 const setDialogHandler = (type: 'add' | 'edit') => {
   if (type == 'add') {
@@ -350,8 +351,10 @@ const coverImgStyles = computed(() => {
       <div class="modal-action">
         <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
           <button class="btn btn-neutral">Close</button>
-          <button @click="submitTrackHandler()" class="btn btn-primary" :disabled="!isTrackFormValid">{{
-            !isEditMode ? 'Add' : 'Edit' }} track</button>
+          <button @click="submitTrackHandler()" class="btn btn-primary" :disabled="!isTrackFormValid">
+            {{ submitHandlerLabel }}
+            track
+          </button>
         </form>
       </div>
     </div>
