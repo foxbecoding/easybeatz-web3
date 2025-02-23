@@ -239,7 +239,7 @@ const coverImgStyles = computed(() => {
 
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
-              <span class="label-text text-lg font-bold">Moods</span>
+              <span class="label-text text-lg font-semibold">Moods</span>
             </div>
             <select v-model="projectStore.trackForm.mood" id="moods" name="moods"
               class="select select-ghost bg-neutral w-full">
