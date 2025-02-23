@@ -201,6 +201,15 @@ const coverImgStyles = computed(() => {
                 {{ ExclusivesAndStemsMessage }}
               </p>
             </div>
+            <label class="input input-ghost bg-neutral flex items-center">
+              <Icon icon="material-symbols:attach-money-rounded" class="text-warning" width="24" height="24" />
+              <input v-model="projectStore.trackForm.exclusive_price"
+                @input="numbersOnlyInput('exclusive_price', $event)"
+                @keydown="numbersOnlyInput('exclusive_price', $event)" id="exclusive_price" name="exclusive_price"
+                type="number" placeholder="Enter track exclusive price" class="grow w-full" />
+            </label>
+          </label>
+
             <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput('bpm', $event)"
               @keydown="numbersOnlyInput('bpm', $event)" id="bpm" name="bpm" type="number" placeholder="Enter track bpm"
               class="input input-ghost bg-neutral w-full" />
