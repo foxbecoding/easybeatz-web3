@@ -130,7 +130,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     trackForm.collaborators = [];
     trackForm.exclusive_price = '';
     trackForm.genres = [];
-    trackForm.has_exclusive = false;
     trackForm.mood = '';
     trackForm.mp3 = null;
     trackForm.price = '';
