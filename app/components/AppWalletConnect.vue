@@ -14,10 +14,7 @@ const connectWallet = async () => {
       walletAddress.value = response.publicKey.toString();
 
       //Request login nonce
-      const nonce = await requestLoginNonce(walletAddress.value);
-
-      // generate message to sign
-      const message = generateMessage(nonce);
+      const { message } = await requestLoginNonce(walletAddress.value) as any;
 
       // Request the user to sign the message
       const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
@@ -33,19 +30,6 @@ const connectWallet = async () => {
     alert("Phantom Wallet not found. Please install phantom wallet in your browser.");
     isConnecting.value = false;
   }
-}
-
-const generateMessage = (nonce: string): string => {
-  const message = `Welcome to EasyBeatz! 
-
-Click to sign in and accept the EasyBeatz Terms of Service (https://easybeatz.com/tos) and Privacy Policy (https://easybeatz.com/privacy). 
-
-This request will not trigger a blockchain transaction or cost any gas fees. 
-
-Wallet address: ${walletAddress.value}
-
-Nonce: ${nonce}`;
-  return message;
 }
 
 const authenticateUser = async (signature: any, message: string) => {
