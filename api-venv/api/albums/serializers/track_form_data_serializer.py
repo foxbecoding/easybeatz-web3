@@ -30,8 +30,12 @@ class TrackFormSerializer(serializers.Serializer):
         return value
 
     def validate_exclusive_price(self, value):
-        index = self.context['index']
-
+        # index = self.context['index']
+        track_data, index = [self.context['track_data'], self.context['index']]
+        
+        if value and not track_data['stems']:
+            raise serializers.ValidationError({f"track_{index}": "Tracks with an exclusive price must have stems"})
+        
         if not value:
             return value
 
