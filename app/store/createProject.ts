@@ -21,7 +21,6 @@ interface TrackForm {
   collaborators: CollaboratorForm[];
   exclusive_price: string;
   genres: string[];
-  has_exclusive: boolean;
   mood: string;
   mp3: File | null;
   price: string;
@@ -44,7 +43,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     collaborators: [],
     exclusive_price: '',
     genres: [],
-    has_exclusive: false,
     mood: '',
     mp3: null,
     price: '',
@@ -62,13 +60,22 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const isTrackFormValid = computed(() => {
     let validationFields = ['bpm', 'genres', 'mood', 'mp3', 'price', 'title'];
-    if (trackForm.has_exclusive) {
-      validationFields.push('exclusive_price', 'stems')
+
+    if (trackForm.stems.length > 0 || trackForm.exclusive_price) {
+      validationFields.push('stems')
+    }
+
+    if (trackForm.exclusive_price) {
+      validationFields.push('exclusive_price')
     }
 
     const validatedFields = validationFields.map((field: keyof typeof trackForm) => {
       if (field == 'genres') {
         return trackForm[field].length > 0 ? true : false;
+      }
+
+      if (field == 'exclusive_price') {
+        return trackForm['stems'].length > 0 ? true : false;
       }
 
       if (field == 'stems') {
@@ -91,19 +98,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
   });
 
   const isProjectValid = computed(() => isAlbumFormValid.value && tracks.value.length > 0 ? true : false);
-
-  const validateAlbumForm = async () => {
-    const formData = new FormData;
-    formData.append('album[title]', albumForm.title)
-    formData.append('album[cover]', albumForm.cover)
-    formData.append('album[bio]', albumForm.bio)
-    const res = await albumFormValidator(formData)
-    if (res.errors) {
-      console.error(res.errors)
-      return false;
-    }
-    return true;
-  }
 
   const tracks = ref<TrackForm[]>([]);
 
@@ -136,7 +130,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     trackForm.collaborators = [];
     trackForm.exclusive_price = '';
     trackForm.genres = [];
-    trackForm.has_exclusive = false;
     trackForm.mood = '';
     trackForm.mp3 = null;
     trackForm.price = '';
@@ -205,22 +198,13 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
             formData.append(`tracks[${i}][${key}][${ci}]`, collab.pubkey)
           });
           return;
-        } else if (key == 'has_exclusive') {
-          const status = track[key] == true ? 'True' : 'False';
-          formData.append(`tracks[${i}][has_exclusive]`, status);
-          return;
-        } else if (key == 'exclusive_price') {
-          if (track.has_exclusive) {
-            formData.append(`tracks[${i}][exclusive_price]`, track.exclusive_price);
-          }
-          return;
         } else if (key == 'stems') {
-          if (track.has_exclusive) {
-            track.stems.forEach((stem, si) => {
-              formData.append(`tracks[${i}][stems][${si}][name]`, stem.name);
-              formData.append(`tracks[${i}][stems][${si}][file]`, stem.file);
-            });
-          }
+          if (track.stems.length < 1) return;
+          track.stems.forEach((stem, si) => {
+            formData.append(`tracks[${i}][stems][${si}][name]`, stem.name);
+            formData.append(`tracks[${i}][stems][${si}][file]`, stem.file);
+          });
+
           return;
         }
         formData.append(`tracks[${i}][${key}]`, track[key]);
@@ -232,12 +216,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     if (!newSelected) return false;
     setGenresField(String(newSelected));
   });
-
-  watch(() => trackForm.has_exclusive, (newValue) => {
-    if (newValue && !trackForm.stems.length) {
-      addStem();
-    }
-  })
 
   return {
     addCollab,
@@ -262,7 +240,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     submit,
     trackForm,
     tracks,
-    validateAlbumForm,
   }
 })
 
