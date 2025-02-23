@@ -11,7 +11,6 @@ class TrackFormSerializer(serializers.Serializer):
     mp3 = serializers.FileField()
     wav = serializers.FileField(allow_empty_file=True, allow_null=True)
     bpm = serializers.CharField()
-    has_exclusive = serializers.BooleanField()
     price = serializers.CharField()
     exclusive_price = serializers.CharField(allow_blank=True, allow_null=True)
     collaborators = serializers.ListField(allow_empty=True)
