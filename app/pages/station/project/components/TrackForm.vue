@@ -257,7 +257,7 @@ const coverImgStyles = computed(() => {
           <h3 class="text-xl font-bold">Media files</h3>
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
-              <span class="label-text text-lg font-bold">MP3</span>
+              <span class="label-text text-lg font-semibold">MP3</span>
             </div>
             <input @change="onMediaChange" type="file" class="file-input file-input-bordered w-full" accept=".mp3"
               id="mp3" name="mp3" />
