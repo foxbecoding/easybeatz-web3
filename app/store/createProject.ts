@@ -217,12 +217,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     setGenresField(String(newSelected));
   });
 
-  watch(() => trackForm.has_exclusive, (newValue) => {
-    if (newValue && !trackForm.stems.length) {
-      addStem();
-    }
-  })
-
   return {
     addCollab,
     addStem,
