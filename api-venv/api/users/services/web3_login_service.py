@@ -1,11 +1,9 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.exceptions import ValidationError
 from solders.pubkey import Pubkey
 from solders.signature import Signature
-from ..models import User, UserLogin, UserLoginNonce
-from stations.models import Station
+from ..models import User, UserLoginNonce
 from ..signals.user_login_signal import web3_login_done
 
 class Web3LoginService:
@@ -34,7 +32,7 @@ class Web3LoginService:
 
     def _get_nonce(self):
         return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
-        
+
     def _verify_nonce(self, nonce: str):
         return nonce in self.message
 
