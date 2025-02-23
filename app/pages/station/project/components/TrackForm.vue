@@ -317,7 +317,7 @@ const coverImgStyles = computed(() => {
             <div v-for="(collab, c) in projectStore.trackForm.collaborators" :key="c">
               <label class="form-control w-full">
                 <div class="label flex flex-col items-start">
-                  <span class="label-text text-lg font-bold">Collab {{ c + 1 }}</span>
+                  <span class="label-text text-lg font-semibold">Collab {{ c + 1 }}</span>
                 </div>
                 <label class="input input-ghost bg-neutral flex items-center">
                   <input v-model="collab.pubkey" :id="`collab_${c}`" :name="`collab_${c}`" type="text"
