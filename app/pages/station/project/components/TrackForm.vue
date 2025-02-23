@@ -337,60 +337,6 @@ const coverImgStyles = computed(() => {
             Add collab
           </a>
         </section>
-
-        <div class="divider" />
-
-        <section class="flex flex-col gap-4 mt-4">
-          <div class="flex flex-col">
-            <h3 v-if="projectStore.trackForm.has_exclusive" class="text-xl font-bold">Exclusive details</h3>
-            <div class="form-control">
-              <label class="label cursor-pointer justify-start gap-4">
-                <span class="label-text text-lg">Add an exclusive price?</span>
-                <input v-model="projectStore.trackForm.has_exclusive" type="checkbox" class="checkbox" />
-              </label>
-            </div>
-          </div>
-
-          <label v-if="projectStore.trackForm.has_exclusive" class="form-control w-full">
-            <div class="label flex flex-col items-start">
-              <span class="label-text text-lg font-bold">Exclusive price</span>
-            </div>
-            <label class="input input-ghost bg-neutral flex items-center">
-              <Icon icon="material-symbols:attach-money-rounded" class="text-warning" width="24" height="24" />
-              <input v-model="projectStore.trackForm.exclusive_price"
-                @input="numbersOnlyInput('exclusive_price', $event)"
-                @keydown="numbersOnlyInput('exclusive_price', $event)" id="exclusive_price" name="exclusive_price"
-                type="number" placeholder="Enter track exclusive price" class="grow w-full" />
-            </label>
-          </label>
-
-          <div v-if="projectStore.trackForm.has_exclusive" class="flex flex-col gap-3">
-            <div class="label flex flex-col items-start">
-              <h3 class="label-text text-xl font-bold">Stems</h3>
-              <p>Upload the stems wav files.</p>
-            </div>
-            <div v-for="(stem, s) in projectStore.trackForm.stems" :key="s" class="flex flex-col gap-2">
-              <div class="flex gap-4">
-                <span class="label-text text-lg font-bold">Stem {{ s + 1 }}</span>
-                <div class="tooltip" data-tip="Remove stem">
-                  <Icon @click="removeStemHandler(s)" icon="solar:trash-bin-minimalistic-bold"
-                    class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
-                    height="24" />
-                </div>
-              </div>
-              <input v-model="stem.name" :id="`stem_${s}`" :name="`stem_${s}`" type="text" placeholder="Enter stem name"
-                class="input input-ghost bg-neutral w-full" />
-              <input @change="onStemChange(s, $event)" type="file" class="file-input file-input-bordered w-full"
-                accept=".wav" :id="`stem_file_${s}`" :name="`stem_file_${s}`" />
-            </div>
-          </div>
-
-          <a v-if="projectStore.trackForm.has_exclusive" @click="addStemHandler()"
-            class="btn btn-secondary rounded-[1rem] w-40">
-            <Icon icon="solar:add-square-bold" width="24" height="24" />
-            Add stem
-          </a>
-        </section>
       </form>
 
       <div v-show="showToast" class="toast sticky">
