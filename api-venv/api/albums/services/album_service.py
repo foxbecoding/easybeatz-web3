@@ -122,6 +122,7 @@ class AlbumCreator:
                 self._save_model_data({ 'track': track, 'audio': track_data['wav'] }, TrackWav)
 
             # 5.) Save TrackExclusivePrice
+            if track_data['exclusive_price']:
                 self._save_model_data({ 'track': track, 'value': track_data['exclusive_price'] }, TrackExclusivePrice)
 
             # 6.) Bulk create collaborators
