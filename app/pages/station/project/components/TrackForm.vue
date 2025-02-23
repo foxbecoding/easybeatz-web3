@@ -174,7 +174,7 @@ const coverImgStyles = computed(() => {
           <h3 class="text-xl font-bold">Details</h3>
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
-              <span class="label-text text-lg font-bold">Title</span>
+              <span class="label-text text-lg font-semibold">Title</span>
               <span class="label-text">Choose a title for your track.</span>
             </div>
             <input v-model="projectStore.trackForm.title" id="title" name="title" type="text"
