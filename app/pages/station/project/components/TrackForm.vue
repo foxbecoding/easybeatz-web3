@@ -265,7 +265,7 @@ const coverImgStyles = computed(() => {
 
           <label class="form-control w-full">
             <div class="label flex flex-col items-start">
-              <span class="label-text text-lg font-bold">WAV(optional)</span>
+              <span class="label-text text-lg font-semibold">WAV(optional)</span>
             </div>
             <input @change="onMediaChange" type="file" class="file-input file-input-bordered w-full" accept=".wav"
               id="wav" name="wav" />
