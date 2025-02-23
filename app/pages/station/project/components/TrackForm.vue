@@ -210,6 +210,10 @@ const coverImgStyles = computed(() => {
             </label>
           </label>
 
+          <label class="form-control w-full">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-semibold">BPM</span>
+            </div>
             <input v-model="projectStore.trackForm.bpm" @input="numbersOnlyInput('bpm', $event)"
               @keydown="numbersOnlyInput('bpm', $event)" id="bpm" name="bpm" type="number" placeholder="Enter track bpm"
               class="input input-ghost bg-neutral w-full" />
