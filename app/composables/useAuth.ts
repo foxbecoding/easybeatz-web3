@@ -23,7 +23,7 @@ export const useAuth = () => {
       throw new Error(`requestLoginNonce() - Response status: ${res.error}`);
     }
 
-    return res.nonce;
+    return res;
   }
 
   const login = async (signature: any, message: string, pubkey: string): Promise<void> => {
