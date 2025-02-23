@@ -270,6 +270,16 @@ const coverImgStyles = computed(() => {
             <input @change="onMediaChange" type="file" class="file-input file-input-bordered w-full" accept=".wav"
               id="wav" name="wav" />
           </label>
+
+          <div class="flex flex-col gap-3">
+            <div class="label flex flex-col items-start">
+              <span class="label-text text-lg font-semibold">Stems</span>
+              <p>Upload stems files in wav format.</p>
+              <p class="label-text text-md">
+                <span class="text-error">*</span>
+                {{ ExclusivesAndStemsMessage }}
+              </p>
+
         </section>
 
         <div class="divider" />
