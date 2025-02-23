@@ -5,6 +5,7 @@ from solders.pubkey import Pubkey
 from solders.signature import Signature
 from ..models import User, UserLoginNonce
 from ..signals.user_login_signal import web3_login_done
+from ..utils import web3_login_message_generator
 
 class Web3LoginService:
     def __init__(self, data) -> None:
@@ -19,8 +20,8 @@ class Web3LoginService:
         if not nonce:
             return Response({"error": "No nonce found for this wallet address"}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not self._verify_nonce(nonce.nonce):
-            return Response({"error": "Invalid message or nonce"}, status=status.HTTP_400_BAD_REQUEST)
+        if not self._verify_message(nonce.nonce):
+            return Response({"error": "Invalid signing message"}, status=status.HTTP_400_BAD_REQUEST)
 
         if not self._verify_solana_signature():
             return Response({"error": "Verification failed"}, status=status.HTTP_400_BAD_REQUEST)
@@ -33,8 +34,9 @@ class Web3LoginService:
     def _get_nonce(self):
         return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
 
-    def _verify_nonce(self, nonce: str):
-        return nonce in self.message
+    def _verify_message(self, nonce: str):
+        message = web3_login_message_generator(nonce, self.pubkey)
+        return message == self.message
 
     def _verify_solana_signature(self):
         message = self.message
