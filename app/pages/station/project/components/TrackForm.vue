@@ -280,6 +280,27 @@ const coverImgStyles = computed(() => {
                 {{ ExclusivesAndStemsMessage }}
               </p>
 
+            </div>
+            <div v-for="(stem, s) in projectStore.trackForm.stems" :key="s" class="flex flex-col gap-2">
+              <div class="flex gap-4">
+                <span class="label-text text-lg font-bold">Stem {{ s + 1 }}</span>
+                <div class="tooltip" data-tip="Remove stem">
+                  <Icon @click="removeStemHandler(s)" icon="solar:trash-bin-minimalistic-bold"
+                    class="cursor-pointer opacity-100 hover:opacity-80 active:opacity-60 text-error" width="24"
+                    height="24" />
+                </div>
+              </div>
+              <input v-model="stem.name" :id="`stem_${s}`" :name="`stem_${s}`" type="text" placeholder="Enter stem name"
+                class="input input-ghost bg-neutral w-full" />
+              <input @change="onStemChange(s, $event)" type="file" class="file-input file-input-bordered w-full"
+                accept=".wav" :id="`stem_file_${s}`" :name="`stem_file_${s}`" />
+            </div>
+          </div>
+
+          <a @click="addStemHandler()" class="btn btn-secondary rounded-[1rem] w-40">
+            <Icon icon="solar:add-square-bold" width="24" height="24" />
+            Add stem
+          </a>
         </section>
 
         <div class="divider" />
