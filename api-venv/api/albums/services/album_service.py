@@ -33,7 +33,6 @@ class FormDataProcessor:
         genre_count = int(self.form_data.get(f'tracks[{index}][genre_count]', 0))
         collab_count = int(self.form_data.get(f'tracks[{index}][collab_count]', 0))
         stem_count = int(self.form_data.get(f'tracks[{index}][stem_count]', 0))
-        has_exclusive = self.form_data.get(f'tracks[{index}][has_exclusive]') == 'True'
         return {
             'title': self.form_data.get(f'tracks[{index}][title]'),
             'genres': [self.form_data.get(f'tracks[{index}][genres][{gi}]') for gi in range(genre_count)],
@@ -41,7 +40,6 @@ class FormDataProcessor:
             'mp3': self.form_data.get(f'tracks[{index}][mp3]'),
             'wav': self.form_data.get(f'tracks[{index}][wav]'),
             'bpm': self.form_data.get(f'tracks[{index}][bpm]'),
-            'has_exclusive': has_exclusive,
             'price': self.form_data.get(f'tracks[{index}][price]'),
             'exclusive_price': self.form_data.get(f'tracks[{index}][exclusive_price]'),
             'collaborators': [self.form_data.get(f'tracks[{index}][collaborators][{ci}]') for ci in range(collab_count)],
@@ -124,7 +122,6 @@ class AlbumCreator:
                 self._save_model_data({ 'track': track, 'audio': track_data['wav'] }, TrackWav)
 
             # 5.) Save TrackExclusivePrice
-            if track_data['has_exclusive']:
                 self._save_model_data({ 'track': track, 'value': track_data['exclusive_price'] }, TrackExclusivePrice)
 
             # 6.) Bulk create collaborators
