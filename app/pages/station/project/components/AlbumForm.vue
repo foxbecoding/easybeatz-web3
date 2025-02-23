@@ -36,12 +36,11 @@ const coverImgStyles = computed(() => {
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
-//< NuxtImg v-else class="rounded-[1rem]" : src = "previewUrl" width = "120px" height = "120px" alt = "project cover" />
 </script>
 
 <template>
-  <h2 class="text-2xl font-bold mb-4">Add project details</h2>
-  <p class="text-lg font-bold mb-2">{{ albumCoverForm.label }}</p>
+  <h2 class="text-2xl font-semibold mb-4">Add project details</h2>
+  <p class="text-lg font-semibold mb-2">{{ albumCoverForm.label }}</p>
   <p class="mb-4 max-w-[400px] block md:hidden"> {{ albumCoverForm.text }} </p>
 
   <div class="flex">
@@ -63,7 +62,7 @@ const coverImgStyles = computed(() => {
   <form id="form" @keydown.enter.prevent>
     <label class="form-control w-full my-4">
       <div class="label flex flex-col items-start">
-        <span class="label-text text-lg font-bold">Title</span>
+        <span class="label-text text-lg font-semibold">Title</span>
         <span class="label-text">Choose a title that represents your project.</span>
       </div>
       <input v-model="createProjectStore.albumForm.title" id="name" name="name" type="text"
@@ -72,7 +71,7 @@ const coverImgStyles = computed(() => {
 
     <label class="form-control w-full">
       <div class="label">
-        <span class="label-text text-lg font-bold">Description(optional)</span>
+        <span class="label-text text-lg font-semibold">Description(optional)</span>
       </div>
       <textarea v-model="createProjectStore.albumForm.bio" id="bio" name="bio"
         class="textarea textarea-ghost bg-neutral w-full h-48"

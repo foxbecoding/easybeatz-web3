@@ -11,7 +11,6 @@ class TrackFormSerializer(serializers.Serializer):
     mp3 = serializers.FileField()
     wav = serializers.FileField(allow_empty_file=True, allow_null=True)
     bpm = serializers.CharField()
-    has_exclusive = serializers.BooleanField()
     price = serializers.CharField()
     exclusive_price = serializers.CharField(allow_blank=True, allow_null=True)
     collaborators = serializers.ListField(allow_empty=True)
@@ -31,8 +30,12 @@ class TrackFormSerializer(serializers.Serializer):
         return value
 
     def validate_exclusive_price(self, value):
-        index = self.context['index']
-
+        # index = self.context['index']
+        track_data, index = [self.context['track_data'], self.context['index']]
+        
+        if value and not track_data['stems']:
+            raise serializers.ValidationError({f"track_{index}": "Tracks with an exclusive price must have stems"})
+        
         if not value:
             return value
 
@@ -105,16 +108,6 @@ class TrackFormSerializer(serializers.Serializer):
                 WAVE(file)
             except Exception:
                 raise serializers.ValidationError({ f"track_{index}": { f"stem_{index}": "File in item is not a valid WAV file." } })
-
-        return value
-
-    def validate_has_exclusive(self, value):
-        track_data, index = [self.context['track_data'], self.context['index']]
-        if value and not track_data['stems']:
-            raise serializers.ValidationError({f"track_{index}": "Exclusive tracks must have stems"})
-        
-        if value and not track_data['exclusive_price']:
-            raise serializers.ValidationError({f"track_{index}": "Exclusive tracks must have a exclusive price"})
 
         return value
 
