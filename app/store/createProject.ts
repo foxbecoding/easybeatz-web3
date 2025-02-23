@@ -99,19 +99,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
 
   const isProjectValid = computed(() => isAlbumFormValid.value && tracks.value.length > 0 ? true : false);
 
-  const validateAlbumForm = async () => {
-    const formData = new FormData;
-    formData.append('album[title]', albumForm.title)
-    formData.append('album[cover]', albumForm.cover)
-    formData.append('album[bio]', albumForm.bio)
-    const res = await albumFormValidator(formData)
-    if (res.errors) {
-      console.error(res.errors)
-      return false;
-    }
-    return true;
-  }
-
   const tracks = ref<TrackForm[]>([]);
 
   const addTrack = () => {
