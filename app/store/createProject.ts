@@ -21,7 +21,6 @@ interface TrackForm {
   collaborators: CollaboratorForm[];
   exclusive_price: string;
   genres: string[];
-  has_exclusive: boolean;
   mood: string;
   mp3: File | null;
   price: string;
@@ -44,7 +43,6 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     collaborators: [],
     exclusive_price: '',
     genres: [],
-    has_exclusive: false,
     mood: '',
     mp3: null,
     price: '',
