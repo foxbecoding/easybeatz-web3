@@ -17,6 +17,14 @@ const albumCoverStyles = computed(() => {
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
+const showProjectCover = computed(() => {
+  const hideOnRoutes = ['project-aid']
+  if (hideOnRoutes.includes(String(route.name))) {
+    return false;
+  }
+  return true;
+});
+
 </script>
 
 <template>
@@ -26,7 +34,8 @@ const albumCoverStyles = computed(() => {
         <div class="flex items-center gap-2">
           <span class="font-semibold">{{ t + 1 }}</span>
           <div class="flex gap-4">
-            <div v-if="route.name != 'project-aid'" :style="albumCoverStyles" class="min-w-[108px] h-[108px] group relative bg-neutral rounded-[0.5rem]">
+            <div v-if="showProjectCover" :style="albumCoverStyles"
+              class="min-w-[108px] h-[108px] group relative bg-neutral rounded-[0.5rem]">
             </div>
             <div class="flex flex-col gap-1 items-start">
               <p class="text-lg font-bold line-clamp-2 overflow-hidden text-ellipsis">
