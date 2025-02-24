@@ -46,7 +46,7 @@ const albumCoverStyles = computed(() => {
         <div :style="albumCoverStyles" class="min-w-[300px] h-[300px] group relative bg-neutral rounded-[1rem]"></div>
         <div
           class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
-          <div class="text-center md:text-left w-full flex flex-col gap-2">
+          <div class="items-center md:items-start w-full flex flex-col gap-2">
             <p class="text-2xl md:text-3xl font-bold">{{ album.title }}</p>
             <AppStationBlock class="md:w-fit flex gap-2 items-center justify-center md:justify-start"
               :station="album.station" />
