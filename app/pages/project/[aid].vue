@@ -64,7 +64,7 @@ const albumCoverStyles = computed(() => {
           </div>
         </div>
       </div>
-      <AppTrackList :tracks="albumTracks" :station="album.station" :album-cover="albumCover" />
+      <AppTrackList :tracks="albumTracks" :station="album.station" :album="album" />
     </div>
 
     <div v-if="status == 'idle' || status == 'pending'" class="flex flex-col gap-16">
