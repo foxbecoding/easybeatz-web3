@@ -98,6 +98,10 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     isPlaying.value = false;
   }
 
+  const audioTimeUpdateHandler = () => {
+    currentTime.value = audio.value?.currentTime || 0;
+  };
+
   const audioLoader = () => audio.value?.load();
 
   const restartTrack = () => {
