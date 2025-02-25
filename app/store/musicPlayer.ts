@@ -135,7 +135,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const prevTrackHandler = () => {
     if (audio.value) {
       if (audio.value.currentTime > 5) {
-        restartTrack();
+        resetCurrentTime();
         return;
       }
     }
