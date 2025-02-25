@@ -70,6 +70,16 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
+  const setMediaSource = () => {
+    resetAudio();
+    if (selectedTrackListItem.value) {
+      const newAudio = new Audio(`${config.public.MEDIA_URL}${selectedTrackListItem.value.track.display}`);
+      setAudioEventListeners(newAudio);
+      audio.value = newAudio;
+      audioLoader();
+    }
+  };
+
   const audioLoader = () => audio.value?.load();
 
   const restartTrack = () => {
