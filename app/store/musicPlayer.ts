@@ -18,6 +18,20 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     selectedTrackIndex.value !== null ? trackList.value[selectedTrackIndex.value] ?? null : null
   );
 
+  const setMusicPlayerDetails = (_selectedTrackIndex: number, _trackList: TrackList[], _playingFrom: string) => {
+    const isSameTrack = selectedTrackIndex.value === _selectedTrackIndex && playingFrom.value === _playingFrom;
+
+    if (isSameTrack) {
+      restartTrack();
+    } else {
+      if (playingFrom.value !== _playingFrom) {
+        trackList.value = _trackList;
+      }
+      selectedTrackIndex.value = _selectedTrackIndex;
+      playingFrom.value = _playingFrom;
+    }
+  };
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
 }
