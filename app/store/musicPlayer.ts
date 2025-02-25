@@ -38,15 +38,12 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     const isSameTrack = selectedTrackIndex.value === _selectedTrackIndex && playingFrom.value === _playingFrom;
 
     if (isSameTrack) {
-      restartTrack();
+      resetCurrentTime();
     } else {
       if (playingFrom.value !== _playingFrom) {
+        selectedTrackIndex.value = null;
         trackList.value = _trackList;
       }
-      selectedTrackIndex.value = _selectedTrackIndex;
-      playingFrom.value = _playingFrom;
-    }
-  };
 
   const setMediaSource = () => {
     if (selectedTrackListItem.value) {
