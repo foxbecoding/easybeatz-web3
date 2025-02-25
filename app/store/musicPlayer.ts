@@ -56,7 +56,6 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const setMediaSessionData = () => {
     if ('mediaSession' in navigator && selectedTrackListItem.value) {
       const { track, album, station } = selectedTrackListItem.value;
-      console.log(album)
       navigator.mediaSession.metadata = new MediaMetadata({
         title: track.title,
         artist: station.name,
