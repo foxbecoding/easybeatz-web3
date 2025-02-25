@@ -45,12 +45,11 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
         trackList.value = _trackList;
       }
 
-  const setMediaSource = () => {
-    if (selectedTrackListItem.value) {
-      pauseTrackHandler();
-      audioLoader();
-      audio.value = new Audio(`${config.public.MEDIA_URL}${selectedTrackListItem.value.track.display}`);
-      audioLoader();
+      setTimeout(() => {
+        selectedTrackIndex.value = _selectedTrackIndex;
+      }, 30);
+
+      playingFrom.value = _playingFrom;
     }
   };
 
