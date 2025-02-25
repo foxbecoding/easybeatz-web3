@@ -124,9 +124,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
 
   const playTrackHandler = () => audio.value?.play();
 
-  const pauseTrackHandler = () => {
-    audio.value?.pause();
-  };
+  const pauseTrackHandler = () => audio.value?.pause();
 
   const nextTrackHandler = () => {
     if (selectedTrackIndex.value !== null && selectedTrackIndex.value < trackList.value.length - 1) {
