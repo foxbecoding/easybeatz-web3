@@ -102,6 +102,11 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     currentTime.value = audio.value?.currentTime || 0;
   };
 
+  const removeAudioEventListners = () => {
+    audio.value?.removeEventListener('ended', audioEndedHandler);
+    audio.value?.removeEventListener('timeupdate', audioTimeUpdateHandler);
+  };
+
   const audioLoader = () => audio.value?.load();
 
   const restartTrack = () => {
