@@ -107,6 +107,13 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     audio.value?.removeEventListener('timeupdate', audioTimeUpdateHandler);
   };
 
+  const resetAudio = () => {
+    pauseTrackHandler();
+    resetCurrentTime();
+    audioLoader();
+    removeAudioEventListners();
+  };
+
   const audioLoader = () => audio.value?.load();
 
   const restartTrack = () => {
