@@ -8,6 +8,11 @@ export interface TrackList {
 }
 
 export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
+  const config = useRuntimeConfig();
+  const audio = ref<HTMLAudioElement | null>(null);
+  const selectedTrackIndex = ref<number | null>(null);
+  const trackList = ref<TrackList[]>([]);
+  const playingFrom = ref("");
 
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
