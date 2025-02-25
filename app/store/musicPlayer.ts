@@ -14,6 +14,10 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const trackList = ref<TrackList[]>([]);
   const playingFrom = ref("");
 
+  const selectedTrackListItem = computed<TrackList | null>(() =>
+    selectedTrackIndex.value !== null ? trackList.value[selectedTrackIndex.value] ?? null : null
+  );
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
 }
