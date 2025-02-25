@@ -21,6 +21,19 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     selectedTrackIndex.value !== null ? trackList.value[selectedTrackIndex.value] ?? null : null
   );
 
+  const currentTimeStr = computed<string>((): string => {
+    let hrs: number = ~~(currentTime.value / 3600)
+    let mins: number = ~~((currentTime.value % 3600) / 60)
+    let secs: number = ~~currentTime.value % 60
+    let ret: string = ""
+
+    hrs > 0 ? ret += "" + hrs + ":" + (mins < 10 ? "0" : "") : ''
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "")
+    ret += "" + secs
+    return ret
+  });
+
   const setMusicPlayerDetails = (_selectedTrackIndex: number, _trackList: TrackList[], _playingFrom: string) => {
     const isSameTrack = selectedTrackIndex.value === _selectedTrackIndex && playingFrom.value === _playingFrom;
 
