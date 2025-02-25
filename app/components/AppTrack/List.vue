@@ -27,6 +27,15 @@ const showProjectCover = computed(() => {
   return true;
 });
 
+const setMusicPlayerDetails = (trackIndex: number) => {
+  let trackList: TrackList[] = [];
+
+  props.tracks.forEach(track => {
+    trackList.push({ album: props.album, station: props.station, track })
+  });
+  musicPlayerStore.setMusicPlayerDetails(trackIndex, trackList, String(route.path));
+}
+
 </script>
 
 <template>
