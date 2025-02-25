@@ -41,6 +41,24 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
+  const setMediaSessionData = () => {
+    if ('mediaSession' in navigator && selectedTrackListItem.value) {
+      const { track, album, station } = selectedTrackListItem.value;
+      console.log(album)
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: track.title,
+        artist: station.name,
+        album: album.title,
+        artwork: [{ src: `${config.public.MEDIA_URL}${album.cover}` }]
+      });
+
+      navigator.mediaSession.setActionHandler('play', playTrackHandler);
+      navigator.mediaSession.setActionHandler('pause', pauseTrackHandler);
+      navigator.mediaSession.setActionHandler('previoustrack', prevTrackHandler);
+      navigator.mediaSession.setActionHandler('nexttrack', nextTrackHandler);
+    }
+  };
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
 }
