@@ -80,6 +80,14 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
+  const setAudioEventListeners = (_audio: HTMLAudioElement) => {
+    _audio.addEventListener('ended', audioEndedHandler);
+    _audio.addEventListener('timeupdate', audioTimeUpdateHandler);
+    _audio.addEventListener('play', audioPlayHandler);
+    _audio.addEventListener('pause', audioPauseHandler);
+    _audio.addEventListener("seeking", (event) => { console.log('seeking') });
+  }
+
   const audioLoader = () => audio.value?.load();
 
   const restartTrack = () => {
