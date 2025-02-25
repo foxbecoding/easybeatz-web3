@@ -122,9 +122,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
-  const playTrackHandler = () => {
-    audio.value?.play();
-  };
+  const playTrackHandler = () => audio.value?.play();
 
   const pauseTrackHandler = () => {
     audio.value?.pause();
