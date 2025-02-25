@@ -88,6 +88,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     _audio.addEventListener("seeking", (event) => { console.log('seeking') });
   }
 
+  const audioEndedHandler = () => nextTrackHandler();
   const audioLoader = () => audio.value?.load();
 
   const restartTrack = () => {
