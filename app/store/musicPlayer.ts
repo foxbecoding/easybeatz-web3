@@ -32,6 +32,15 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
+  const setMediaSource = () => {
+    if (selectedTrackListItem.value) {
+      pauseTrackHandler();
+      audioLoader();
+      audio.value = new Audio(`${config.public.MEDIA_URL}${selectedTrackListItem.value.track.display}`);
+      audioLoader();
+    }
+  };
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
 }
