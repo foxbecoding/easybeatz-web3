@@ -94,6 +94,10 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     isPlaying.value = true;
   }
 
+  const audioPauseHandler = () => {
+    isPlaying.value = false;
+  }
+
   const audioLoader = () => audio.value?.load();
 
   const restartTrack = () => {
