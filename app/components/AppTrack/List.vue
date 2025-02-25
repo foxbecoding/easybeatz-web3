@@ -6,7 +6,7 @@ import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer"
 const props = defineProps<{
   tracks: Track[];
   station: Station;
-  albumCover: string;
+  album: Album;
 }>();
 
 const route = useRoute();
