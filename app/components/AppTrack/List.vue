@@ -40,7 +40,8 @@ const setMusicPlayerDetails = (trackIndex: number) => {
 
 <template>
   <div class="flex flex-col gap-4">
-    <div v-for="(track, t) in tracks" :key="t" class="md:h-[128px] bg-base-200 rounded-[1rem]">
+    <div v-for="(track, t) in tracks" :key="t" @click="setMusicPlayerDetails(t)"
+      class="md:h-[128px] bg-base-200 rounded-[1rem] cursor-pointer">
       <div v-if="showProjectCover" :style="albumCoverStyles"
         class="w-full h-full max-w-[640px] max-h-[640px] aspect-square group relative bg-neutral rounded-t-[0.5rem] flex sm:hidden items-center">
       </div>
