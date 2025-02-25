@@ -12,6 +12,7 @@ const props = defineProps<{
 const route = useRoute();
 const img = useImage();
 const albumCover = computed(() => props.album.cover);
+const musicPlayerStore = useMusicPlayerStore();
 
 const albumCoverStyles = computed(() => {
   const imgUrl = img(albumCover.value, { width: 108 })
