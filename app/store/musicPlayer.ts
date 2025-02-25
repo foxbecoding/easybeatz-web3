@@ -93,6 +93,14 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
+  watch(selectedTrackIndex, (newIndex) => {
+    if (newIndex !== null) {
+      setMediaSource();
+      setMediaSessionData();
+      playTrackHandler();
+    }
+  });
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
 }
