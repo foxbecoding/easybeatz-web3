@@ -116,7 +116,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
 
   const audioLoader = () => audio.value?.load();
 
-  const restartTrack = () => {
+  const resetCurrentTime = () => {
     if (audio.value) {
       audio.value.currentTime = 0;
     }
