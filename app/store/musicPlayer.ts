@@ -7,3 +7,8 @@ export interface TrackList {
   track: Track;
 }
 
+export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
+
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
+}
