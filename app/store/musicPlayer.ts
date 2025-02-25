@@ -14,6 +14,8 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const selectedTrackIndex = ref<number | null>(null);
   const trackList = ref<TrackList[]>([]);
   const playingFrom = ref("");
+  const isPlaying = ref(false);
+  const show = ref(false);
 
   const selectedTrackListItem = computed<TrackList | null>(() =>
     selectedTrackIndex.value !== null ? trackList.value[selectedTrackIndex.value] ?? null : null
