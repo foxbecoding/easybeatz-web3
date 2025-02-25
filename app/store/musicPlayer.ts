@@ -71,6 +71,10 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     audio.value?.play();
   };
 
+  const pauseTrackHandler = () => {
+    audio.value?.pause();
+  };
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
 }
