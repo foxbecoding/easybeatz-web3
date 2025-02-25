@@ -101,6 +101,15 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   });
 
+  return {
+    pauseTrackHandler,
+    playTrackHandler,
+    prevTrackHandler,
+    nextTrackHandler,
+    setMusicPlayerDetails,
+  };
+});
+
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useMusicPlayerStore, import.meta.hot));
 }
