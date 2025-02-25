@@ -11,7 +11,7 @@ const props = defineProps<{
 
 const route = useRoute();
 const img = useImage();
-const albumCover = computed(() => props.albumCover);
+const albumCover = computed(() => props.album.cover);
 
 const albumCoverStyles = computed(() => {
   const imgUrl = img(albumCover.value, { width: 108 })
