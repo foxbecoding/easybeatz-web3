@@ -9,6 +9,7 @@ const props = defineProps<{
   album: Album;
 }>();
 
+const config = useRuntimeConfig();
 const route = useRoute();
 const img = useImage();
 const albumCover = computed(() => props.album.cover);
