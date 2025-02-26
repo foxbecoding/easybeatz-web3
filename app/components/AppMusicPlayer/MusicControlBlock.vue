@@ -26,3 +26,30 @@ const onSliderChange = (e: any) => {
 
 </script>
 
+<template>
+  <div class="w-full flex flex-col gap-1">
+    <div class="flex items-center justify-center">
+      <button class="btn btn-ghost btn-circle btn-sm">
+        <Icon icon="mingcute:shuffle-fill" width="20" height="20" />
+      </button>
+      <button @click="prevHandler()" class="btn btn-ghost btn-circle btn-sm">
+        <Icon icon="solar:rewind-back-bold" width="20" height="20" />
+      </button>
+      <button @click="playOrPause" class="btn btn-ghost btn-circle btn-sm">
+        <Icon :icon="`solar:${playOrPauseIcon}-bold`" width="20" height="20" />
+      </button>
+      <button @click="nextHandler()" class="btn btn-ghost btn-circle btn-sm">
+        <Icon icon="solar:rewind-forward-bold" width="20" height="20" />
+      </button>
+      <button class="btn btn-ghost btn-circle btn-sm">
+        <Icon icon="fa6-solid:repeat" width="18" height="18" />
+      </button>
+    </div>
+    <input type="range" min="0" :max="track.duration" v-model="musicPlayerStore.currentTime" @input="onSliderChange"
+      class="range range-xs" />
+    <div class="flex justify-between">
+      <span class="text-xs font-semibold">{{ currentTimeStr }}</span>
+      <span class="text-xs font-semibold">{{ track.formatted_duration }}</span>
+    </div>
+  </div>
+</template>
