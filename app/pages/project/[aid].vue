@@ -51,6 +51,7 @@ const setMusicPlayerDetails = (trackList: TrackList[]) => {
   musicPlayerStore.setMusicPlayerDetails(0, trackList, String(route.path));
 }
 
+const trackListBuilder = (): TrackList[] => {
   let trackList: TrackList[] = [];
 
   if (album.value) {
@@ -58,8 +59,9 @@ const setMusicPlayerDetails = (trackList: TrackList[]) => {
     tracks.forEach(track => {
       trackList.push({ album: album.value as Album, station: station, track })
     });
-    musicPlayerStore.setMusicPlayerDetails(0, trackList, String(route.path));
   }
+
+  return trackList
 }
 
 </script>
