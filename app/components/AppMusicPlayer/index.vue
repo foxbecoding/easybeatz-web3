@@ -20,3 +20,30 @@ const albumCoverStyles = computed(() => {
 
 </script>
 
+<template>
+  <div v-if="show"
+    class="absolute bottom-[24px] lg:bottom-[88px] left-1/2 transform -translate-x-1/2 w-full max-w-[90%] h-[96px] rounded-[1rem]"
+    :style="albumCoverStyles">
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-70 rounded-[1rem]"></div>
+    <!-- Frosted Glass Overlay -->
+    <div class="absolute inset-0 bg-white bg-opacity-15 backdrop-blur-md rounded-[1rem] items-center justify-center">
+      <div class="flex justify-between items-center h-full p-4 navbar">
+        <!-- Start -->
+        <div class="navbar-start">
+          <AppMusicPlayerDetailsBlock />
+        </div>
+
+        <!-- Center -->
+        <div class="navbar-center w-full max-w-[400px]">
+          <AppMusicPlayerMusicControlBlock />
+        </div>
+
+        <!-- End -->
+        <div class="navbar-end">
+          <AppTrackControls />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
