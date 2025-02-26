@@ -12,7 +12,7 @@ const props = defineProps<{
 const config = useRuntimeConfig();
 const route = useRoute();
 const img = useImage();
-const albumCover = computed(() => props.album.cover);
+const albumCover = computed(() => `${config.public.MEDIA_URL}${props.album.cover}`);
 const musicPlayerStore = useMusicPlayerStore();
 
 const albumCoverStyles = computed(() => {
