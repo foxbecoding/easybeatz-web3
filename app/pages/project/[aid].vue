@@ -41,6 +41,12 @@ const albumCoverStyles = computed(() => {
 })
 
 const playHandler = () => {
+  if (album.value) {
+    const trackList = trackListBuilder();
+    setMusicPlayerDetails(trackList);
+  }
+}
+
   let trackList: TrackList[] = [];
 
   if (album.value) {
