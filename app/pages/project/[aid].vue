@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { useAuthStore } from "@/store/auth";
+import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
 import { type Album } from "@/services/models/album";
 
 const route = useRoute();
 const authStore = useAuthStore();
 const config = useRuntimeConfig();
+const musicPlayerStore = useMusicPlayerStore();
 const aid = ref(route.params.aid)
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const fetchPath = `${config.public.API_ALBUM}/${aid.value}/retrieve_with_tracks_and_relations/`;
