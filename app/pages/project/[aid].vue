@@ -47,6 +47,10 @@ const playHandler = () => {
   }
 }
 
+const setMusicPlayerDetails = (trackList: TrackList[]) => {
+  musicPlayerStore.setMusicPlayerDetails(0, trackList, String(route.path));
+}
+
   let trackList: TrackList[] = [];
 
   if (album.value) {
