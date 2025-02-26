@@ -39,6 +39,18 @@ const albumCoverStyles = computed(() => {
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
+const playHandler = () => {
+  let trackList: TrackList[] = [];
+
+  if (album.value) {
+    const { tracks, station } = album.value
+    tracks.forEach(track => {
+      trackList.push({ album: album.value as Album, station: station, track })
+    });
+    musicPlayerStore.setMusicPlayerDetails(0, trackList, String(route.path));
+  }
+}
+
 </script>
 
 <template>
