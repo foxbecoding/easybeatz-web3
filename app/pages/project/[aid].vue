@@ -67,7 +67,7 @@ const playHandler = () => {
             <p class="opacity-70">{{ album.uploaded_at }}</p>
           </div>
           <div class="flex gap-2 items-center w-full">
-            <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+            <button @click="playHandler()" class="btn btn-primary flex-1 rounded-[1rem] text-lg">
               <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
               Play
             </button>
