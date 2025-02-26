@@ -2,6 +2,7 @@
 import { useAuthStore } from "@/store/auth";
 import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
 import { type Album } from "@/services/models/album";
+import { shuffleArray } from "@/utils/shuffleArray";
 
 const route = useRoute();
 const authStore = useAuthStore();
