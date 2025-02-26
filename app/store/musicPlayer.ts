@@ -50,7 +50,12 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
       }, 30);
 
       playingFrom.value = _playingFrom;
+
+      setTimeout(() => {
+        show.value = true;
+      }, 30)
     }
+
   };
 
   const setMediaSessionData = () => {
@@ -153,6 +158,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   });
 
   return {
+    audio,
     currentTime,
     currentTimeStr,
     isPlaying,
@@ -160,7 +166,9 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     playTrackHandler,
     prevTrackHandler,
     nextTrackHandler,
+    selectedTrackListItem,
     setMusicPlayerDetails,
+    show,
   };
 });
 
