@@ -34,7 +34,9 @@ const setMusicPlayerDetails = (trackIndex: number) => {
   props.tracks.forEach(track => {
     trackList.push({ album: props.album, station: props.station, track })
   });
-  musicPlayerStore.setMusicPlayerDetails(trackIndex, trackList, String(route.path));
+  const selectedTrackListItem: TrackList = trackList[trackIndex];
+  musicPlayerStore.isShuffled = false;
+  musicPlayerStore.setMusicPlayerDetails(selectedTrackListItem, trackList, String(route.path));
 }
 
 </script>
