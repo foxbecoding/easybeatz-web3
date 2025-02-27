@@ -193,6 +193,12 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   });
 
+  watch(isShuffled, (newVal) => {
+    if (!newVal) {
+      trackList.value = ogTrackList.value;
+    }
+  });
+
   return {
     audio,
     currentTime,
