@@ -59,7 +59,7 @@ const setMusicPlayerDetails = (trackIndex: number) => {
               <p class="text-lg font-bold line-clamp-1 overflow-hidden text-ellipsis">
                 {{ track.title }}
               </p>
-              <AppStationBlock :station="station" />
+              <AppStationBlock :station="station" @click.stop />
               <div class="flex gap-4">
                 <span>duration: {{ track.formatted_duration }}</span>
                 <span>BPM: {{ track.bpm }}</span>
