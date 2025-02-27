@@ -35,7 +35,7 @@ const albumCoverStyles = computed(() => {
         </div>
 
         <!-- Center -->
-        <div class="navbar-center w-full max-w-[400px]">
+        <div class="navbar-center hidden md:flex w-full md:max-w-[300px] lg:max-w-[400px]">
           <AppMusicPlayerMusicControlBlock />
         </div>
 
