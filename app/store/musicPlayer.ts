@@ -158,6 +158,28 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
+  const shuffleHandler = () => {
+    if (!isShuffled.value) {
+      const newTrackList: TrackList[] = _.shuffle(trackList.value);
+
+      if (selectedTrackListItem.value) {
+        const foundIndex = newTrackList.findIndex(x => x == selectedTrackListItem.value);
+
+        if (foundIndex) {
+          newTrackList.splice(foundIndex, 1)
+          newTrackList.unshift(selectedTrackListItem.value);
+        }
+      }
+
+      ogTrackList.value = trackList.value;
+      trackList.value = newTrackList;
+
+      isShuffled.value = true;
+      return
+    }
+
+    isShuffled.value = false;
+  };
 
   watch(selectedTrackListItem, (newItem) => {
     if (newItem) {
