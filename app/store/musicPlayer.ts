@@ -181,6 +181,12 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     isShuffled.value = false;
   };
 
+  const setMediaAndPlay = () => {
+    setMediaSource();
+    setMediaSessionData();
+    playTrackHandler();
+  }
+
   watch(selectedTrackListItem, (newItem) => {
     if (newItem) {
       setMediaAndPlay();
