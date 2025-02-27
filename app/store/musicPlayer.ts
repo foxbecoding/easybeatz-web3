@@ -95,7 +95,6 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     _audio.addEventListener('timeupdate', audioTimeUpdateHandler);
     _audio.addEventListener('play', audioPlayHandler);
     _audio.addEventListener('pause', audioPauseHandler);
-    _audio.addEventListener("seeking", (event) => { console.log('seeking') });
   }
 
   const audioEndedHandler = () => nextTrackHandler();
