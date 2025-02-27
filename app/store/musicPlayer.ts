@@ -18,6 +18,8 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const playingFrom = ref("");
   const isPlaying = ref(false);
   const isShuffled = ref(false);
+  const isRepeatAll = ref(false);
+  const isRepeatOne = ref(false);
   const show = ref(false);
 
   const currentTimeStr = computed<string>((): string => {
