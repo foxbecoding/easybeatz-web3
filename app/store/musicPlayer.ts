@@ -20,10 +20,6 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const isShuffled = ref(false);
   const show = ref(false);
 
-  const selectedTrackListItem = computed<TrackList | null>(() =>
-    selectedTrackIndex.value !== null ? trackList.value[selectedTrackIndex.value] ?? null : null
-  );
-
   const currentTimeStr = computed<string>((): string => {
     let hrs: number = ~~(currentTime.value / 3600)
     let mins: number = ~~((currentTime.value % 3600) / 60)
