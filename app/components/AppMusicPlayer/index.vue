@@ -22,7 +22,7 @@ const albumCoverStyles = computed(() => {
 
 <template>
   <div v-if="show"
-    class="absolute bottom-[24px] lg:bottom-[88px] left-1/2 transform -translate-x-1/2 w-full max-w-[90%] h-[96px] rounded-[1rem]"
+    class="absolute bottom-[24px] lg:bottom-[88px] left-1/2 transform -translate-x-1/2 w-full max-w-[90%] h-[72px] sm:h-[84px] md:h-[96px] rounded-[1rem]"
     :style="albumCoverStyles">
     <!-- Dark Overlay -->
     <div class="absolute inset-0 bg-black bg-opacity-70 rounded-[1rem]"></div>
