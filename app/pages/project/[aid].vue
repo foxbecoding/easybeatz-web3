@@ -44,6 +44,7 @@ const albumCoverStyles = computed(() => {
 const playHandler = () => {
   if (album.value) {
     const trackList = trackListBuilder();
+    musicPlayerStore.isShuffled = false;
     setMusicPlayerDetails(trackList);
   }
 }
