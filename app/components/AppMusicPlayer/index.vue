@@ -41,7 +41,7 @@ const albumCoverStyles = computed(() => {
 
         <!-- End -->
         <div class="navbar-end">
-          <AppTrackControls />
+          <AppMusicPlayerTrackControlBlock />
         </div>
       </div>
     </div>
