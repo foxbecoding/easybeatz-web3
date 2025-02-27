@@ -27,8 +27,8 @@ const onSliderChange = (e: any) => {
 <template>
   <div class="w-full flex flex-col gap-1">
     <div class="flex items-center justify-center">
-      <button class="btn btn-ghost btn-circle btn-sm">
-        <Icon icon="mingcute:shuffle-fill" width="20" height="20" />
+      <button @click="shuffleHandler()" class="btn btn-ghost btn-circle btn-sm">
+        <Icon icon="mingcute:shuffle-fill" :class="isShuffled ? 'text-primary' : ''" width="20" height="20" />
       </button>
       <button @click="prevHandler()" class="btn btn-ghost btn-circle btn-sm">
         <Icon icon="solar:rewind-back-bold" width="20" height="20" />
