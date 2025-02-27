@@ -7,6 +7,8 @@ const currentTimeStr = computed(() => musicPlayerStore.currentTimeStr);
 const trackList = computed<TrackList>(() => musicPlayerStore.selectedTrackListItem as TrackList);
 const track = computed<Track>(() => trackList.value.track);
 const isShuffled = computed<boolean>(() => musicPlayerStore.isShuffled);
+const isRepeat = computed<boolean>(() => musicPlayerStore.isRepeatOne || musicPlayerStore.isRepeatAll ? true : false);
+const repeatIcon = computed(() => !musicPlayerStore.isRepeatOne ? 'repeat' : 'repeat-once')
 const playOrPauseIcon = computed(() => musicPlayerStore.isPlaying ? 'pause' : 'play');
 const playOrPause = computed(() => musicPlayerStore.isPlaying ? pauseHandler() : playHandler());
 
@@ -14,6 +16,7 @@ const playHandler = () => musicPlayerStore.playTrackHandler;
 const pauseHandler = () => musicPlayerStore.pauseTrackHandler;
 const nextHandler = () => musicPlayerStore.nextTrackHandler();
 const prevHandler = () => musicPlayerStore.prevTrackHandler();
+const repeatHandler = () => musicPlayerStore.repeatHandler();
 const shuffleHandler = () => musicPlayerStore.shuffleHandler();
 
 const onSliderChange = (e: any) => {
@@ -39,8 +42,8 @@ const onSliderChange = (e: any) => {
       <button @click="nextHandler()" class="btn btn-ghost btn-circle btn-sm">
         <Icon icon="solar:rewind-forward-bold" width="20" height="20" />
       </button>
-      <button class="btn btn-ghost btn-circle btn-sm">
-        <Icon icon="fa6-solid:repeat" width="18" height="18" />
+      <button @click="repeatHandler()" class="btn btn-ghost btn-circle btn-sm">
+        <Icon :icon="`tabler:${repeatIcon}`" :class="isRepeat ? 'text-primary' : ''" width="20" height="20" />
       </button>
     </div>
     <input type="range" min="0" :max="track.duration" v-model="musicPlayerStore.currentTime" @input="onSliderChange"
