@@ -168,6 +168,27 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   };
 
+  const repeatHandler = () => {
+    if (isRepeatOne.value) {
+      clearRepeat();
+      return
+    }
+
+    if (!isRepeatAll.value) {
+      setRepeatAll();
+    } else {
+      setRepeatOne();
+    }
+  }
+
+  const clearRepeat = () => {
+    isRepeatAll.value = false;
+    isRepeatOne.value = false;
+  }
+
+  const setRepeatAll = () => isRepeatAll.value = true;
+  const setRepeatOne = () => isRepeatOne.value = true;
+
   const shuffleHandler = () => {
     if (!isShuffled.value) {
       const newTrackList: TrackList[] = _.shuffle(trackList.value);
