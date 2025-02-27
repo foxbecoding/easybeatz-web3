@@ -29,9 +29,10 @@ const albumCoverStyles = computed(() => {
         class="text-sm md:text-md font-bold line-clamp-1 sm:line-clamp-2 overflow-hidden text-ellipsis [line-height:0.8rem] md:[line-height:1rem]">
         {{ track.title }}
       </span>
-      <span
-        class="text-xs md:text-sm font-semibold opacity-80 line-clamp-1 sm:line-clamp-2 overflow-hidden text-ellipsis [line-height:0.8rem] md:[line-height:1rem]">{{
-          station.name }}</span>
+      <NuxtLink :to="{ name: 'station-pubkey', params: { pubkey: station.pubkey } }"
+        class="text-xs md:text-sm font-semibold opacity-80 line-clamp-1 sm:line-clamp-2 overflow-hidden text-ellipsis [line-height:0.8rem] md:[line-height:1rem]">
+        {{ station.name }}
+      </NuxtLink>
     </div>
   </div>
 </template>
