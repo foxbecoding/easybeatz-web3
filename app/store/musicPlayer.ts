@@ -33,26 +33,32 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     return ret
   });
 
-  const setMusicPlayerDetails = (_selectedTrackIndex: number, _trackList: TrackList[], _playingFrom: string) => {
-    const isSameTrack = selectedTrackIndex.value === _selectedTrackIndex && playingFrom.value === _playingFrom;
+  const currentTrackIndex = computed<number>(() => {
+    if (!selectedTrackListItem.value) {
+      return 0;
+    }
+
+    const index = trackList.value.findIndex(x => x == selectedTrackListItem.value);
+    return index;
+
+  });
+
+  const setMusicPlayerDetails = (_selectedTrackListItem: TrackList, _trackList: TrackList[], _playingFrom: string) => {
+    const isSameTrack = selectedTrackListItem.value === _selectedTrackListItem;
+
+    trackList.value = _trackList;
+    playingFrom.value = _playingFrom;
 
     if (isSameTrack) {
       resetCurrentTime();
     } else {
-      if (playingFrom.value !== _playingFrom) {
-        selectedTrackIndex.value = null;
-        trackList.value = _trackList;
-      }
-
       setTimeout(() => {
-        selectedTrackIndex.value = _selectedTrackIndex;
+        selectedTrackListItem.value = _selectedTrackListItem;
       }, 30);
-
-      playingFrom.value = _playingFrom;
 
       setTimeout(() => {
         show.value = true;
-      }, 30)
+      }, 100)
     }
 
   };
