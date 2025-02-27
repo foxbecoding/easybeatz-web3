@@ -136,8 +136,10 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const pauseTrackHandler = () => audio.value?.pause();
 
   const nextTrackHandler = () => {
-    if (selectedTrackIndex.value !== null && selectedTrackIndex.value < trackList.value.length - 1) {
-      selectedTrackIndex.value++;
+    const trackIndex = currentTrackIndex.value;
+    if (trackIndex < trackList.value.length - 1) {
+      const index = trackIndex + 1;
+      selectedTrackListItem.value = trackList.value[index];
     }
   };
 
