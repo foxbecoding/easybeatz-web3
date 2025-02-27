@@ -210,7 +210,6 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     pauseTrackHandler,
     playTrackHandler,
     prevTrackHandler,
-    nextTrackHandler,
     selectedTrackListItem,
     setMusicPlayerDetails,
     show,
