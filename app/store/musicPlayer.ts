@@ -150,8 +150,11 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
         return;
       }
     }
-    if (selectedTrackIndex.value && selectedTrackIndex.value > 0) {
-      selectedTrackIndex.value--;
+
+    const trackIndex = currentTrackIndex.value;
+    if (trackIndex > 0) {
+      const index = trackIndex - 1;
+      selectedTrackListItem.value = trackList.value[index];
     }
   };
 
