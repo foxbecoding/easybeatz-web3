@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { type Track } from "@/services/models/album";
+import { type Album, type Track } from "@/services/models/album";
 import { type Station } from "@/services/models/station";
+import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer"
 
 const props = defineProps<{
   tracks: Track[];
   station: Station;
-  albumCover: string;
+  album: Album;
 }>();
 
+const config = useRuntimeConfig();
 const route = useRoute();
 const img = useImage();
-const albumCover = computed(() => props.albumCover);
+const albumCover = computed(() => `${config.public.MEDIA_URL}${props.album.cover}`);
+const musicPlayerStore = useMusicPlayerStore();
 
 const albumCoverStyles = computed(() => {
   const imgUrl = img(albumCover.value, { width: 108 })
@@ -25,11 +28,23 @@ const showProjectCover = computed(() => {
   return true;
 });
 
+const setMusicPlayerDetails = (trackIndex: number) => {
+  let trackList: TrackList[] = [];
+
+  props.tracks.forEach(track => {
+    trackList.push({ album: props.album, station: props.station, track })
+  });
+  const selectedTrackListItem: TrackList = trackList[trackIndex];
+  musicPlayerStore.isShuffled = false;
+  musicPlayerStore.setMusicPlayerDetails(selectedTrackListItem, trackList, String(route.path));
+}
+
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <div v-for="(track, t) in tracks" :key="t" class="md:h-[128px] bg-base-200 rounded-[1rem]">
+    <div v-for="(track, t) in tracks" :key="t" @click="setMusicPlayerDetails(t)"
+      class="md:h-[128px] bg-base-200 rounded-[1rem] cursor-pointer">
       <div v-if="showProjectCover" :style="albumCoverStyles"
         class="w-full h-full max-w-[640px] max-h-[640px] aspect-square group relative bg-neutral rounded-t-[0.5rem] flex sm:hidden items-center">
       </div>
@@ -44,7 +59,7 @@ const showProjectCover = computed(() => {
               <p class="text-lg font-bold line-clamp-1 overflow-hidden text-ellipsis">
                 {{ track.title }}
               </p>
-              <AppStationBlock :station="station" />
+              <AppStationBlock :station="station" @click.stop />
               <div class="flex gap-4">
                 <span>duration: {{ track.formatted_duration }}</span>
                 <span>BPM: {{ track.bpm }}</span>
@@ -56,17 +71,7 @@ const showProjectCover = computed(() => {
           <NuxtLink class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
             Buy ${{ track.price }}
           </NuxtLink>
-          <div class="flex order-first md:order-last">
-            <button class="btn btn-square btn-ghost mask mask-squircle">
-              <Icon icon="solar:heart-linear" width="24" height="24" />
-            </button>
-            <button class="btn btn-square btn-ghost mask mask-squircle">
-              <Icon icon="solar:bag-music-2-linear" width="24" height="24" />
-            </button>
-            <button class="btn btn-square btn-ghost mask mask-squircle">
-              <Icon icon="solar:menu-dots-bold" width="24" height="24" />
-            </button>
-          </div>
+          <AppTrackControls class="order-first md:order-last" />
         </div>
       </div>
     </div>
