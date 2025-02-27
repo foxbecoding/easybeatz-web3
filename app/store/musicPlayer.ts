@@ -204,6 +204,9 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     currentTime,
     currentTimeStr,
     isPlaying,
+    isShuffled,
+    nextTrackHandler,
+    ogTrackList,
     pauseTrackHandler,
     playTrackHandler,
     prevTrackHandler,
@@ -211,6 +214,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     selectedTrackListItem,
     setMusicPlayerDetails,
     show,
+    shuffleHandler,
   };
 });
 
