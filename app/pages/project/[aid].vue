@@ -49,6 +49,16 @@ const playHandler = () => {
   }
 }
 
+const shuffleHandler = () => {
+  if (album.value) {
+    const trackList = trackListBuilder();
+    const newTrackList = _.shuffle(trackList);
+    musicPlayerStore.ogTrackList = trackList;
+    musicPlayerStore.isShuffled = true;
+    setMusicPlayerDetails(newTrackList);
+  }
+}
+
 const setMusicPlayerDetails = (trackList: TrackList[]) => {
   musicPlayerStore.setMusicPlayerDetails(0, trackList, String(route.path));
 }
@@ -86,7 +96,7 @@ const trackListBuilder = (): TrackList[] => {
               <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
               Play
             </button>
-            <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+            <button @click="shuffleHandler()" class="btn btn-primary flex-1 rounded-[1rem] text-lg">
               <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
               Shuffle
             </button>
