@@ -17,6 +17,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const ogTrackList = ref<TrackList[]>([]);
   const playingFrom = ref("");
   const isPlaying = ref(false);
+  const isShuffled = ref(false);
   const show = ref(false);
 
   const selectedTrackListItem = computed<TrackList | null>(() =>
