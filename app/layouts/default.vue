@@ -8,6 +8,7 @@
         class="bg-base-100 relative lg:fixed top-[64px] lg:w-full lg:max-w-[calc(100vw-320px)] lg:rounded-tl-[3rem] h-full"
         style="height: 100%">
         <slot />
+        <AppMusicPlayer />
         <AppToast />
       </main>
 

@@ -1,10 +1,14 @@
 <script lang="ts" setup>
 import { useAuthStore } from "@/store/auth";
+import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
 import { type Album } from "@/services/models/album";
+import { shuffleArray } from "@/utils/shuffleArray";
+import _ from 'lodash';
 
 const route = useRoute();
 const authStore = useAuthStore();
 const config = useRuntimeConfig();
+const musicPlayerStore = useMusicPlayerStore();
 const aid = ref(route.params.aid)
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const fetchPath = `${config.public.API_ALBUM}/${aid.value}/retrieve_with_tracks_and_relations/`;
@@ -37,6 +41,42 @@ const albumCoverStyles = computed(() => {
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
+const playHandler = () => {
+  if (album.value) {
+    const trackList = trackListBuilder();
+    musicPlayerStore.isShuffled = false;
+    setMusicPlayerDetails(trackList);
+  }
+}
+
+const shuffleHandler = () => {
+  if (album.value) {
+    const trackList = trackListBuilder();
+    const newTrackList = _.shuffle(trackList);
+    musicPlayerStore.ogTrackList = trackList;
+    musicPlayerStore.isShuffled = true;
+    setMusicPlayerDetails(newTrackList);
+  }
+}
+
+const setMusicPlayerDetails = (trackList: TrackList[]) => {
+  const trackListItem: TrackList = trackList[0];
+  musicPlayerStore.setMusicPlayerDetails(trackListItem, trackList, String(route.path));
+}
+
+const trackListBuilder = (): TrackList[] => {
+  let trackList: TrackList[] = [];
+
+  if (album.value) {
+    const { tracks, station } = album.value
+    tracks.forEach(track => {
+      trackList.push({ album: album.value as Album, station: station, track })
+    });
+  }
+
+  return trackList
+}
+
 </script>
 
 <template>
@@ -53,18 +93,18 @@ const albumCoverStyles = computed(() => {
             <p class="opacity-70">{{ album.uploaded_at }}</p>
           </div>
           <div class="flex gap-2 items-center w-full">
-            <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+            <button @click="playHandler()" class="btn btn-primary flex-1 rounded-[1rem] text-lg">
               <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
               Play
             </button>
-            <button class="btn btn-primary flex-1 rounded-[1rem] text-lg">
+            <button @click="shuffleHandler()" class="btn btn-primary flex-1 rounded-[1rem] text-lg">
               <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
               Shuffle
             </button>
           </div>
         </div>
       </div>
-      <AppTrackList :tracks="albumTracks" :station="album.station" :album-cover="albumCover" />
+      <AppTrackList :tracks="albumTracks" :station="album.station" :album="album" />
     </div>
 
     <div v-if="status == 'idle' || status == 'pending'" class="flex flex-col gap-16">
