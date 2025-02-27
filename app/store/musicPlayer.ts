@@ -13,6 +13,8 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
   const audio = ref<HTMLAudioElement | null>(null);
   const currentTime = ref(0);
   const trackList = ref<TrackList[]>([]);
+  const selectedTrackListItem = ref<TrackList>();
+  const ogTrackList = ref<TrackList[]>([]);
   const playingFrom = ref("");
   const isPlaying = ref(false);
   const show = ref(false);
