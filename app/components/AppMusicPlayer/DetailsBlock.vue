@@ -20,15 +20,18 @@ const albumCoverStyles = computed(() => {
 </script>
 
 <template>
-  <div class="flex gap-2 md:gap-4">
+  <div class="flex gap-2">
     <div :style="albumCoverStyles"
-      class="min-w-[68px] h-[68px] group relative bg-neutral rounded-[0.5rem] hidden sm:flex">
+      class="w-[44px] sm:w-[56px] md:min-w-[68px] h-[44px] sm:h-[56px] md:h-[68px] group relative bg-neutral rounded-[0.5rem] flex">
     </div>
     <div class="flex flex-col gap-0 items-start">
-      <span class="text-md font-bold line-clamp-2 overflow-hidden text-ellipsis [line-height:0.8rem]">
+      <span
+        class="text-sm md:text-md font-bold line-clamp-1 sm:line-clamp-2 overflow-hidden text-ellipsis [line-height:0.8rem] md:[line-height:1rem]">
         {{ track.title }}
       </span>
-      <span class="font-semibold opacity-80">{{ station.name }}</span>
+      <span
+        class="text-xs md:text-sm font-semibold opacity-80 line-clamp-1 sm:line-clamp-2 overflow-hidden text-ellipsis [line-height:0.8rem] md:[line-height:1rem]">{{
+          station.name }}</span>
     </div>
   </div>
 </template>
