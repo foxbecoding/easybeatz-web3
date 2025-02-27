@@ -2,13 +2,10 @@
 import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
 import { type Track } from "@/services/models/album";
 
-const config = useRuntimeConfig();
 const musicPlayerStore = useMusicPlayerStore();
-const currentTime = computed(() => musicPlayerStore.currentTime);
 const currentTimeStr = computed(() => musicPlayerStore.currentTimeStr);
 const trackList = computed<TrackList>(() => musicPlayerStore.selectedTrackListItem as TrackList);
 const track = computed<Track>(() => trackList.value.track);
-
 const playOrPauseIcon = computed(() => musicPlayerStore.isPlaying ? 'pause' : 'play');
 const playOrPause = computed(() => musicPlayerStore.isPlaying ? pauseHandler() : playHandler());
 
