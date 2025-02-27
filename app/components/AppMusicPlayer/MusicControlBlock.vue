@@ -6,6 +6,7 @@ const musicPlayerStore = useMusicPlayerStore();
 const currentTimeStr = computed(() => musicPlayerStore.currentTimeStr);
 const trackList = computed<TrackList>(() => musicPlayerStore.selectedTrackListItem as TrackList);
 const track = computed<Track>(() => trackList.value.track);
+const isShuffled = computed<boolean>(() => musicPlayerStore.isShuffled);
 const playOrPauseIcon = computed(() => musicPlayerStore.isPlaying ? 'pause' : 'play');
 const playOrPause = computed(() => musicPlayerStore.isPlaying ? pauseHandler() : playHandler());
 
@@ -13,6 +14,7 @@ const playHandler = () => musicPlayerStore.playTrackHandler;
 const pauseHandler = () => musicPlayerStore.pauseTrackHandler;
 const nextHandler = () => musicPlayerStore.nextTrackHandler();
 const prevHandler = () => musicPlayerStore.prevTrackHandler();
+const shuffleHandler = () => musicPlayerStore.shuffleHandler();
 
 const onSliderChange = (e: any) => {
   if (musicPlayerStore.audio) {
