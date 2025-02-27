@@ -230,6 +230,18 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     }
   });
 
+  watch(isRepeatAll, () => {
+    if (isRepeatAll.value) {
+      isRepeatOne.value = false;
+    }
+  });
+
+  watch(isRepeatOne, () => {
+    if (isRepeatOne.value) {
+      isRepeatAll.value = false;
+    }
+  });
+
   return {
     audio,
     currentTime,
