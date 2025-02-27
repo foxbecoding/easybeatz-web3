@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
-import { type Album, type Track } from "@/services/models/album";
-import { type Station } from "@/services/models/station";
+import { type Track } from "@/services/models/album";
 
 const config = useRuntimeConfig();
 const musicPlayerStore = useMusicPlayerStore();
