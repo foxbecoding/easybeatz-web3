@@ -1,5 +1,6 @@
 import pytest
-from users.models import User
+import uuid
+from users.models import User, UserLogin, UserLoginNonce
 
 @pytest.fixture
 def default_user(db):
