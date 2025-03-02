@@ -19,3 +19,11 @@ def default_user_login(db, default_user):
     """
     return UserLogin.objects.create(user=default_user)
 
+@pytest.fixture
+def default_user_login_nonce(db):
+    """
+    A fixture to create a default UserLoginNonce instance.
+    """
+    return UserLoginNonce.objects.create(
+        pubkey="D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF"
+    )
