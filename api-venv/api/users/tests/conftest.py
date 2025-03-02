@@ -11,3 +11,11 @@ def default_user(db):
         pubkey="D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
         email="john@example.com"
     )
+
+@pytest.fixture
+def default_user_login(db, default_user):
+    """
+    A static UserLogin fixture. This login entry can be used across multiple tests.
+    """
+    return UserLogin.objects.create(user=default_user)
+
