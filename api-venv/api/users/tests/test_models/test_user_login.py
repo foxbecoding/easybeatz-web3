@@ -23,3 +23,11 @@ def test_user_login_factory_creates_valid_user_login():
     assert user_login.user is not None  # Ensure ForeignKey is assigned
 
 
+@pytest.mark.django_db
+def test_user_login_default_fixture(default_user_login):
+    """
+    Ensure that the default_user_login fixture creates a valid UserLogin instance.
+    """
+    assert default_user_login.pk is not None  # Check if saved to the DB
+    assert isinstance(default_user_login, UserLogin)  # Ensure it's a UserLogin instance
+    assert default_user_login.user is not None 
