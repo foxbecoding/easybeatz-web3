@@ -1,6 +1,4 @@
 import factory
-def generate_solana_pubkey():
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=44))
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
