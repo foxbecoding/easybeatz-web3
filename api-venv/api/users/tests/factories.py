@@ -13,3 +13,12 @@ class UserFactory(factory.django.DjangoModelFactory):
     updated = factory.Faker("date_time_this_decade")
     deleted = None
 
+class UserLoginFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = UserLogin
+
+    user = factory.SubFactory(UserFactory)
+    created = factory.Faker("date_time_this_decade")
+    updated = factory.Faker("date_time_this_decade")
+    deleted = None
+
