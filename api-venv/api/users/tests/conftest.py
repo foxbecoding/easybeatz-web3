@@ -5,7 +5,7 @@ from users.models import User, UserLogin, UserLoginNonce
 @pytest.fixture
 def default_user(db):
     """
-    A static user fixture. This user can be used across multiple tests.
+    A static User fixture. This user can be used across multiple tests.
     """
     return User.objects.create(
         pubkey="D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
