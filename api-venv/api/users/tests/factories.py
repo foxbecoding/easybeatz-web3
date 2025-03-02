@@ -1,4 +1,6 @@
 import factory
+import uuid
+from users.models import User, UserLogin, UserLoginNonce
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
