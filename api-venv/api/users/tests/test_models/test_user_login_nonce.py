@@ -14,3 +14,14 @@ def test_create_user_login_nonce():
     assert user_login_nonce.nonce is not None  # Ensure nonce is generated
     assert len(user_login_nonce.nonce) == 36  # Validate nonce format (UUID)
 
+@pytest.mark.django_db
+def test_user_login_nonce_factory_creates_valid_instance():
+    """
+    Ensure that the UserLoginNonceFactory correctly creates a UserLoginNonce instance.
+    """
+    user_login_nonce = UserLoginNonceFactory()
+    assert user_login_nonce.pk is not None
+    assert user_login_nonce.pubkey is not None
+    assert user_login_nonce.nonce is not None
+    assert len(user_login_nonce.nonce) == 36  # Validate UUID length
+
