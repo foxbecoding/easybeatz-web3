@@ -22,3 +22,12 @@ class UserLoginFactory(factory.django.DjangoModelFactory):
     updated = factory.Faker("date_time_this_decade")
     deleted = None
 
+class UserLoginNonceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = UserLoginNonce
+
+    pubkey = factory.Faker("bothify", text="#" * 44)  # Simulates a 44-char Solana pubkey
+    nonce = factory.LazyFunction(lambda: str(uuid.uuid4()))
+    created = factory.Faker("date_time_this_decade")
+    updated = factory.Faker("date_time_this_decade")
+    deleted = None
