@@ -13,3 +13,13 @@ def test_create_user_login():
     assert user_login.user == user  # Ensure ForeignKey relationship is set
 
 
+@pytest.mark.django_db
+def test_user_login_factory_creates_valid_user_login():
+    """
+    Ensure that the UserLoginFactory correctly creates a UserLogin instance.
+    """
+    user_login = UserLoginFactory()
+    assert user_login.pk is not None
+    assert user_login.user is not None  # Ensure ForeignKey is assigned
+
+
