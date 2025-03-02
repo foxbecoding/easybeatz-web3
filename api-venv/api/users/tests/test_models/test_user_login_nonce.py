@@ -25,3 +25,12 @@ def test_user_login_nonce_factory_creates_valid_instance():
     assert user_login_nonce.nonce is not None
     assert len(user_login_nonce.nonce) == 36  # Validate UUID length
 
+@pytest.mark.django_db
+def test_user_login_nonce_with_default_fixture(default_user_login_nonce):
+    """
+    Test that the default_user_login_nonce fixture creates a valid instance.
+    """
+    assert default_user_login_nonce.pk is not None
+    assert default_user_login_nonce.pubkey == "D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF"
+    assert default_user_login_nonce.nonce is not None
+    assert len(default_user_login_nonce.nonce) == 36  # Validate UUID format
