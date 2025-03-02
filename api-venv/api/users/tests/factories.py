@@ -7,5 +7,9 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
 
     # Generate a fake pubkey and email
-    pubkey = factory.LazyFunction(generate_solana_pubkey)
+    pubkey = factory.Faker("bothify", text="#" * 44)
     email = factory.Faker("email")
+    created = factory.Faker("date_time_this_decade")
+    updated = factory.Faker("date_time_this_decade")
+    deleted = None
+
