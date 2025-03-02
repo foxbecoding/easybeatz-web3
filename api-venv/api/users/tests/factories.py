@@ -1,8 +1,4 @@
-import random
-import string
 import factory
-from users.models import User
-
 def generate_solana_pubkey():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=44))
 
