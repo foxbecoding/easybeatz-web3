@@ -38,3 +38,15 @@ def test_web3_login_serializer_missing_fields():
     assert "pubkey" in serializer.errors
     assert "originalMessage" in serializer.errors
 
+def test_web3_login_serializer_invalid_signed_message():
+    """Test that an incorrectly structured signedMessage fails validation."""
+    invalid_data = {
+        "pubkey": "D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
+        "signedMessage": "invalid_data",
+        "originalMessage": "Mocked Original Message"
+    }
+    serializer = Web3LoginSerializer(data=invalid_data)
+    assert not serializer.is_valid()
+    assert "signedMessage" in serializer.errors
+    assert serializer.errors["signedMessage"][0] == "Invalid structure: Expected a dict with a 'data' key."
+
