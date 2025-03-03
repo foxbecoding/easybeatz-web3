@@ -29,3 +29,8 @@ def test_picture_url_property(default_station_picture):
     assert default_station_picture.picture_url.endswith(".jpg")
 
 
+@pytest.mark.django_db
+def test_station_picture_without_image(default_station):
+    """Test that picture_url is None when there is no image."""
+    station_picture = StationPicture.objects.create(station=default_station)
+    assert station_picture.picture_url is None
