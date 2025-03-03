@@ -4,8 +4,4 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 class UserViewSet(viewsets.ViewSet):
-    """
-    A simple ViewSet for listing or retrieving users.
-    """
-    def list(self, request):
-        return Response("Fox")
+    pass

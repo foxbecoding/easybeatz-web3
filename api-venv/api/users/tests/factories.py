@@ -1,15 +1,33 @@
-import random
-import string
 import factory
-from users.models import User
-
-def generate_solana_pubkey():
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=44))
+import uuid
+from users.models import User, UserLogin, UserLoginNonce
 
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
     # Generate a fake pubkey and email
-    pubkey = factory.LazyFunction(generate_solana_pubkey)
+    pubkey = factory.Faker("bothify", text="#" * 44)
     email = factory.Faker("email")
+    created = factory.Faker("date_time_this_decade")
+    updated = factory.Faker("date_time_this_decade")
+    deleted = None
+
+class UserLoginFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = UserLogin
+
+    user = factory.SubFactory(UserFactory)
+    created = factory.Faker("date_time_this_decade")
+    updated = factory.Faker("date_time_this_decade")
+    deleted = None
+
+class UserLoginNonceFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = UserLoginNonce
+
+    pubkey = factory.Faker("bothify", text="#" * 44)  # Simulates a 44-char Solana pubkey
+    nonce = factory.LazyFunction(lambda: str(uuid.uuid4()))
+    created = factory.Faker("date_time_this_decade")
+    updated = factory.Faker("date_time_this_decade")
+    deleted = None
