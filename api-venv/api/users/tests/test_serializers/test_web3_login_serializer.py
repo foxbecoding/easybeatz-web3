@@ -29,3 +29,12 @@ def test_web3_login_serializer_invalid_pubkey():
     assert "pubkey" in serializer.errors
     assert serializer.errors["pubkey"][0] == "Invalid public key length."
 
+def test_web3_login_serializer_missing_fields():
+    """Test that missing required fields fail validation."""
+    invalid_data = {}
+    serializer = Web3LoginSerializer(data=invalid_data)
+    assert not serializer.is_valid()
+    assert "signedMessage" in serializer.errors
+    assert "pubkey" in serializer.errors
+    assert "originalMessage" in serializer.errors
+
