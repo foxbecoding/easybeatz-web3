@@ -22,3 +22,10 @@ def test_custom_image_upload_path(default_station_picture):
     assert default_station_picture.picture.name.startswith("station/pictures/")
     assert default_station_picture.picture.name.endswith(".jpg")
 
+@pytest.mark.django_db
+def test_picture_url_property(default_station_picture):
+    """Test that the picture_url property returns a valid URL."""
+    assert default_station_picture.picture_url is not None
+    assert default_station_picture.picture_url.endswith(".jpg")
+
+
