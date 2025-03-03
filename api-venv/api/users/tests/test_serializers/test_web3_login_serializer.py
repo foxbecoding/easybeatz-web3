@@ -17,3 +17,15 @@ def test_web3_login_serializer_valid_data(valid_data):
     assert serializer.validated_data["signedMessage"] == [100, 200, 150, 50, 255, 30]  # Processed binary data
     assert serializer.validated_data["originalMessage"] == valid_data["originalMessage"]
 
+def test_web3_login_serializer_invalid_pubkey():
+    """Test that an invalid public key length fails validation."""
+    invalid_data = {
+        "pubkey": "short_key",
+        "signedMessage": {"type": "Buffer", "data": [100, 200]},
+        "originalMessage": "Mocked Original Message"
+    }
+    serializer = Web3LoginSerializer(data=invalid_data)
+    assert not serializer.is_valid()
+    assert "pubkey" in serializer.errors
+    assert serializer.errors["pubkey"][0] == "Invalid public key length."
+
