@@ -35,3 +35,11 @@ def test_formatted_launched_date(default_station):
     expected_year = default_station.created.year
     assert default_station.formatted_launched_date == f"Since {expected_year}"
 
+@pytest.mark.django_db
+def test_station_factory_creates_valid_station():
+    """
+    Ensure that the StationFactory correctly creates a Station instance.
+    """
+    station = StationFactory()
+    assert station.pk is not None
+
