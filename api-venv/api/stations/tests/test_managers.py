@@ -18,3 +18,14 @@ def album(db, station):
     )
 
 
+@pytest.fixture
+def track(db, album):
+    """Fixture to create a track linked to an album."""
+    return Track.objects.create(
+        album=album,
+        title="Test Track",
+        tid="track123",
+        duration=120
+    )
+
+
