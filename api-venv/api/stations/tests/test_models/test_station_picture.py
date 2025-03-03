@@ -16,3 +16,9 @@ def test_station_picture_creation(default_station):
     assert station_picture.picture_url is not None
 
 
+@pytest.mark.django_db
+def test_custom_image_upload_path(default_station_picture):
+    """Test that the image is uploaded to the correct directory."""
+    assert default_station_picture.picture.name.startswith("station/pictures/")
+    assert default_station_picture.picture.name.endswith(".jpg")
+
