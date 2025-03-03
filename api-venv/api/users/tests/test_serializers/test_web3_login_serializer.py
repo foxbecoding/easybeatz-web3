@@ -50,3 +50,14 @@ def test_web3_login_serializer_invalid_signed_message():
     assert "signedMessage" in serializer.errors
     assert serializer.errors["signedMessage"][0] == "Invalid structure: Expected a dict with a 'data' key."
 
+def test_web3_login_serializer_invalid_signed_message_array():
+    """Test that an invalid signedMessage array format fails validation."""
+    invalid_data = {
+        "pubkey": "D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
+        "signedMessage": {"type": "Buffer", "data": "not_a_list"},
+        "originalMessage": "Mocked Original Message"
+    }
+    serializer = Web3LoginSerializer(data=invalid_data)
+    assert not serializer.is_valid()
+    assert "signedMessage" in serializer.errors
+    assert serializer.errors["signedMessage"][0] == "Invalid data array format."
