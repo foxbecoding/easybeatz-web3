@@ -33,3 +33,20 @@ class TestWeb3LoginService:
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert response.data == {"error": "Invalid signing message"}
 
+    @patch("users.models.UserLoginNonce.objects.filter")
+    @patch("users.utils.web3_login_message_generator")
+    @patch("users.services.Web3LoginService._verify_message", return_value=True)
+    @patch("users.services.Web3LoginService._verify_solana_signature", return_value=False)
+    def test_invalid_signature_verification(self, mock_verify_signature, mock_verify_msg, mock_msg_generator, mock_nonce_filter):
+        """Test when the Solana signature verification fails"""
+        mock_nonce_filter.return_value.last.return_value = MagicMock(nonce="123456")
+        mock_msg_generator.return_value = "message"
+        
+        data = {"pubkey": "test_pubkey", "originalMessage": "message", "signedMessage": "signature"}
+        service = Web3LoginService(data)
+        
+        response = service.run()
+        
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data == {"error": "Verification failed"}
+
