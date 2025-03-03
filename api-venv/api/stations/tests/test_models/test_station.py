@@ -43,3 +43,10 @@ def test_station_factory_creates_valid_station():
     station = StationFactory()
     assert station.pk is not None
 
+@pytest.mark.django_db
+def test_station_with_default_fixture(default_station):
+    """
+    Test that the default_station fixture creates a station with the expected data.
+    """
+    # Check that __str__ returns the pubkey.
+    assert str(default_station.name) == "Test Station"
