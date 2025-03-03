@@ -29,3 +29,9 @@ def test_station_create(db, default_user):
 #     """Test that picture_url property returns the correct URL when picture exists."""
 #     assert default_station_with_relations.picture_url is not None
 
+@pytest.mark.django_db
+def test_formatted_launched_date(default_station):
+    """Test that formatted_launched_date returns the correct year format."""
+    expected_year = default_station.created.year
+    assert default_station.formatted_launched_date == f"Since {expected_year}"
+
