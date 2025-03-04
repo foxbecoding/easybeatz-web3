@@ -10,3 +10,9 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
+# ✅ Test View that applies the decorator
+class TestView(APIView):
+    @check_user_pubkey
+    def get(self, request, *args, **kwargs):
+        return Response({"message": "Success"}, status=status.HTTP_200_OK)
+
