@@ -13,8 +13,6 @@ class User(AbstractUser):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
-    objects = models.Manager()
-
     def save(self, *args, **kwargs):
         if not self.slug and self.username:
             self.slug = slugify(self.username)
