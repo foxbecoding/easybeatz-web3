@@ -6,17 +6,6 @@ from users.tests.conftest import default_user
 from albums.tests.conftest import default_album, default_track
 from stations.models import Station, StationPicture
 @pytest.fixture
-def album(db, station):
-    """Fixture to create an album linked to a station."""
-    return Album.objects.create(
-        user=station.user,
-        title="Test Album",
-        aid="album123",
-        bio="This is a test album."
-    )
-
-
-@pytest.fixture
 def track(db, album):
     """Fixture to create a track linked to an album."""
     return Track.objects.create(
