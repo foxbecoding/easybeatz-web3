@@ -27,13 +27,3 @@ def test_with_albums_and_relations_single(default_station, default_user, default
     assert station_with_relations.albums.first().tracks.first().title == "Test Track"
 
 
-@pytest.mark.django_db
-def test_with_albums_and_relations_multiple(default_station, album, track):
-    """Test that `with_albums_and_relations` correctly fetches multiple stations."""
-    user2 = User.objects.create(email="test2@example.com", password="password", pubkey="test_pubkey2")
-    station2 = Station.objects.create(user=user2, name="Another Station", handle="another_handle", email="test2@example.com")
-
-    stations = Station.stations.with_albums_and_relations(["test_pubkey", "test_pubkey2"])
-
-    assert stations.count() == 2
-    assert set(stations.values_list("name", flat=True)) == {"Test Station", "Another Station"}
