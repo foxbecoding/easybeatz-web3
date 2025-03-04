@@ -25,5 +25,3 @@ def test_with_albums_and_relations_single(default_station, default_user, default
     # Ensure tracks are prefetched in the album
     assert station_with_relations.albums.first().tracks.count() == 1
     assert station_with_relations.albums.first().tracks.first().title == "Test Track"
-
-
