@@ -16,3 +16,9 @@ class TestView(APIView):
     def get(self, request, *args, **kwargs):
         return Response({"message": "Success"}, status=status.HTTP_200_OK)
 
+@pytest.mark.django_db
+class TestCheckUserPubkey:
+    @pytest.fixture
+    def factory(self):
+        return APIRequestFactory()
+
