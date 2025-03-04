@@ -35,3 +35,15 @@ class TestCheckUserPubkey:
         assert response.status_code == 200
         assert response.data["message"] == "Success"
 
+    def test_unauthorized_request(self, factory, default_user):
+        """Test case where the user is unauthorized."""
+        request = factory.get("/some-endpoint/")
+
+        # Force authentication on the request
+        force_authenticate(request, user=default_user) # Simulate an authenticated user
+        view = TestView.as_view()
+
+        response = view(request, pk="wrong_pubkey")  # ❌ Mismatched pubkey
+
+        assert response.status_code == 401
+        assert response.data["error"] == "Unauthorized"
