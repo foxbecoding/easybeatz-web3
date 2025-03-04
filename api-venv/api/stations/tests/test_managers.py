@@ -5,15 +5,6 @@ from users.models import User
 from users.tests.conftest import default_user
 from albums.tests.conftest import default_album, default_track
 from stations.models import Station, StationPicture
-@pytest.fixture
-def track(db, album):
-    """Fixture to create a track linked to an album."""
-    return Track.objects.create(
-        album=album,
-        title="Test Track",
-        tid="track123",
-        duration=120
-    )
 
 
 @pytest.mark.django_db
