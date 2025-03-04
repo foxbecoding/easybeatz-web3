@@ -22,3 +22,16 @@ class TestCheckUserPubkey:
     def factory(self):
         return APIRequestFactory()
 
+    def test_authorized_request(self, factory, default_user):
+        """Test case where the user is authorized."""
+        request = factory.get('/some-endpoint/')
+
+        # Force authentication on the request
+        force_authenticate(request, user=default_user) # Simulate an authenticated user
+        view = TestView.as_view()
+
+        response = view(request, pk=default_user.pubkey)  # ✅ Matching user.pubkey
+
+        assert response.status_code == 200
+        assert response.data["message"] == "Success"
+
