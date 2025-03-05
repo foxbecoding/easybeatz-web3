@@ -16,7 +16,7 @@ class StationSerializer(serializers.ModelSerializer):
         extra_kwargs = {"user": {"read_only": True}}
 
     def validate(self, attrs):
-        handle = attrs['handle']
+        handle = attrs.get('handle')
 
         if handle and not str(handle).isalnum():
             raise serializers.ValidationError({"handle": "Handle can only contain strings and numbers."})
