@@ -17,6 +17,26 @@ def default_album(db, default_station):
     )
 
 @pytest.fixture
+def default_album_cover(db, default_album):
+    """Create a test AlbumCover with an in-memory image"""
+    # Create an in-memory image
+    image = Image.new("RGB", (100, 100), color="red")
+    image_io = io.BytesIO()
+    image.save(image_io, format="JPEG")
+    image_io.seek(0)
+
+    uploaded_image = SimpleUploadedFile(
+        "test_image.jpg",
+        image_io.getvalue(),
+        content_type="image/jpeg"
+    )
+
+    return AlbumCover.objects.create(
+        album=default_album,
+        picture=uploaded_image,
+    )
+
+@pytest.fixture
 def default_track(db, default_album):
     """Fixture to create a test track."""
     genre = Genre.objects.create(name="Test Genre")
