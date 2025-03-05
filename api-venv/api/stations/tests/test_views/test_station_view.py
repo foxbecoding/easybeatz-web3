@@ -58,3 +58,13 @@ class TestStationViewSet:
         assert response.status_code == 201
         assert Station.objects.filter(name="My Station").exists()
 
+    def test_create_station_error(self, client, user):
+        """Test creating a new station."""
+        client.force_authenticate(user=user)
+        url = reverse("station-list")  # Assuming the route name is station-list (ViewSets use `basename`)
+        invalid_data = {"handle": "__dsi-="}
+
+        response = client.post(url, invalid_data, format="json")
+        
+        assert "error" in response.data
+
