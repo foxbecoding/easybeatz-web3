@@ -1,8 +1,11 @@
 import pytest
 from stations.tests.conftest import default_station
-from albums.models import Album, Track
+from albums.models import Album, AlbumCover, Track
 from genres.models import Genre
 from moods.models import Mood
+from django.core.files.uploadedfile import SimpleUploadedFile
+from PIL import Image
+import io
 
 @pytest.fixture
 def default_album(db, default_station):
