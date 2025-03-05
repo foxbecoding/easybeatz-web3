@@ -78,3 +78,14 @@ class TestStationViewSet:
         assert response.status_code == 200
         assert response.data["name"] == station.name
 
+    def test_update_station(self, client, user, station):
+        """Test updating a station."""
+        client.force_authenticate(user=user)
+        url = reverse("station-detail", kwargs={"pk": user.pubkey})
+        data = {"name": "Updated Station", "handle": "testhandle", "email": "test@email.com", "description": ""}
+
+        response = client.put(url, data, format="json")
+        assert response.status_code == 200
+        station.refresh_from_db()
+        assert station.name == "Updated Station"
+
