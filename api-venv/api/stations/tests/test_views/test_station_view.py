@@ -9,3 +9,6 @@ from django.conf import settings
 import logging
 
 logger = logging.getLogger("stations")
+@pytest.mark.django_db
+class TestStationViewSet:
+    
