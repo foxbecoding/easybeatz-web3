@@ -89,3 +89,13 @@ class TestStationViewSet:
         station.refresh_from_db()
         assert station.name == "Updated Station"
 
+    def test_update_station_error(self, client, user, station):
+        """Test updating a station."""
+        client.force_authenticate(user=user)
+        url = reverse("station-detail", kwargs={"pk": user.pubkey})
+        invalid_data = {"handle": "__dsi-="}
+
+        response = client.put(url, invalid_data, format="json")
+        
+        assert "error" in response.data
+
