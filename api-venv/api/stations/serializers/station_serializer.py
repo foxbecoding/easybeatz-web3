@@ -23,7 +23,8 @@ class StationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        request = self.context['request']
-        user = User.objects.filter(pubkey=request.user).first()
-        station = Station(user.pk, **validated_data).save()
-        return station
+        """ Ensure 'user' is included when creating a station """
+        if 'user' not in validated_data:
+            raise serializers.ValidationError({"user": "This field is required."})
+        return super().create(validated_data)
+
