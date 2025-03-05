@@ -119,3 +119,12 @@ class TestStationViewSet:
         assert response.status_code == 200
         assert "error" not in response.data  # Should not return an error
 
+    def test_retrieve_with_albums_and_relations(self, client, user, station, station_picture, album, album_cover, track):
+        """Test retrieving a station with albums and relations."""
+        client.force_authenticate(user=user)
+        url = reverse("station-retrieve-with-albums-and-relations", kwargs={"pk": "wrong_pubkey"})
+
+        response = client.get(url)
+
+        assert response.status_code == 404
+        assert "error" in response.data 
