@@ -42,3 +42,8 @@ class TestStationViewSet:
         """Fixture to create a test album_cover"""
         return default_album_cover
     
+    @pytest.fixture
+    def track(self, db, default_track):
+        """Fixture to create a test track"""
+        return default_track
+
