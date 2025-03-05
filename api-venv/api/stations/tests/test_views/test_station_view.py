@@ -99,3 +99,13 @@ class TestStationViewSet:
         
         assert "error" in response.data
 
+    def test_has_station(self, client, user, station):
+        """Test if a user has a station."""
+        client.force_authenticate(user=user)
+        url = reverse("station-has-station")
+
+        response = client.get(url)
+
+        assert response.status_code == 200
+        assert response.data is True  # Because station exists
+
