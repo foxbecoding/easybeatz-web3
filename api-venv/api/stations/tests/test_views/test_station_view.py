@@ -68,3 +68,13 @@ class TestStationViewSet:
         
         assert "error" in response.data
 
+    def test_retrieve_station(self, client, user, station):
+        """Test retrieving a station with correct user."""
+        client.force_authenticate(user=user)
+        url = reverse("station-detail", kwargs={"pk": user.pubkey})
+
+        response = client.get(url)
+
+        assert response.status_code == 200
+        assert response.data["name"] == station.name
+
