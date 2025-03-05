@@ -28,3 +28,7 @@ class StationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"user": "This field is required."})
         return super().create(validated_data)
 
+    def update(self, instance, validated_data):
+        """ Exclude 'user' from the update process """
+        validated_data.pop('user', None)  # Remove user field if present
+        return super().update(instance, validated_data)
