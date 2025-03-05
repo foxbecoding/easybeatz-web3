@@ -8,3 +8,4 @@ from albums.tests.conftest import default_album, default_album_cover, default_tr
 from django.conf import settings
 import logging
 
+logger = logging.getLogger("stations")
