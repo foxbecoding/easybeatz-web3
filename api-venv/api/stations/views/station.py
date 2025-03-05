@@ -6,6 +6,9 @@ from rest_framework.decorators import action
 from ..serializers import StationSerializer, StationWithAlbumsAndRelationsSerializer
 from ..models import Station
 from ..decorators import check_user_pubkey
+from users.models import User
+import logging
+
 
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
