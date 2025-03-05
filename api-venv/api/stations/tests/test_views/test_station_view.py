@@ -47,3 +47,14 @@ class TestStationViewSet:
         """Fixture to create a test track"""
         return default_track
 
+    def test_create_station(self, client, user):
+        """Test creating a new station."""
+        client.force_authenticate(user=user)
+        url = reverse("station-list")  # Assuming the route name is station-list (ViewSets use `basename`)
+        data = {"name": "My Station", "handle": "testhandle", "email": "test@email.com", "description": ""}
+
+        response = client.post(url, data, format="json")
+        
+        assert response.status_code == 201
+        assert Station.objects.filter(name="My Station").exists()
+
