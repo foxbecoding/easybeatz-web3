@@ -6,11 +6,14 @@ class StationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Station
         fields = [
+            'user',
             'name', 
             'handle', 
             'description', 
             'email',
         ]
+
+        extra_kwargs = {"user": {"read_only": True}}
 
     def validate(self, attrs):
         handle = attrs['handle']
