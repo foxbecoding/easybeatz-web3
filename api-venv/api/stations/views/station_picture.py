@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..permissions import HasStation
-from ..serializers import StationPictureSerializer, UpdateStationPictureSerializer
+from ..serializers import StationPictureSerializer
 from ..models import Station, StationPicture
 from users.models import User
 
@@ -18,15 +18,13 @@ class StationPictureViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['post'])
     def upload(self, request):
-        # check if user has station
         user = User.objects.filter(pubkey=str(request.user)).first()
         station = Station.objects.filter(pk=user.pk).first()
         station_picture = StationPicture.objects.filter(pk=station.pk).first()
         if not station_picture:
-            request.data['station'] = station
-            serializer = StationPictureSerializer(data=request.data)
+            serializer = StationPictureSerializer(data=request.data, context={"station": station})
         else:
-            serializer = UpdateStationPictureSerializer(station_picture, data=request.data)
+            serializer = StationPictureSerializer(station_picture, data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         serializer.save()

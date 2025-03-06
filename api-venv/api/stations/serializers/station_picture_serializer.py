@@ -5,7 +5,7 @@ from PIL import Image
 class StationPictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = StationPicture
-        fields = ['station', 'picture']
+        fields = ['picture']
 
     def validate_picture(self, value):
         # Allowed file types
@@ -35,3 +35,14 @@ class StationPictureSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Invalid image file.") 
 
         return value
+
+    def create(self, validated_data):
+        """Ensure 'station' is assigned manually (not expected in validated_data)."""
+        station = self.context["station"] # Get station from request context
+
+        validated_data["station"] = station 
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+

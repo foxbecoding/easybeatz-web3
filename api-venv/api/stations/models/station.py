@@ -9,10 +9,10 @@ class Station(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    name = models.CharField(max_length=90, default="")
-    handle = models.CharField(max_length=90, unique=True, default="")
+    name = models.CharField(max_length=90)
+    handle = models.CharField(max_length=90, unique=True)
     description = models.TextField(blank=True, default="")
-    email = models.EmailField(max_length=254, unique=True, default="")
+    email = models.EmailField(max_length=254, unique=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
