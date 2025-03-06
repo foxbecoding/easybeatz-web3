@@ -11,3 +11,5 @@ from PIL import Image
 import io
 
 
+logger = logging.getLogger("stations")
+
