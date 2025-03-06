@@ -47,3 +47,6 @@ class StationPictureSerializer(serializers.ModelSerializer):
         validated_data["station"] = station 
         return super().create(validated_data)
 
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
