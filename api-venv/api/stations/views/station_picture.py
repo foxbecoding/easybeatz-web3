@@ -22,10 +22,9 @@ class StationPictureViewSet(viewsets.ViewSet):
         station = Station.objects.filter(pk=user.pk).first()
         station_picture = StationPicture.objects.filter(pk=station.pk).first()
         if not station_picture:
-            request.data['station'] = station
-            serializer = StationPictureSerializer(data=request.data)
+            serializer = StationPictureSerializer(data=request.data, context={"station": station})
         else:
-            serializer = UpdateStationPictureSerializer(station_picture, data=request.data)
+            serializer = StationPictureSerializer(station_picture, data=request.data)
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         serializer.save()
