@@ -80,3 +80,12 @@ class TestStationPictureViewSet:
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
+    def test_upload_picture_fails_with_invalid_data(self, client, user, station):
+        client.force_authenticate(user=user)
+        data = {"image": ""}  # Invalid data
+
+        url = reverse("station-picture-upload")  # Update with your actual URL name
+        response = client.post(url, data, format="multipart")
+
+        logger.info(response.data)
+        assert "error" in response.data
