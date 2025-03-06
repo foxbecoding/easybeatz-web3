@@ -22,3 +22,10 @@ class TestStationPictureSerializer:
         serializer = StationPictureSerializer(data={"picture": valid_image})
         assert serializer.is_valid()
 
+    def test_invalid_format(self):
+        """Test serializer rejects an unsupported image format."""
+        invalid_image = self.generate_test_image("TIFF")  # TIFF is not in the allowed formats
+        serializer = StationPictureSerializer(data={"picture": invalid_image})
+
+        assert not serializer.is_valid()
+
