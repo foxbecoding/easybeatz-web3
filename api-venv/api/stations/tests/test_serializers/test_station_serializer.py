@@ -15,3 +15,11 @@ class TestStationSerializer:
     def station(self, default_station):
         return default_station
 
+    def test_valid_station_serialization(self, station):
+        """Test that a station serializes correctly with valid data."""
+        serializer = StationSerializer(station)
+        assert serializer.data["name"] == "Test Station"
+        assert serializer.data["handle"] == "teststation"
+        assert serializer.data["description"] == "This is a test station."
+        assert serializer.data["email"] == "station@example.com"
+
