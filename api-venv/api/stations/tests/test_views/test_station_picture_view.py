@@ -87,5 +87,4 @@ class TestStationPictureViewSet:
         url = reverse("station-picture-upload")  # Update with your actual URL name
         response = client.post(url, data, format="multipart")
 
-        logger.info(response.data)
         assert "error" in response.data
