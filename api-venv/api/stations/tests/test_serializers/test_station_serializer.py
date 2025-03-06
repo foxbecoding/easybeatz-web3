@@ -23,3 +23,16 @@ class TestStationSerializer:
         assert serializer.data["description"] == "This is a test station."
         assert serializer.data["email"] == "station@example.com"
 
+    def test_invalid_handle_validation(self, user):
+        """Test that validation fails when handle contains special characters."""
+        invalid_data = {
+            "user": user.id,
+            "name": "Invalid Station",
+            "handle": "invalid_handle!",  # Invalid handle (special character)
+            "description": "Invalid handle test",
+            "email": "test2@example.com",
+        }
+
+        serializer = StationSerializer(data=invalid_data)
+        assert not serializer.is_valid()
+        assert "handle" in serializer.errors
