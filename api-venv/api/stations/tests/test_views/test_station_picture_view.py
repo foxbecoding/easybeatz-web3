@@ -13,3 +13,5 @@ import io
 
 logger = logging.getLogger("stations")
 
+@pytest.mark.django_db
+class TestStationPictureViewSet:
