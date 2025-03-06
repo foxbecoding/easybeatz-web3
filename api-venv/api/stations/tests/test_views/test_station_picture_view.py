@@ -71,3 +71,12 @@ class TestStationPictureViewSet:
 
         assert response.status_code == status.HTTP_200_OK
 
+    def test_unauthenticated_user_cannot_upload(self, client):
+        image = SimpleUploadedFile("test.jpg", b"file_content", content_type="image/jpeg")
+        data = {"picture": image}
+
+        url = reverse("station-picture-upload")  # Update with your actual URL name
+        response = client.post(url, data, format="multipart")
+
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
