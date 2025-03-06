@@ -8,3 +8,11 @@ from stations.serializers import StationPictureSerializer
 @pytest.mark.django_db
 class TestStationPictureSerializer:
 
+    def generate_test_image(self, format="JPEG"):
+        """Helper function to create an in-memory image."""
+        image = Image.new("RGB", (100, 100), color="red")
+        image_io = io.BytesIO()
+        image.save(image_io, format=format)
+        image_io.seek(0)
+        return SimpleUploadedFile(f"test_image.{format.lower()}", image_io.getvalue(), content_type=f"image/{format.lower()}")
+
