@@ -5,3 +5,5 @@ import logging
 
 logger = logging.getLogger("stations")
 
+@pytest.mark.django_db
+class TestStationSerializer:
