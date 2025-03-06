@@ -16,3 +16,9 @@ class TestStationPictureSerializer:
         image_io.seek(0)
         return SimpleUploadedFile(f"test_image.{format.lower()}", image_io.getvalue(), content_type=f"image/{format.lower()}")
 
+    def test_valid_picture(self):
+        """Test serializer accepts a valid image."""
+        valid_image = self.generate_test_image("JPEG")
+        serializer = StationPictureSerializer(data={"picture": valid_image})
+        assert serializer.is_valid()
+
