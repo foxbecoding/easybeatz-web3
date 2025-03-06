@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from ..models import Station
-from users.models import User
 
 class StationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,15 +11,21 @@ class StationSerializer(serializers.ModelSerializer):
             'email',
         ]
 
+
     def validate(self, attrs):
-        handle = attrs['handle']
+        handle = attrs.get('handle')
 
         if handle and not str(handle).isalnum():
             raise serializers.ValidationError({"handle": "Handle can only contain strings and numbers."})
         return attrs
 
     def create(self, validated_data):
-        request = self.context['request']
-        user = User.objects.filter(pubkey=request.user).first()
-        station = Station(user.pk, **validated_data).save()
-        return station
+        """Ensure 'user' is assigned manually (not expected in validated_data)."""
+        user = self.context["request"].user  # Get user from request context
+
+        validated_data["user"] = user  # Assign user before creating
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        """ Exclude 'user' from the update process """
+        return super().update(instance, validated_data)

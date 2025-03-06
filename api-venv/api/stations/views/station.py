@@ -6,6 +6,9 @@ from rest_framework.decorators import action
 from ..serializers import StationSerializer, StationWithAlbumsAndRelationsSerializer
 from ..models import Station
 from ..decorators import check_user_pubkey
+from users.models import User
+import logging
+
 
 class StationViewSet(viewsets.ViewSet):
     def get_permissions(self):
@@ -15,11 +18,11 @@ class StationViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request): 
-        serializer = StationSerializer(data=request.data, context={'request': request})
+        serializer = StationSerializer(data=request.data, context={"request": request})
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
-        serializer.create(serializer.validated_data)
-        return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+        serializer.save(user=request.user)
+        return Response("Station Created", status=status.HTTP_201_CREATED)
 
     @check_user_pubkey
     def retrieve(self, request, pk=None):
