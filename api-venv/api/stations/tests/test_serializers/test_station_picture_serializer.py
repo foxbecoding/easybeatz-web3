@@ -5,3 +5,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.exceptions import ValidationError
 from stations.serializers import StationPictureSerializer
 
+@pytest.mark.django_db
+class TestStationPictureSerializer:
+
