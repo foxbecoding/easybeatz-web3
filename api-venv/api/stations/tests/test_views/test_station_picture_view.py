@@ -32,3 +32,24 @@ class TestStationPictureViewSet:
     def station_picture(self, default_station_picture):
         return default_station_picture
 
+    def test_authenticated_user_can_upload_picture(self, client, user, station):
+        client.force_authenticate(user=user)
+        image = Image.new("RGB", (100, 100), color="red")
+        image_io = io.BytesIO()
+        image.save(image_io, format="JPEG")
+        image_io.seek(0)
+        uploaded_image =SimpleUploadedFile(
+            "test_image.jpg",
+            image_io.getvalue(),
+            content_type="image/jpeg"
+        )
+
+        data = {"picture": uploaded_image}
+
+        url = reverse("station-picture-upload")  # Update with your actual URL name
+        response = client.post(url, data, format="multipart")
+        
+        assert response.status_code == status.HTTP_200_OK
+        assert "Picture uploaded successfully" in response.data
+        assert StationPicture.objects.filter(station=station).exists()
+
