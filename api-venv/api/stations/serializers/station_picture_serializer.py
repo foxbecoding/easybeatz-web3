@@ -5,7 +5,7 @@ from PIL import Image
 class StationPictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = StationPicture
-        fields = ['station', 'picture']
+        fields = ['picture']
 
     def validate_picture(self, value):
         # Allowed file types
