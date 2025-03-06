@@ -39,3 +39,11 @@ class StationPictureSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Invalid image file.") 
 
         return value
+
+    def create(self, validated_data):
+        """Ensure 'station' is assigned manually (not expected in validated_data)."""
+        station = self.context["station"] # Get station from request context
+
+        validated_data["station"] = station 
+        return super().create(validated_data)
+
