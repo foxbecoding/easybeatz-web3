@@ -24,3 +24,7 @@ class TestStationPictureViewSet:
     def user(self, default_user):
         return default_user
 
+    @pytest.fixture
+    def station(self, default_station):
+        return default_station
+
