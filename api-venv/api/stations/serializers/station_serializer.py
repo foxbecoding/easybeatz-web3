@@ -20,9 +20,10 @@ class StationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        """ Ensure 'user' is included when creating a station """
-        if 'user' not in validated_data:
-            raise serializers.ValidationError({"user": "This field is required."})
+        """Ensure 'user' is assigned manually (not expected in validated_data)."""
+        user = self.context["request"].user  # Get user from request context
+
+        validated_data["user"] = user  # Assign user before creating
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
