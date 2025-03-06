@@ -18,7 +18,6 @@ class StationPictureViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=['post'])
     def upload(self, request):
-        # check if user has station
         user = User.objects.filter(pubkey=str(request.user)).first()
         station = Station.objects.filter(pk=user.pk).first()
         station_picture = StationPicture.objects.filter(pk=station.pk).first()
