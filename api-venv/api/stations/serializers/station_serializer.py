@@ -28,5 +28,4 @@ class StationSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """ Exclude 'user' from the update process """
-        validated_data.pop('user', None)  # Remove user field if present
         return super().update(instance, validated_data)
