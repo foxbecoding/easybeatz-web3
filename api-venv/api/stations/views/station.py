@@ -18,8 +18,7 @@ class StationViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request): 
-        request.data["user"] = request.user.pk
-        serializer = StationSerializer(data=request.data)
+        serializer = StationSerializer(data=request.data, context={"request": request})
         if not serializer.is_valid():
             return Response({"error": serializer.errors})
         serializer.save(user=request.user)
