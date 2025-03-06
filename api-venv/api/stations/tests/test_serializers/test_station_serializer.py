@@ -7,3 +7,7 @@ logger = logging.getLogger("stations")
 
 @pytest.mark.django_db
 class TestStationSerializer:
+    @pytest.fixture
+    def user(self, default_user):
+        return default_user
+
