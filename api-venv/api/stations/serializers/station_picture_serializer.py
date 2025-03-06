@@ -8,6 +8,10 @@ class StationPictureSerializer(serializers.ModelSerializer):
         fields = ['picture']
 
     def validate_picture(self, value):
+        # Ensure the file is not empty
+        if not value:
+            raise serializers.ValidationError("This field cannot be empty.")
+
         # Allowed file types
         allowed_formats = ['png', 'jpeg', 'jpg', 'avif', 'webp', 'bmp']
 
