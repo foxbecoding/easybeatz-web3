@@ -15,3 +15,8 @@ logger = logging.getLogger("stations")
 
 @pytest.mark.django_db
 class TestStationPictureViewSet:
+    @pytest.fixture
+    def client(self):
+        settings.SECURE_SSL_REDIRECT = False  # Disable automatic redirect to HTTPS
+        return APIClient()
+
