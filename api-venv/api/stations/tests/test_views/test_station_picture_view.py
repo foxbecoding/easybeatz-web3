@@ -28,3 +28,7 @@ class TestStationPictureViewSet:
     def station(self, default_station):
         return default_station
 
+    @pytest.fixture
+    def station_picture(self, default_station_picture):
+        return default_station_picture
+
