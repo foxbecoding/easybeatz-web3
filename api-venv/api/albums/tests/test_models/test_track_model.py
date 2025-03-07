@@ -33,3 +33,18 @@ def track_display(db, default_track_display):
     """Creates track_display fixture"""
     return default_track_display
 
+@pytest.mark.django_db
+def test_track_create(db, album, genre, mood):
+    """Test Track creation"""
+    track = Track.objects.create(
+        album=album,
+        mood=mood,
+        title="Test Track",
+        bpm="120",
+        duration=180,  # 3 minutes
+        order_no=1,
+    )
+    track.genres.add(genre) 
+    
+    assert track is not None
+
