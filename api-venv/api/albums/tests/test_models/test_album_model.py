@@ -33,3 +33,8 @@ def test_album_create(db, station):
 
     assert album.pk is not None
 
+@pytest.mark.django_db
+def test_album_str_returns_pk(db, station, album):
+    """Test Album return str"""
+    assert str(album) == str(album.pk)
+
