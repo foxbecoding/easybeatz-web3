@@ -59,13 +59,15 @@ def default_album(db, default_station):
         bio="This is a test album.",
     )
 
+@pytest.fixture
+def default_album_cover(db, default_album, test_img_file):
+    """Create a test AlbumCover with an in-memory image"""
     return AlbumCover.objects.create(
         album=default_album,
-        picture=uploaded_image,
+        picture=test_img_file,
     )
 
 @pytest.fixture
-def default_track(db, default_album):
     """Fixture to create a test track."""
     genre = Genre.objects.create(name="Test Genre")
     mood = Mood.objects.create(name="Test Mood")
