@@ -18,3 +18,7 @@ def track(db, default_track):
 def track_price(db, default_track_price):
     return default_track_price
 
+@pytest.fixture
+def track_exclusive_price(db, default_track_exclusive_price):
+    return default_track_exclusive_price
+
