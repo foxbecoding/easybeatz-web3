@@ -10,3 +10,7 @@ def album(db, default_album):
 def album_cover(db, default_album_cover):
     return default_album_cover
 
+@pytest.fixture
+def track(db, default_track):
+    return default_track
+
