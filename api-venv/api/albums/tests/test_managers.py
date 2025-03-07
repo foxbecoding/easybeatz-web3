@@ -38,3 +38,10 @@ def track_wav(db, default_track_wav):
 def track_stem(db, default_track_stem):
     return default_track_stem
 
+@pytest.mark.django_db
+def test_with_tracks_and_relations(db, album, album_cover, track, track_price, track_exclusive_price, track_display, track_mp3, track_wav, track_stem):
+    
+    qs = Album.albums.with_tracks_and_relations(album.aid)
+
+    assert qs is not None
+    assert qs.tracks.count() > 0
