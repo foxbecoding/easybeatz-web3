@@ -60,3 +60,9 @@ def test_track_formatted_duration(db, track, track_display):
     assert track.formatted_duration is not None
     assert track.formatted_duration == "3:00"
 
+@pytest.mark.django_db
+def test_track_formatted_duration_is_an_hour(db, track_with_an_hour):
+    """Test Track formatted_duration property"""
+
+    assert track_with_an_hour.formatted_duration is not None
+    assert track_with_an_hour.formatted_duration == "1:00:00"
