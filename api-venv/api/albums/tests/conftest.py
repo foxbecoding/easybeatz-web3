@@ -36,17 +36,21 @@ def test_wav_file():
         audio.export(tmp_file.name, format="wav")  # Save as MP3 or WAV
         return tmp_file.name  # Return path of temp AUDIO file
 
+@pytest.fixture
+def test_img_file():
+    """Creates a temporary Image file in-memory for testing."""
     image = Image.new("RGB", (100, 100), color="red")
     image_io = io.BytesIO()
     image.save(image_io, format="JPEG")
     image_io.seek(0)
 
-    uploaded_image = SimpleUploadedFile(
+    return SimpleUploadedFile(
         "test_image.jpg",
         image_io.getvalue(),
         content_type="image/jpeg"
     )
 
+@pytest.fixture
     return AlbumCover.objects.create(
         album=default_album,
         picture=uploaded_image,
