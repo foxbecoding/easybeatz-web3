@@ -22,3 +22,7 @@ def test_track_price_create(db, track):
     assert track_price is not None
     assert track_price.value == 36
 
+@pytest.mark.django_db
+def test_fixture_creates_track_price(db, track, track_price):
+    """Test track_price fixture"""
+    assert track_price is not None
