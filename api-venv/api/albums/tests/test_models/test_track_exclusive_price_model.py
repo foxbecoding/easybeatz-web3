@@ -22,3 +22,7 @@ def test_track_exclusive_price_create(db, track):
     assert track_exclusive_price is not None
     assert track_exclusive_price.value == 360
 
+@pytest.mark.django_db
+def test_fixture_creates_track_price(db, track, track_exclusive_price):
+    """Test track_exclusive_price fixture"""
+    assert track_exclusive_price is not None
