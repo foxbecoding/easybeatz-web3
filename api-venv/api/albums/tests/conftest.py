@@ -20,6 +20,14 @@ def mood(db, default_mood):
     """Creates mood fixture"""
     return default_mood
 
+@pytest.fixture
+def test_mp3_file():
+    """Creates a temporary MP3 file for testing."""
+    with tempfile.NamedTemporaryFile(suffix="mp3", delete=False) as tmp_file:
+        audio = AudioSegment.silent(duration=1000)  # 1 second of silence
+        audio.export(tmp_file.name, format="mp3")  # Save as MP3 or WAV
+        return tmp_file.name  # Return path of temp AUDIO file
+
     image = Image.new("RGB", (100, 100), color="red")
     image_io = io.BytesIO()
     image.save(image_io, format="JPEG")
