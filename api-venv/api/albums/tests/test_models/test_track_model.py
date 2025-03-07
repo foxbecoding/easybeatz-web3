@@ -48,3 +48,8 @@ def test_track_create(db, album, genre, mood):
     
     assert track is not None
 
+@pytest.mark.django_db
+def test_track_display_url(db, track, track_display):
+    """Test Track display url property"""
+    assert track.display_url is not None
+
