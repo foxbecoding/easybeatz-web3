@@ -43,3 +43,9 @@ def test_album_uploaded_at(db, album):
     """Test Album uploaded_at property"""
     assert album.uploaded_at is not None
 
+@pytest.mark.django_db
+def test_album_tracks_count(db, album, track):
+    """Test Album tracks_count property"""
+    assert album.tracks_count is not None
+    assert album.tracks_count > 0
+
