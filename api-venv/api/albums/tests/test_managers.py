@@ -26,3 +26,7 @@ def track_exclusive_price(db, default_track_exclusive_price):
 def track_display(db, default_track_display):
     return default_track_display
 
+@pytest.fixture
+def track_mp3(db, default_track_mp3):
+    return default_track_mp3
+
