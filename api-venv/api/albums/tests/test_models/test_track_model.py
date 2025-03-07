@@ -53,3 +53,10 @@ def test_track_display_url(db, track, track_display):
     """Test Track display url property"""
     assert track.display_url is not None
 
+@pytest.mark.django_db
+def test_track_formatted_duration(db, track, track_display):
+    """Test Track formatted_duration property"""
+
+    assert track.formatted_duration is not None
+    assert track.formatted_duration == "3:00"
+
