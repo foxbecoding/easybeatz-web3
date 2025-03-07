@@ -68,9 +68,8 @@ def default_album_cover(db, default_album, test_img_file):
     )
 
 @pytest.fixture
+def default_track(db, default_album, genre, mood):
     """Fixture to create a test track."""
-    genre = Genre.objects.create(name="Test Genre")
-    mood = Mood.objects.create(name="Test Mood")
     track = Track.objects.create(
         album=default_album,
         mood=mood,
