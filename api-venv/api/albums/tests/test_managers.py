@@ -34,3 +34,7 @@ def track_mp3(db, default_track_mp3):
 def track_wav(db, default_track_wav):
     return default_track_wav
 
+@pytest.fixture
+def track_stem(db, default_track_stem):
+    return default_track_stem
+
