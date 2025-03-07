@@ -49,3 +49,10 @@ def test_album_tracks_count(db, album, track):
     assert album.tracks_count is not None
     assert album.tracks_count > 0
 
+@pytest.mark.django_db
+def test_album_cover_create(db, album, test_img_file):
+    """Test AlbumCover creation"""
+    album_cover = AlbumCover.objects.create(album=album, picture=test_img_file)
+
+    assert album_cover is not None
+
