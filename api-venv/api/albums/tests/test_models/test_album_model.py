@@ -56,3 +56,7 @@ def test_album_cover_create(db, album, test_img_file):
 
     assert album_cover is not None
 
+@pytest.mark.django_db
+def test_album_cover_cover_url(db, album, album_cover):
+    """Test AlbumCover cover_url property"""
+    assert album_cover.cover_url is not None
