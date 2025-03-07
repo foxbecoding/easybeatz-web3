@@ -101,3 +101,9 @@ def default_track_price(db, default_track):
     
     return TrackPrice.objects.create(track=default_track, value=36)
 
+@pytest.fixture
+def default_track_exclusive_price(db, default_track):
+    """Fixture to create a test TrackExclusivePrice"""
+   
+    return TrackExclusivePrice.objects.create(track=default_track, value=369)
+
