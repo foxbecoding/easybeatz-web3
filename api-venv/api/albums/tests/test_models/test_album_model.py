@@ -22,3 +22,14 @@ def track(db, default_track):
     """Creates Track fixture"""
     return default_track
 
+@pytest.mark.django_db
+def test_album_create(db, station):
+    """Test Album creation"""
+    album = Album.objects.create(
+        station=station,
+        title="Test Album",
+        bio="This is a test album.",
+    )
+
+    assert album.pk is not None
+
