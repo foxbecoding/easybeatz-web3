@@ -13,3 +13,8 @@ def mood(db, default_mood):
     """Creates mood fixture"""
     return default_mood
 
+@pytest.fixture
+def album(db, default_album):
+    """Creates album fixture"""
+    return default_album
+
