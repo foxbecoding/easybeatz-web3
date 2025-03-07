@@ -14,3 +14,7 @@ def album_cover(db, default_album_cover):
 def track(db, default_track):
     return default_track
 
+@pytest.fixture
+def track_price(db, default_track_price):
+    return default_track_price
+
