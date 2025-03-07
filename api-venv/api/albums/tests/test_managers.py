@@ -30,3 +30,7 @@ def track_display(db, default_track_display):
 def track_mp3(db, default_track_mp3):
     return default_track_mp3
 
+@pytest.fixture
+def track_wav(db, default_track_wav):
+    return default_track_wav
+
