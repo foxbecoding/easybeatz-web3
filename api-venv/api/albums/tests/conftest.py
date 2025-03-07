@@ -95,3 +95,9 @@ def default_track_with_an_hour(db, default_album, genre, mood):
     track.genres.add(genre)  # Add the genre to ManyToManyField
     return track
 
+@pytest.fixture
+def default_track_price(db, default_track):
+    """Fixture to create a test TrackPrice"""
+    
+    return TrackPrice.objects.create(track=default_track, value=36)
+
