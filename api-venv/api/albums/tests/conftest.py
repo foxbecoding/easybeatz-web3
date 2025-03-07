@@ -16,9 +16,10 @@ def genre(db, default_genre):
     return default_genre
 
 @pytest.fixture
-def default_album_cover(db, default_album):
-    """Create a test AlbumCover with an in-memory image"""
-    # Create an in-memory image
+def mood(db, default_mood):
+    """Creates mood fixture"""
+    return default_mood
+
     image = Image.new("RGB", (100, 100), color="red")
     image_io = io.BytesIO()
     image.save(image_io, format="JPEG")
