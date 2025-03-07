@@ -51,6 +51,14 @@ def test_img_file():
     )
 
 @pytest.fixture
+def default_album(db, default_station):
+    """Fixture to create a test album."""
+    return Album.objects.create(
+        station=default_station,
+        title="Test Album",
+        bio="This is a test album.",
+    )
+
     return AlbumCover.objects.create(
         album=default_album,
         picture=uploaded_image,
