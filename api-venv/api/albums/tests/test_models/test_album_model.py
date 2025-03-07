@@ -12,3 +12,8 @@ def album(db, default_album):
     """Creates Album fixture"""
     return default_album
 
+@pytest.fixture
+def album_cover(db, default_album_cover):
+    """Creates AlbumCover fixture"""
+    return default_album_cover
+
