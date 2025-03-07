@@ -26,3 +26,7 @@ def test_track_wav_create(db, track, test_wav_file):
     
     assert track_wav is not None
 
+@pytest.mark.django_db
+def test_fixture_creates_track_wav(db, track_wav):
+    """Test track_wav fixture"""
+    assert track_wav is not None
