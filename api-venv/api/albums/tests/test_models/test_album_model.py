@@ -38,3 +38,8 @@ def test_album_str_returns_pk(db, station, album):
     """Test Album return str"""
     assert str(album) == str(album.pk)
 
+@pytest.mark.django_db
+def test_album_uploaded_at(db, album):
+    """Test Album uploaded_at property"""
+    assert album.uploaded_at is not None
+
