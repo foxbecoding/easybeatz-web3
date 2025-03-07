@@ -11,13 +11,9 @@ import io
 import tempfile
 
 @pytest.fixture
-def default_album(db, default_station):
-    """Fixture to create a test album."""
-    return Album.objects.create(
-        station=default_station,
-        title="Test Album",
-        bio="This is a test album.",
-    )
+def genre(db, default_genre):
+    """Creates genre fixture"""
+    return default_genre
 
 @pytest.fixture
 def default_album_cover(db, default_album):
