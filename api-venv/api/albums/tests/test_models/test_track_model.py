@@ -23,3 +23,8 @@ def track(db, default_track):
     """Creates track fixture"""
     return default_track
 
+@pytest.fixture
+def track_with_an_hour(db, default_track_with_an_hour):
+    """Creates track with an hour fixture"""
+    return default_track_with_an_hour
+
