@@ -18,3 +18,8 @@ def album(db, default_album):
     """Creates album fixture"""
     return default_album
 
+@pytest.fixture
+def track(db, default_track):
+    """Creates track fixture"""
+    return default_track
+
