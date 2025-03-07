@@ -7,3 +7,8 @@ def station(db, default_station):
     """Creates Station fixture"""
     return default_station
 
+@pytest.fixture
+def album(db, default_album):
+    """Creates Album fixture"""
+    return default_album
+
