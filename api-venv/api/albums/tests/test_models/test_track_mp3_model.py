@@ -26,3 +26,7 @@ def test_track_mp3_create(db, track, test_mp3_file):
     
     assert track_mp3 is not None
 
+@pytest.mark.django_db
+def test_fixture_creates_track_mp3(db, track_mp3):
+    """Test track_mp3 fixture"""
+    assert track_mp3 is not None
