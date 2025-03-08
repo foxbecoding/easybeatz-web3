@@ -5,3 +5,7 @@ from users.tests.conftest import default_user
 from stations.tests.conftest import default_station
 from albums.serializers import TrackFormSerializer
 
+@pytest.fixture
+def user(default_user):
+    return default_user
+
