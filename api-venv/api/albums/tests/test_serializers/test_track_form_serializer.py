@@ -21,3 +21,20 @@ def genre(default_genre):
 def mood(default_mood):
     return default_mood
 
+@pytest.fixture
+def valid_data(genre, mood, test_mp3_file, test_wav_file, test_wav_file2, test_img_file):
+    """Fixture for test request data"""
+
+    return {
+        "title": "Test Track",
+        "genres": [genre.pk],
+        "mood": mood.pk,
+        "mp3": test_mp3_file,
+        "wav": test_wav_file,
+        "bpm": "120",
+        "price": "100",
+        "exclusive_price": "200",
+        "collaborators": [],
+        "stems": [{"name": "snare", "file": test_wav_file2}]
+    }
+
