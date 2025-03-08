@@ -47,3 +47,8 @@ class TestAlbumViewSet:
     def album(self, db, default_album):
         return default_album
 
+    @pytest.fixture
+    def album_with_tracks_and_relations(self, db, default_album_with_tracks_and_relations):
+        """Fixture to create test album with tracks and relations"""
+        return default_album_with_tracks_and_relations
+
