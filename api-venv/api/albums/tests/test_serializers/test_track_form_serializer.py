@@ -116,3 +116,12 @@ def test_invalid_stems(serializer_context, valid_data, test_wav_file):
     assert not serializer.is_valid()
     assert 'track_0' in serializer.errors['stems']
 
+def test_invalid_genre(valid_data, serializer_context):
+    """Test invalid genre ID."""
+    invalid_data = valid_data.copy()
+    invalid_data['genres'] = [9999]  # Invalid genre ID
+
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+    assert 'track_0' in serializer.errors['genres']
+
