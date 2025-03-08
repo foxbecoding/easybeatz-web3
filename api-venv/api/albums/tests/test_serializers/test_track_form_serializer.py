@@ -96,3 +96,11 @@ def test_invalid_mp3_file(test_wav_file, serializer_context, valid_data):
     assert not serializer.is_valid()
     assert 'track_0' in serializer.errors['mp3']
 
+def test_invalid_wav_file(test_mp3_file, serializer_context, valid_data):
+    invalid_data = valid_data.copy()
+    invalid_data['wav'] = test_mp3_file
+
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+    assert 'track_0' in serializer.errors['wav']
+
