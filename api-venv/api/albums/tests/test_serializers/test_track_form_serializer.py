@@ -125,3 +125,11 @@ def test_invalid_genre(valid_data, serializer_context):
     assert not serializer.is_valid()
     assert 'track_0' in serializer.errors['genres']
 
+def test_invalid_mood(valid_data, serializer_context):
+    """Test invalid mood ID."""
+    invalid_data = valid_data.copy()
+    invalid_data['mood'] = 9999  # Invalid mood ID
+
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+    assert 'track_0' in serializer.errors['mood']
