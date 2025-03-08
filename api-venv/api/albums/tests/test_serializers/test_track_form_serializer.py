@@ -9,3 +9,7 @@ from albums.serializers import TrackFormSerializer
 def user(default_user):
     return default_user
 
+@pytest.fixture
+def station(default_station):
+    return default_station
+
