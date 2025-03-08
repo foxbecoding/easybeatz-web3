@@ -55,3 +55,20 @@ def test_valid_serializer(valid_data, serializer_context):
     assert serializer.validated_data['title'] == valid_data['title']
     assert serializer.validated_data['price'] == valid_data['price']
 
+def test_invalid_price(valid_data, serializer_context):
+    """Test invalid price values."""
+    invalid_data = valid_data.copy()
+    invalid_data['price'] = 'abc'  # Non-numeric price
+
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+    assert 'track_0' in serializer.errors['price']
+
+    invalid_data['price'] = '012'  # Leading zero
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+
+    invalid_data['price'] = '0'  # Zero value
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+
