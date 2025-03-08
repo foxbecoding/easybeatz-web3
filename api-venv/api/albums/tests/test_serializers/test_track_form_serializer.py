@@ -17,3 +17,7 @@ def station(default_station):
 def genre(default_genre):
     return default_genre
 
+@pytest.fixture
+def mood(default_mood):
+    return default_mood
+
