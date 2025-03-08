@@ -72,3 +72,19 @@ def test_invalid_price(valid_data, serializer_context):
     serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
     assert not serializer.is_valid()
 
+def test_invalid_exclusive_price(valid_data, serializer_context):
+    """Test invalid exclusive price values."""
+    invalid_data = valid_data.copy()
+    invalid_data['exclusive_price'] = 'abc'  # Non-numeric exclusive price
+
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+
+    invalid_data['exclusive_price'] = '012'  # Leading zero
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+
+    invalid_data['exclusive_price'] = '0'  # Zero value
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+
