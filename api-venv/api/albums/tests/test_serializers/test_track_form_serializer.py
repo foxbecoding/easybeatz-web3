@@ -46,3 +46,12 @@ def serializer_context(valid_data):
         'track_data': valid_data
     }
 
+# ---------------------- TESTS ----------------------
+
+def test_valid_serializer(valid_data, serializer_context):
+    """Test valid serializer data."""
+    serializer = TrackFormSerializer(data=valid_data, context=serializer_context)
+    assert serializer.is_valid()
+    assert serializer.validated_data['title'] == valid_data['title']
+    assert serializer.validated_data['price'] == valid_data['price']
+
