@@ -77,3 +77,10 @@ class TestAlbumViewSet:
 
         }
 
+    @pytest.fixture
+    def invalid_request_data(self, db):
+        """Fixture for test invalid_request_data"""
+        return {
+            "wrong_data": 'invalid'
+        }
+
