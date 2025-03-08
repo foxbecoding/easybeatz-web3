@@ -25,8 +25,10 @@ def test_mp3_file():
     """Creates a temporary MP3 file for testing."""
     with tempfile.NamedTemporaryFile(suffix="mp3", delete=False) as tmp_file:
         audio = AudioSegment.silent(duration=1000)  # 1 second of silence
-        audio.export(tmp_file.name, format="mp3")  # Save as MP3 or WAV
-        return tmp_file.name  # Return path of temp AUDIO file
+        audio.export(tmp_file.name, format="mp3")  # Save as MP3
+        with open(tmp_file.name, "rb") as mp3:
+            uploaded_audio = SimpleUploadedFile("test_mp3.mp3", mp3.read(), content_type="audio/mp3")
+            return uploaded_audio  # Return audio file
 
 @pytest.fixture
 def test_wav_file():
