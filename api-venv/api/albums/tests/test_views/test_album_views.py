@@ -52,3 +52,28 @@ class TestAlbumViewSet:
         """Fixture to create test album with tracks and relations"""
         return default_album_with_tracks_and_relations
 
+    @pytest.fixture
+    def request_data(self, db, genre, mood, test_mp3_file, test_wav_file, test_wav_file2, test_img_file):
+        """Fixture for test request data"""
+        return {
+            "album[title]": "Test album title",
+            "album[cover]": test_img_file,
+            "album[bio]": "Test album bio",
+            "track_count": 1,
+            "tracks[0][genre_count]": 1,
+            "tracks[0][collab_count]": 1,
+            "tracks[0][stem_count]": 1,
+            "tracks[0][bpm]": 120,
+            "tracks[0][collaborators][0]": ["some_pubkey"],
+            "tracks[0][exclusive_price]": 369,
+            "tracks[0][genres][0]": [str(genre.pk)],
+            "tracks[0][mood]": str(mood.pk),
+            "tracks[0][mp3]": test_mp3_file,
+            "tracks[0][price]": 36,
+            "tracks[0][title]": "Test track",
+            "tracks[0][wav]": test_wav_file,
+            "tracks[0][stems][0][name]": "snare",
+            "tracks[0][stems][0][file]": test_wav_file2,
+
+        }
+
