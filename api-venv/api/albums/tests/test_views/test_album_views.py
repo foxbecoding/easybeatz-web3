@@ -33,3 +33,7 @@ class TestAlbumViewSet:
     def station_picture(self, db, default_station_picture):
         return default_station_picture
 
+    @pytest.fixture
+    def genre(self, db, default_genre):
+        """Fixture to create genre"""
+        return default_genre
