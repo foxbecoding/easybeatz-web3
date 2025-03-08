@@ -141,3 +141,10 @@ def default_track_stem(db, default_track, test_wav_file):
     """Creates a TrackWav instance with a test WAV file."""
     return TrackStem.objects.create(track=default_track, name="test stem", audio=test_wav_file)
 
+@pytest.fixture
+def default_album_with_tracks_and_relations(
+        db, default_album, default_album_cover,
+        default_track, default_track_price, default_track_exclusive_price,
+        default_track_display, default_track_mp3, default_track_wav, default_track_stem
+):
+    return Album.albums.with_tracks_and_relations(default_album.aid)
