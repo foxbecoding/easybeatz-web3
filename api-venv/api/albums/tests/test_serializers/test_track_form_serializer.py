@@ -88,3 +88,11 @@ def test_invalid_exclusive_price(valid_data, serializer_context):
     serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
     assert not serializer.is_valid()
 
+def test_invalid_mp3_file(test_wav_file, serializer_context, valid_data):
+    invalid_data = valid_data.copy()
+    invalid_data['mp3'] = test_wav_file
+
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+    assert 'track_0' in serializer.errors['mp3']
+
