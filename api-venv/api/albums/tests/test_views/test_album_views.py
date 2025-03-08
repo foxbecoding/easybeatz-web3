@@ -115,3 +115,12 @@ class TestAlbumViewSet:
 
         assert response.status_code == status.HTTP_200_OK
 
+    @pytest.mark.django_db
+    def test_retrieve_with_tracks_and_relations_view_error(self, db, client, user, station, station_picture, album, album_with_tracks_and_relations):
+        client.force_authenticate(user=user)
+        url = reverse("album-retrieve-with-tracks-and-relations", kwargs={"pk": "wrong_id"})
+        response = client.get(url)
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
