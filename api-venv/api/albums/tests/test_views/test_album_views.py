@@ -29,3 +29,7 @@ class TestAlbumViewSet:
         """Fixture to create a test station."""
         return default_station
 
+    @pytest.fixture
+    def station_picture(self, db, default_station_picture):
+        return default_station_picture
+
