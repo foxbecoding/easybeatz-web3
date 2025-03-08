@@ -41,6 +41,16 @@ def test_wav_file():
             return uploaded_audio
 
 @pytest.fixture
+def test_wav_file2():
+    """Creates a temporary WAV file for testing."""
+    with tempfile.NamedTemporaryFile(suffix="wav", delete=False) as tmp_file:
+        audio = AudioSegment.silent(duration=1000)  # 1 second of silence
+        audio.export(tmp_file.name, format="wav")  # Save WAV
+        with open(tmp_file.name, "rb") as wav:
+            uploaded_audio = SimpleUploadedFile("test_wav2.wav", wav.read(), content_type="audio/wav")
+            return uploaded_audio
+
+@pytest.fixture
 def test_img_file():
     """Creates a temporary Image file in-memory for testing."""
     image = Image.new("RGB", (100, 100), color="red")
