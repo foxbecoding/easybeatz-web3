@@ -13,3 +13,7 @@ def user(default_user):
 def station(default_station):
     return default_station
 
+@pytest.fixture
+def genre(default_genre):
+    return default_genre
+
