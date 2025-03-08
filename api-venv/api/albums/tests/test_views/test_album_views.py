@@ -24,3 +24,8 @@ class TestAlbumViewSet:
         """Fixture to create a test user with a public key."""
         return default_user
 
+    @pytest.fixture
+    def station(self, db, default_station):
+        """Fixture to create a test station."""
+        return default_station
+
