@@ -134,10 +134,7 @@ def default_track_mp3(db, default_track, test_mp3_file):
 @pytest.fixture
 def default_track_wav(db, default_track, test_wav_file):
     """Creates a TrackWav instance with a test WAV file."""
-    with open(test_wav_file, "rb") as wav:
-        uploaded_audio = SimpleUploadedFile("test_wav.wav", wav.read(), content_type="audio/wav")
-
-    return TrackWav.objects.create(track=default_track, audio=uploaded_audio)
+    return TrackWav.objects.create(track=default_track, audio=test_wav_file)
 
 @pytest.fixture
 def default_track_stem(db, default_track, test_wav_file):
