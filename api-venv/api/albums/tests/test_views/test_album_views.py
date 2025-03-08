@@ -37,3 +37,9 @@ class TestAlbumViewSet:
     def genre(self, db, default_genre):
         """Fixture to create genre"""
         return default_genre
+
+    @pytest.fixture
+    def mood(self, db, default_mood):
+        """Fixture to create mood"""
+        return default_mood
+
