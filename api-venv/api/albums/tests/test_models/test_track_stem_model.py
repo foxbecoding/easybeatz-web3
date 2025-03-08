@@ -14,15 +14,11 @@ def track_stem(db, default_track_stem):
 
 @pytest.mark.django_db
 def test_track_stem_create(db, track, test_wav_file):
-    """Creates a TrackStem instance with a test Wav file."""
-    with open(test_wav_file, "rb") as wav:
-        uploaded_audio = SimpleUploadedFile("test_display.wav", wav.read(), content_type="audio/wav")
-
     """Test TrackStem creation"""
     track_stem = TrackStem.objects.create(
         track=track,
         name="snare",
-        audio=uploaded_audio
+        audio=test_wav_file
     )
     
     assert track_stem is not None
