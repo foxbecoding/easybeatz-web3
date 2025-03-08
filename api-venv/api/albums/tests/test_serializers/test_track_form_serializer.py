@@ -38,3 +38,11 @@ def valid_data(genre, mood, test_mp3_file, test_wav_file, test_wav_file2, test_i
         "stems": [{"name": "snare", "file": test_wav_file2}]
     }
 
+@pytest.fixture
+def serializer_context(valid_data):
+    """Mock serializer context."""
+    return {
+        'index': 0,
+        'track_data': valid_data
+    }
+
