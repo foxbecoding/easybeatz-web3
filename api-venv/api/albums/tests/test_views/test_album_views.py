@@ -99,3 +99,11 @@ class TestAlbumViewSet:
         assert track_qs.count() > 0
         assert Album.albums.with_tracks_and_relations(album_qs.first().aid) is not None
 
+    @pytest.mark.django_db
+    def test_create_with_tracks_and_relations_view_error(self, db, client, user, station, invalid_request_data):
+        client.force_authenticate(user=user)
+        url = reverse("album-create-with-tracks-and-relations")
+        response = client.post(url, invalid_request_data, format="multipart")
+
+        assert "errors" in response.data
+
