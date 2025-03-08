@@ -10,3 +10,4 @@ from stations.tests.conftest import default_station, default_station_picture
 from users.tests.conftest import default_user
 import logging
 
+logger = logging.getLogger("albums")
