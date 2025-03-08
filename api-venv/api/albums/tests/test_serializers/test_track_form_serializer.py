@@ -104,3 +104,15 @@ def test_invalid_wav_file(test_mp3_file, serializer_context, valid_data):
     assert not serializer.is_valid()
     assert 'track_0' in serializer.errors['wav']
 
+def test_invalid_stems(serializer_context, valid_data, test_wav_file):
+    invalid_data = valid_data.copy()
+    invalid_data['stems'] = [
+        {"name": "", "file": test_wav_file},  # Invalid because name is empty
+        {"name": "Stem 1", "file": None},  # Invalid because file is missing
+        "Invalid format"  # Invalid because it's not a dict
+    ]
+
+    serializer = TrackFormSerializer(data=invalid_data, context=serializer_context)
+    assert not serializer.is_valid()
+    assert 'track_0' in serializer.errors['stems']
+
