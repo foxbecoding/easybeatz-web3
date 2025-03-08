@@ -124,10 +124,7 @@ def default_track_exclusive_price(db, default_track):
 @pytest.fixture
 def default_track_display(db, default_track, test_mp3_file):
     """Creates a TrackMp3 instance with a test MP3 file."""
-    with open(test_mp3_file, "rb") as mp3:
-        uploaded_audio = SimpleUploadedFile("test_display.mp3", mp3.read(), content_type="audio/mp3")
-
-    return TrackDisplay.objects.create(track=default_track, audio=uploaded_audio)
+    return TrackDisplay.objects.create(track=default_track, audio=test_mp3_file)
 
 @pytest.fixture
 def default_track_mp3(db, default_track, test_mp3_file):
