@@ -43,3 +43,7 @@ class TestAlbumViewSet:
         """Fixture to create mood"""
         return default_mood
 
+    @pytest.fixture
+    def album(self, db, default_album):
+        return default_album
+
