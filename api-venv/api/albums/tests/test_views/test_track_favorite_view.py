@@ -29,3 +29,15 @@ class TestTrackFavoriteViewSet:
     def track_favorite(self, default_track_favorite):
         return default_track_favorite
 
+    @pytest.mark.django_db
+    def test_track_favorite_create_view(self, client, track, user):
+        client.force_authenticate(user=user)
+
+        data = {"track": track.tid}
+        url = reverse("track-favorite-list")
+        response = client.post(url, data)
+
+        assert response.status_code == 201
+        assert TrackFavorite.objects.all().count() > 0
+        assert response.data == str(track.tid)
+
