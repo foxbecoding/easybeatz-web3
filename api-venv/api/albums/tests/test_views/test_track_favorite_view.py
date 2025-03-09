@@ -41,3 +41,14 @@ class TestTrackFavoriteViewSet:
         assert TrackFavorite.objects.all().count() > 0
         assert response.data == str(track.tid)
 
+    @pytest.mark.django_db
+    def test_track_favorite_create_view_invalid_track_error(self, client, track, user):
+        client.force_authenticate(user=user)
+
+        data = {"track": "wrong_id"}
+        url = reverse("track-favorite-list")
+        response = client.post(url, data)
+
+        assert response.status_code == 404
+        assert "errors" in response.data
+
