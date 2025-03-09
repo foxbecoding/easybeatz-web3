@@ -25,3 +25,7 @@ class TestTrackFavoriteViewSet:
     def track(self, default_track):
         return default_track
 
+    @pytest.fixture
+    def track_favorite(self, default_track_favorite):
+        return default_track_favorite
+
