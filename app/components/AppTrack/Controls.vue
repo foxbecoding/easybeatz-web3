@@ -30,6 +30,16 @@ const favoriteTrackHandler = async (tid: string) => {
   await removeFavoriteTrack(tid);
 
 }
+
+const addFavoriteTrack = async (tid: string) => {
+  try {
+    const res = await submitTrackFavorite(tid);
+    userStore.favoriteTracks.push(res)
+  } catch (error: any) {
+    // Handle Error
+  }
+}
+
 <template>
   <div class="flex">
     <button class="btn btn-square btn-ghost mask mask-squircle">
