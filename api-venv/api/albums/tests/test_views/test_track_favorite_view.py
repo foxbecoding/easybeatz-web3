@@ -21,3 +21,7 @@ class TestTrackFavoriteViewSet:
     def user(self, default_user):
         return default_user
 
+    @pytest.fixture
+    def track(self, default_track):
+        return default_track
+
