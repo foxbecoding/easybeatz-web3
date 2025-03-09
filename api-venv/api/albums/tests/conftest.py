@@ -142,6 +142,11 @@ def default_track_stem(db, default_track, test_wav_file):
     return TrackStem.objects.create(track=default_track, name="test stem", audio=test_wav_file)
 
 @pytest.fixture
+def default_track_favorite(db, default_track, default_user):
+    """Create a TrackFavorite instance"""
+    return TrackFavorite.objects.create(track=default_track, user=default_user)
+
+@pytest.fixture
 def default_album_with_tracks_and_relations(
         db, default_album, default_album_cover,
         default_track, default_track_price, default_track_exclusive_price,
