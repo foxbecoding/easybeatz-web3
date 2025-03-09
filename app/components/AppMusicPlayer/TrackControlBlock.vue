@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useMusicPlayerStore } from "@/store/musicPlayer";
+import { type Album, type Track } from "@/services/models/album";
+import { type Station } from "@/services/models/station";
 
 const musicPlayerStore = useMusicPlayerStore();
 const playOrPauseIcon = computed(() => musicPlayerStore.isPlaying ? 'pause' : 'play');
