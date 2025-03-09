@@ -52,3 +52,13 @@ class TestTrackFavoriteViewSet:
         assert response.status_code == 404
         assert "errors" in response.data
 
+    @pytest.mark.django_db
+    def test_track_favorite_create_view_serializer_error(self, client, track_favorite, track, user):
+        client.force_authenticate(user=user)
+
+        data = {"track": track.tid}
+        url = reverse("track-favorite-list")
+        response = client.post(url, data)
+
+        assert response.status_code == 400
+        assert "errors" in response.data
