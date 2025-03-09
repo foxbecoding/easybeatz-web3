@@ -123,7 +123,7 @@ def default_track_exclusive_price(db, default_track):
 
 @pytest.fixture
 def default_track_display(db, default_track, test_mp3_file):
-    """Creates a TrackMp3 instance with a test MP3 file."""
+    """Creates a TrackDisplay instance with a test MP3 file."""
     return TrackDisplay.objects.create(track=default_track, audio=test_mp3_file)
 
 @pytest.fixture
