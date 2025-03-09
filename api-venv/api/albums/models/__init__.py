@@ -8,5 +8,10 @@ from .track_stem import TrackStem
 from .track_price import TrackPrice
 from .track_collaborator import TrackCollaborator
 from .track_exclusive_price import TrackExclusivePrice
+from .track_favorite import TrackFavorite
 
-__all__ = ['Album', 'AlbumCover' ,'Track', 'TrackDisplay', 'TrackMp3', 'TrackWav', 'TrackStem', 'TrackPrice', 'TrackExclusivePrice', 'TrackCollaborator']
+__all__ = [
+    'Album', 'AlbumCover','Track', 'TrackDisplay', 
+    'TrackMp3', 'TrackWav', 'TrackStem', 'TrackPrice', 
+    'TrackExclusivePrice', 'TrackCollaborator', 'TrackFavorite'
+]
