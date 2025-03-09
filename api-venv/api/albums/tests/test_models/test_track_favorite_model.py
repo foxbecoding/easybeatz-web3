@@ -17,3 +17,9 @@ def test_track_favorite_create(track, user):
 
     assert TrackFavorite.objects.all().count() > 0
 
+@pytest.mark.django_db
+def test_track_favorite_str(track, user):
+    instance = TrackFavorite.objects.create(track=track, user=user)
+    instance.save()
+
+    assert str(instance) == f"{user} - {track}"
