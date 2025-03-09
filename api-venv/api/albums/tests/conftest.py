@@ -1,7 +1,7 @@
 import pytest
 from stations.tests.conftest import default_station
 from users.tests.conftest import default_user
-from albums.models import Album, AlbumCover, Track, TrackDisplay, TrackMp3, TrackWav, TrackStem, TrackPrice, TrackExclusivePrice, TrackCollaborator
+from albums.models import Album, AlbumCover, Track, TrackDisplay, TrackMp3, TrackWav, TrackStem, TrackPrice, TrackExclusivePrice, TrackCollaborator, TrackFavorite
 from genres.tests.conftest import default_genre
 from moods.tests.conftest import default_mood
 from django.core.files.uploadedfile import SimpleUploadedFile
