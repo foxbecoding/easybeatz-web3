@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { submitTrackFavorite, removeTrackFavorite } from "@/services/models/album";
+import { useUserStore } from "@/store/user";
+import { useAuthStore } from "@/store/auth";
+import { type Album, type Track } from "@/services/models/album";
+import { type Station } from "@/services/models/station";
 
 <template>
   <div class="flex">
