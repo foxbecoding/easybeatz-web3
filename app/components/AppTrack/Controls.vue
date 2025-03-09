@@ -54,8 +54,8 @@ const removeFavoriteTrack = async (tid: string) => {
 
 <template>
   <div class="flex">
-    <button class="btn btn-square btn-ghost mask mask-squircle">
-      <Icon icon="solar:heart-linear" width="24" height="24" />
+    <button @click.stop="favoriteTrackHandler(track.tid)" class="btn btn-square btn-ghost mask mask-squircle">
+      <Icon :icon="`solar:heart-${favoriteIcon}`" :class="favoriteIconColor" width="24" height="24" />
     </button>
     <button class="btn btn-square btn-ghost mask mask-squircle">
       <Icon icon="solar:menu-dots-bold" width="24" height="24" />
