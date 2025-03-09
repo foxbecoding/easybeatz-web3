@@ -3,6 +3,12 @@ import { useMusicPlayerStore } from "@/store/musicPlayer";
 import { type Album, type Track } from "@/services/models/album";
 import { type Station } from "@/services/models/station";
 
+const props = defineProps<{
+  track: Track;
+  station: Station;
+  album: Album;
+}>();
+
 const musicPlayerStore = useMusicPlayerStore();
 const playOrPauseIcon = computed(() => musicPlayerStore.isPlaying ? 'pause' : 'play');
 const playOrPause = computed(() => musicPlayerStore.isPlaying ? pauseHandler() : playHandler());
