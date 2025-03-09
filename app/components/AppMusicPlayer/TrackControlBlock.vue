@@ -20,7 +20,7 @@ const nextHandler = () => musicPlayerStore.nextTrackHandler();
 </script>
 
 <template>
-  <AppTrackControls class="hidden md:flex" />
+  <AppTrackControls class="hidden md:flex" :album="album" :station="station" :track="track" />
   <div class="flex md:hidden items-center justify-center">
     <button @click="playOrPause" class="btn btn-ghost btn-circle btn-sm">
       <Icon :icon="`solar:${playOrPauseIcon}-bold`" width="20" height="20" />
