@@ -11,6 +11,25 @@ const props = defineProps<{
   album: Album;
 }>();
 
+const authStore = useAuthStore();
+const userStore = useUserStore();
+
+const isFavoriteTrack = computed(() => userStore.favoriteTracks.includes(props.track.tid))
+
+const favoriteIcon = computed(() => !isFavoriteTrack.value ? 'linear' : 'bold')
+const favoriteIconColor = computed(() => !isFavoriteTrack.value ? '' : 'text-error')
+
+const favoriteTrackHandler = async (tid: string) => {
+  if (!authStore.isAuthenticated) return;
+
+  if (!isFavoriteTrack.value) {
+    await addFavoriteTrack(tid);
+    return;
+  }
+
+  await removeFavoriteTrack(tid);
+
+}
 <template>
   <div class="flex">
     <button class="btn btn-square btn-ghost mask mask-squircle">
