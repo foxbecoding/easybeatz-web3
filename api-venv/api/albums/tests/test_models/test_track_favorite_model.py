@@ -10,3 +10,10 @@ def track(default_track):
 def user(default_user):
     return default_user
 
+@pytest.mark.django_db
+def test_track_favorite_create(track, user):
+    instance = TrackFavorite.objects.create(track=track, user=user)
+    instance.save()
+
+    assert TrackFavorite.objects.all().count() > 0
+
