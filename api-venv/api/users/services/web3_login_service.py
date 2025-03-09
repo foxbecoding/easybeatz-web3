@@ -28,9 +28,9 @@ class Web3LoginService:
             return Response({"error": "Verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 
         user = self._find_or_create_user()
-        access_token = self._authenticate_user(user)
-        self._save_user_login(user)
-        return Response({"access_token": access_token, "pubkey": user.pubkey}, status=status.HTTP_200_OK)
+        access_token = self._authenticate_user(user['user'])
+        self._save_user_login(user['user'])
+        return Response({"access_token": access_token, "pubkey": user['user'].pubkey, "favorite_tracks": user['track_tids']}, status=status.HTTP_200_OK)
 
     def _get_nonce(self):
         return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
