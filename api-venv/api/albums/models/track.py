@@ -31,6 +31,9 @@ class Track(models.Model):
             self.tid = uuid.uuid4().hex
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return str(self.tid)
+
     @property
     def display_url(self):
         return self.display.audio.url if self.display else None
