@@ -29,7 +29,7 @@ class Album(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.aid)
 
     @property
     def uploaded_at(self):
