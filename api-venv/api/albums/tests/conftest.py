@@ -138,7 +138,7 @@ def default_track_wav(db, default_track, test_wav_file):
 
 @pytest.fixture
 def default_track_stem(db, default_track, test_wav_file):
-    """Creates a TrackWav instance with a test WAV file."""
+    """Creates a TrackStem instance with a test WAV file."""
     return TrackStem.objects.create(track=default_track, name="test stem", audio=test_wav_file)
 
 @pytest.fixture
