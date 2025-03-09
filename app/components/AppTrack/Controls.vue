@@ -5,6 +5,12 @@ import { useAuthStore } from "@/store/auth";
 import { type Album, type Track } from "@/services/models/album";
 import { type Station } from "@/services/models/station";
 
+const props = defineProps<{
+  track: Track;
+  station: Station;
+  album: Album;
+}>();
+
 <template>
   <div class="flex">
     <button class="btn btn-square btn-ghost mask mask-squircle">
