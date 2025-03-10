@@ -44,12 +44,16 @@ const addFavoriteTrack = async (tid: string) => {
 const removeFavoriteTrack = async (tid: string) => {
   try {
     const res = await removeTrackFavorite(tid);
-    userStore.favoriteTracks = userStore.favoriteTracks.filter(x => x !== res);
+    userStore.favoriteTracks = userStore.favoriteTracks.filter(x => x !== res.data);
+    toast.setToast(res.message, "SUCCESS");
   } catch (error: any) {
-    // Handle Error
+    if (error.status === 401) {
+      toast.setToast("Please login", "INFO");
+      return;
+    }
+    toast.setToast(error.data.message, "ERROR");
   }
 }
-
 
 </script>
 
