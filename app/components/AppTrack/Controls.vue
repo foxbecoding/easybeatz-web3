@@ -11,6 +11,7 @@ const props = defineProps<{
 }>();
 
 const userStore = useUserStore();
+const toast = useToast();
 
 const isFavoriteTrack = computed(() => userStore.favoriteTracks.includes(props.track.tid))
 
