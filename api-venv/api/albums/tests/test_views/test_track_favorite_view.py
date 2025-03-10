@@ -101,3 +101,11 @@ class TestTrackFavoriteViewSet:
         assert response.data.get("message") == "Track not found"
         assert response.data.get("data") is None
 
+    @pytest.mark.django_db
+    def test_unauthenticated_cannot_unfavorite_track(self, client, track):
+        data = {"track": track.tid}
+        url = reverse("track-favorite-detail", kwargs={"pk": None})
+        response = client.delete(url, data)
+
+        assert response.status_code == 401
+
