@@ -76,3 +76,16 @@ class TestTrackFavoriteViewSet:
         assert response.data.get("data") is not None
 
 
+    @pytest.mark.django_db
+    def test_track_favorite_delete_view(self, client, track, track_favorite, user):
+        client.force_authenticate(user=user)
+
+        data = {"track": track.tid}
+        url = reverse("track-favorite-detail", kwargs={"pk": None})
+        response = client.delete(url, data)
+
+        assert response.status_code == 202
+        assert TrackFavorite.objects.all().count() == 0
+        assert response.data.get("message") == "Track removed from favorites"
+        assert response.data.get("data") == str(track.tid)
+
