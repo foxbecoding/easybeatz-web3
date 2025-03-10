@@ -6,6 +6,7 @@ from solders.signature import Signature
 from ..models import User, UserLoginNonce
 from ..signals.user_login_signal import web3_login_done
 from ..utils import web3_login_message_generator
+from albums.models import TrackFavorite
 
 class Web3LoginService:
     def __init__(self, data) -> None:
@@ -27,9 +28,9 @@ class Web3LoginService:
             return Response({"error": "Verification failed"}, status=status.HTTP_400_BAD_REQUEST)
 
         user = self._find_or_create_user()
-        access_token = self._authenticate_user(user)
-        self._save_user_login(user)
-        return Response({"access_token": access_token, "pubkey": user.pubkey}, status=status.HTTP_200_OK)
+        access_token = self._authenticate_user(user['user'])
+        self._save_user_login(user['user'])
+        return Response({"access_token": access_token, "pubkey": user['user'].pubkey, "favorite_tracks": user['track_tids']}, status=status.HTTP_200_OK)
 
     def _get_nonce(self):
         return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
@@ -60,9 +61,10 @@ class Web3LoginService:
             print(f"Verification failed: {e}")
             return False
 
-    def _find_or_create_user(self) -> User:
+    def _find_or_create_user(self):
         user, _ = User.objects.get_or_create(pubkey=self.pubkey)
-        return user
+        track_tids = TrackFavorite.objects.filter(user=user).values_list('track__tid', flat=True)
+        return {"user": user, "track_tids": list(track_tids) }
 
     def _authenticate_user(self, user: User) -> str:
         refresh = RefreshToken.for_user(user)

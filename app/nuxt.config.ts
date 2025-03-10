@@ -14,6 +14,7 @@ export default defineNuxtConfig({
       API_MOOD: process.env.API_MOOD,
       API_STATION: process.env.API_STATION,
       API_STATION_PICTURE: process.env.API_STATION_PICTURE,
+      API_TRACK_FAVORITE: process.env.API_TRACK_FAVORITE,
       API_WEB3_LOGIN: process.env.API_WEB3_LOGIN,
       API_WEB3_LOGIN_NONCE: process.env.API_WEB3_LOGIN_NONCE,
     }

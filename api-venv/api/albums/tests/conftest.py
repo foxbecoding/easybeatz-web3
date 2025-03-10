@@ -1,7 +1,7 @@
 import pytest
 from stations.tests.conftest import default_station
 from users.tests.conftest import default_user
-from albums.models import Album, AlbumCover, Track, TrackDisplay, TrackMp3, TrackWav, TrackStem, TrackPrice, TrackExclusivePrice, TrackCollaborator
+from albums.models import Album, AlbumCover, Track, TrackDisplay, TrackMp3, TrackWav, TrackStem, TrackPrice, TrackExclusivePrice, TrackCollaborator, TrackFavorite
 from genres.tests.conftest import default_genre
 from moods.tests.conftest import default_mood
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -123,7 +123,7 @@ def default_track_exclusive_price(db, default_track):
 
 @pytest.fixture
 def default_track_display(db, default_track, test_mp3_file):
-    """Creates a TrackMp3 instance with a test MP3 file."""
+    """Creates a TrackDisplay instance with a test MP3 file."""
     return TrackDisplay.objects.create(track=default_track, audio=test_mp3_file)
 
 @pytest.fixture
@@ -138,8 +138,13 @@ def default_track_wav(db, default_track, test_wav_file):
 
 @pytest.fixture
 def default_track_stem(db, default_track, test_wav_file):
-    """Creates a TrackWav instance with a test WAV file."""
+    """Creates a TrackStem instance with a test WAV file."""
     return TrackStem.objects.create(track=default_track, name="test stem", audio=test_wav_file)
+
+@pytest.fixture
+def default_track_favorite(db, default_track, default_user):
+    """Create a TrackFavorite instance"""
+    return TrackFavorite.objects.create(track=default_track, user=default_user)
 
 @pytest.fixture
 def default_album_with_tracks_and_relations(

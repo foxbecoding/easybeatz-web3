@@ -41,7 +41,7 @@ const albumCoverStyles = computed(() => {
 
         <!-- End -->
         <div class="navbar-end">
-          <AppMusicPlayerTrackControlBlock />
+          <AppMusicPlayerTrackControlBlock :album="album" :station="station" :track="track" />
         </div>
       </div>
     </div>
