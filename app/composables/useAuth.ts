@@ -52,8 +52,8 @@ export const useAuth = () => {
     //backend logout
     const apiData: ApiData = { method: 'POST', path: `${config.public.API_LOGOUT}/` };
     await useApi(apiData);
-    authStore.setAuthData(null, false);
-    userStore.setUserData(null);
+    authStore.clearAuthData();
+    userStore.clearUserData();
     useRouter().push({ name: "index" });
 
   }
