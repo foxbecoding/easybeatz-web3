@@ -39,7 +39,9 @@ class TestTrackFavoriteViewSet:
 
         assert response.status_code == 201
         assert TrackFavorite.objects.all().count() > 0
-        assert response.data == str(track.tid)
+        assert response.data.get("message") == "Track added to favorites"
+        assert response.data.get("data") == str(track.tid)
+
 
     @pytest.mark.django_db
     def test_track_favorite_create_view_invalid_track_error(self, client, track, user):
