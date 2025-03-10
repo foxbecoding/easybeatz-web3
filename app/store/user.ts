@@ -13,8 +13,10 @@ export const useUserStore = defineStore("use-user-store", () => {
   }
 
   return {
+    favoriteTracks,
     pubkey,
     setUserData,
+    clearUserData
   }
 })
 
