@@ -17,15 +17,15 @@ class TrackFavoriteViewSet(viewsets.ViewSet, ResponseMixin):
         track_qs = Track.objects.filter(tid=track_id).first()
         
         if not track_qs:
-            return Response({"errors": "Track not found"}, status=status.HTTP_404_NOT_FOUND)
+            return self.view_response("Track not found", None, status.HTTP_400_BAD_REQUEST)
         
         data = {"track": track_qs.pk, "user": request.user.pk}
         serializer = TrackFavoriteSerializer(data=data)
         if not serializer.is_valid():
-            return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return self.view_response("Something went wrong, please try again", serializer.errors, status.HTTP_400_BAD_REQUEST)
         
         serializer.save()
-        return Response(str(track_id), status=status.HTTP_201_CREATED)
+        return self.view_response("Track added to favorites", str(track_id), status.HTTP_201_CREATED)
 
     def delete(self, request, pk=None):
         track_id = request.data.get("track")
