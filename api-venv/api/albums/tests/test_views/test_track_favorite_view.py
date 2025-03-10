@@ -72,4 +72,7 @@ class TestTrackFavoriteViewSet:
         response = client.post(url, data)
 
         assert response.status_code == 400
-        assert "errors" in response.data
+        assert response.data.get("message") == "Something went wrong, please try again"
+        assert response.data.get("data") is not None
+
+
