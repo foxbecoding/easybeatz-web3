@@ -2,8 +2,9 @@ export const useUserStore = defineStore("use-user-store", () => {
   const pubkey = ref<string | null>(null);
   const favoriteTracks = ref<String[]>([]);
 
-  const setUserData = (_pubkey: string | null): void => {
+  const setUserData = (_pubkey: string | null, _favoriteTracks: string[]): void => {
     pubkey.value = _pubkey;
+    favoriteTracks.value = _favoriteTracks;
   }
 
   return {
