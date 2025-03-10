@@ -5,7 +5,7 @@ from albums.serializers import TrackFavoriteSerializer
 from albums.models import Track, TrackFavorite
 from core.mixins import ResponseMixin
 
-class TrackFavoriteViewSet(viewsets.ViewSet):
+class TrackFavoriteViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
         needs_auth = ['created']
