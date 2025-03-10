@@ -51,8 +51,8 @@ export const submitTrackFavorite = async (trackTid: string) => {
 
 export const removeTrackFavorite = async (trackTid: string) => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_TRACK_FAVORITE}/`;
-    const apiData: ApiData = { method: 'DELETE', path: fetchPath, data: { track: trackTid } };
+    const fetchPath = `${config.public.API_TRACK_FAVORITE}/${trackTid}/`;
+    const apiData: ApiData = { method: 'DELETE', path: fetchPath };
     const res = await useApi(apiData);
     return res;
 }
