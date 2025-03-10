@@ -8,7 +8,7 @@ from core.mixins import ResponseMixin
 class TrackFavoriteViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
-        needs_auth = ['created']
+        needs_auth = ['create', 'destroy']
         if self.action in needs_auth: permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
