@@ -10,6 +10,7 @@ from .create_track_stem_serializer import CreateTrackStemSerializer
 from .create_track_collaborator_serializer import CreateTrackCollaboratorSerializer
 from .create_track_price_serializer import CreateTrackPriceSerializer
 from .create_track_exclusive_price_serializer import CreateTrackExclusivePriceSerializer
+from .track_favorite_serializer import TrackFavoriteSerializer
 
 __all__ = [
     'AlbumFormSerializer',

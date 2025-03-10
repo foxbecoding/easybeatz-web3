@@ -43,7 +43,7 @@ export const useAuth = () => {
       throw new Error(`authenticateNonce() - Response status: ${res.error}`);
     }
 
-    userStore.setUserData(res.pubkey);
+    userStore.setUserData(res.pubkey, res.favorite_tracks);
     authStore.setAuthData(res.access_token, true);
     setTokenTimer(res.access_token);
   }
@@ -52,8 +52,8 @@ export const useAuth = () => {
     //backend logout
     const apiData: ApiData = { method: 'POST', path: `${config.public.API_LOGOUT}/` };
     await useApi(apiData);
-    authStore.setAuthData(null, false);
-    userStore.setUserData(null);
+    authStore.clearAuthData();
+    userStore.clearUserData();
     useRouter().push({ name: "index" });
 
   }
