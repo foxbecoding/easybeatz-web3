@@ -43,7 +43,7 @@ export const useAuth = () => {
       throw new Error(`authenticateNonce() - Response status: ${res.error}`);
     }
 
-    userStore.setUserData(res.pubkey);
+    userStore.setUserData(res.pubkey, res.favorite_tracks);
     authStore.setAuthData(res.access_token, true);
     setTokenTimer(res.access_token);
   }
