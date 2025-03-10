@@ -101,9 +101,8 @@ class TestTrackFavoriteViewSet:
 
     @pytest.mark.django_db
     def test_unauthenticated_cannot_unfavorite_track(self, client, track):
-        data = {"track": track.tid}
-        url = reverse("track-favorite-detail", kwargs={"pk": None})
-        response = client.delete(url, data)
+        url = reverse("track-favorite-detail", kwargs={"pk": str(track.tid)})
+        response = client.delete(url)
 
         assert response.status_code == 401
 
