@@ -7,6 +7,11 @@ export const useUserStore = defineStore("use-user-store", () => {
     favoriteTracks.value = _favoriteTracks;
   }
 
+  const clearUserData = () => {
+    pubkey.value = null;
+    favoriteTracks.value = [];
+  }
+
   return {
     pubkey,
     setUserData,
