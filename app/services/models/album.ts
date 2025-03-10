@@ -40,3 +40,11 @@ export const submitAlbumWithTracks = async (data: any) => {
     const res = await useApi(apiData);
     return res;
 }
+export const submitTrackFavorite = async (trackTid: string) => {
+    const config = useRuntimeConfig();
+    const fetchPath = `${config.public.API_TRACK_FAVORITE}/`;
+    const apiData: ApiData = { method: 'POST', path: fetchPath, data: { track: trackTid } };
+    const res = await useApi(apiData);
+    return res;
+}
+
