@@ -14,13 +14,10 @@ const userStore = useUserStore();
 const toast = useToast();
 
 const isFavoriteTrack = computed(() => userStore.favoriteTracks.includes(props.track.tid))
-
 const favoriteIcon = computed(() => !isFavoriteTrack.value ? 'linear' : 'bold')
 const favoriteIconColor = computed(() => !isFavoriteTrack.value ? '' : 'text-error')
 
 const favoriteTrackHandler = async (tid: string) => {
-  if (!authStore.isAuthenticated) return;
-
   if (!isFavoriteTrack.value) {
     await addFavoriteTrack(tid);
     return;
@@ -33,9 +30,14 @@ const favoriteTrackHandler = async (tid: string) => {
 const addFavoriteTrack = async (tid: string) => {
   try {
     const res = await submitTrackFavorite(tid);
-    userStore.favoriteTracks.push(res)
+    userStore.favoriteTracks.push(res.data);
+    toast.setToast(res.message, "SUCCESS");
   } catch (error: any) {
-    // Handle Error
+    if (error.status === 401) {
+      toast.setToast("Please login", "INFO");
+      return;
+    }
+    toast.setToast(error.data.message, "ERROR");
   }
 }
 
