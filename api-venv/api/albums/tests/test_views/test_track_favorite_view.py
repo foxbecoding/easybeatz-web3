@@ -92,9 +92,8 @@ class TestTrackFavoriteViewSet:
     def test_track_favorite_delete_view_invalid_track_error(self, client, track_favorite, user):
         client.force_authenticate(user=user)
 
-        data = {"track": "wrong_id"}
-        url = reverse("track-favorite-detail", kwargs={"pk": None})
-        response = client.delete(url, data)
+        url = reverse("track-favorite-detail", kwargs={"pk": "wrong_id"})
+        response = client.delete(url)
 
         assert response.status_code == 400
         assert response.data.get("message") == "Track not found"
