@@ -28,7 +28,7 @@ class TrackFavoriteViewSet(viewsets.ViewSet, ResponseMixin):
         return self.view_response("Track added to favorites", str(track_id), status.HTTP_201_CREATED)
 
     def destroy(self, request, pk=None):
-        track_id = request.data.get("track")
+        track_id = str(pk)
         track_tids = TrackFavorite.objects.filter(user=request.user).values_list('track__tid', flat=True)
 
         if track_id not in list(track_tids):
