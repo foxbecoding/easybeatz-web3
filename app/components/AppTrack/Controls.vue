@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { submitTrackFavorite, removeTrackFavorite } from "@/services/models/album";
 import { useUserStore } from "@/store/user";
-import { useAuthStore } from "@/store/auth";
 import { type Album, type Track } from "@/services/models/album";
 import { type Station } from "@/services/models/station";
 
@@ -11,7 +10,6 @@ const props = defineProps<{
   album: Album;
 }>();
 
-const authStore = useAuthStore();
 const userStore = useUserStore();
 
 const isFavoriteTrack = computed(() => userStore.favoriteTracks.includes(props.track.tid))
