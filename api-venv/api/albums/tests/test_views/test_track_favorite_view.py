@@ -80,9 +80,8 @@ class TestTrackFavoriteViewSet:
     def test_track_favorite_delete_view(self, client, track, track_favorite, user):
         client.force_authenticate(user=user)
 
-        data = {"track": track.tid}
-        url = reverse("track-favorite-detail", kwargs={"pk": None})
-        response = client.delete(url, data)
+        url = reverse("track-favorite-detail", kwargs={"pk": str(track.tid)})
+        response = client.delete(url)
 
         assert response.status_code == 202
         assert TrackFavorite.objects.all().count() == 0
