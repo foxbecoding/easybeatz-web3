@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'albums.apps.AlbumsConfig',
     'genres.apps.GenresConfig',
     'moods.apps.MoodsConfig',
+    'core.apps.CoreConfig'
 ]
 
 REST_FRAMEWORK = {
