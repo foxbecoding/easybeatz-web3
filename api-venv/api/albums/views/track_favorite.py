@@ -27,16 +27,16 @@ class TrackFavoriteViewSet(viewsets.ViewSet, ResponseMixin):
         serializer.save()
         return self.view_response("Track added to favorites", str(track_id), status.HTTP_201_CREATED)
 
-    def delete(self, request, pk=None):
+    def destroy(self, request, pk=None):
         track_id = request.data.get("track")
         track_tids = TrackFavorite.objects.filter(user=request.user).values_list('track__tid', flat=True)
 
         if track_id not in list(track_tids):
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return self.view_response("Track not found", None, status.HTTP_400_BAD_REQUEST)
 
         track_ins = Track.objects.get(tid=track_id)
 
         track_favorite_ins = TrackFavorite.objects.get(track=track_ins, user=request.user)
         track_favorite_ins.delete()
         
-        return Response(str(track_id), status=status.HTTP_200_OK)
+        return self.view_response("Track removed from favorites", str(track_id), status.HTTP_202_ACCEPTED)
