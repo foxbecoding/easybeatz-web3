@@ -44,6 +44,14 @@ class TestTrackFavoriteViewSet:
 
 
     @pytest.mark.django_db
+    def test_unauthenticated_cannot_favorite_track(self, client, track):
+        data = {"track": track.tid}
+        url = reverse("track-favorite-list")
+        response = client.post(url, data)
+
+        assert response.status_code == 401
+
+    @pytest.mark.django_db
     def test_track_favorite_create_view_invalid_track_error(self, client, track, user):
         client.force_authenticate(user=user)
 
