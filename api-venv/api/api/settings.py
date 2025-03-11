@@ -185,11 +185,11 @@ LOGGING = {
         },
     },
     "loggers": {
-        "django": {
-            "handlers": ["file", "console"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
+        # "django": {
+        #     "handlers": ["file", "console"],
+        #     "level": "DEBUG",
+        #     "propagate": True,
+        # },
         "albums": {
             "handlers": ["file", "console"],
             "level": "INFO",
