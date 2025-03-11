@@ -8,7 +8,14 @@ class TrackCollaborator(models.Model):
         on_delete=models.CASCADE,
         related_name='collaborators'
     )
-    station = models.OneToOneField(Station, on_delete=models.SET_NULL, blank=True, null=True, related_name='collaborations')
+    
+    station = models.ForeignKey(
+        Station,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='collaborations'
+    )
     pubkey = models.CharField(max_length=100, default='')
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
