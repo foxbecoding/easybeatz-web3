@@ -128,4 +128,7 @@ class TestAlbumViewSet:
         url = reverse("album-retrieve-with-tracks-and-relations", kwargs={"pk": "wrong_id"})
         response = client.get(url)
 
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "No album"
+        assert response.data.get("data") is None
 
