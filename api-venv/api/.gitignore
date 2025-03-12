@@ -2,6 +2,6 @@ __pycache__
 db.sqlite3
 .env
 .coverage
-/logs
+/logs/django.log
 /static
 
