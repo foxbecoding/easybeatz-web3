@@ -34,6 +34,6 @@ class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
     def retrieve_with_tracks_and_relations(self, request, pk=None):
         qs = Album.albums.with_tracks_and_relations(pk)
         if not qs:
-            return Response({"error": "No Project"}, status=status.HTTP_404_NOT_FOUND) 
+            return self.view_response("No Project", None, status.HTTP_400_BAD_REQUEST) 
         serialized_data = AlbumWithTracksSerializer(qs).data
-        return Response(serialized_data, status=status.HTTP_200_OK)
+        return self.view_response(None, serialized_data, status.HTTP_200_OK)
