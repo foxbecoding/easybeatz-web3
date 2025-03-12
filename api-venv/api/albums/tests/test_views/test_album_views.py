@@ -90,14 +90,17 @@ class TestAlbumViewSet:
         url = reverse("album-create-with-tracks-and-relations")
         response = client.post(url, request_data, format="multipart")
 
-        logger.info(response.data)
-
         assert response.status_code == status.HTTP_201_CREATED
+        assert response.data.get("message") == "Album created"
+        assert response.data.get("data") is None
+
         album_qs = Album.objects.all()
         assert album_qs.count() > 0
+        assert Album.albums.with_tracks_and_relations(album_qs.first().aid) is not None
+
         track_qs = Track.objects.all()
         assert track_qs.count() > 0
-        assert Album.albums.with_tracks_and_relations(album_qs.first().aid) is not None
+        
 
     @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view_error(self, db, client, user, station, invalid_request_data):
