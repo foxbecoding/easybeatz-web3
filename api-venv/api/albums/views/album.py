@@ -23,12 +23,12 @@ class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
 
         validator = AlbumValidator(processor.album_form_data, processor.tracks_form_data)
         if not validator.is_valid():
-            return Response({"errors": validator.errors})
+            return self.view_response("Invalid album details", validator.errors, status.HTTP_400_BAD_REQUEST)
 
         creator = AlbumCreator(processor.album_form_data, processor.tracks_form_data, request.user)
         creator.create_album()
 
-        return Response("Album created", status=status.HTTP_201_CREATED)
+        return self.view_response("Project created", None, status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['get'])
     def retrieve_with_tracks_and_relations(self, request, pk=None):
