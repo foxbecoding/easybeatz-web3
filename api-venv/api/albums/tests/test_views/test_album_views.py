@@ -100,7 +100,13 @@ class TestAlbumViewSet:
 
         track_qs = Track.objects.all()
         assert track_qs.count() > 0
-        
+
+    @pytest.mark.django_db
+    def test_unauthenticated_cannot_create_with_tracks_and_relations_view(self, db, client):
+        url = reverse("album-create-with-tracks-and-relations")
+        response = client.post(url, None, format="multipart")
+
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view_error(self, db, client, user, station, invalid_request_data):
