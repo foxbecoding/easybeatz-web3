@@ -1,7 +1,6 @@
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
 from rest_framework.decorators import action
 from ..services import AlbumCreator, AlbumValidator, FormDataProcessor
 from stations.permissions import HasStation
@@ -28,12 +27,12 @@ class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
         creator = AlbumCreator(processor.album_form_data, processor.tracks_form_data, request.user)
         creator.create_album()
 
-        return self.view_response("Project created", None, status.HTTP_201_CREATED)
+        return self.view_response("Album created", None, status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['get'])
     def retrieve_with_tracks_and_relations(self, request, pk=None):
         qs = Album.albums.with_tracks_and_relations(pk)
         if not qs:
-            return self.view_response("No Project", None, status.HTTP_400_BAD_REQUEST) 
+            return self.view_response("No album", None, status.HTTP_400_BAD_REQUEST) 
         serialized_data = AlbumWithTracksSerializer(qs).data
         return self.view_response(None, serialized_data, status.HTTP_200_OK)
