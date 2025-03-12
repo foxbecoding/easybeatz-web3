@@ -7,8 +7,9 @@ from ..services import AlbumCreator, AlbumValidator, FormDataProcessor
 from stations.permissions import HasStation
 from ..serializers import AlbumWithTracksSerializer
 from ..models import Album
+from core.mixins import ResponseMixin
 
-class AlbumViewSet(viewsets.ViewSet):
+class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
         needs_auth = ['create_with_tracks_and_relations']
