@@ -25,6 +25,6 @@ class StationPictureViewSet(viewsets.ViewSet, ResponseMixin):
         else:
             serializer = StationPictureSerializer(station_picture, data=request.data)
         if not serializer.is_valid():
-            return Response({"error": serializer.errors})
+            return self.view_response("Invalid image format", serializer.errors, status.HTTP_400_BAD_REQUEST)
         serializer.save()
-        return Response("Picture uploaded successfully", status=status.HTTP_200_OK)
+        return self.view_response("Picture uploaded successfully!", None, status.HTTP_200_OK)
