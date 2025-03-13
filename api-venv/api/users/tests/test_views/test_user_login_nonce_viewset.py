@@ -35,14 +35,12 @@ def test_create_user_login_nonce_success(client, valid_data):
         mock_message_generator.return_value = "Generated Message"
 
         # Send POST request
-        response = client.post("/api/web3-login-nonce/", valid_data, format="json")
+        url = reverse("web3-login-nonce-list")
+        response = client.post(url, valid_data, format="json")
 
-        # Check that the response status is 201 Created
         assert response.status_code == status.HTTP_201_CREATED
-
-        # Check that the correct message is returned
-        assert response.data["message"] == "Generated Message"
-        # assert response.data["message"] == expected_message
+        assert response.data.get("message") is None
+        assert response.data.get("data") == {"message": "Generated Message"}
 
         # Check that a UserLoginNonce object was created
         assert UserLoginNonce.objects.count() == 1
