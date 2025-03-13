@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework import status
 from ..serializers import Web3LoginSerializer
 from ..services import Web3LoginService
-
+from core.mixins import ResponseMixin
 
 class UserLoginViewSet(viewsets.ViewSet):
     def get_permissions(self):
