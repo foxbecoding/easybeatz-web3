@@ -11,7 +11,7 @@ from stations.tests.factories import StationFactory
 
 
 @pytest.mark.django_db
-def test_with_albums_and_relations_single(default_station, default_user, default_album, default_track):
+def test_with_albums_and_relations_single(db, default_station, default_user, default_genre, default_mood, default_album, default_track):
     """Test that `with_albums_and_relations` correctly fetches a single station with related data."""
      
     station_with_relations = Station.stations.with_albums_and_relations(default_user.pubkey)
