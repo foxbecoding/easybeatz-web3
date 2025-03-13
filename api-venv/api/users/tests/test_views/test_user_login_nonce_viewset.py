@@ -50,11 +50,11 @@ def test_create_user_login_nonce_success(client, valid_data):
 @pytest.mark.django_db
 def test_create_user_login_nonce_invalid(client, invalid_data):
     """Test that creating a UserLoginNonce with invalid data returns a 400 Bad Request."""
-    response = client.post("/api/web3-login-nonce/", invalid_data, format="json")
 
-    # Check that the response status is 400 Bad Request
+    url = reverse("web3-login-nonce-list")
+    response = client.post(url, invalid_data, format="json")
+
     assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    # Ensure that error details are returned
-    assert "error" in response.data
-    assert "pubkey" in response.data["error"]
+    assert response.data.get("message") is None
+    assert response.data.get("data") is not None
+    assert "pubkey" in response.data.get("data")
