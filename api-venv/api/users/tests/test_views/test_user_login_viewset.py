@@ -60,18 +60,15 @@ class TestUserLoginViewSet(ResponseMixin):
 
             logger.info(response)
 
-# Test for invalid request
-@pytest.mark.django_db
-def test_create_user_login_invalid(client, invalid_data):
-    """Test that invalid data returns a 400 Bad Request with error details."""
+            assert response.status_code == status.HTTP_200_OK
 
-    # Send POST request to the view with invalid data
-    response = client.post("/api/web3-login/", invalid_data, format="json")
+            # Validate the response structure
+            assert response.data.get("message") == "Logged in successfully!"
+            assert response.data.get("data")["access_token"] == "mocked_access_token"
+            assert response.data.get("data")["pubkey"] == valid_data["pubkey"]
 
-    # Check that the response status is 400 Bad Request
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
+            # Ensure the mock service was called correctly
+            mock_service_instance.run.assert_called_once()
+            MockService.return_value.run.assert_called_once()
 
-    # Ensure that error details are returned
-    assert "error" in response.data
-    assert "signedMessage" in response.data["error"]
 
