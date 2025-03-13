@@ -50,7 +50,8 @@ class TestStationPictureViewSet:
         response = client.post(url, data, format="multipart")
         
         assert response.status_code == status.HTTP_200_OK
-        assert "Picture uploaded successfully" in response.data
+        assert response.data.get("message") == "Picture uploaded successfully!"
+        assert response.data.get("data") is None
         assert StationPicture.objects.filter(station=station).exists()
 
     def test_authenticated_user_can_update_existing_picture(self, client, user, station_picture):
