@@ -16,22 +16,24 @@ class Web3LoginService(ResponseMixin):
         self.message = data.get("originalMessage")
         self.signature = data.get("signedMessage")
 
-    def run(self):
+    def run(self) -> Response:
         nonce = self._get_nonce()
 
         if not nonce:
-            return Response({"error": "No nonce found for this wallet address"}, status=status.HTTP_400_BAD_REQUEST)
+            return self.view_response("No nonce found for this wallet address", None, status.HTTP_400_BAD_REQUEST)
 
         if not self._verify_message(nonce.nonce):
-            return Response({"error": "Invalid signing message"}, status=status.HTTP_400_BAD_REQUEST)
+            return self.view_response("Invalid signing message", None, status.HTTP_400_BAD_REQUEST)
 
         if not self._verify_solana_signature():
-            return Response({"error": "Verification failed"}, status=status.HTTP_400_BAD_REQUEST)
+            return self.view_response("Verification failed", None, status.HTTP_400_BAD_REQUEST)
 
         user = self._find_or_create_user()
-        access_token = self._authenticate_user(user['user'])
-        self._save_user_login(user['user'])
-        return Response({"access_token": access_token, "pubkey": user['user'].pubkey, "favorite_tracks": user['track_tids']}, status=status.HTTP_200_OK)
+        access_token = self._authenticate_user(user)
+        track_tids = self._get_user_favorite_tracks(user)
+        self._save_user_login(user)
+        data = {"access_token": access_token, "pubkey": user.pubkey, "favorite_tracks": track_tids} 
+        return self.view_response("Logged in successfully!", data, status.HTTP_200_OK)
 
     def _get_nonce(self):
         return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
