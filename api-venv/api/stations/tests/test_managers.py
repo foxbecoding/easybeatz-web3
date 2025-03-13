@@ -4,6 +4,8 @@ from django.utils.timezone import now
 from users.models import User
 from users.tests.conftest import default_user
 from albums.tests.conftest import default_album, default_track
+from genres.tests.conftest import default_genre
+from moods.tests.conftest import default_mood
 from stations.models import Station, StationPicture
 from stations.tests.factories import StationFactory
 
