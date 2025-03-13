@@ -7,6 +7,7 @@ from ..models import User, UserLoginNonce
 from ..signals.user_login_signal import web3_login_done
 from ..utils import web3_login_message_generator
 from albums.models import TrackFavorite
+from core.mixins import ResponseMixin
 
 class Web3LoginService:
     def __init__(self, data) -> None:
