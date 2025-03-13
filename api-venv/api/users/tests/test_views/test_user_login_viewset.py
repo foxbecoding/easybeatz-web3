@@ -4,6 +4,9 @@ from rest_framework.test import APIClient
 from rest_framework.response import Response
 from unittest.mock import patch
 from django.conf import settings
+from django.urls import reverse
+import logging
+from core.mixins import ResponseMixin
 
 @pytest.fixture
 def client():
