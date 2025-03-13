@@ -8,23 +8,10 @@ from django.urls import reverse
 import logging
 from core.mixins import ResponseMixin
 
-@pytest.fixture
-def client():
-    """Fixture for the API client."""
-    settings.SECURE_SSL_REDIRECT = False  # Disable automatic redirect to HTTPS
-    return APIClient()
+logger = logging.getLogger("users")
 
-@pytest.fixture
-def valid_data():
-    """Fixture for valid data to send to the view."""
-    return {
-        "pubkey": "D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
-        "signedMessage": {  # Correct format for BinaryField
-            "type": "Buffer",
-            "data": [100, 200, 150, 50, 255, 30]  # Example byte values
-        },
-        "originalMessage": "Mocked Original Message",  # Must match web3_login_message_generator
-    }
+@pytest.mark.django_db
+class TestUserLoginViewSet(ResponseMixin):
 
 @pytest.fixture
 def invalid_data():
