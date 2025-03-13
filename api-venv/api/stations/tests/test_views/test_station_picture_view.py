@@ -90,4 +90,8 @@ class TestStationPictureViewSet:
         url = reverse("station-picture-upload")  # Update with your actual URL name
         response = client.post(url, data, format="multipart")
 
-        assert "error" in response.data
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Invalid image format"
+        assert response.data.get("data") is not None
+         
+
