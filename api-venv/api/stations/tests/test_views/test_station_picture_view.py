@@ -71,6 +71,8 @@ class TestStationPictureViewSet:
         response = client.post(url, data, format="multipart")
 
         assert response.status_code == status.HTTP_200_OK
+        assert response.data.get("message") == "Picture uploaded successfully!"
+        assert response.data.get("data") is None
 
     def test_unauthenticated_user_cannot_upload(self, client):
         image = SimpleUploadedFile("test.jpg", b"file_content", content_type="image/jpeg")
