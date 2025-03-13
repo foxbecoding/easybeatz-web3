@@ -11,11 +11,6 @@ import io
 import tempfile
 
 @pytest.fixture
-def mood(db, default_mood):
-    """Creates mood fixture"""
-    return default_mood
-
-@pytest.fixture
 def test_mp3_file():
     """Creates a temporary MP3 file for testing."""
     with tempfile.NamedTemporaryFile(suffix="mp3", delete=False) as tmp_file:
