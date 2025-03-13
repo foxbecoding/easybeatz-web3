@@ -71,4 +71,20 @@ class TestUserLoginViewSet(ResponseMixin):
             mock_service_instance.run.assert_called_once()
             MockService.return_value.run.assert_called_once()
 
+    # Test for invalid request
+    @pytest.mark.django_db
+    def test_create_user_login_invalid(self, client, invalid_data):
+        """Test that invalid data returns a 400 Bad Request with error details."""
+
+        # Send POST request to the view with invalid data
+        url = reverse("web3-login-list")
+        response = client.post(url, invalid_data, format="json")
+
+        # Check that the response status is 400 Bad Request
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+        # Ensure that error details are returned
+        assert response.data.get("message") == "Login failed, please try again."
+        assert response.data.get("data") is not None
+        assert "signedMessage" in response.data.get("data")
 
