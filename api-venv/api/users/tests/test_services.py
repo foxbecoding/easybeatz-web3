@@ -32,7 +32,8 @@ class TestWeb3LoginService:
         response = service.run()
         
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-        assert response.data == {"error": "Invalid signing message"}
+        assert response.data.get("message") == "Invalid signing message"
+        assert response.data.get("data") is None
 
     @patch("users.models.UserLoginNonce.objects.filter")
     @patch("users.utils.web3_login_message_generator")
