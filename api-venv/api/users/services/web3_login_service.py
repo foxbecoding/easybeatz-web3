@@ -67,8 +67,10 @@ class Web3LoginService(ResponseMixin):
     def _find_or_create_user(self) -> User:
         user, _ = User.objects.get_or_create(pubkey=self.pubkey)
         return user
+
+    def _get_user_favorite_tracks(self, user: User):
         track_tids = TrackFavorite.objects.filter(user=user).values_list('track__tid', flat=True)
-        return {"user": user, "track_tids": list(track_tids) }
+        return list(track_tids)
 
     def _authenticate_user(self, user: User) -> str:
         refresh = RefreshToken.for_user(user)
