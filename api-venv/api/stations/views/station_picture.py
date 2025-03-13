@@ -8,13 +8,12 @@ from ..models import Station, StationPicture
 from users.models import User
 from core.mixins import ResponseMixin
 
-class StationPictureViewSet(viewsets.ViewSet):
+class StationPictureViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
         needs_auth = ['upload']
         if self.action in needs_auth: permission_classes = [IsAuthenticated, HasStation]
         return [permission() for permission in permission_classes]
-
 
     @action(detail=False, methods=['post'])
     def upload(self, request):
