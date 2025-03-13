@@ -11,11 +11,6 @@ import io
 import tempfile
 
 @pytest.fixture
-def genre(db, default_genre):
-    """Creates genre fixture"""
-    return default_genre
-
-@pytest.fixture
 def mood(db, default_mood):
     """Creates mood fixture"""
     return default_mood
