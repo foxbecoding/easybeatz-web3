@@ -13,29 +13,36 @@ logger = logging.getLogger("users")
 @pytest.mark.django_db
 class TestUserLoginViewSet(ResponseMixin):
 
-@pytest.fixture
-def invalid_data():
-    """Fixture for invalid data."""
-    return {
-        "pubkey": "D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
-        # Missing signature field or invalid format
-    }
+    @pytest.fixture
+    def client(self):
+        """Fixture for the API client."""
+        settings.SECURE_SSL_REDIRECT = False  # Disable automatic redirect to HTTPS
+        return APIClient()
 
-# Test for valid request
-@pytest.mark.django_db
-def test_create_user_login_valid(client, valid_data):
-    """Test that valid data creates a user login and returns the correct response."""
+    @pytest.fixture
+    def valid_data(self):
+        """Fixture for valid data to send to the view."""
+        return {
+            "pubkey": "D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
+            "signedMessage": {  # Correct format for BinaryField
+                "type": "Buffer",
+                "data": [100, 200, 150, 50, 255, 30]  # Example byte values
+            },
+            "originalMessage": "Mocked Original Message",  # Must match web3_login_message_generator
+        }
 
-    with patch("users.views.login.Web3LoginService") as MockService:
-        # Mock the service instance
-        mock_service_instance = MockService.return_value
-        mock_service_instance.run.return_value = Response({
-            "access_token": "mocked_access_token",
-            "pubkey": valid_data["pubkey"]
-        })
+    @pytest.fixture
+    def invalid_data(self):
+        """Fixture for invalid data."""
+        return {
+            "pubkey": "D3c6JWSDHXsUCHf8uuQ9raYmDnbnCHTvb5FHHvNrdjPF",
+            # Missing signature field or invalid format
+        }
 
-        # Send POST request to the view
-        response = client.post("/api/web3-login/", valid_data, format="json")
+    # Test for valid request
+    @pytest.mark.django_db
+    def test_create_user_login_valid(self, client, valid_data):
+        """Test that valid data creates a user login and returns the correct response."""
 
         # Ensure the response status is 200 OK
         assert response.status_code == status.HTTP_200_OK
