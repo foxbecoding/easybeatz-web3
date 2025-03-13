@@ -64,7 +64,7 @@ class Web3LoginService(ResponseMixin):
             print(f"Verification failed: {e}")
             return False
 
-    def _find_or_create_user(self):
+    def _find_or_create_user(self) -> User:
         user, _ = User.objects.get_or_create(pubkey=self.pubkey)
         track_tids = TrackFavorite.objects.filter(user=user).values_list('track__tid', flat=True)
         return {"user": user, "track_tids": list(track_tids) }
