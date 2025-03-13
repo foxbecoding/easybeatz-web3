@@ -4,6 +4,7 @@ from rest_framework.test import APIClient
 from unittest.mock import patch
 from users.models import UserLoginNonce
 from django.conf import settings
+from django.urls import reverse
 
 @pytest.fixture
 def client():
