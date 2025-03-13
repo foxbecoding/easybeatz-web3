@@ -9,7 +9,7 @@ from ..utils import web3_login_message_generator
 from albums.models import TrackFavorite
 from core.mixins import ResponseMixin
 
-class Web3LoginService:
+class Web3LoginService(ResponseMixin):
     def __init__(self, data) -> None:
         self.validated_data = data
         self.pubkey = data.get("pubkey")
