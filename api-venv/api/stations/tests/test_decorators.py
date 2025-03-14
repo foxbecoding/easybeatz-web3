@@ -48,4 +48,5 @@ class TestCheckUserPubkey:
         response = view(request, pk="wrong_pubkey")  # ❌ Mismatched pubkey
 
         assert response.status_code == 401
-        assert response.data["error"] == "Unauthorized"
+        assert response.data.get("message") == "Unauthorized"
+        assert response.data.get("data") is None
