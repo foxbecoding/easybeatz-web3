@@ -5,6 +5,7 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 import pytest
 from stations.decorators import check_user_pubkey
 from users.tests.conftest import default_user
+from core.mixins import ResponseMixin
 import logging
 
 # Configure logging
