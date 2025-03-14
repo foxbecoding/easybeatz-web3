@@ -33,10 +33,10 @@ const { data, error, status, } = await useLazyFetch(fetchPath, {
   }
 });
 
-const toast = useToast();
+const station = computed(() => data.value.data as Station)
 
 const submitHandler = async () => {
-  toast.setToast('Station upated', 'SUCCESS')
+  useToast().setToast('Station upated', 'SUCCESS')
 }
 
 </script>
