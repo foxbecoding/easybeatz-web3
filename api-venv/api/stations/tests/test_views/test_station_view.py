@@ -58,6 +58,8 @@ class TestStationViewSet:
         response = client.post(url, data, format="json")
         
         assert response.status_code == 201
+        assert response.data.get("message") == "Station created successfully!"
+        assert response.data.get("data") is None
         assert Station.objects.filter(name="My Station").exists()
 
     def test_create_station_error(self, client, user):
