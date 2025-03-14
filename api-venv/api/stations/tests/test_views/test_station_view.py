@@ -106,7 +106,9 @@ class TestStationViewSet:
 
         response = client.put(url, invalid_data, format="json")
         
-        assert "error" in response.data
+        assert response.status_code == 400
+        assert response.data.get("message") == "Failed to update station"
+        assert response.data.get("data") is not None
 
     def test_has_station(self, client, user, station):
         """Test if a user has a station."""
