@@ -40,7 +40,7 @@ class StationViewSet(viewsets.ViewSet, ResponseMixin):
     def has_station(self, request):
         user_pubkey = str(request.user)
         qs_exists = Station.objects.select_related("user").filter(user__pubkey=user_pubkey).exists()
-        return Response(qs_exists, status=status.HTTP_200_OK)
+        return self.view_response(None, qs_exists, status.HTTP_200_OK)
 
     @action(detail=True, methods=['get'])
     def retrieve_with_albums_and_relations(self, request, pk=None):
