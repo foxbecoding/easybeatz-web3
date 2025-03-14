@@ -17,7 +17,7 @@ class StationViewSet(viewsets.ViewSet, ResponseMixin):
     def create(self, request): 
         serializer = StationSerializer(data=request.data, context={"request": request})
         if not serializer.is_valid():
-            return self.view_response(None, serializer.errors, status.HTTP_400_BAD_REQUEST)
+            return self.view_response("Failed to create station", serializer.errors, status.HTTP_400_BAD_REQUEST)
         serializer.save(user=request.user)
         return self.view_response("Station created successfully!", None, status.HTTP_201_CREATED)
 
