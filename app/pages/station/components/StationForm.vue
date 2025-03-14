@@ -32,11 +32,11 @@ const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
 const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
-const modelHandler = async () => {
+const submitRequestRouter = async () => {
   if (props.type == 'CREATE') {
-    return await createStation(form);
+    return createStation(form);
   }
-  return await updateStation(String(props.pubkey), form);
+  return updateStation(String(props.pubkey), form);
 }
 
 const submitHandler = async () => {
