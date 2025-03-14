@@ -55,12 +55,14 @@ const triggerFileInput = () => {
 const uploadPicture = async (file: File) => {
   const formData = new FormData;
   formData.append('picture', file);
-  const res = await uploadStationPicture(formData);
-  const toast = useToast();
-  if (!res.error) {
+  try {
+    const { message, data } = await uploadStationPicture(formData);
     await refresh()
-    toast.setToast("Picture uploaded successfully", "SUCCESS");
-    return;
+    useToast().setToast(message, "SUCCESS");
+  } catch (error: any) {
+    const { message, data } = error.data;
+    await refresh()
+    useToast().setToast(message, "ERROR");
   }
 }
 
