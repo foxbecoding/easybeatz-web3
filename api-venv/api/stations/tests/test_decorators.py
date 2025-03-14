@@ -12,10 +12,10 @@ import logging
 logger = logging.getLogger("stations")
 
 # ✅ Test View that applies the decorator
-class TestView(APIView):
+class TestView(APIView, ResponseMixin):
     @check_user_pubkey
     def get(self, request, *args, **kwargs):
-        return Response({"message": "Success"}, status=status.HTTP_200_OK)
+        return self.view_response("Success", None, status.HTTP_200_OK)
 
 @pytest.mark.django_db
 class TestCheckUserPubkey:
