@@ -25,9 +25,6 @@ export const getStation = async (pubkey: string): Promise<Station> => {
     const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
     const apiData: ApiData = { method: 'GET', path: fetchPath };
     const res = await useApi(apiData);
-    if (res.error) {
-        console.error(res.error);
-    }
     return res
 }
 
