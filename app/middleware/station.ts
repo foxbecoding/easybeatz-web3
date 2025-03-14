@@ -3,9 +3,9 @@ import { hasStationChecker } from "@/services/models/station";
 export default defineNuxtRouteMiddleware(async (to, from) => {
   let hasStation = false;
   try {
-    hasStation = await hasStationChecker();
+    const { message, data } = await hasStationChecker();
+    hasStation = data;
   } catch (e) {
-    console.error(e);
     return navigateTo({ name: "index" });
   }
   if ((to.name == 'station-edit' && !hasStation)
