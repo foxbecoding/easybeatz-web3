@@ -21,7 +21,7 @@ const config = useRuntimeConfig();
 const pubkey = userStore.pubkey as string;
 const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
 
-const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
+const { data, error, status, } = await useLazyFetch(fetchPath, {
   server: false,
   key: `station-edit-${pubkey}`,
   onRequest({ request, options }) {
