@@ -93,6 +93,8 @@ class TestStationViewSet:
 
         response = client.put(url, data, format="json")
         assert response.status_code == 200
+        assert response.data.get("message") == "Station updated"
+        assert response.data.get("data") is not None
         station.refresh_from_db()
         assert station.name == "Updated Station"
 
