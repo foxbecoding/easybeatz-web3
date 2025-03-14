@@ -28,14 +28,11 @@ export const getStation = async (pubkey: string): Promise<Station> => {
     return res
 }
 
-export const createStation = async (data: object): Promise<Station> => {
+export const createStation = async (data: object): Promise<any> => {
     const config = useRuntimeConfig();
     const fetchPath = `${config.public.API_STATION}/`;
     const apiData: ApiData = { method: 'POST', path: fetchPath, data };
     const res = await useApi(apiData);
-    if (res.error) {
-        console.error(res.error);
-    }
     return res
 }
 
