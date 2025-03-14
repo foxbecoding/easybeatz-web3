@@ -34,7 +34,8 @@ class TestCheckUserPubkey:
         response = view(request, pk=default_user.pubkey)  # ✅ Matching user.pubkey
 
         assert response.status_code == 200
-        assert response.data["message"] == "Success"
+        assert response.data.get("message") == "Success"
+        assert response.data.get("data") is None
 
     def test_unauthorized_request(self, factory, default_user):
         """Test case where the user is unauthorized."""
