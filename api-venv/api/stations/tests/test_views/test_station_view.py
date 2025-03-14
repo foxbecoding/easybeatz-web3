@@ -70,7 +70,9 @@ class TestStationViewSet:
 
         response = client.post(url, invalid_data, format="json")
         
-        assert "error" in response.data
+        assert response.status_code == 400
+        assert response.data.get("message") == "Failed to create station"
+        assert response.data.get("data") is not None
 
     def test_retrieve_station(self, client, user, station):
         """Test retrieving a station with correct user."""
