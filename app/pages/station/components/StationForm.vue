@@ -41,14 +41,21 @@ const submitRequestRouter = async () => {
 
 const submitHandler = async () => {
   isLoading.value = true;
-  const res = await modelHandler();
-  if (res.error) {
-    errorHandler(res);
+  try {
+    const { message, data } = await submitRequestRouter() as any;
+    if (message) {
+      useToast().setToast(message, 'SUCCESS');
+    }
+    setTimeout(() => { isLoading.value = false }, 3000);
+    emit('submit');
+  } catch (error: any) {
+    const { message, data } = error.data;
+    if (message) {
+      useToast().setToast(message, 'ERROR');
+    }
     setTimeout(() => { isLoading.value = false }, 1000);
-    return
+    errorHandler(data);
   }
-  setTimeout(() => { isLoading.value = false }, 3000);
-  emit('submit')
 }
 
 const errorHandler = (res: any) => {
