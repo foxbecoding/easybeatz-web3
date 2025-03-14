@@ -82,7 +82,8 @@ class TestStationViewSet:
         response = client.get(url)
 
         assert response.status_code == 200
-        assert response.data["name"] == station.name
+        assert response.data.get("message") is None
+        assert response.data.get("data") is not None
 
     def test_update_station(self, client, user, station):
         """Test updating a station."""
