@@ -8,7 +8,7 @@ from ..models import Station
 from ..decorators import check_user_pubkey
 from core.mixins import ResponseMixin
 
-class StationViewSet(viewsets.ViewSet):
+class StationViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
         needs_auth = ['partial_update', 'update', 'create', 'has_station', 'retrieve']
@@ -18,9 +18,9 @@ class StationViewSet(viewsets.ViewSet):
     def create(self, request): 
         serializer = StationSerializer(data=request.data, context={"request": request})
         if not serializer.is_valid():
-            return Response({"error": serializer.errors})
+            return self.view_response(None, serializer.errors, status.HTTP_400_BAD_REQUEST)
         serializer.save(user=request.user)
-        return Response("Station Created", status=status.HTTP_201_CREATED)
+        return self.view_response("Station created successfully!", None, status.HTTP_201_CREATED)
 
     @check_user_pubkey
     def retrieve(self, request, pk=None):
