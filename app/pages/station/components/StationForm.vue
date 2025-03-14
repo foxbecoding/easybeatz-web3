@@ -59,7 +59,7 @@ const submitHandler = async () => {
 }
 
 const errorHandler = (res: any) => {
-  const obj = res.error
+  const obj = res;
   Object.keys(formErrors).forEach(key => {
     if (key in obj) {
       formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
