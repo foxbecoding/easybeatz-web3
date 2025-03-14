@@ -9,7 +9,7 @@ from core.mixins import ResponseMixin
 import logging
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger("stations")
 
 # ✅ Test View that applies the decorator
 class TestView(APIView):
