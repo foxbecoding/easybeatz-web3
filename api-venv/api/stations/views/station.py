@@ -25,7 +25,7 @@ class StationViewSet(viewsets.ViewSet, ResponseMixin):
     def retrieve(self, request, pk=None):
         qs = Station.objects.select_related("user").get(user__pubkey=str(pk))
         serialized_station = StationSerializer(qs).data
-        return Response(serialized_station, status=status.HTTP_200_OK)
+        return self.view_response(None, serialized_station, status.HTTP_200_OK)
 
     @check_user_pubkey
     def update(self, request, pk=None):
