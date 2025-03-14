@@ -51,9 +51,9 @@ class StationViewSet(viewsets.ViewSet, ResponseMixin):
         qs = Station.stations.with_albums_and_relations(user_pubkey)
 
         if not qs:
-            return Response({"error": "No Station", "is_owner": is_owner}, status=status.HTTP_404_NOT_FOUND) 
+            return self.view_response("No station found", {"is_owner": is_owner}, status.HTTP_404_NOT_FOUND) 
 
         serialized_data = StationWithAlbumsAndRelationsSerializer(qs, context={"is_owner": is_owner}).data
-        return Response(serialized_data, status=status.HTTP_200_OK)
+        return self.view_response(None, serialized_data, status.HTTP_200_OK)
 
 
