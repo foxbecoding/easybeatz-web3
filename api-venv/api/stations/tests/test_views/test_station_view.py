@@ -118,7 +118,8 @@ class TestStationViewSet:
         response = client.get(url)
 
         assert response.status_code == 200
-        assert response.data is True  # Because station exists
+        assert response.data.get("message") is None
+        assert response.data.get("data") == True
 
     def test_retrieve_with_albums_and_relations_error(self, client, user, station, station_picture, album, album_cover, track, default_genre, default_mood, test_img_file):
         """Test retrieving a station with albums and relations."""
