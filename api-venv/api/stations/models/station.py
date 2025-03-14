@@ -22,7 +22,8 @@ class Station(models.Model):
 
     @property
     def picture_url(self):
-        return self.picture.picture_url if self.picture else None
+        picture = getattr(self, 'picture', None)  # Avoid exception if related object doesn't exist
+        return picture.picture_url if picture else None
 
     @property
     def formatted_launched_date(self):
