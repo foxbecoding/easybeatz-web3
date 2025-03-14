@@ -32,9 +32,9 @@ class StationViewSet(viewsets.ViewSet, ResponseMixin):
         qs = Station.objects.select_related("user").get(user__pubkey=str(pk))
         serializer = StationSerializer(qs, data=request.data)
         if not serializer.is_valid():
-            return Response({"error": serializer.errors})
+            return self.view_response("Failed to update station", serializer.errors, status.HTTP_400_BAD_REQUEST)
         serializer.save()
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return self.view_response("Station updated", serializer.validated_data, status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'])
     def has_station(self, request):
