@@ -27,4 +27,7 @@ const { data: fetchedMoods, status: mood_status } = await useLazyFetch(fetchMood
   key: `station-moods-for-project-create`,
 });
 
+const genres = computed<Genre[]>(() => fetchedGenres.value.data as Genre[]);
+const moods = computed<Mood[]>(() => fetchedMoods.value.data as Mood[]);
+
 </script>
