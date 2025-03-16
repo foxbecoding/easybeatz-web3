@@ -14,4 +14,4 @@ class MoodViewSet(viewsets.ViewSet, ResponseMixin):
         query_set = Mood.objects.all()
         serializer = MoodSerializer(query_set, many=True)
         data = serializer.data
-        return Response(data, status=status.HTTP_200_OK)
+        return self.view_response(None, data, status.HTTP_200_OK)
