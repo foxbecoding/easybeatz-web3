@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 from ..models import Mood
 from ..serializers import MoodSerializer
+from core.mixins import ResponseMixin
 
 class MoodViewSet(viewsets.ViewSet):
     def get_permissions(self):
