@@ -25,7 +25,6 @@ const submitHandler = async () => {
     return;
   }
   isLoading.value = false;
-  useToast().setToast('Project created', 'INFO');
 };
 </script>
 

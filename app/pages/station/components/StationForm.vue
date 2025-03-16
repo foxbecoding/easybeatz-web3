@@ -32,27 +32,34 @@ const formHandleError = computed(() => formErrors.handle ? inputErrorClass : '')
 const formEmailError = computed(() => formErrors.email ? inputErrorClass : '')
 const formDescriptionError = computed(() => formErrors.description ? 'textarea-error' : '')
 
-const modelHandler = async () => {
+const submitRequestRouter = async () => {
   if (props.type == 'CREATE') {
-    return await createStation(form);
+    return createStation(form);
   }
-  return await updateStation(String(props.pubkey), form);
+  return updateStation(String(props.pubkey), form);
 }
 
 const submitHandler = async () => {
   isLoading.value = true;
-  const res = await modelHandler();
-  if (res.error) {
-    errorHandler(res);
+  try {
+    const { message, data } = await submitRequestRouter() as any;
+    if (message) {
+      useToast().setToast(message, 'SUCCESS');
+    }
+    setTimeout(() => { isLoading.value = false }, 3000);
+    emit('submit');
+  } catch (error: any) {
+    const { message, data } = error.data;
+    if (message) {
+      useToast().setToast(message, 'ERROR');
+    }
     setTimeout(() => { isLoading.value = false }, 1000);
-    return
+    errorHandler(data);
   }
-  setTimeout(() => { isLoading.value = false }, 3000);
-  emit('submit')
 }
 
 const errorHandler = (res: any) => {
-  const obj = res.error
+  const obj = res;
   Object.keys(formErrors).forEach(key => {
     if (key in obj) {
       formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];

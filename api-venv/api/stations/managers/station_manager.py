@@ -9,13 +9,19 @@ class StationManager(models.Manager):
         # Ensure `user_pubkey` is iterable
         query_filter = Q(user__pubkey=user_pubkey) if isinstance(user_pubkey, str) else Q(user__pubkey__in=user_pubkey)
 
-        queryset = self.select_related(
-            "picture",
-            "user"
-        ).only(
-            "description", "email", "handle", "name",
-            "picture__picture"
-        ).prefetch_related(
+        queryset = self.select_related("user")
+
+        # Check if any station has a related picture
+        if self.filter(query_filter, picture__isnull=False).exists():
+            queryset = queryset.select_related("picture").only(
+                "description", "email", "handle", "name", "picture__picture"
+            )
+        else:
+            queryset = queryset.only(
+                "description", "email", "handle", "name"
+            )
+
+        queryset = queryset.prefetch_related(
             Prefetch(
                 'albums',
                 queryset=Album.objects

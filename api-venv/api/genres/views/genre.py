@@ -1,11 +1,11 @@
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 from ..models import Genre
 from ..serializers import GenreSerializer
+from core.mixins import ResponseMixin
 
-class GenreViewSet(viewsets.ViewSet):
+class GenreViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]
@@ -14,5 +14,5 @@ class GenreViewSet(viewsets.ViewSet):
         query_set = Genre.objects.all()
         serializer = GenreSerializer(query_set, many=True)
         data = serializer.data
-        return Response(data, status=status.HTTP_200_OK)
+        return self.view_response(None, data, status.HTTP_200_OK)
 

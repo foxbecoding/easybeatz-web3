@@ -37,25 +37,41 @@ export const useAuth = () => {
       }
     }
 
-    const res = await useApi(apiData);
-
-    if (res.error) {
-      throw new Error(`authenticateNonce() - Response status: ${res.error}`);
+    try {
+      const res = await useApi(apiData);
+      _setDataAfterLogin(res);
+    } catch (error: any) {
+      const { message, data } = error.data;
+      if (message) {
+        useToast().setToast(message, "ERROR");
+      }
     }
+  }
 
-    userStore.setUserData(res.pubkey, res.favorite_tracks);
-    authStore.setAuthData(res.access_token, true);
-    setTokenTimer(res.access_token);
+  const _setDataAfterLogin = (res: any) => {
+    const { message, data } = res;
+    if (message) {
+      useToast().setToast(message, "INFO")
+    }
+    userStore.setUserData(data.pubkey, data.favorite_tracks);
+    authStore.setAuthData(data.access_token, true);
+    setTokenTimer(data.access_token);
   }
 
   const logout = async () => {
-    //backend logout
     const apiData: ApiData = { method: 'POST', path: `${config.public.API_LOGOUT}/` };
-    await useApi(apiData);
-    authStore.clearAuthData();
-    userStore.clearUserData();
-    useRouter().push({ name: "index" });
 
+    try {
+      const { message, data } = await useApi(apiData);
+      authStore.clearAuthData();
+      userStore.clearUserData();
+      useRouter().push({ name: "index" });
+      if (message) {
+        useToast().setToast(message, "INFO");
+      }
+    } catch (error: any) {
+      useToast().setToast("Internal error, please try again.", "ERROR");
+    }
   }
 
   const setTokenTimer = (token: string) => {

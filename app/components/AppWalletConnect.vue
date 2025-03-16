@@ -13,17 +13,25 @@ const connectWallet = async () => {
       const response = await window.phantom.solana.connect();
       walletAddress.value = response.publicKey.toString();
 
-      //Request login nonce
-      const { message } = await requestLoginNonce(walletAddress.value) as any;
+      try {
+        //Request login nonce
+        const { message, data } = await requestLoginNonce(walletAddress.value) as any;
 
-      // Request the user to sign the message
-      const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(message));
+        // Request the user to sign the message
+        const signedMessage = await window.phantom.solana.signMessage(new TextEncoder().encode(data.message));
 
-      // Now that the wallet is connected, authenticate user
-      await authenticateUser(signedMessage.signature, message);
+        // Now that the wallet is connected, authenticate user
+        await authenticateUser(signedMessage.signature, data.message);
+      } catch (error: any) {
+        const { message, data } = error.data
+        if (message) {
+          useToast().setToast(message, "ERROR");
+        }
+      }
+
       isConnecting.value = false;
     } catch (error) {
-      console.error("Failed to connect wallet", error);
+      //console.error("Failed to connect wallet", error);
       isConnecting.value = false;
     }
   } else {

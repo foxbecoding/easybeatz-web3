@@ -21,7 +21,7 @@ const config = useRuntimeConfig();
 const pubkey = userStore.pubkey as string;
 const fetchPath = `${config.public.API_STATION}/${pubkey}/`;
 
-const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath, {
+const { data, error, status, } = await useLazyFetch(fetchPath, {
   server: false,
   key: `station-edit-${pubkey}`,
   onRequest({ request, options }) {
@@ -33,10 +33,10 @@ const { data: station, error, status, } = await useLazyFetch<Station>(fetchPath,
   }
 });
 
-const toast = useToast();
+const station = computed(() => data.value.data as Station)
 
 const submitHandler = async () => {
-  toast.setToast('Station upated', 'SUCCESS')
+  useToast().setToast('Station upated', 'SUCCESS')
 }
 
 </script>

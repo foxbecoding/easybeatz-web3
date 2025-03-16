@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.conf import settings
+from django.urls import reverse
 
 @pytest.fixture
 def client():
@@ -23,10 +24,13 @@ def test_user_logout_view(client, default_user):
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
 
     # Send a POST request to logout
-    response = client.post("/api/logout/")  # Adjust URL based on your routes
+    url = reverse("logout-list")
+    response = client.post(url)  # Adjust URL based on your routes
     
     # Check response status
     assert response.status_code == 200  # Expect HTTP 200 OK
+    assert response.data.get("message") == "Logged out successfully"
+    assert response.data.get("data") is None
 
     # Ensure authentication credentials are removed
     client.credentials()  # Reset credentials

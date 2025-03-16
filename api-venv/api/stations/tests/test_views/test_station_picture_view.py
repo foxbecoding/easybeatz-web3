@@ -50,7 +50,8 @@ class TestStationPictureViewSet:
         response = client.post(url, data, format="multipart")
         
         assert response.status_code == status.HTTP_200_OK
-        assert "Picture uploaded successfully" in response.data
+        assert response.data.get("message") == "Picture uploaded successfully!"
+        assert response.data.get("data") is None
         assert StationPicture.objects.filter(station=station).exists()
 
     def test_authenticated_user_can_update_existing_picture(self, client, user, station_picture):
@@ -70,6 +71,8 @@ class TestStationPictureViewSet:
         response = client.post(url, data, format="multipart")
 
         assert response.status_code == status.HTTP_200_OK
+        assert response.data.get("message") == "Picture uploaded successfully!"
+        assert response.data.get("data") is None
 
     def test_unauthenticated_user_cannot_upload(self, client):
         image = SimpleUploadedFile("test.jpg", b"file_content", content_type="image/jpeg")
@@ -87,4 +90,26 @@ class TestStationPictureViewSet:
         url = reverse("station-picture-upload")  # Update with your actual URL name
         response = client.post(url, data, format="multipart")
 
-        assert "error" in response.data
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Invalid image format"
+        assert response.data.get("data") is not None
+         
+
+    def test_user_without_station_cannot_upload_picture(self, client, user):
+        client.force_authenticate(user=user)
+        image = Image.new("RGB", (100, 100), color="red")
+        image_io = io.BytesIO()
+        image.save(image_io, format="JPEG")
+        image_io.seek(0)
+        uploaded_image =SimpleUploadedFile(
+            "test_image2.jpg",
+            image_io.getvalue(),
+            content_type="image/jpeg"
+        )
+
+        data = {"picture": uploaded_image}
+
+        url = reverse("station-picture-upload")  # Update with your actual URL name
+        response = client.post(url, data, format="multipart")
+        
+        assert response.status_code == status.HTTP_403_FORBIDDEN
