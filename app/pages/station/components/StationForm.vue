@@ -71,17 +71,17 @@ const errorHandler = (res: any) => {
 </script>
 
 <template>
-  <div>
+  <div class="max-w-[600px] flex flex-col gap-4">
     <h1 class="text-3xl font-bold">{{ props.title }}</h1>
 
-    <form id="form" class="mt-8">
-      <label class="form-control w-full max-w-lg">
+    <form id="form" class="w-full">
+      <label class="form-control w-full">
         <div class="label flex flex-col items-start">
           <span class="label-text text-lg font-bold">Name</span>
           <span class="label-text">Choose a station name that represents your brand and content.</span>
         </div>
         <input v-model="form.name" id="name" name="name" type="text" placeholder="Enter station name"
-          class="input input-ghost bg-neutral w-full max-w-lg" :class="formNameError" />
+          class="input input-ghost bg-neutral w-full" :class="formNameError" />
         <div class="label" :class="!formErrors.name ? 'invisible' : ''">
           <span class="label-text-alt text-error">
             {{ formErrors.name }}
@@ -89,7 +89,7 @@ const errorHandler = (res: any) => {
         </div>
       </label>
 
-      <label class="form-control w-full max-w-lg">
+      <label class="form-control w-full">
         <div class="label flex flex-col items-start">
           <span class="label-text text-lg font-bold">Handle</span>
           <span class="label-text">Choose your unique handle by adding letters and numbers.</span>
@@ -97,7 +97,7 @@ const errorHandler = (res: any) => {
         <label class="input input-ghost bg-neutral flex items-center" :class="formHandleError">
           <Icon icon="streamline:sign-at-solid" />
           <input v-model="form.handle" id="handle" name="handle" type="text" placeholder="Set your handle"
-            class="grow w-full max-w-lg" />
+            class="grow w-full" />
         </label>
         <div class="label" :class="!formErrors.handle ? 'invisible' : ''">
           <span class="label-text-alt text-error">
@@ -106,13 +106,13 @@ const errorHandler = (res: any) => {
         </div>
       </label>
 
-      <label class="form-control w-full max-w-lg">
+      <label class="form-control w-full">
         <div class="label flex flex-col items-start">
           <span class="label-text text-lg font-bold">Email</span>
           <span class="label-text">Let people know how to contact you with business inquiries</span>
         </div>
         <input v-model="form.email" id="email" name="email" type="email" placeholder="Provide email address"
-          class="input input-ghost bg-neutral w-full max-w-lg" :class="formEmailError" />
+          class="input input-ghost bg-neutral w-full" :class="formEmailError" />
         <div class="label" :class="!formErrors.email ? 'invisible' : ''">
           <span class="label-text-alt text-error">
             {{ formErrors.email }}
@@ -120,12 +120,12 @@ const errorHandler = (res: any) => {
         </div>
       </label>
 
-      <label class="form-control w-full max-w-lg">
+      <label class="form-control w-full">
         <div class="label">
           <span class="label-text text-lg font-bold">Description(optional)</span>
         </div>
         <textarea v-model="form.description" id="description" name="description"
-          class="textarea textarea-ghost bg-neutral w-full max-w-lg h-48" :class="formDescriptionError"
+          class="textarea textarea-ghost bg-neutral w-full h-48" :class="formDescriptionError"
           placeholder="Tell listeners about your station."></textarea>
         <div class="label">
           <span class="label-text-alt text-error" :class="!formErrors.description ? 'invisible' : ''">
@@ -135,7 +135,7 @@ const errorHandler = (res: any) => {
       </label>
     </form>
 
-    <button @click="!isLoading ? submitHandler() : false" class="btn btn-primary rounded-[1rem] text-lg">
+    <button @click="!isLoading ? submitHandler() : false" class="btn btn-primary rounded-[1rem] btn-block text-lg">
       {{ !isLoading ? 'Submit' : 'Processing' }}
       <span v-if="isLoading" class="loading loading-dots loading-md"></span>
     </button>
