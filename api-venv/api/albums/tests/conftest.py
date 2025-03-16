@@ -11,16 +11,6 @@ import io
 import tempfile
 
 @pytest.fixture
-def genre(db, default_genre):
-    """Creates genre fixture"""
-    return default_genre
-
-@pytest.fixture
-def mood(db, default_mood):
-    """Creates mood fixture"""
-    return default_mood
-
-@pytest.fixture
 def test_mp3_file():
     """Creates a temporary MP3 file for testing."""
     with tempfile.NamedTemporaryFile(suffix="mp3", delete=False) as tmp_file:
@@ -82,31 +72,31 @@ def default_album_cover(db, default_album, test_img_file):
     )
 
 @pytest.fixture
-def default_track(db, default_album, genre, mood):
+def default_track(db, default_album, default_genre, default_mood):
     """Fixture to create a test track."""
     track = Track.objects.create(
         album=default_album,
-        mood=mood,
+        mood=default_mood,
         title="Test Track",
         bpm="120",
         duration=180,  # 3 minutes
         order_no=1,
     )
-    track.genres.add(genre)  # Add the genre to ManyToManyField
+    track.genres.add(default_genre)  # Add the genre to ManyToManyField
     return track
 
 @pytest.fixture
-def default_track_with_an_hour(db, default_album, genre, mood):
+def default_track_with_an_hour(db, default_album, default_genre, default_mood):
     """Fixture to create a test track."""
     track = Track.objects.create(
         album=default_album,
-        mood=mood,
+        mood=default_mood,
         title="Test Track",
         bpm="120",
         duration=3600,  # 3 minutes
         order_no=1,
     )
-    track.genres.add(genre)  # Add the genre to ManyToManyField
+    track.genres.add(default_genre)  # Add the genre to ManyToManyField
     return track
 
 @pytest.fixture

@@ -163,14 +163,26 @@ export const useCreateProjectStore = defineStore("use-create-project-store", () 
     const formData = new FormData;
     albumSubmitData(formData);
     tracksSubmitData(formData);
-    const res = await submitAlbumWithTracks(formData);
-    if (res.errors) {
-      console.error(res.errors)
+
+    try {
+      const res = await submitAlbumWithTracks(formData);
+      clearAlbumForm();
+      tracks.value = [];
+
+      if (res.message) {
+        const msg = res.message;
+        useToast().setToast(msg, 'INFO');
+      }
+
+      return true;
+    } catch (error: any) {
+      if (error.data.message) {
+        const msg = error.data.message;
+        useToast().setToast(msg, "ERROR");
+      }
+
       return false;
     }
-    clearAlbumForm();
-    tracks.value = [];
-    return true;
   }
 
   const albumSubmitData = (formData: FormData) => {

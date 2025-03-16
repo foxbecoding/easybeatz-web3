@@ -15,10 +15,8 @@ definePageMeta({
 
 const userStore = useUserStore();
 const pubkey = userStore.pubkey as string;
-const toast = useToast();
 
 const submitHandler = async () => {
-  toast.setToast('Station created', 'SUCCESS')
   return navigateTo({ name: "station-pubkey", params: { pubkey: pubkey }, replace: true })
 }
 </script>

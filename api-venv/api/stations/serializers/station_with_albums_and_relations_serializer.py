@@ -38,4 +38,4 @@ class StationWithAlbumsAndRelationsSerializer(serializers.ModelSerializer):
         return obj.formatted_launched_date
 
     def get_picture(self, obj):
-        return str(obj.picture_url)
+        return str(obj.picture_url) if obj.picture_url else None 

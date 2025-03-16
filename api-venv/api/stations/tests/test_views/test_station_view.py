@@ -1,10 +1,11 @@
-
 import pytest
 from rest_framework.test import APIClient
 from django.urls import reverse
 from stations.models import Station
 from users.tests.conftest import default_user
-from albums.tests.conftest import default_album, default_album_cover, default_track
+from albums.tests.conftest import default_album, default_album_cover, default_track, test_img_file
+from genres.tests.conftest import default_genre
+from moods.tests.conftest import default_mood
 from django.conf import settings
 import logging
 
@@ -56,6 +57,8 @@ class TestStationViewSet:
         response = client.post(url, data, format="json")
         
         assert response.status_code == 201
+        assert response.data.get("message") == "Station created successfully!"
+        assert response.data.get("data") is None
         assert Station.objects.filter(name="My Station").exists()
 
     def test_create_station_error(self, client, user):
@@ -66,7 +69,9 @@ class TestStationViewSet:
 
         response = client.post(url, invalid_data, format="json")
         
-        assert "error" in response.data
+        assert response.status_code == 400
+        assert response.data.get("message") == "Failed to create station"
+        assert response.data.get("data") is not None
 
     def test_retrieve_station(self, client, user, station):
         """Test retrieving a station with correct user."""
@@ -76,7 +81,8 @@ class TestStationViewSet:
         response = client.get(url)
 
         assert response.status_code == 200
-        assert response.data["name"] == station.name
+        assert response.data.get("message") is None
+        assert response.data.get("data") is not None
 
     def test_update_station(self, client, user, station):
         """Test updating a station."""
@@ -86,6 +92,8 @@ class TestStationViewSet:
 
         response = client.put(url, data, format="json")
         assert response.status_code == 200
+        assert response.data.get("message") == "Station updated"
+        assert response.data.get("data") is not None
         station.refresh_from_db()
         assert station.name == "Updated Station"
 
@@ -97,7 +105,9 @@ class TestStationViewSet:
 
         response = client.put(url, invalid_data, format="json")
         
-        assert "error" in response.data
+        assert response.status_code == 400
+        assert response.data.get("message") == "Failed to update station"
+        assert response.data.get("data") is not None
 
     def test_has_station(self, client, user, station):
         """Test if a user has a station."""
@@ -107,9 +117,10 @@ class TestStationViewSet:
         response = client.get(url)
 
         assert response.status_code == 200
-        assert response.data is True  # Because station exists
+        assert response.data.get("message") is None
+        assert response.data.get("data") == True
 
-    def test_retrieve_with_albums_and_relations_error(self, client, user, station, station_picture, album, album_cover, track):
+    def test_retrieve_with_albums_and_relations(self, client, user, station, station_picture, album, album_cover, track, default_genre, default_mood, test_img_file):
         """Test retrieving a station with albums and relations."""
         client.force_authenticate(user=user)
         url = reverse("station-retrieve-with-albums-and-relations", kwargs={"pk": user.pubkey})
@@ -117,9 +128,10 @@ class TestStationViewSet:
         response = client.get(url)
 
         assert response.status_code == 200
-        assert "error" not in response.data  # Should not return an error
+        assert response.data.get("message") is None
+        assert response.data.get("data") is not None
 
-    def test_retrieve_with_albums_and_relations(self, client, user, station, station_picture, album, album_cover, track):
+    def test_retrieve_with_albums_and_relations_error(self, client, user, station, station_picture, album, album_cover, track, default_genre, default_mood, test_img_file):
         """Test retrieving a station with albums and relations."""
         client.force_authenticate(user=user)
         url = reverse("station-retrieve-with-albums-and-relations", kwargs={"pk": "wrong_pubkey"})
@@ -127,4 +139,6 @@ class TestStationViewSet:
         response = client.get(url)
 
         assert response.status_code == 404
-        assert "error" in response.data 
+        assert response.data.get("message") == "No station found"
+        assert response.data.get("data") is not None
+

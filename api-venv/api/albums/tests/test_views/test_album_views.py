@@ -90,14 +90,31 @@ class TestAlbumViewSet:
         url = reverse("album-create-with-tracks-and-relations")
         response = client.post(url, request_data, format="multipart")
 
-        logger.info(response.data)
-
         assert response.status_code == status.HTTP_201_CREATED
+        assert response.data.get("message") == "Album created"
+        assert response.data.get("data") is None
+
         album_qs = Album.objects.all()
         assert album_qs.count() > 0
+        assert Album.albums.with_tracks_and_relations(album_qs.first().aid) is not None
+
         track_qs = Track.objects.all()
         assert track_qs.count() > 0
-        assert Album.albums.with_tracks_and_relations(album_qs.first().aid) is not None
+
+    @pytest.mark.django_db
+    def test_unauthenticated_cannot_create_with_tracks_and_relations_view(self, db, client):
+        url = reverse("album-create-with-tracks-and-relations")
+        response = client.post(url, None, format="multipart")
+
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    @pytest.mark.django_db
+    def test_user_without_station_cannot_create_with_tracks_and_relations_view(self, db, client, user):
+        client.force_authenticate(user=user)
+        url = reverse("album-create-with-tracks-and-relations")
+        response = client.post(url, None, format="multipart")
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
 
     @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view_error(self, db, client, user, station, invalid_request_data):
@@ -105,7 +122,9 @@ class TestAlbumViewSet:
         url = reverse("album-create-with-tracks-and-relations")
         response = client.post(url, invalid_request_data, format="multipart")
 
-        assert "errors" in response.data
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Invalid album details"
+        assert response.data.get("data")  is not None
 
     @pytest.mark.django_db
     def test_retrieve_with_tracks_and_relations_view(self, db, client, user, station, station_picture, album, album_with_tracks_and_relations):
@@ -114,6 +133,8 @@ class TestAlbumViewSet:
         response = client.get(url)
 
         assert response.status_code == status.HTTP_200_OK
+        assert response.data.get("message") is None 
+        assert response.data.get("data") is not None 
 
     @pytest.mark.django_db
     def test_retrieve_with_tracks_and_relations_view_error(self, db, client, user, station, station_picture, album, album_with_tracks_and_relations):
@@ -121,6 +142,7 @@ class TestAlbumViewSet:
         url = reverse("album-retrieve-with-tracks-and-relations", kwargs={"pk": "wrong_id"})
         response = client.get(url)
 
-        assert response.status_code == status.HTTP_404_NOT_FOUND
-
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "No album"
+        assert response.data.get("data") is None
 

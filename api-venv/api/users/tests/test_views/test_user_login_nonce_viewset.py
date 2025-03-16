@@ -4,6 +4,7 @@ from rest_framework.test import APIClient
 from unittest.mock import patch
 from users.models import UserLoginNonce
 from django.conf import settings
+from django.urls import reverse
 
 @pytest.fixture
 def client():
@@ -34,14 +35,12 @@ def test_create_user_login_nonce_success(client, valid_data):
         mock_message_generator.return_value = "Generated Message"
 
         # Send POST request
-        response = client.post("/api/web3-login-nonce/", valid_data, format="json")
+        url = reverse("web3-login-nonce-list")
+        response = client.post(url, valid_data, format="json")
 
-        # Check that the response status is 201 Created
         assert response.status_code == status.HTTP_201_CREATED
-
-        # Check that the correct message is returned
-        assert response.data["message"] == "Generated Message"
-        # assert response.data["message"] == expected_message
+        assert response.data.get("message") is None
+        assert response.data.get("data") == {"message": "Generated Message"}
 
         # Check that a UserLoginNonce object was created
         assert UserLoginNonce.objects.count() == 1
@@ -51,11 +50,11 @@ def test_create_user_login_nonce_success(client, valid_data):
 @pytest.mark.django_db
 def test_create_user_login_nonce_invalid(client, invalid_data):
     """Test that creating a UserLoginNonce with invalid data returns a 400 Bad Request."""
-    response = client.post("/api/web3-login-nonce/", invalid_data, format="json")
 
-    # Check that the response status is 400 Bad Request
+    url = reverse("web3-login-nonce-list")
+    response = client.post(url, invalid_data, format="json")
+
     assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    # Ensure that error details are returned
-    assert "error" in response.data
-    assert "pubkey" in response.data["error"]
+    assert response.data.get("message") is None
+    assert response.data.get("data") is not None
+    assert "pubkey" in response.data.get("data")
