@@ -17,13 +17,14 @@ const config = useRuntimeConfig();
 const fetchGenrePath = `${config.public.API_GENRE}/`;
 const fetchMoodPath = `${config.public.API_MOOD}/`;
 
-const { data: genres, error: genre_error, status: genre_status } = await useLazyFetch<Genre[]>(fetchGenrePath, {
+const { data: fetchedGenres, status: genre_status } = await useLazyFetch(fetchGenrePath, {
   server: false,
   key: `station-genres-for-project-create`,
 });
 
-const { data: moods, error: mood_error, status: mood_status } = await useLazyFetch<Mood[]>(fetchMoodPath, {
+const { data: fetchedMoods, status: mood_status } = await useLazyFetch(fetchMoodPath, {
   server: false,
   key: `station-moods-for-project-create`,
 });
+
 </script>
