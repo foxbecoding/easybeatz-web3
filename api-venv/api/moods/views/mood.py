@@ -5,7 +5,7 @@ from ..models import Mood
 from ..serializers import MoodSerializer
 from core.mixins import ResponseMixin
 
-class MoodViewSet(viewsets.ViewSet):
+class MoodViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]
