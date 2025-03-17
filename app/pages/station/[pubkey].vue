@@ -75,7 +75,8 @@ const albumCoverStyles = (cover_picture: string) => {
 
 <template>
   <AppPageContainer>
-    <div v-if="status == 'success' && station" class="flex flex-col md:flex-row gap-4 items-center md:items-start">
+    <div v-if="(status == 'success' && station) || cachedStation"
+      class="flex flex-col md:flex-row gap-4 items-center md:items-start">
       <div
         class="min-w-[200px] h-[200px] mask mask-squircle bg-neutral p-1 box-content aspect-square flex items-center justify-center">
         <div :style="stationImgStyles" class="min-w-[200px] h-[200px] group relative mask mask-squircle bg-neutral">
@@ -105,7 +106,7 @@ const albumCoverStyles = (cover_picture: string) => {
       </div>
     </div>
 
-    <div v-if="status == 'idle' || status == 'pending'">
+    <div v-if="(status == 'idle' || status == 'pending') && !cachedStation">
       <div class="flex">
         <div class="mr-4 min-w-[200px]">
           <div class="skeleton mask mask-squircle w-[200px] h-[200px]"></div>
@@ -129,7 +130,7 @@ const albumCoverStyles = (cover_picture: string) => {
       </div>
     </div>
 
-    <div v-if="status == 'success' && station">
+    <div v-if="(status == 'success' && station) || cachedStation">
       <div class="divider mt-8"></div>
       <div v-if="station.albums.length > 0"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
