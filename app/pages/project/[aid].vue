@@ -81,7 +81,7 @@ const trackListBuilder = (): TrackList[] => {
 
 <template>
   <AppPageContainer>
-    <div v-if="status == 'success' && album" class="flex flex-col gap-16">
+    <div v-if="(status == 'success' && album) || cachedAlbum" class="flex flex-col gap-16">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div :style="albumCoverStyles" class="min-w-[300px] h-[300px] group relative bg-neutral rounded-[1rem]"></div>
         <div
@@ -107,7 +107,7 @@ const trackListBuilder = (): TrackList[] => {
       <AppTrackList :tracks="albumTracks" :station="album.station" :album="album" />
     </div>
 
-    <div v-if="status == 'idle' || status == 'pending'" class="flex flex-col gap-16">
+    <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-16">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div class="skeleton min-w-[300px] h-[300px] rounded-[1rem]"></div>
         <div
