@@ -108,6 +108,15 @@ class TestAlbumViewSet:
         assert response.data.get("message") == "Failed to update album"
         assert response.data.get("data") is not None
 
+    @pytest.mark.django_db 
+    def test_non_album_owner_cannot_update(self, db, client, user, station, album):
+        client.force_authenticate(user=user)
+        url = reverse("album-detail", kwargs={"pk": "some id"})
+        updated_data = {"title": "New title", "bio": "new bio"}
+        response = client.put(url, updated_data)
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
     @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view(self, db, client, user, station, request_data):
         client.force_authenticate(user=user)
