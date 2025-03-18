@@ -118,6 +118,13 @@ class TestAlbumViewSet:
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
     @pytest.mark.django_db
+    def test_unauthenticated_cannot_update_album_view(self, db, client):
+        url = reverse("album-detail", kwargs={"pk": None})
+        response = client.put(url, None)
+
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
+    
+    @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view(self, db, client, user, station, request_data):
         client.force_authenticate(user=user)
         url = reverse("album-create-with-tracks-and-relations")
