@@ -66,3 +66,9 @@ class TestAlbumCoverViewSet:
 
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
+    @pytest.mark.django_db
+    def test_unauthenticated_cannot_update_album_cover_view(self, db, client):
+        url = reverse("album-cover-detail", kwargs={"pk": None})
+        response = client.put(url, None)
+
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
