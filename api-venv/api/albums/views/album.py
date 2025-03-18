@@ -3,9 +3,10 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 from ..services import AlbumCreator, AlbumValidator, FormDataProcessor
-from stations.permissions import HasStation
-from ..serializers import AlbumWithTracksSerializer
+from ..serializers import AlbumEditFormSerializer, AlbumWithTracksSerializer
 from ..models import Album
+from ..permissions import AlbumOwner
+from stations.permissions import HasStation
 from core.mixins import ResponseMixin
 
 class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
