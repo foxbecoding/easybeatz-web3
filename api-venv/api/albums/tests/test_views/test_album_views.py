@@ -86,6 +86,18 @@ class TestAlbumViewSet:
         }
 
     @pytest.mark.django_db
+    def test_album_update_view(self, db, client, user, station, album):
+        client.force_authenticate(user=user)
+        url = reverse("album-detail", kwargs={"pk": album.aid})
+        updated_data = {"title": "New title", "bio": "New bio"}
+        response = client.put(url, updated_data)
+
+        assert response.status_code == status.HTTP_202_ACCEPTED
+        album.refresh_from_db()
+        assert album.title == "New title"
+        assert album.bio == "New bio"
+
+    @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view(self, db, client, user, station, request_data):
         client.force_authenticate(user=user)
         url = reverse("album-create-with-tracks-and-relations")
