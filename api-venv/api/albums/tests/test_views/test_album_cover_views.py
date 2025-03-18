@@ -27,3 +27,7 @@ class TestAlbumCoverViewSet:
         """Fixture to create a test station."""
         return default_station
 
+    @pytest.fixture
+    def album(self, db, default_album):
+        return default_album
+
