@@ -17,3 +17,8 @@ class TestAlbumCoverViewSet:
         settings.SECURE_SSL_REDIRECT = False  # Disable automatic redirect to HTTPS
         return APIClient()
 
+    @pytest.fixture
+    def user(self, default_user):
+        """Fixture to create a test user with a public key."""
+        return default_user
+
