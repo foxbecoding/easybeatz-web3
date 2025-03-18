@@ -57,3 +57,12 @@ class TestAlbumCoverViewSet:
         assert response.data.get("message") == "Failed to update album cover"
         assert response.data.get("data") is not None
 
+    @pytest.mark.django_db 
+    def test_non_album_owner_cannot_update_album_cover(self, db, client, user, station, album, album_cover):
+        client.force_authenticate(user=user)
+        url = reverse("album-cover-detail", kwargs={"pk": "some id"})
+        updated_data = {}
+        response = client.put(url, updated_data)
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
