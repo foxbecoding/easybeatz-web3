@@ -19,6 +19,14 @@ class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
                 permission_classes = [IsAuthenticated, HasStation, AlbumOwner]
         return [permission() for permission in permission_classes]
 
+    def update(self, request, pk=None):
+        album = Album.objects.get(aid=pk)
+        serializer = AlbumEditFormSerializer(album, data=request.data)
+        if not serializer.is_valid():
+            return self.view_response("Failed to update album", serializer.errors, status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        return self.view_response("Album updated successfully", None, status.HTTP_202_ACCEPTED)
+
     @action(detail=False, methods=['post'])
     def create_with_tracks_and_relations(self, request):
         processor = FormDataProcessor(request.data)
