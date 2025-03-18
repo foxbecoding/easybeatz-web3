@@ -9,3 +9,6 @@ from users.tests.conftest import default_user
 import logging
 
 logger = logging.getLogger("albums")
+@pytest.mark.django_db
+class TestAlbumCoverViewSet:
+
