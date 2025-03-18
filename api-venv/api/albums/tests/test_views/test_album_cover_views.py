@@ -31,3 +31,7 @@ class TestAlbumCoverViewSet:
     def album(self, db, default_album):
         return default_album
 
+    @pytest.fixture
+    def album_cover(self, db, default_album_cover):
+        return default_album_cover
+    
