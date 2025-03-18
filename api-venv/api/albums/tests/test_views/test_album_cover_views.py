@@ -46,3 +46,14 @@ class TestAlbumCoverViewSet:
         assert response.data.get("message") == "Album cover updated successfully"
         assert response.data.get("data") is None
 
+    @pytest.mark.django_db
+    def test_album_cover_update_view_error(self, db, client, user, station, album, album_cover):
+        client.force_authenticate(user=user)
+        url = reverse("album-cover-detail", kwargs={"pk": album.aid})
+        updated_data = {"picture": ""}
+        response = client.put(url, updated_data)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Failed to update album cover"
+        assert response.data.get("data") is not None
+
