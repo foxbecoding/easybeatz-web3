@@ -35,3 +35,14 @@ class TestAlbumCoverViewSet:
     def album_cover(self, db, default_album_cover):
         return default_album_cover
     
+    @pytest.mark.django_db
+    def test_album_cover_update_view(self, db, client, user, station, album, album_cover, test_img_file2):
+        client.force_authenticate(user=user)
+        url = reverse("album-cover-detail", kwargs={"pk": album.aid})
+        updated_data = {"picture": test_img_file2}
+        response = client.put(url, updated_data, format="multipart")
+
+        assert response.status_code == status.HTTP_202_ACCEPTED
+        assert response.data.get("message") == "Album cover updated successfully"
+        assert response.data.get("data") is None
+
