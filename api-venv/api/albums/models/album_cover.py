@@ -15,7 +15,7 @@ class AlbumCover(models.Model):
         related_name='cover',
         primary_key=True,
     )
-    picture = models.ImageField(upload_to=custom_image_upload_path, default="")
+    picture = models.ImageField(upload_to=custom_image_upload_path)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
