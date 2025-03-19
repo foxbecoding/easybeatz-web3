@@ -72,3 +72,12 @@ class TestTrackPriceViewSet:
         assert response.data.get("message") == "Failed to update track price"
         assert response.data.get("data") is not None
 
+    @pytest.mark.django_db 
+    def test_non_track_owner_cannot_update(self, db, client, user, station, album, track, track_price, genre, mood):
+        client.force_authenticate(user=user)
+        data = {}
+        url = reverse("track-price-detail", kwargs={"pk": "wrong_tid"})
+        response = client.put(url, data)
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
