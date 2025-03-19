@@ -1,6 +1,5 @@
 from rest_framework.permissions import BasePermission
 from ..models import Album
-from stations.models import Station
 
 class AlbumOwner(BasePermission):
     
@@ -8,7 +7,6 @@ class AlbumOwner(BasePermission):
 
     def has_permission(self, request, view):
         aid = view.kwargs.get("pk")
-        station = Station.objects.get(user=request.user)
-        is_owner = Album.objects.filter(aid=aid, station=station).exists()
+        is_owner = Album.objects.filter(aid=aid, station__user=request.user).exists()
         return is_owner
 
