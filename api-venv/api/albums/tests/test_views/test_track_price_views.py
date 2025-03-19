@@ -23,3 +23,7 @@ class TestTrackPriceViewSet:
     def user(self, default_user):
         return default_user
 
+    @pytest.fixture
+    def album(self, default_album):
+        return default_album
+
