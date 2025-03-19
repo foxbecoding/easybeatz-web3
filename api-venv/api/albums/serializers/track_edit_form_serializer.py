@@ -18,3 +18,9 @@ class TrackPriceEditFormSerializer(serializers.ModelSerializer):
             'value',
         ]
 
+class TrackExclusivePriceEditFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrackExclusivePrice
+        fields = [
+            'value',
+        ]
