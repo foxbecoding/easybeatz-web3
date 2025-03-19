@@ -43,3 +43,18 @@ class TestTrackViewSet:
     def station(self, default_station):
         return default_station
 
+    @pytest.mark.django_db
+    def test_track_update_view(self, client, user, station, album, track, mood, genre):
+        client.force_authenticate(user=user)
+        data = {"title": "New title", "bpm": 135, "genres": [genre.pk], "mood": mood.pk}
+        url = reverse("track-detail", kwargs={"pk": track.tid})
+        response = client.put(url, data)
+        
+        assert response.status_code == status.HTTP_202_ACCEPTED
+        assert response.data.get("message") == "Track updated successfully"
+        assert response.data.get("data") is None
+
+        track.refresh_from_db()
+        assert track.title == "New title"
+        assert track.bpm == "135"
+
