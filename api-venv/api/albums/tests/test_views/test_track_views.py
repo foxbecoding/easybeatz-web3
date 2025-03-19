@@ -11,3 +11,6 @@ import logging
 
 logger = logging.getLogger("albums")
 
+@pytest.mark.django_db
+class TestTrackViewSet:
+
