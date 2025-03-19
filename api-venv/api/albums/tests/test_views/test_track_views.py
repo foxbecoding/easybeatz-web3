@@ -31,3 +31,7 @@ class TestTrackViewSet:
     def track(self, default_track):
         return default_track
 
+    @pytest.fixture
+    def genre(self, default_genre):
+        return default_genre
+
