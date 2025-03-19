@@ -19,3 +19,7 @@ class TestTrackViewSet:
         settings.SECURE_SSL_REDIRECT = False  # Disable automatic redirect to HTTPS
         return APIClient()
 
+    @pytest.fixture
+    def user(self, default_user):
+        return default_user
+
