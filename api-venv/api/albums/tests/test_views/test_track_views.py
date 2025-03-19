@@ -58,3 +58,14 @@ class TestTrackViewSet:
         assert track.title == "New title"
         assert track.bpm == "135"
 
+    @pytest.mark.django_db
+    def test_track_update_view_error(self, db, client, user, station, album, track, mood, genre):
+        client.force_authenticate(user=user)
+        data = {"bpm": 135, "genres": [genre.pk], "mood": mood.pk}
+        url = reverse("track-detail", kwargs={"pk": track.tid})
+        response = client.put(url, data)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Failed to update track"
+        assert response.data.get("data") is not None
+
