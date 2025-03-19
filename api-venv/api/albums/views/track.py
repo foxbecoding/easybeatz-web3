@@ -10,10 +10,14 @@ import logging
 
 logger = logging.getLogger("albums")
 
+class TrackViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
-        needs_auth = ['created']
-        if self.action in needs_auth: permission_classes = [IsAuthenticated]
+        needs_auth = ['update']
+        if self.action in needs_auth:
+            permission_classes = [IsAuthenticated, HasStation]
+            if self.action == 'update':
+                permission_classes = [IsAuthenticated, HasStation, TrackOwner]
         return [permission() for permission in permission_classes]
 
     def create(self, request):
