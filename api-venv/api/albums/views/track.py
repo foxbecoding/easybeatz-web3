@@ -20,5 +20,3 @@ class TrackViewSet(viewsets.ViewSet, ResponseMixin):
                 permission_classes = [IsAuthenticated, HasStation, TrackOwner]
         return [permission() for permission in permission_classes]
 
-    def create(self, request):
-        pass
