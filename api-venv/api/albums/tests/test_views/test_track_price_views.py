@@ -43,3 +43,7 @@ class TestTrackPriceViewSet:
     def mood(self, default_mood):
         return default_mood
 
+    @pytest.fixture
+    def station(self, default_station):
+        return default_station
+
