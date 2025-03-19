@@ -8,7 +8,8 @@ from stations.permissions import HasStation
 from core.mixins import ResponseMixin
 import logging
 
-class TrackViewSet(viewsets.ViewSet):
+logger = logging.getLogger("albums")
+
     def get_permissions(self):
         permission_classes = [AllowAny]
         needs_auth = ['created']
