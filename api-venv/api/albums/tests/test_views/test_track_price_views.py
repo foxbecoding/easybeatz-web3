@@ -35,3 +35,7 @@ class TestTrackPriceViewSet:
     def track_price(self, default_track_price):
         return default_track_price
 
+    @pytest.fixture
+    def genre(self, default_genre):
+        return default_genre
+
