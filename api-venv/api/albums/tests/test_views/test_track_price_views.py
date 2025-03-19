@@ -14,3 +14,8 @@ logger = logging.getLogger("albums")
 @pytest.mark.django_db
 class TestTrackPriceViewSet:
 
+    @pytest.fixture
+    def client(self):
+        settings.SECURE_SSL_REDIRECT = False  # Disable automatic redirect to HTTPS
+        return APIClient()
+
