@@ -20,3 +20,10 @@ class TrackViewSet(viewsets.ViewSet, ResponseMixin):
                 permission_classes = [IsAuthenticated, HasStation, TrackOwner]
         return [permission() for permission in permission_classes]
 
+    def update(self, request, pk=None):
+        track = Track.objects.get(tid=pk)
+        serializer = TrackEditFormSerializer(track, data=request.data)
+        if not serializer.is_valid():
+            return self.view_response("Failed to update track", serializer.errors, status.HTTP_400_BAD_REQUEST)
+        serializer.save()
+        return self.view_response("Track updated successfully", None, status.HTTP_202_ACCEPTED)
