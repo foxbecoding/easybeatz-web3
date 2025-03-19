@@ -11,3 +11,10 @@ class TrackEditFormSerializer(serializers.ModelSerializer):
             'bpm',
         ]
 
+class TrackPriceEditFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TrackPrice
+        fields = [
+            'value',
+        ]
+
