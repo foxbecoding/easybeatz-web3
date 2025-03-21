@@ -104,3 +104,17 @@ class TestTrackExclusivePriceViewSet:
         assert response.data.get("message") == "Failed to update exclusive price"
         assert response.data.get("data") is not None
 
+    @pytest.mark.django_db
+    def test_track_exclusive_price_destroy_view(self, client, user, station, album, track, track_price, track_exclusive_price, mood, genre):
+        client.force_authenticate(user=user)
+        url = reverse("track-exclusive-price-detail", kwargs={"pk": track.tid})
+        response = client.delete(url)
+
+        assert response.status_code == status.HTTP_202_ACCEPTED
+        assert response.data.get("message") == "Exclusive price removed"
+        assert response.data.get("data") is None
+
+        qs = TrackExclusivePrice.objects.filter(track__tid=track.tid).exists()
+        assert qs == False
+        
+
