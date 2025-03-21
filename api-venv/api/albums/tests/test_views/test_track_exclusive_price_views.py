@@ -36,3 +36,7 @@ class TestTrackExclusivePriceViewSet:
     def track_price(self, default_track_price):
         return default_track_price
 
+    @pytest.fixture
+    def track_exclusive_price(self, default_track_exclusive_price):
+        return default_track_exclusive_price
+
