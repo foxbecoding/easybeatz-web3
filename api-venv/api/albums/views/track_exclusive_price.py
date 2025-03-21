@@ -8,3 +8,5 @@ from stations.permissions import HasStation
 from core.mixins import ResponseMixin
 import logging
 
+logger = logging.getLogger("albums")
+
