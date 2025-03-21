@@ -41,3 +41,8 @@ class TrackExclusivePriceViewSet(viewsets.ViewSet, ResponseMixin):
         serializer.save()
         return self.view_response("Exclusive price updated successfully", None, status.HTTP_202_ACCEPTED)
 
+    def destroy(self, request, pk=None):
+        track_tid = pk
+        track_exclusive_price = TrackExclusivePrice.objects.get(track__tid=track_tid)
+        track_exclusive_price.delete()
+        return self.view_response("Exclusive price removed", None, status.HTTP_202_ACCEPTED)
