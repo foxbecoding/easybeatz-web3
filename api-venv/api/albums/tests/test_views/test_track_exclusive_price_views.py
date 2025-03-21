@@ -40,3 +40,7 @@ class TestTrackExclusivePriceViewSet:
     def track_exclusive_price(self, default_track_exclusive_price):
         return default_track_exclusive_price
 
+    @pytest.fixture
+    def genre(self, default_genre):
+        return default_genre
+
