@@ -134,3 +134,12 @@ class TestTrackExclusivePriceViewSet:
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
+    @pytest.mark.django_db 
+    def test_non_track_owner_cannot_destroy(self, db, client, user, station, album, track, track_price, track_exclusive_price, genre, mood):
+        client.force_authenticate(user=user)
+        data = {}
+        url = reverse("track-exclusive-price-detail", kwargs={"pk": "wrong_tid"})
+        response = client.delete(url, data)
+
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
