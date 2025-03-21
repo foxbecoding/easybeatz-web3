@@ -93,3 +93,14 @@ class TestTrackExclusivePriceViewSet:
         track_exclusive_price.refresh_from_db()
         assert track_exclusive_price.value == 600
 
+    @pytest.mark.django_db
+    def test_track_exclusive_price_update_view_error(self, db, client, user, station, album, track, track_price, track_exclusive_price, mood, genre):
+        client.force_authenticate(user=user)
+        data = {"value": .50}
+        url = reverse("track-exclusive-price-detail", kwargs={"pk": track.tid})
+        response = client.put(url, data)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Failed to update exclusive price"
+        assert response.data.get("data") is not None
+
