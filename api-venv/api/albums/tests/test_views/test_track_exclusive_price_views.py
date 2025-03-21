@@ -44,3 +44,7 @@ class TestTrackExclusivePriceViewSet:
     def genre(self, default_genre):
         return default_genre
 
+    @pytest.fixture
+    def mood(self, default_mood):
+        return default_mood
+
