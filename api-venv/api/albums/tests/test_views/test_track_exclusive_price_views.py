@@ -68,3 +68,14 @@ class TestTrackExclusivePriceViewSet:
         qs = TrackExclusivePrice.objects.get(track__tid=track.tid)
         assert qs.value == 500
 
+    @pytest.mark.django_db
+    def test_track_exclusive_price_create_view_error(self, db, client, user, station, album, track, track_price, mood, genre):
+        client.force_authenticate(user=user)
+        data = {"value": .50}
+        url = reverse("track-exclusive-price-detail", kwargs={"pk": track.tid})
+        response = client.put(url, data)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Failed to add exclusive price"
+        assert response.data.get("data") is not None
+
