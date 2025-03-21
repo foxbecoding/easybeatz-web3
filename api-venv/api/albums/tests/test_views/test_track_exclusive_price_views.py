@@ -79,3 +79,17 @@ class TestTrackExclusivePriceViewSet:
         assert response.data.get("message") == "Failed to add exclusive price"
         assert response.data.get("data") is not None
 
+    @pytest.mark.django_db
+    def test_track_exclusive_price_update_view(self, client, user, station, album, track, track_price, track_exclusive_price, mood, genre):
+        client.force_authenticate(user=user)
+        data = {"value": 600}
+        url = reverse("track-exclusive-price-detail", kwargs={"pk": track.tid})
+        response = client.put(url, data)
+
+        assert response.status_code == status.HTTP_202_ACCEPTED
+        assert response.data.get("message") == "Exclusive price updated successfully"
+        assert response.data.get("data") is None
+
+        track_exclusive_price.refresh_from_db()
+        assert track_exclusive_price.value == 600
+
