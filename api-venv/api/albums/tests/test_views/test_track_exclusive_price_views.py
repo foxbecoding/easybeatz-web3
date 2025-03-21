@@ -52,3 +52,19 @@ class TestTrackExclusivePriceViewSet:
     def station(self, default_station):
         return default_station
 
+    @pytest.mark.django_db
+    def test_track_exclusive_price_create_view(self, client, user, station, album, track, track_price, mood, genre):
+        client.force_authenticate(user=user)
+        data = {"value": 500}
+        url = reverse("track-exclusive-price-detail", kwargs={"pk": track.tid})
+        response = client.put(url, data)
+       
+        logger.info(response.data)
+
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.data.get("message") == "Exclusive price added successfully"
+        assert response.data.get("data") is None
+
+        qs = TrackExclusivePrice.objects.get(track__tid=track.tid)
+        assert qs.value == 500
+
