@@ -10,3 +10,5 @@ from moods.tests.conftest import default_mood
 from stations.tests.conftest import default_station
 import logging
 
+logger = logging.getLogger("albums")
+
