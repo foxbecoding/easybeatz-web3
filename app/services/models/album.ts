@@ -33,12 +33,9 @@ export interface Track {
 };
 
 
-export const submitAlbumWithTracks = async (data: any) => {
+export const updateAlbum = (albumAid: string, data: any) => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_ALBUM}/create_with_tracks_and_relations/`;
-    const apiData: ApiData = { method: 'POST', path: fetchPath, data, isMultiPart: true };
-    const res = await useApi(apiData);
-    return res;
+    return submitRequest('PUT', `${config.public.API_ALBUM}/${albumAid}/`, data);
 }
 
 export const submitTrackFavorite = async (trackTid: string) => {
