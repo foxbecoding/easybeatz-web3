@@ -38,12 +38,9 @@ export const updateAlbum = (albumAid: string, data: any) => {
     return submitRequest('PUT', `${config.public.API_ALBUM}/${albumAid}/`, data);
 }
 
-export const submitTrackFavorite = async (trackTid: string) => {
+export const updateAlbumCover = (albumAid: string, data: any) => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_TRACK_FAVORITE}/`;
-    const apiData: ApiData = { method: 'POST', path: fetchPath, data: { track: trackTid } };
-    const res = await useApi(apiData);
-    return res;
+    return submitRequest('PUT', `${config.public.API_ALBUM_COVER}/${albumAid}/`, data, true);
 }
 
 export const removeTrackFavorite = async (trackTid: string) => {
