@@ -9,6 +9,7 @@ export interface Album {
     uploaded_at: string;
     station: Station;
     tracks: Track[];
+    is_owner: boolean;
 };
 
 export interface Track {
