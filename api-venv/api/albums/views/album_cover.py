@@ -17,8 +17,8 @@ class AlbumCoverViewSet(viewsets.ViewSet, ResponseMixin):
         return [permission() for permission in permission_classes]
 
     def update(self, request, pk=None):
-        album = Album.objects.get(aid=pk)
-        album_cover = AlbumCover.objects.get(album=album)
+        aid = pk
+        album_cover = AlbumCover.objects.get(album__aid=aid)
         serializer = AlbumCoverEditSerializer(album_cover, data=request.data)
         if not serializer.is_valid():
             return self.view_response("Failed to update album cover", serializer.errors, status.HTTP_400_BAD_REQUEST)
