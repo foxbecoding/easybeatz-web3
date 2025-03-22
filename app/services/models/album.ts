@@ -48,3 +48,8 @@ export const submitAlbumWithTracks = (data: any) => {
     return submitRequest('POST', `${config.public.API_ALBUM}/create_with_tracks_and_relations/`, data, true);
 }
 
+export const updateTrack = (trackTid: string, data: any) => {
+    const config = useRuntimeConfig();
+    return submitRequest('PUT', `${config.public.API_TRACK}/${trackTid}/`, data);
+}
+
