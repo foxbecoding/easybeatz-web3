@@ -43,8 +43,10 @@ class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
 
     @action(detail=True, methods=['get'])
     def retrieve_with_tracks_and_relations(self, request, pk=None):
+        aid = pk
+        is_owner = Album.objects.filter(station__pk=request.user.pk, aid=aid).exists()
         qs = Album.albums.with_tracks_and_relations(pk)
         if not qs:
             return self.view_response("No album", None, status.HTTP_400_BAD_REQUEST) 
-        serialized_data = AlbumWithTracksSerializer(qs).data
+        serialized_data = AlbumWithTracksSerializer(qs, context={"is_owner": is_owner}).data
         return self.view_response(None, serialized_data, status.HTTP_200_OK)
