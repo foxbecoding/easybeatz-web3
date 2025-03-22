@@ -43,10 +43,8 @@ export const updateAlbumCover = (albumAid: string, data: any) => {
     return submitRequest('PUT', `${config.public.API_ALBUM_COVER}/${albumAid}/`, data, true);
 }
 
-export const removeTrackFavorite = async (trackTid: string) => {
+export const submitAlbumWithTracks = (data: any) => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_TRACK_FAVORITE}/${trackTid}/`;
-    const apiData: ApiData = { method: 'DELETE', path: fetchPath };
-    const res = await useApi(apiData);
-    return res;
+    return submitRequest('POST', `${config.public.API_ALBUM}/create_with_tracks_and_relations/`, data, true);
 }
+
