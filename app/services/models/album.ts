@@ -1,4 +1,3 @@
-import { type ApiData } from "@/composables/useApi";
 import { type Station } from "@/services/models/station";
 
 export interface Album {
