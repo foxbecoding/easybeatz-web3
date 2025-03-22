@@ -68,3 +68,7 @@ export const submitTrackFavorite = (trackTid: string) => {
     return submitRequest('POST', `${config.public.API_TRACK_FAVORITE}/`, { track: trackTid });
 }
 
+export const removeTrackFavorite = (trackTid: string) => {
+    const config = useRuntimeConfig();
+    return submitRequest('DELETE', `${config.public.API_TRACK_FAVORITE}/${trackTid}/`);
+}
