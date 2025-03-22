@@ -97,6 +97,10 @@ const editModeLabel = computed(() => {
             <AppStationBlock class="md:w-fit flex gap-2 items-center justify-center md:justify-start"
               :station="album.station" />
             <p class="opacity-70">{{ album.uploaded_at }}</p>
+            <div v-if="album.is_owner" class="flex gap-2">
+              <input v-model="isEditMode" type="checkbox" :checked="false" class="toggle" />
+              <span>{{ editModeLabel }}</span>
+            </div>
           </div>
           <div class="flex gap-2 items-center w-full">
             <button @click="playHandler()" class="btn btn-primary flex-1 rounded-[1rem] text-lg">
