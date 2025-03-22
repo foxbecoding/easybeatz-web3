@@ -53,3 +53,8 @@ export const updateTrack = (trackTid: string, data: any) => {
     return submitRequest('PUT', `${config.public.API_TRACK}/${trackTid}/`, data);
 }
 
+export const updateTrackPrice = (trackTid: string, data: any) => {
+    const config = useRuntimeConfig();
+    return submitRequest('PUT', `${config.public.API_TRACK_PRICE}/${trackTid}/`, data);
+}
+
