@@ -76,6 +76,13 @@ const trackListBuilder = (): TrackList[] => {
   return trackList
 }
 
+//Edit mode
+const isEditMode = ref<boolean>(false);
+const editModeLabel = computed(() => {
+  const label = 'Edit mode: ';
+  let state = isEditMode.value ? 'On' : 'Off';
+  return label + state;
+});
 </script>
 
 <template>
