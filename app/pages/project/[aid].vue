@@ -114,9 +114,10 @@ const editModeLabel = computed(() => {
         <input v-model="isEditMode" type="checkbox" :checked="false" class="toggle toggle-primary" />
         <span>{{ editModeLabel }}</span>
       </div>
+      <AppTrackList v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station" :album="album" />
     </div>
 
-    <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-16">
+    <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-8">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div class="skeleton min-w-[300px] h-[300px] rounded-[1rem]"></div>
         <div
