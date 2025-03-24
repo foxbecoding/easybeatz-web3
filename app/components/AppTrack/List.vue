@@ -9,6 +9,7 @@ const props = defineProps<{
   album: Album;
 }>();
 
+const isEditMode = defineModel("edit", { default: false, required: false });
 const config = useRuntimeConfig();
 const route = useRoute();
 const img = useImage();
