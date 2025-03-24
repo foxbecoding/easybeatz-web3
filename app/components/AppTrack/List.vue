@@ -69,7 +69,14 @@ const setMusicPlayerDetails = (trackIndex: number) => {
           <NuxtLink class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
             Buy ${{ track.price }}
           </NuxtLink>
-          <AppTrackControls class="order-first md:order-last" :album="album" :station="station" :track="track" />
+          <div class="flex order-first md:order-last">
+            <AppTrackControls :album="album" :station="station" :track="track" />
+            <div v-if="isEditMode" class="tooltip" data-tip="edit">
+              <button class="btn btn-square btn-ghost mask mask-squircle">
+                <Icon icon="solar:pen-bold" class="text-warning" width="24" height="24" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
