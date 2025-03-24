@@ -110,6 +110,10 @@ const editModeLabel = computed(() => {
           </div>
         </div>
       </div>
+      <div v-if="album.is_owner" class="flex gap-2">
+        <input v-model="isEditMode" type="checkbox" :checked="false" class="toggle toggle-primary" />
+        <span>{{ editModeLabel }}</span>
+      </div>
     </div>
 
     <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-16">
