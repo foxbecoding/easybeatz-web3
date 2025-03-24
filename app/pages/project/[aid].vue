@@ -87,7 +87,7 @@ const editModeLabel = computed(() => {
 
 <template>
   <AppPageContainer>
-    <div v-if="(status == 'success' && album) || cachedAlbum" class="flex flex-col gap-16">
+    <div v-if="(status == 'success' && album) || cachedAlbum" class="flex flex-col gap-8">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div :style="albumCoverStyles" class="min-w-[300px] h-[300px] group relative bg-neutral rounded-[1rem]"></div>
         <div
