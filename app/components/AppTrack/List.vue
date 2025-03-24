@@ -65,7 +65,7 @@ const setMusicPlayerDetails = (trackIndex: number) => {
             </div>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row gap-2  items-start md:items-center">
+        <div class="flex flex-col md:flex-row gap-2 items-start md:items-center">
           <NuxtLink class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
             Buy ${{ track.price }}
           </NuxtLink>
