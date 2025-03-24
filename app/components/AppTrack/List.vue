@@ -23,10 +23,7 @@ const albumCoverStyles = computed(() => {
 
 const showProjectCover = computed(() => {
   const hideOnRoutes = ['project-aid']
-  if (hideOnRoutes.includes(String(route.name))) {
-    return false;
-  }
-  return true;
+  return hideOnRoutes.includes(String(route.name)) ? false : true;
 });
 
 const setMusicPlayerDetails = (trackIndex: number) => {
