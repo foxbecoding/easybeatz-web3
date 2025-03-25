@@ -6,6 +6,8 @@ const props = defineProps<{
   bio: String;
 }>();
 
+const aid = useRoute().params.aid
+
 </script>
 
 <template>
