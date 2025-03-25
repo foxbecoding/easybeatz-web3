@@ -36,6 +36,11 @@ const submit = async () => {
   }
 }
 
+const formFields = reactive({
+  title: props.title,
+  bio: props.bio.toString()
+})
+
 </script>
 
 <template>
