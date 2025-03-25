@@ -41,6 +41,11 @@ const formFields = reactive({
   bio: props.bio.toString()
 })
 
+const formErrors = reactive<any>({
+  title: '',
+  bio: ''
+});
+
 </script>
 
 <template>
