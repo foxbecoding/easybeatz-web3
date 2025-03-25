@@ -84,6 +84,9 @@ const editModeLabel = computed(() => {
   let state = isEditMode.value ? 'On' : 'Off';
   return label + state;
 });
+//Album form modal
+const showAlbumFormModal = ref(false);
+const openAlbumFormModal = () => showAlbumFormModal.value = true;
 </script>
 
 <template>
