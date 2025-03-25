@@ -12,6 +12,30 @@ const model = defineModel({ default: false, required: true });
 const closeModal = () => model.value = false;
 const isLoading = ref(false);
 
+const emit = defineEmits(["submit"]);
+const submit = async () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
+  try {
+    const { message, data } = await updateAlbum(aid.toString(), formFields);
+    if (message) {
+      useToast().setToast(message, "INFO");
+      emit("submit");
+      closeModal();
+      clearFormErrors();
+    }
+  }
+  catch (error: any) {
+    const { message, data } = error.data;
+    setFormErrors(data);
+  }
+  finally {
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 2000);
+  }
+}
+
 </script>
 
 <template>
