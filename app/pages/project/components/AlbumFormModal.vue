@@ -8,6 +8,8 @@ const props = defineProps<{
 
 const aid = useRoute().params.aid
 
+const model = defineModel({ default: false, required: true });
+const closeModal = () => model.value = false;
 </script>
 
 <template>
