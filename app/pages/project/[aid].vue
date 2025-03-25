@@ -84,6 +84,7 @@ const editModeLabel = computed(() => {
   let state = isEditMode.value ? 'On' : 'Off';
   return label + state;
 });
+
 //Album form modal
 const showAlbumFormModal = ref(false);
 const openAlbumFormModal = () => showAlbumFormModal.value = true;
@@ -153,5 +154,7 @@ const openAlbumFormModal = () => showAlbumFormModal.value = true;
         <div v-for="demo in demoTracks" class="skeleton h-[128px]"></div>
       </div>
     </div>
+    <AlbumFormModal v-if="(status == 'success' && album) || cachedAlbum" v-model="showAlbumFormModal"
+      :title="album.title" :bio="album.bio" @submit="refresh()" />
   </AppPageContainer>
 </template>
