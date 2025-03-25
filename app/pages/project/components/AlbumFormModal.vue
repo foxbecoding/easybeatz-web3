@@ -66,6 +66,14 @@ const clearFormErrors = () => {
   });
 }
 
+watch(model, (newVal) => {
+  if (newVal) {
+    document.getElementById('album_form_modal')?.showModal();
+  } else {
+    document.getElementById('album_form_modal')?.close();
+  }
+});
+
 </script>
 
 <template>
