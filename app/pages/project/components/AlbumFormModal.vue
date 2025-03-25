@@ -46,6 +46,20 @@ const formErrors = reactive<any>({
   bio: ''
 });
 
+const formTitleError = computed(() => formErrors.title ? 'input-error' : '')
+const formBioError = computed(() => formErrors.bio ? 'textarea-error' : '')
+
+const setFormErrors = (res: any) => {
+  const obj = res;
+  Object.keys(formErrors).forEach(key => {
+    if (key in obj) {
+      formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
+    } else {
+      formErrors[key] = '';
+    }
+  });
+}
+
 </script>
 
 <template>
