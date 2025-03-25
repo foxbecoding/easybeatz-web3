@@ -101,6 +101,9 @@ const openAlbumFormModal = () => showAlbumFormModal.value = true;
             <AppStationBlock class="md:w-fit flex gap-2 items-center justify-center md:justify-start"
               :station="album.station" />
             <p class="opacity-70">{{ album.uploaded_at }}</p>
+            <button v-if="isEditMode" @click="openAlbumFormModal()" class="btn btn-secondary rounded-[1rem] text-lg">
+              Edit details
+            </button>
           </div>
           <div class="flex gap-2 items-center w-full">
             <button @click="playHandler()" class="btn btn-primary flex-1 rounded-[1rem] text-lg">
