@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { type Track, updateTrack } from "@/services/models/album";
+import { type Genre } from "@/services/models/genre";
+import { type Mood } from "@/services/models/mood";
 
+const props = defineProps<{
 </script>
 
 <template>
