@@ -55,6 +55,16 @@ const { data: fetchedGenres, status: genre_status } = await useLazyFetch(fetchGe
 });
 const genres = computed<Genre[]>(() => fetchedGenres.value.data as Genre[]);
 
+// Moods request logic
+const fetchMoodPath = `${config.public.API_MOOD}/`;
+const { data: cachedMoods } = useNuxtData<Album>(`project-aid-moods`);
+const { data: fetchedMoods, status: mood_status } = await useLazyFetch(fetchMoodPath, {
+  server: false,
+  key: `project-aid-moods`,
+});
+const moods = computed<Mood[]>(() => fetchedMoods.value.data as Mood[]);
+
+// Music player logic
 const playHandler = () => {
   if (album.value) {
     const trackList = trackListBuilder();
