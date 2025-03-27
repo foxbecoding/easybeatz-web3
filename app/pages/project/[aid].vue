@@ -17,8 +17,8 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 const fetchPath = `${config.public.API_ALBUM}/${aid.value}/retrieve_with_tracks_and_relations/`;
 const demoTracks = Array.from({ length: 6 }, (_, i) => i);
 
+// Album request logic
 const { data: cachedAlbum } = useNuxtData<Album>(`project-${aid.value}`);
-
 const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch(fetchPath, {
   server: false,
   key: `project-${aid.value}`,
@@ -43,6 +43,17 @@ const albumCoverStyles = computed(() => {
   const imgUrl = img(albumCover.value, { width: 100 })
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
+
+
+
+// Genres request logic
+const { data: cachedGenres } = useNuxtData<Album>(`project-aid-genres`);
+const fetchGenrePath = `${config.public.API_GENRE}/`;
+const { data: fetchedGenres, status: genre_status } = await useLazyFetch(fetchGenrePath, {
+  server: false,
+  key: `project-aid-genres`,
+});
+const genres = computed<Genre[]>(() => fetchedGenres.value.data as Genre[]);
 
 const playHandler = () => {
   if (album.value) {
