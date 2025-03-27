@@ -53,6 +53,52 @@ const clearFormErrors = () => {
   });
 }
 
+//Form submit logic
+const isLoading = ref(false);
+const emit = defineEmits(["submitDetails"]);
+const submit = async () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
+
+  const selectedGenre = findSelectedGenre(formFields.genres);
+  const selectedMood = findSelectedMood(formFields.mood);
+  const requestData = {
+    title: formFields.title,
+    bpm: formFields.bpm,
+    genres: [selectedGenre.pk],
+    mood: selectedMood.pk
+  }
+
+  try {
+    const { message, data } = await updateTrack(props.track.tid, requestData);
+    if (message) {
+      useToast().setToast(message, "INFO");
+      emit("submitDetails");
+      closeModal();
+      clearFormErrors();
+    }
+  }
+  catch (error: any) {
+    const { message, data } = error.data;
+    setFormErrors(data);
+  }
+  finally {
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 2000);
+  }
+
+}
+
+const findSelectedGenre = (slug: string): Genre =>
+  findSelectedValue(slug, props.genres) as Genre;
+
+const findSelectedMood = (slug: string): Mood =>
+  findSelectedValue(slug, props.moods) as Mood;
+
+const findSelectedValue = (slug: string, arr: Genre[] | Mood[]): Genre | Mood =>
+  arr.find(x => x.slug === slug) as Genre | Mood;
+
 </script>
 
 <template>
