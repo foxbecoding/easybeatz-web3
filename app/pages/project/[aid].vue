@@ -165,7 +165,9 @@ const openAlbumFormModal = () => showAlbumFormModal.value = true;
         <input v-model="isEditMode" type="checkbox" :checked="false" class="toggle toggle-primary" />
         <span>{{ editModeLabel }}</span>
       </div>
-      <AppTrackList v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station" :album="album" />
+      <AppTrackList v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station" :album="album"
+        @edit-details="editDetailsHandler" @edit-price="editPriceHandler"
+        @edit-exclusive-price="editExclusivePriceHandler" />
     </div>
 
     <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-8">
@@ -199,5 +201,7 @@ const openAlbumFormModal = () => showAlbumFormModal.value = true;
     </div>
     <AlbumFormModal v-if="(status == 'success' && album) || cachedAlbum" v-model="showAlbumFormModal"
       :title="album.title" :bio="album.bio" @submit="refresh()" />
+    <TrackFormModal v-if="selectedEditTrack && (genre_status === 'success' && mood_status === 'success')"
+      v-model="showTrackForm" :track="selectedEditTrack" :genres="genres" :moods="moods" @submitDetails="refresh()" />
   </AppPageContainer>
 </template>
