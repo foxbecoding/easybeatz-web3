@@ -37,6 +37,8 @@ const setMusicPlayerDetails = (trackIndex: number) => {
   musicPlayerStore.setMusicPlayerDetails(selectedTrackListItem, trackList, String(route.path));
 }
 
+// Edit track control logic
+const emit = defineEmits(["editDetails", "editPrice", "editExclusivePrice"]);
 </script>
 
 <template>
