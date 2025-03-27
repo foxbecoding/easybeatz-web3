@@ -44,8 +44,6 @@ const albumCoverStyles = computed(() => {
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 })
 
-
-
 // Genres request logic
 const { data: cachedGenres } = useNuxtData<Album>(`project-aid-genres`);
 const fetchGenrePath = `${config.public.API_GENRE}/`;
@@ -101,7 +99,7 @@ const trackListBuilder = (): TrackList[] => {
   return trackList
 }
 
-//Edit mode
+// Edit mode
 const isEditMode = ref(false);
 const editModeLabel = computed(() => {
   const label = 'Edit mode: ';
@@ -109,7 +107,11 @@ const editModeLabel = computed(() => {
   return label + state;
 });
 
-//Edit track handlers logic
+//Album form modal logic
+const showAlbumFormModal = ref(false);
+const openAlbumFormModal = () => showAlbumFormModal.value = true;
+
+// Track form modal logic
 const selectedEditTrack = ref<Track | null>();
 const showTrackForm = ref(false);
 const editDetailsHandler = (track: Track) => {
@@ -128,9 +130,6 @@ const selectedEditTrackSetter = (track: Track) => {
   }, 100);
 };
 
-//Album form modal
-const showAlbumFormModal = ref(false);
-const openAlbumFormModal = () => showAlbumFormModal.value = true;
 </script>
 
 <template>
