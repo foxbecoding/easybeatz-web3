@@ -104,8 +104,21 @@ const findSelectedValue = (slug: string, arr: Genre[] | Mood[]): Genre | Mood =>
 <template>
   <dialog id="track_form_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
-      <h2 class="text-2xl font-bold">Edit track</h2>
-      <form id="track-form" ref="trackForm">
+      <h2 class="text-2xl font-bold">Edit track details</h2>
+      <form id="track-form" ref="form" class="flex flex-col gap-4" @keydown.enter.prevent>
+        <label class="form-control w-full">
+          <div class="label flex flex-col items-start">
+            <span class="label-text text-lg font-semibold">Title</span>
+          </div>
+          <input v-model="formFields.title" id=" title" name="title" type="text" placeholder="Enter album title"
+            class="input input-ghost bg-neutral w-full" :class="formErrors.title ? 'input-error' : ''" />
+          <div v-if="formErrors.title" class="label">
+            <span class="label-text-alt text-error">
+              {{ formErrors.title }}
+            </span>
+          </div>
+        </label>
+
       </form>
     </div>
     <div class="modal-action">
