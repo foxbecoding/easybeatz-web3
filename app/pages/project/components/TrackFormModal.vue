@@ -20,6 +20,39 @@ watch(model, (newVal) => {
   }
 });
 
+// Form fields logic
+const form = ref();
+const formFields = reactive<any>({
+  title: props.track.title,
+  bpm: props.track.bpm,
+  genres: props.track.genres.slug,
+  mood: props.track.mood.slug,
+});
+
+const formErrors = reactive<any>({
+  title: '',
+  bpm: '',
+  genres: '',
+  mood: '',
+});
+
+const setFormErrors = (res: any) => {
+  const obj = res;
+  Object.keys(formErrors).forEach(key => {
+    if (key in obj) {
+      formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
+    } else {
+      formErrors[key] = '';
+    }
+  });
+}
+
+const clearFormErrors = () => {
+  Object.keys(formErrors).forEach(key => {
+    formErrors[key] = '';
+  });
+}
+
 </script>
 
 <template>
