@@ -109,6 +109,25 @@ const editModeLabel = computed(() => {
   return label + state;
 });
 
+//Edit track handlers logic
+const selectedEditTrack = ref<Track | null>();
+const showTrackForm = ref(false);
+const editDetailsHandler = (track: Track) => {
+  selectedEditTrackSetter(track);
+  setTimeout(() => {
+    showTrackForm.value = true;
+  }, 200);
+}
+
+const editPriceHandler = (e: any) => { console.log(e) }
+const editExclusivePriceHandler = (e: any) => { console.log(e) }
+const selectedEditTrackSetter = (track: Track) => {
+  selectedEditTrack.value = null;
+  setTimeout(() => {
+    selectedEditTrack.value = track;
+  }, 100);
+};
+
 //Album form modal
 const showAlbumFormModal = ref(false);
 const openAlbumFormModal = () => showAlbumFormModal.value = true;
