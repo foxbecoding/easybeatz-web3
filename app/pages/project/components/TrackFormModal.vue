@@ -144,6 +144,17 @@ const findSelectedValue = (slug: string, arr: Genre[] | Mood[]): Genre | Mood =>
             </option>
           </select>
         </label>
+        <label class="form-control w-full">
+          <div class="label flex flex-col items-start">
+            <span class="label-text text-lg font-semibold">Moods</span>
+          </div>
+          <select v-model="formFields.mood" id="mood" name="mood" class="select select-ghost bg-neutral w-full">
+            <option disabled selected>Select a mood</option>
+            <option v-for="(mood, m) in moods" :key="m" :value="mood.slug" selected>
+              {{ mood.name }}
+            </option>
+          </select>
+        </label>
       </form>
     </div>
     <div class="modal-action">
