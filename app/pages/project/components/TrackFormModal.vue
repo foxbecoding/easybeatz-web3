@@ -4,6 +4,11 @@ import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
 
 const props = defineProps<{
+  track: Track;
+  genres: Genre[];
+  moods: Mood[];
+}>();
+
 </script>
 
 <template>
