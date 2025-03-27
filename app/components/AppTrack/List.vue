@@ -78,15 +78,27 @@ const editTrackMenuItems = ref<EditTrackMenuItem[]>([
           </div>
         </div>
         <div class="flex flex-col md:flex-row gap-2 items-start md:items-center">
-          <NuxtLink class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
+          <NuxtLink v-if="!isEditMode"
+            class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
             Buy ${{ track.price }}
           </NuxtLink>
           <div class="flex order-first md:order-last">
-            <AppTrackControls :album="album" :station="station" :track="track" />
-            <div v-if="isEditMode" class="tooltip" data-tip="edit">
-              <button class="btn btn-square btn-ghost mask mask-squircle">
-                <Icon icon="solar:pen-bold" class="text-warning" width="24" height="24" />
-              </button>
+            <AppTrackControls v-if="!isEditMode" :album="album" :station="station" :track="track" />
+            <div v-if="isEditMode" class="dropdown dropdown-end">
+              <div class="tooltip" data-tip="edit">
+                <div @click.stop tabindex="0" role="button" class="btn btn-square btn-ghost mask mask-squircle">
+                  <Icon icon="solar:pen-bold" class="text-warning" width="24" height="24" />
+                </div>
+              </div>
+
+              <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm">
+                <li v-for="item in editTrackMenuItems">
+                  <a @click.stop="item.action(track)">
+                    <Icon icon="solar:pen-bold" />
+                    {{ item.title }}
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
