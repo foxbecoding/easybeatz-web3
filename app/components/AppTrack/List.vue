@@ -39,6 +39,10 @@ const setMusicPlayerDetails = (trackIndex: number) => {
 
 // Edit track control logic
 const emit = defineEmits(["editDetails", "editPrice", "editExclusivePrice"]);
+interface EditTrackMenuItem {
+  title: string;
+  action: Function;
+}
 </script>
 
 <template>
