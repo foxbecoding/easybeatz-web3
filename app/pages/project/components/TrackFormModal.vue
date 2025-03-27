@@ -156,14 +156,13 @@ const findSelectedValue = (slug: string, arr: Genre[] | Mood[]): Genre | Mood =>
           </select>
         </label>
       </form>
-    </div>
-    <div class="modal-action">
-      <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
-        <button class="btn btn-neutral">Close</button>
-        <button class="btn btn-primary">
+      <div class="modal-action">
+        <button @click="closeModal()" class="btn btn-neutral">Close</button>
+        <button @click="submit()" class="btn btn-primary">
           Submit
+          <span v-if="isLoading" class="loading loading-dots loading-md"></span>
         </button>
-      </form>
+      </div>
     </div>
   </dialog>
 </template>
