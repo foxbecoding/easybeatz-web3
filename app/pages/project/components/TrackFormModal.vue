@@ -119,6 +119,20 @@ const findSelectedValue = (slug: string, arr: Genre[] | Mood[]): Genre | Mood =>
           </div>
         </label>
 
+        <label class="form-control w-full">
+          <div class="label flex flex-col items-start">
+            <span class="label-text text-lg font-semibold">BPM</span>
+          </div>
+          <input v-model="formFields.bpm" @input="numbersOnlyInput" @keydown="numbersOnlyInput" id="bpm" name="bpm"
+            type="number" placeholder="Enter track bpm" class="input input-ghost bg-neutral w-full"
+            :class="formErrors.bpm ? 'input-error' : ''" />
+          <div v-if="formErrors.bpm" class="label">
+            <span class="label-text-alt text-error">
+              {{ formErrors.bpm }}
+            </span>
+          </div>
+        </label>
+
       </form>
     </div>
     <div class="modal-action">
