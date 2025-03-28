@@ -186,8 +186,7 @@ const editExclusiveHandler = (track: Track) => {
         <span>{{ editModeLabel }}</span>
       </div>
       <AppTrackList v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station" :album="album"
-        @edit-details="editDetailsHandler" @edit-price="editPriceHandler"
-        @edit-exclusive-price="editExclusivePriceHandler" />
+        @edit-details="editDetailsHandler" @edit-price="editPriceHandler" @edit-exclusive="editExclusiveHandler" />
     </div>
 
     <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-8">
