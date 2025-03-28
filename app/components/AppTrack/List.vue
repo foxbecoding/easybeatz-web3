@@ -46,7 +46,7 @@ interface EditTrackMenuItem {
 const editTrackMenuItems = ref<EditTrackMenuItem[]>([
   { title: "Edit details", action: (track: Track) => { emit("editDetails", track) } },
   { title: "Edit price", action: (track: Track) => { emit("editPrice", track) } },
-  { title: "Edit exclusive price", action: (track: Track) => { emit("editExclusivePrice", track) } },
+  { title: "Edit exclusive price", action: (track: Track) => { emit("editExclusive", track) } },
 ]);
 
 </script>
