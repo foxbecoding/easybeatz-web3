@@ -26,6 +26,17 @@ const formErrors = reactive<any>({
   price: '',
 });
 
+const setFormErrors = (res: any) => {
+  const obj = res;
+  Object.keys(formErrors).forEach(key => {
+    if (key in obj) {
+      formErrors[`${key}`] = obj[key].length === 1 ? obj[key][0] : obj[key];
+    } else {
+      formErrors[key] = '';
+    }
+  });
+}
+
 </script>
 
 <template>
