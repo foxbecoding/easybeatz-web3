@@ -37,6 +37,12 @@ const setFormErrors = (res: any) => {
   });
 }
 
+const clearFormErrors = () => {
+  Object.keys(formErrors).forEach(key => {
+    formErrors[key] = '';
+  });
+}
+
 </script>
 
 <template>
