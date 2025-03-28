@@ -43,6 +43,34 @@ const clearFormErrors = () => {
   });
 }
 
+//Form submit logic
+const isLoading = ref(false);
+const emit = defineEmits(["submitExclusive"]);
+const submit = async () => {
+  if (isLoading.value) return;
+  isLoading.value = true;
+  const requestData = { value: formFields.exclusive_price }
+
+  try {
+    const { message, data } = await updateTrackExclusivePrice(props.track.tid, requestData);
+    if (message) {
+      useToast().setToast(message, "INFO");
+      emit("submitExclusive");
+      closeModal();
+      clearFormErrors();
+    }
+  }
+  catch (error: any) {
+    const { message, data } = error.data;
+    setFormErrors(data);
+  }
+  finally {
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 2000);
+  }
+}
+
 </script>
 
 <template>
