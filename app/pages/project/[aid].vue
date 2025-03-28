@@ -142,7 +142,13 @@ const editPriceHandler = (track: Track) => {
 }
 
 // Track Exclusive Price form modal logic
-const editExclusivePriceHandler = (e: any) => { console.log(e) }
+const showTrackExclusiveForm = ref(false);
+const editExclusiveHandler = (track: Track) => {
+  selectedEditTrackSetter(track);
+  setTimeout(() => {
+    showTrackExclusiveForm.value = true;
+  }, 200);
+}
 
 
 </script>
