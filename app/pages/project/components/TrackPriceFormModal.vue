@@ -74,7 +74,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <dialog id="form_modal" class="modal modal-bottom sm:modal-middle">
+  <dialog id="track_price_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
       <h2 class="text-2xl font-bold">Edit track details</h2>
       <form id="track-form" ref="form" class="flex flex-col gap-4" @keydown.enter.prevent>
