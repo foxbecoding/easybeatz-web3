@@ -216,5 +216,7 @@ const editExclusivePriceHandler = (e: any) => { console.log(e) }
       :title="album.title" :bio="album.bio" @submit="refresh()" />
     <TrackFormModal v-if="selectedEditTrack && (genre_status === 'success' && mood_status === 'success')"
       v-model="showTrackForm" :track="selectedEditTrack" :genres="genres" :moods="moods" @submit-details="refresh()" />
+    <TrackPriceFormModal v-if="selectedEditTrack" v-model="showTrackPriceForm" :track="selectedEditTrack"
+      @submit-price="refresh()" />
   </AppPageContainer>
 </template>
