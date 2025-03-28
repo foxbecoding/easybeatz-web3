@@ -16,6 +16,16 @@ watch(model, (newVal) => {
   }
 });
 
+// Form fields logic
+const form = ref();
+const formFields = reactive<any>({
+  exclusive_price: props.track.exclusive_price,
+});
+
+const formErrors = reactive<any>({
+  exclusive_price: '',
+});
+
 </script>
 
 <template>
