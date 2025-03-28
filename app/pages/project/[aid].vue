@@ -161,7 +161,16 @@ const onFileChange = () => { }
   <AppPageContainer>
     <div v-if="(status == 'success' && album) || cachedAlbum" class="flex flex-col gap-8">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
-        <div :style="albumCoverStyles" class="min-w-[300px] h-[300px] group relative bg-neutral rounded-[1rem]"></div>
+        <div :style="albumCoverStyles"
+          class="min-w-[300px] h-[300px] group relative aspect-square bg-neutral rounded-[1rem]">
+          <button v-show="isEditMode" @click="triggerFileInput"
+            class="btn btn-neutral mask mask-squircle upload-button">
+            <Icon icon="solar:camera-add-bold" class="text-xl" />
+          </button>
+          <input v-if="isEditMode" ref="fileInput" type="file" id="fileInput" accept=".png,.jpg,.jpeg,.avif,.bmp,.webp"
+            @change="onFileChange" class="hidden" />
+        </div>
+
         <div
           class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
           <div class="items-center md:items-start w-full flex flex-col gap-2">
