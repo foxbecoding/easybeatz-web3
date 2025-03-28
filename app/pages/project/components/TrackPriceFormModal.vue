@@ -12,7 +12,7 @@ watch(model, (newVal) => {
   if (newVal) {
     document.getElementById('track_price_modal')?.showModal();
   } else {
-    document.getElementById('form_modal')?.close();
+    document.getElementById('track_price_modal')?.close();
   }
 });
 
