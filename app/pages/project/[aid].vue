@@ -6,6 +6,7 @@ import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
 import AlbumFormModal from "@/pages/project/components/AlbumFormModal.vue";
 import TrackFormModal from "@/pages/project/components/TrackFormModal.vue";
+import TrackPriceFormModal from "@/pages/project/components/TrackPriceFormModal.vue";
 import _ from 'lodash';
 
 const route = useRoute();
