@@ -53,7 +53,7 @@ const { data: fetchedGenres, status: genre_status } = await useLazyFetch(fetchGe
   server: false,
   key: `project-aid-genres`,
 });
-const genres = computed<Genre[]>(() => fetchedGenres.value.data as Genre[]);
+const genres = computed<Genre[]>(() => fetchedGenres.value.data as Genre[] || cachedGenres.value);
 
 // Moods request logic
 const fetchMoodPath = `${config.public.API_MOOD}/`;
