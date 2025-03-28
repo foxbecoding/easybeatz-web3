@@ -74,4 +74,31 @@ const submit = async () => {
 </script>
 
 <template>
+  <dialog id="form_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h2 class="text-2xl font-bold">Edit track details</h2>
+      <form id="track-form" ref="form" class="flex flex-col gap-4" @keydown.enter.prevent>
+        <label class="form-control w-full">
+          <div class="label flex flex-col items-start">
+            <span class="label-text text-lg font-semibold">Price</span>
+          </div>
+          <input v-model="formFields.price" @input="numbersOnlyInput" @keydown="numbersOnlyInput" id="price"
+            name="price" type="number" placeholder="Enter track price" class="input input-ghost bg-neutral w-full"
+            :class="formErrors.price ? 'input-error' : ''" />
+          <div v-if="formErrors.price" class="label">
+            <span class="label-text-alt text-error">
+              {{ formErrors.price }}
+            </span>
+          </div>
+        </label>
+      </form>
+      <div class="modal-action">
+        <button @click="closeModal()" class="btn btn-neutral">Close</button>
+        <button @click="submit()" class="btn btn-primary">
+          Submit
+          <span v-if="isLoading" class="loading loading-dots loading-md"></span>
+        </button>
+      </div>
+    </div>
+  </dialog>
 </template>
