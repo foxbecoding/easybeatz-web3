@@ -224,5 +224,7 @@ const editExclusiveHandler = (track: Track) => {
       v-model="showTrackForm" :track="selectedEditTrack" :genres="genres" :moods="moods" @submit-details="refresh()" />
     <TrackPriceFormModal v-if="selectedEditTrack" v-model="showTrackPriceForm" :track="selectedEditTrack"
       @submit-price="refresh()" />
+    <TrackExclusiveFormModal v-if="selectedEditTrack" v-model="showTrackExclusiveForm" :track="selectedEditTrack"
+      @submit-exclusive="refresh()" />
   </AppPageContainer>
 </template>
