@@ -131,10 +131,14 @@ const editDetailsHandler = (track: Track) => {
   }, 200);
 }
 
+// Track Price form modal logic
+const showTrackPriceForm = ref(false);
+const editPriceHandler = (track: Track) => {
+  selectedEditTrackSetter(track);
   setTimeout(() => {
-    selectedEditTrack.value = track;
-  }, 100);
-};
+    showTrackPriceForm.value = true;
+  }, 200);
+}
 
 </script>
 
