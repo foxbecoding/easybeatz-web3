@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useAuthStore } from "@/store/auth";
 import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
-import { type Album, type Track } from "@/services/models/album";
+import { type Album, type Track, updateAlbumCover } from "@/services/models/album";
 import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
 import AlbumFormModal from "@/pages/project/components/AlbumFormModal.vue";
