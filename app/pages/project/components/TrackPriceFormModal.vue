@@ -10,7 +10,7 @@ const model = defineModel({ default: false, required: true });
 const closeModal = () => model.value = false;
 watch(model, (newVal) => {
   if (newVal) {
-    document.getElementById('form_modal')?.showModal();
+    document.getElementById('track_price_modal')?.showModal();
   } else {
     document.getElementById('form_modal')?.close();
   }
