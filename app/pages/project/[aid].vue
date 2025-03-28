@@ -151,6 +151,10 @@ const editExclusiveHandler = (track: Track) => {
 }
 
 
+//Album Cover logic
+const triggerFileInput = () => { }
+const onFileChange = () => { }
+
 </script>
 
 <template>
