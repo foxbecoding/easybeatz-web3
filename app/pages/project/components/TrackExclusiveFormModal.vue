@@ -74,4 +74,31 @@ const submit = async () => {
 </script>
 
 <template>
+  <dialog id="track_exclusive_modal" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h2 class="text-2xl font-bold">{{ track.exclusive_price ? 'Edit' : 'Add' }} track exclusive price</h2>
+      <form id="track-form" ref="form" class="flex flex-col gap-4" @keydown.enter.prevent>
+        <label class="form-control w-full">
+          <div class="label flex flex-col items-start">
+            <span class="label-text text-lg font-semibold">Exclusive price</span>
+          </div>
+          <input v-model="formFields.exclusive_price" @input="numbersOnlyInput" @keydown="numbersOnlyInput"
+            id="exclusive_price" name="exclusive_price" type="number" placeholder="Enter track exclusive price"
+            class="input input-ghost bg-neutral w-full" :class="formErrors.exclusive_price ? 'input-error' : ''" />
+          <div v-if="formErrors.exclusive_price" class="label">
+            <span class="label-text-alt text-error">
+              {{ formErrors.exclusive_price }}
+            </span>
+          </div>
+        </label>
+      </form>
+      <div class="modal-action">
+        <button @click="closeModal()" class="btn btn-neutral">Close</button>
+        <button @click="submit()" class="btn btn-primary">
+          Submit
+          <span v-if="isLoading" class="loading loading-dots loading-md"></span>
+        </button>
+      </div>
+    </div>
+  </dialog>
 </template>
