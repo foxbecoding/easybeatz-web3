@@ -112,8 +112,16 @@ const editModeLabel = computed(() => {
 const showAlbumFormModal = ref(false);
 const openAlbumFormModal = () => showAlbumFormModal.value = true;
 
-// Track form modal logic
+// Shared Track form modal logic
 const selectedEditTrack = ref<Track | null>();
+const selectedEditTrackSetter = (track: Track) => {
+  selectedEditTrack.value = null;
+  setTimeout(() => {
+    selectedEditTrack.value = track;
+  }, 100);
+};
+
+
 const showTrackForm = ref(false);
 const editDetailsHandler = (track: Track) => {
   selectedEditTrackSetter(track);
