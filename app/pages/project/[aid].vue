@@ -215,6 +215,6 @@ const editExclusivePriceHandler = (e: any) => { console.log(e) }
     <AlbumFormModal v-if="(status == 'success' && album) || cachedAlbum" v-model="showAlbumFormModal"
       :title="album.title" :bio="album.bio" @submit="refresh()" />
     <TrackFormModal v-if="selectedEditTrack && (genre_status === 'success' && mood_status === 'success')"
-      v-model="showTrackForm" :track="selectedEditTrack" :genres="genres" :moods="moods" @submitDetails="refresh()" />
+      v-model="showTrackForm" :track="selectedEditTrack" :genres="genres" :moods="moods" @submit-details="refresh()" />
   </AppPageContainer>
 </template>
