@@ -140,6 +140,10 @@ const editPriceHandler = (track: Track) => {
   }, 200);
 }
 
+// Track Exclusive Price form modal logic
+const editExclusivePriceHandler = (e: any) => { console.log(e) }
+
+
 </script>
 
 <template>
