@@ -62,7 +62,7 @@ const { data: fetchedMoods, status: mood_status } = await useLazyFetch(fetchMood
   server: false,
   key: `project-aid-moods`,
 });
-const moods = computed<Mood[]>(() => fetchedMoods.value.data as Mood[]);
+const moods = computed<Mood[]>(() => fetchedMoods.value.data as Mood[] || cachedMoods.value);
 
 // Music player logic
 const playHandler = () => {
