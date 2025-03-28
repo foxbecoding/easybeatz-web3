@@ -122,6 +122,7 @@ const selectedEditTrackSetter = (track: Track) => {
 };
 
 
+// Track form modal logic
 const showTrackForm = ref(false);
 const editDetailsHandler = (track: Track) => {
   selectedEditTrackSetter(track);
@@ -130,10 +131,6 @@ const editDetailsHandler = (track: Track) => {
   }, 200);
 }
 
-const editPriceHandler = (e: any) => { console.log(e) }
-const editExclusivePriceHandler = (e: any) => { console.log(e) }
-const selectedEditTrackSetter = (track: Track) => {
-  selectedEditTrack.value = null;
   setTimeout(() => {
     selectedEditTrack.value = track;
   }, 100);
