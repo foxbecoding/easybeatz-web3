@@ -16,6 +16,16 @@ watch(model, (newVal) => {
   }
 });
 
+// Form fields logic
+const form = ref();
+const formFields = reactive<any>({
+  price: props.track.price,
+});
+
+const formErrors = reactive<any>({
+  price: '',
+});
+
 </script>
 
 <template>
