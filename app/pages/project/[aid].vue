@@ -14,6 +14,7 @@ const route = useRoute();
 const authStore = useAuthStore();
 const config = useRuntimeConfig();
 const musicPlayerStore = useMusicPlayerStore();
+const img = useImage();
 const aid = ref(route.params.aid)
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const fetchPath = `${config.public.API_ALBUM}/${aid.value}/retrieve_with_tracks_and_relations/`;
@@ -40,7 +41,6 @@ const album = computed<Album>(() => fetchedAlbum.value.data as Album || cachedAl
 const albumTracks = computed(() => album.value?.tracks || [])
 const albumCover = computed(() => `${config.public.MEDIA_URL}` + album.value?.cover);
 
-const img = useImage()
 const albumCoverStyles = computed(() => {
   const imgUrl = img(albumCover.value, { width: 100 })
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
