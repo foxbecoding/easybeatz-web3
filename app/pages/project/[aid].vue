@@ -146,7 +146,6 @@ const editExclusiveHandler = (track: Track) => {
 
 
 //Album Cover logic
-const triggerFileInput = () => { }
 const albumCoverStyles = computed(() => {
   const imgUrl = img(albumCover.value, { width: 100 })
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
@@ -160,6 +159,9 @@ const onFileChange = (e: any) => {
 }
 
 const fileInput = ref();
+const triggerFileInput = () => {
+  fileInput.value.click();
+}
 </script>
 
 <template>
