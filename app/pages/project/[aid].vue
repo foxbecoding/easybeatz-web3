@@ -39,12 +39,6 @@ const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch(fetchP
 
 const album = computed<Album>(() => fetchedAlbum.value.data as Album || cachedAlbum.value as Album)
 const albumTracks = computed(() => album.value?.tracks || [])
-const albumCover = computed(() => `${config.public.MEDIA_URL}` + album.value?.cover);
-
-const albumCoverStyles = computed(() => {
-  const imgUrl = img(albumCover.value, { width: 100 })
-  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
-})
 
 // Genres request logic
 const { data: cachedGenres } = useNuxtData<Album>(`project-aid-genres`);
@@ -154,6 +148,11 @@ const editExclusiveHandler = (track: Track) => {
 //Album Cover logic
 const triggerFileInput = () => { }
 const onFileChange = () => { }
+const albumCoverStyles = computed(() => {
+  const imgUrl = img(albumCover.value, { width: 100 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+});
+const albumCover = computed(() => `${config.public.MEDIA_URL}` + album.value?.cover);
 
 </script>
 
