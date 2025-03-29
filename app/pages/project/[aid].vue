@@ -147,13 +147,19 @@ const editExclusiveHandler = (track: Track) => {
 
 //Album Cover logic
 const triggerFileInput = () => { }
-const onFileChange = () => { }
 const albumCoverStyles = computed(() => {
   const imgUrl = img(albumCover.value, { width: 100 })
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 });
 const albumCover = computed(() => `${config.public.MEDIA_URL}` + album.value?.cover);
+const onFileChange = (e: any) => {
+  const file: File = e.target.files[0];
+  if (!file) return;
+  //upload picture
+  uploadPicture(file);
+}
 
+const fileInput = ref();
 </script>
 
 <template>
