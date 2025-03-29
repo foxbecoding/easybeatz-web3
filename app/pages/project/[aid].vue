@@ -162,6 +162,20 @@ const fileInput = ref();
 const triggerFileInput = () => {
   fileInput.value.click();
 }
+const uploadPicture = async (file: File) => {
+  const formData = new FormData;
+  formData.append('picture', file);
+  try {
+    const { message, data } = await updateAlbumCover(aid.value.toString(), formData);
+    await refresh()
+    useToast().setToast(message, "SUCCESS");
+  } catch (error: any) {
+    const { message, data } = error.data;
+    await refresh()
+    useToast().setToast(message, "ERROR");
+  }
+}
+
 </script>
 
 <template>
