@@ -215,9 +215,15 @@ const uploadPicture = async (file: File) => {
           </div>
         </div>
       </div>
-      <div v-if="album.is_owner" class="flex gap-2">
-        <input v-model="isEditMode" type="checkbox" :checked="false" class="toggle toggle-primary" />
-        <span>{{ editModeLabel }}</span>
+      <div v-if="album.is_owner" class="flex items-center justify-between h-[48px]">
+        <div class="flex gap-2">
+          <input v-model="isEditMode" type="checkbox" :checked="false" class="toggle toggle-primary" />
+          <span>{{ editModeLabel }}</span>
+        </div>
+        <button v-if="isEditMode" class="btn btn-secondary rounded-[1rem] text-lg">
+          <Icon class="text-lg lg:text-xl" icon="material-symbols:music-note-add-rounded" />
+          Add track
+        </button>
       </div>
       <AppTrackList v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station" :album="album"
         @edit-details="editDetailsHandler" @edit-price="editPriceHandler" @edit-exclusive="editExclusiveHandler" />
