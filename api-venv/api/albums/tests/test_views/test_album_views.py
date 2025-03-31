@@ -164,6 +164,20 @@ class TestAlbumViewSet:
         response = client.put(url, None)
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
+   
+    @pytest.mark.django_db
+    def test_add_track_view(self, db, client, user, station, album, track_request_data):
+        client.force_authenticate(user=user)
+        url = reverse("album-add-track", kwargs={"pk":album.aid})
+        response = client.post(url, track_request_data, format="multipart")
+
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.data.get("message") == "Track added successfully"
+        assert response.data.get("data") is None
+
+        assert Album.albums.with_tracks_and_relations(album.aid) is not None
+        track_qs = Track.objects.all()
+        assert track_qs.count() > 0
     
     @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view(self, db, client, user, station, request_data):
