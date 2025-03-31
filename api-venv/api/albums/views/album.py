@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
-from ..services import AlbumCreator, AlbumValidator, FormDataProcessor
+from ..services import AlbumCreator, AlbumValidator, FormDataProcessor, TrackCreator, TrackValidator
 from ..serializers import AlbumEditFormSerializer, AlbumWithTracksSerializer
 from ..models import Album
 from ..permissions import AlbumOwner
