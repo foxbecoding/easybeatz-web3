@@ -136,3 +136,7 @@ class AlbumCreator:
         return album
 
 class TrackValidator:
+    def __init__(self, tracks_data):
+        self.tracks_data = tracks_data
+        self.errors = []
+
