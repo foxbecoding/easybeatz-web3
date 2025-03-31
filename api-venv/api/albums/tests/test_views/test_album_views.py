@@ -75,8 +75,7 @@ class TestAlbumViewSet:
             "tracks[0][wav]": test_wav_file,
             "tracks[0][stems][0][name]": "snare",
             "tracks[0][stems][0][file]": test_wav_file2,
-
-        }
+        } 
 
     @pytest.fixture
     def invalid_request_data(self, db):
