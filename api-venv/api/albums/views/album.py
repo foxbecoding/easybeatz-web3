@@ -28,6 +28,21 @@ class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
         serializer.save()
         return self.view_response("Album updated successfully", None, status.HTTP_202_ACCEPTED)
 
+    @action(detail=True, methods=['post'])
+    def add_track(self, request, pk=None):
+        aid = pk
+        processor = FormDataProcessor(request.data)
+        processor.set_form_data()
+
+        validator = TrackValidator(processor.tracks_form_data)
+        if not validator.is_valid():
+            return self.view_response("Invalid track details", validator.errors, status.HTTP_400_BAD_REQUEST)
+
+        creator = TrackCreator(processor.tracks_form_data, aid)
+        creator.create_track()
+
+        return self.view_response("Track added successfully", None, status.HTTP_201_CREATED)
+
     @action(detail=False, methods=['post'])
     def create_with_tracks_and_relations(self, request):
         processor = FormDataProcessor(request.data)
