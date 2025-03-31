@@ -154,3 +154,7 @@ class TrackValidator:
         return True
 
 class TrackCreator:
+    def __init__(self, tracks_data, aid):
+        self.aid = aid
+        self.tracks_data = tracks_data
+
