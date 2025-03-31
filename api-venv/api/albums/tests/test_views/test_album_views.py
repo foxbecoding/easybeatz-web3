@@ -180,6 +180,16 @@ class TestAlbumViewSet:
         assert track_qs.count() > 0
     
     @pytest.mark.django_db
+    def test_add_track_view_error(self, db, client, user, station, album, invalid_track_request_data):
+        client.force_authenticate(user=user)
+        url = reverse("album-add-track", kwargs={"pk":album.aid})
+        response = client.post(url, invalid_track_request_data, format="multipart")
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Invalid track details"
+        assert response.data.get("data")  is not None
+    
+    @pytest.mark.django_db
     def test_create_with_tracks_and_relations_view(self, db, client, user, station, request_data):
         client.force_authenticate(user=user)
         url = reverse("album-create-with-tracks-and-relations")
