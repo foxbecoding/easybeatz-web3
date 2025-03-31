@@ -12,10 +12,11 @@ from core.mixins import ResponseMixin
 class AlbumViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
         permission_classes = [AllowAny]
-        needs_auth = ['update', 'create_with_tracks_and_relations']
+        needs_auth = ['update', 'add_track', 'create_with_tracks_and_relations']
+        only_album_owner = ['update', 'add_track']
         if self.action in needs_auth:
             permission_classes = [IsAuthenticated, HasStation]
-            if self.action == 'update':
+            if self.action in only_album_owner:
                 permission_classes = [IsAuthenticated, HasStation, AlbumOwner]
         return [permission() for permission in permission_classes]
 
