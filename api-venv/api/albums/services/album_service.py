@@ -158,3 +158,8 @@ class TrackCreator:
         self.aid = aid
         self.tracks_data = tracks_data
 
+    def _save_model_data(self, data, model):
+        instance = model(**data)
+        instance.save()
+        return instance
+
