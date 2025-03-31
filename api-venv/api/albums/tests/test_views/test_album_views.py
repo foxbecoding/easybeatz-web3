@@ -105,6 +105,27 @@ class TestAlbumViewSet:
             "tracks[0][stems][0][file]": test_wav_file2,
         }
     
+    @pytest.fixture
+    def invalid_track_request_data(self, db, genre, mood, test_mp3_file, test_wav_file, test_wav_file2, test_img_file):
+        """Fixture for test request data"""
+        return {
+            "track_count": 1,
+            "tracks[0][genre_count]": 1,
+            "tracks[0][collab_count]": 1,
+            "tracks[0][stem_count]": 1,
+            "tracks[0][bpm]": 120,
+            "tracks[0][collaborators][0]": ["some_pubkey"],
+            "tracks[0][exclusive_price]": 369,
+            "tracks[0][genres][0]": [str(genre.pk)],
+            "tracks[0][mood]": str(mood.pk),
+            "tracks[0][mp3]": "test_mp3_file.mp3",
+            "tracks[0][price]": 36,
+            "tracks[0][title]": "Test track",
+            "tracks[0][wav]": test_wav_file,
+            "tracks[0][stems][0][name]": "snare",
+            "tracks[0][stems][0][file]": test_wav_file2,
+        }
+
     @pytest.mark.django_db
     def test_album_update_view(self, db, client, user, station, album):
         client.force_authenticate(user=user)
