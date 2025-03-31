@@ -134,3 +134,5 @@ class AlbumCreator:
             TrackStem.objects.bulk_create(stems)
 
         return album
+
+class TrackValidator:
