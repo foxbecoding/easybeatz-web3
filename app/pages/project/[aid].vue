@@ -5,7 +5,7 @@ import { type Album, type Track, updateAlbumCover } from "@/services/models/albu
 import { type Genre } from "@/services/models/genre";
 import { type Mood } from "@/services/models/mood";
 import AlbumFormModal from "@/pages/project/components/AlbumFormModal.vue";
-import TrackFormModal from "@/pages/project/components/TrackFormModal.vue";
+import TrackDetailsFormModal from "@/pages/project/components/TrackDetailsFormModal.vue";
 import TrackPriceFormModal from "@/pages/project/components/TrackPriceFormModal.vue";
 import TrackExclusiveFormModal from "@/pages/project/components/TrackExclusiveFormModal.vue";
 import _ from 'lodash';
@@ -260,7 +260,7 @@ const uploadPicture = async (file: File) => {
     </div>
     <AlbumFormModal v-if="(status == 'success' && album) || cachedAlbum" v-model="showAlbumFormModal"
       :title="album.title" :bio="album.bio" @submit="refresh()" />
-    <TrackFormModal v-if="selectedEditTrack && (genre_status === 'success' && mood_status === 'success')"
+    <TrackDetailsFormModal v-if="selectedEditTrack && (genre_status === 'success' && mood_status === 'success')"
       v-model="showTrackForm" :track="selectedEditTrack" :genres="genres" :moods="moods" @submit-details="refresh()" />
     <TrackPriceFormModal v-if="selectedEditTrack" v-model="showTrackPriceForm" :track="selectedEditTrack"
       @submit-price="refresh()" />
