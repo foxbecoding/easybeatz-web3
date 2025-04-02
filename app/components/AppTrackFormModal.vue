@@ -146,6 +146,45 @@ const onStemChange = (index: number, e: any) => {
   setStemFile(index, file);
 }
 
+// Submit form logic
+const submitHandler = () => {
+  if (!isTrackFormValid.value) return;
+  const formData = new FormData;
+  formDataPreparer(formData);
+  emit("submit", formData);
+  closeModal();
+}
+
+const formDataPreparer = (formData: FormData) => {
+  formData.append(`track[genre_count]`, `${trackForm.genres.length}`);
+  formData.append(`track[collab_count]`, `${trackForm.collaborators.length}`);
+  formData.append(`track[stem_count]`, `${trackForm.stems.length}`);
+  Object.keys(trackForm).forEach(key => {
+    if (key == 'wav' && !trackForm.wav) return;
+    if (key == 'genres') {
+      trackForm.genres.forEach((genre, gi) => {
+        formData.append(`track[${key}][${gi}]`, genre)
+      });
+      return;
+    } else if (key == 'collaborators') {
+      if (trackForm.collaborators.length < 1) return;
+      trackForm.collaborators.forEach((collab, ci) => {
+        formData.append(`track[${key}][${ci}]`, collab.pubkey)
+      });
+      return;
+    } else if (key == 'stems') {
+      if (trackForm.stems.length < 1) return;
+      trackForm.stems.forEach((stem, si) => {
+        formData.append(`track[stems][${si}][name]`, stem.name);
+        formData.append(`track[stems][${si}][file]`, stem.file);
+      });
+
+      return;
+    }
+    formData.append(`track[${key}]`, trackForm[key]);
+  })
+}
+
 </script>
 
 <template>
