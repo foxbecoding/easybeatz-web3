@@ -46,6 +46,67 @@ watch(model, (newVal) => {
   }
 });
 
+// Track form logic
+const trackForm = reactive<TrackForm>({
+  bpm: '',
+  collaborators: [],
+  exclusive_price: '',
+  genres: [],
+  mood: '',
+  mp3: null,
+  price: '',
+  stems: [],
+  title: '',
+  wav: null
+});
+
+const clearTrackForm = () => {
+  trackForm.bpm = '';
+  trackForm.collaborators = [];
+  trackForm.exclusive_price = '';
+  trackForm.genres = [];
+  trackForm.mood = '';
+  trackForm.mp3 = null;
+  trackForm.price = '';
+  trackForm.stems = [];
+  trackForm.title = '';
+  trackForm.wav = null;
+  resetSelectedGenre();
+}
+
+const isTrackFormValid = computed(() => {
+  let validationFields = ['bpm', 'genres', 'mood', 'mp3', 'price', 'title'];
+
+  if (trackForm.stems.length > 0 || trackForm.exclusive_price) {
+    validationFields.push('stems')
+  }
+
+  if (trackForm.exclusive_price) {
+    validationFields.push('exclusive_price')
+  }
+
+  const validatedFields = validationFields.map((field: keyof typeof trackForm) => {
+    if (field == 'genres') {
+      return trackForm[field].length > 0 ? true : false;
+    }
+
+    if (field == 'exclusive_price') {
+      return trackForm['stems'].length > 0 ? true : false;
+    }
+
+    if (field == 'stems') {
+      const validStems = trackForm.stems.map(stem => {
+        return stem.name && stem.file ? true : false;
+      })
+      return validStems.every(value => value === true);
+    }
+
+    return !!trackForm[field];
+  })
+
+  return validatedFields.every(value => value === true);
+});
+
 </script>
 
 <template>
