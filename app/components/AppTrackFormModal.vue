@@ -8,6 +8,10 @@ interface TrackStemForm {
   file: File | null;
 }
 
+interface CollaboratorForm {
+  pubkey: string;
+}
+
 </script>
 
 <template>
