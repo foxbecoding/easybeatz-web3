@@ -4,7 +4,7 @@ from ..models import *
 from genres.models import Genre
 from moods.models import Mood
 from stations.models import Station
-from ..serializers import AlbumFormSerializer, TrackFormSerializer
+from ..serializers import AlbumFormSerializer, AddTrackFormSerializer, TrackFormSerializer
 
 class FormDataProcessor:
     def __init__(self, request_data) -> None:
@@ -134,3 +134,110 @@ class AlbumCreator:
             TrackStem.objects.bulk_create(stems)
 
         return album
+
+class TrackFormDataProcessor:
+    def __init__(self, request_data) -> None:
+        self.form_data = request_data
+        self.track_form_data = None
+
+    def set_form_data(self):
+        self._set_tracks_form_data()
+
+    def _set_tracks_form_data(self):
+        track = self._track_form_data_builder() 
+        self.track_form_data = track
+
+    def _track_form_data_builder(self):
+        genre_count = int(self.form_data.get(f'track[genre_count]', 0))
+        collab_count = int(self.form_data.get(f'track[collab_count]', 0))
+        stem_count = int(self.form_data.get(f'track[stem_count]', 0))
+        return {
+            'title': self.form_data.get(f'track[title]'),
+            'genres': [self.form_data.get(f'track[genres][{gi}]') for gi in range(genre_count)],
+            'mood': self.form_data.get(f'track[mood]'),
+            'mp3': self.form_data.get(f'track[mp3]'),
+            'wav': self.form_data.get(f'track[wav]'),
+            'bpm': self.form_data.get(f'track[bpm]'),
+            'price': self.form_data.get(f'track[price]'),
+            'exclusive_price': self.form_data.get(f'track[exclusive_price]'),
+            'collaborators': [self.form_data.get(f'track[collaborators][{ci}]') for ci in range(collab_count)],
+            'stems': [self._stem_form_data_builder(si) for si in range(stem_count)],
+        }
+
+    def _stem_form_data_builder(self, stem_index):
+        return { 
+            "name": self.form_data.get(f'track[stems][{stem_index}][name]'),
+            "file": self.form_data.get(f'track[stems][{stem_index}][file]')
+        }
+
+class TrackValidator:
+    def __init__(self, track_data):
+        self.track_data = track_data
+        self.errors = None
+
+    def is_valid(self):
+        if not self._is_tracks_data_valid():
+            return False
+        return True
+
+    def _is_tracks_data_valid(self):
+        serializer = AddTrackFormSerializer(data=self.track_data, context={'track_data': self.track_data})
+        if not serializer.is_valid():
+            self.errors = serializer.errors
+            return False  
+        return True
+
+class TrackCreator:
+    def __init__(self, track_data, aid):
+        self.aid = aid
+        self.track_data = track_data
+
+    def _save_model_data(self, data, model):
+        instance = model(**data)
+        instance.save()
+        return instance
+
+    @transaction.atomic
+    def create_track(self):
+        album = Album.objects.get(aid=self.aid)
+        track_count = Track.objects.filter(album__aid=self.aid).count()
+        track_data = self.track_data
+        
+        order_no = track_count - 1
+        if track_count == 0:
+            order_no = 0
+        
+        # 1.) Save Track
+        genres = Genre.objects.filter(pk__in=track_data['genres'])
+        mood = get_object_or_404(Mood, pk=track_data['mood'])
+        track_model_data = {
+            'album': album,
+            'title': track_data['title'],
+            'bpm': track_data['bpm'],
+            'mood': mood,
+            'order_no': order_no
+        }
+        track = self._save_model_data(track_model_data, Track)
+        track.genres.set(genres)
+
+        # 2.) Save TrackPrice
+        self._save_model_data({ 'track': track, 'value': track_data['price'] }, TrackPrice)
+
+        # 3.) Save TrackMp3
+        self._save_model_data({ 'track': track, 'audio': track_data['mp3'] }, TrackMp3)
+
+        # 4.) Save TrackWav
+        if track_data['wav']:
+            self._save_model_data({ 'track': track, 'audio': track_data['wav'] }, TrackWav)
+
+        # 5.) Save TrackExclusivePrice
+        if track_data['exclusive_price']:
+            self._save_model_data({ 'track': track, 'value': track_data['exclusive_price'] }, TrackExclusivePrice)
+
+        # 6.) Bulk create collaborators
+        collaborators = [TrackCollaborator(track=track, pubkey=collab) for collab in track_data['collaborators']]
+        TrackCollaborator.objects.bulk_create(collaborators)
+
+        # 7.) Bulk create stems
+        stems = [TrackStem(track=track, name=stem['name'], audio=stem['file']) for stem in track_data['stems']]
+        TrackStem.objects.bulk_create(stems)

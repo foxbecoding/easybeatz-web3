@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Album, type Track } from "@/services/models/album";
 import { type Station } from "@/services/models/station";
-import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer"
+import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
 
 const props = defineProps<{
   tracks: Track[];
@@ -9,6 +9,7 @@ const props = defineProps<{
   album: Album;
 }>();
 
+const isEditMode = defineModel("edit", { default: false, required: false });
 const config = useRuntimeConfig();
 const route = useRoute();
 const img = useImage();
@@ -22,10 +23,7 @@ const albumCoverStyles = computed(() => {
 
 const showProjectCover = computed(() => {
   const hideOnRoutes = ['project-aid']
-  if (hideOnRoutes.includes(String(route.name))) {
-    return false;
-  }
-  return true;
+  return hideOnRoutes.includes(String(route.name)) ? false : true;
 });
 
 const setMusicPlayerDetails = (trackIndex: number) => {
@@ -38,6 +36,18 @@ const setMusicPlayerDetails = (trackIndex: number) => {
   musicPlayerStore.isShuffled = false;
   musicPlayerStore.setMusicPlayerDetails(selectedTrackListItem, trackList, String(route.path));
 }
+
+// Edit track control logic
+const emit = defineEmits(["editDetails", "editPrice", "editExclusive"]);
+interface EditTrackMenuItem {
+  title: string;
+  action: Function;
+}
+const editTrackMenuItems = ref<EditTrackMenuItem[]>([
+  { title: "Edit details", action: (track: Track) => { emit("editDetails", track) } },
+  { title: "Edit price", action: (track: Track) => { emit("editPrice", track) } },
+  { title: "Edit exclusive price", action: (track: Track) => { emit("editExclusive", track) } },
+]);
 
 </script>
 
@@ -67,11 +77,30 @@ const setMusicPlayerDetails = (trackIndex: number) => {
             </div>
           </div>
         </div>
-        <div class="flex flex-col md:flex-row gap-2  items-start md:items-center">
-          <NuxtLink class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
+        <div class="flex flex-col md:flex-row gap-2 items-start md:items-center">
+          <NuxtLink v-if="!isEditMode"
+            class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
             Buy ${{ track.price }}
           </NuxtLink>
-          <AppTrackControls class="order-first md:order-last" :album="album" :station="station" :track="track" />
+          <div class="flex order-first md:order-last">
+            <AppTrackControls v-if="!isEditMode" :album="album" :station="station" :track="track" />
+            <div v-if="isEditMode" class="dropdown dropdown-end">
+              <div class="tooltip" data-tip="edit">
+                <div @click.stop tabindex="0" role="button" class="btn btn-square btn-ghost mask mask-squircle">
+                  <Icon icon="solar:pen-bold" class="text-warning" width="24" height="24" />
+                </div>
+              </div>
+
+              <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm">
+                <li v-for="item in editTrackMenuItems">
+                  <a @click.stop="item.action(track)">
+                    <Icon icon="solar:pen-bold" />
+                    {{ item.title }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>

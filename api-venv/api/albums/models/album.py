@@ -11,7 +11,7 @@ class Album(models.Model):
         on_delete=models.CASCADE,
         related_name='albums'
     )
-    title = models.CharField(max_length=120, default='')
+    title = models.CharField(max_length=120)
     aid = models.CharField(default='', unique=True)
     slug = models.SlugField(blank=True, default='')
     bio = models.TextField(blank=True, default='')

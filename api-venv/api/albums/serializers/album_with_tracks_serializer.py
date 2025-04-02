@@ -46,6 +46,7 @@ class AlbumWithTracksSerializer(serializers.ModelSerializer):
     total_duration = serializers.IntegerField()
     cover = AlbumCoverField(read_only=True)
     uploaded_at = serializers.SerializerMethodField()
+    is_owner = serializers.SerializerMethodField()
 
     def get_uploaded_at(self, obj):
         return obj.uploaded_at
@@ -61,4 +62,9 @@ class AlbumWithTracksSerializer(serializers.ModelSerializer):
             'total_duration',
             'tracks',
             'uploaded_at',
+            'is_owner'
         ]
+
+    def get_is_owner(self, obj):
+        return self.context['is_owner']
+
