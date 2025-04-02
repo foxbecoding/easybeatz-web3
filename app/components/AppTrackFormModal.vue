@@ -35,6 +35,17 @@ const props = defineProps<{
 // Emiiters
 const emit = defineEmits(['submit'])
 
+// Modal control logic
+const model = defineModel({ default: false, required: true });
+const closeModal = () => model.value = false;
+watch(model, (newVal) => {
+  if (newVal) {
+    document.getElementById('app_track_form_modal')?.showModal();
+  } else {
+    document.getElementById('app_track_form_modal')?.close();
+  }
+});
+
 </script>
 
 <template>
