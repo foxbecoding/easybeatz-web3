@@ -14,9 +14,9 @@ const model = defineModel({ default: false, required: true });
 const closeModal = () => model.value = false;
 watch(model, (newVal) => {
   if (newVal) {
-    document.getElementById('track_form_modal')?.showModal();
+    document.getElementById('track_details_form_modal')?.showModal();
   } else {
-    document.getElementById('track_form_modal')?.close();
+    document.getElementById('track_details_form_modal')?.close();
   }
 });
 
@@ -102,7 +102,7 @@ const findSelectedValue = (slug: string, arr: Genre[] | Mood[]): Genre | Mood =>
 </script>
 
 <template>
-  <dialog id="track_form_modal" class="modal modal-bottom sm:modal-middle">
+  <dialog id="track_details_form_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
       <h2 class="text-2xl font-bold">Edit track details</h2>
       <form id="track-form" ref="form" class="flex flex-col gap-4" @keydown.enter.prevent>
