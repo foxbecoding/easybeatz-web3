@@ -224,7 +224,7 @@ const uploadPicture = async (file: File) => {
           <input v-model="isEditMode" type="checkbox" :checked="false" class="toggle toggle-primary" />
           <span>{{ editModeLabel }}</span>
         </div>
-        <button v-if="isEditMode" class="btn btn-secondary rounded-[1rem] text-lg">
+        <button v-if="isEditMode" @click="openAddTrackFormModal()" class="btn btn-secondary rounded-[1rem] text-lg">
           <Icon class="text-lg lg:text-xl" icon="material-symbols:music-note-add-rounded" />
           Add track
         </button>
