@@ -132,6 +132,10 @@ const onMediaChange = (e: any) => {
 const setMp3File = (file: File) => trackForm.mp3 = file;
 const setWavFile = (file: File) => trackForm.wav = file;
 
+// Colaborators logic
+const addCollabHandler = () => trackForm.collaborators.push({ pubkey: '' });
+const removeCollabHandler = (index: number) => trackForm.collaborators.splice(index, 1);
+
 </script>
 
 <template>
