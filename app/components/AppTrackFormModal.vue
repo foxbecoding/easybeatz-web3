@@ -364,13 +364,12 @@ defineExpose({
         </section>
       </form>
 
-      <div class="modal-action">
-        <form id="dialog-form" method="dialog" class="flex justify-end gap-2">
-          <button @click="closeModal()" class="btn btn-neutral">Close</button>
-          <button @click="submitHandler()" class="btn btn-primary" :disabled="!isTrackFormValid">
-            Submit
-          </button>
-        </form>
+      <div class="modal-action flex justify-end gap-2">
+        <button @click="closeModal()" class="btn btn-neutral">Close</button>
+        <button @click="submitHandler()" class="btn btn-primary" :disabled="!isTrackFormValid">
+          Submit
+          <span v-if="isLoading" class="loading loading-dots loading-md"></span>
+        </button>
       </div>
     </div>
   </dialog>
