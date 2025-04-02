@@ -147,7 +147,9 @@ const onStemChange = (index: number, e: any) => {
 }
 
 // Submit form logic
+const isLoading = ref(false);
 const submitHandler = () => {
+  if (isLoading.value) return;
   if (!isTrackFormValid.value) return;
   const formData = new FormData;
   formDataPreparer(formData);
