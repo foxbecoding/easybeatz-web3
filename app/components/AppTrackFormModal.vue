@@ -12,6 +12,19 @@ interface CollaboratorForm {
   pubkey: string;
 }
 
+interface TrackForm {
+  bpm: string;
+  collaborators: CollaboratorForm[];
+  exclusive_price: string;
+  genres: string[];
+  mood: string;
+  mp3: File | null;
+  price: string;
+  stems: TrackStemForm[];
+  title: string;
+  wav?: File | null;
+}
+
 </script>
 
 <template>
