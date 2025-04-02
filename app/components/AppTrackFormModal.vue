@@ -154,7 +154,6 @@ const submitHandler = () => {
   const formData = new FormData;
   formDataPreparer(formData);
   emit("submit", formData);
-  closeModal();
 }
 
 const formDataPreparer = (formData: FormData) => {
