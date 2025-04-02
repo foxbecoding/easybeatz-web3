@@ -171,9 +171,9 @@ class TrackFormDataProcessor:
         }
 
 class TrackValidator:
-    def __init__(self, tracks_data):
-        self.tracks_data = tracks_data
-        self.errors = []
+    def __init__(self, track_data):
+        self.track_data = track_data
+        self.errors = None
 
     def is_valid(self):
         if not self._is_tracks_data_valid():
