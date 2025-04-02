@@ -32,6 +32,9 @@ const props = defineProps<{
   formTitle: string;
 }>();
 
+// Emiiters
+const emit = defineEmits(['submit'])
+
 </script>
 
 <template>
