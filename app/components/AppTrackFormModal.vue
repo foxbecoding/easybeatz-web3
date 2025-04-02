@@ -25,6 +25,13 @@ interface TrackForm {
   wav?: File | null;
 }
 
+// Component props
+const props = defineProps<{
+  genres: Genre[];
+  moods: Mood[];
+  formTitle: string;
+}>();
+
 </script>
 
 <template>
