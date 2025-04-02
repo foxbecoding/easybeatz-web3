@@ -107,6 +107,18 @@ const isTrackFormValid = computed(() => {
   return validatedFields.every(value => value === true);
 });
 
+// Genres logic
+const selectedGenre = ref('');
+const resetSelectedGenre = () => selectedGenre.value = '';
+const setGenresField = (genre_pk: string) => {
+  trackForm.genres = [];
+  trackForm.genres.push(genre_pk);
+}
+watch(selectedGenre, (newSelected) => {
+  if (!newSelected) return false;
+  setGenresField(String(newSelected));
+});
+
 </script>
 
 <template>
