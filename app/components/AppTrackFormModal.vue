@@ -186,6 +186,12 @@ const formDataPreparer = (formData: FormData) => {
   })
 }
 
+defineExpose({
+  isLoading,
+  clearTrackForm,
+  closeModal
+});
+
 </script>
 
 <template>
