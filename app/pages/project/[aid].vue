@@ -108,6 +108,7 @@ const showAlbumFormModal = ref(false);
 const openAlbumFormModal = () => showAlbumFormModal.value = true;
 
 // Add Track form modal logic
+const addTrackModalRef = ref();
 const showAddTrackModal = ref(false);
 const openAddTrackFormModal = () => showAddTrackModal.value = true;
 
