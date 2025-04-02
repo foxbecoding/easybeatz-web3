@@ -107,7 +107,7 @@ class TrackFormSerializer(serializers.Serializer):
             try:
                 WAVE(file)
             except Exception:
-                raise serializers.ValidationError({ f"track_{index}": { f"stem_{index}": "File in item is not a valid WAV file." } })
+                raise serializers.ValidationError({ f"track_{index}": { f"stem_{stem_index}": "File in item is not a valid WAV file." } })
 
         return value
 
