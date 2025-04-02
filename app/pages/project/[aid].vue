@@ -111,6 +111,29 @@ const openAlbumFormModal = () => showAlbumFormModal.value = true;
 const addTrackModalRef = ref();
 const showAddTrackModal = ref(false);
 const openAddTrackFormModal = () => showAddTrackModal.value = true;
+const submitTrackHandler = async (e: FormData) => {
+  addTrackModalRef.value.isLoading = true;
+  try {
+    const { message, data } = await addAlbumTrack(aid.value.toString(), e);
+    refresh();
+    addTrackModalRef.value.closeModal();
+    addTrackModalRef.value.clearTrackForm();
+
+    if (message) {
+      useToast().setToast(message, "SUCCESS");
+    }
+
+  } catch (error: any) {
+    const { message, data } = error.data;
+
+    if (message) {
+      useToast().setToast(message, "ERROR");
+    }
+
+  } finally {
+    setTimeout(() => { addTrackModalRef.value.isLoading = false; }, 2000)
+  }
+}
 
 // Shared Track form modal logic
 const selectedEditTrack = ref<Track | null>();
