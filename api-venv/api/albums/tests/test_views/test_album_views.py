@@ -88,21 +88,20 @@ class TestAlbumViewSet:
     def track_request_data(self, db, genre, mood, test_mp3_file, test_wav_file, test_wav_file2, test_img_file):
         """Fixture for test request data"""
         return {
-            "track_count": 1,
-            "tracks[0][genre_count]": 1,
-            "tracks[0][collab_count]": 1,
-            "tracks[0][stem_count]": 1,
-            "tracks[0][bpm]": 120,
-            "tracks[0][collaborators][0]": ["some_pubkey"],
-            "tracks[0][exclusive_price]": 369,
-            "tracks[0][genres][0]": [str(genre.pk)],
-            "tracks[0][mood]": str(mood.pk),
-            "tracks[0][mp3]": test_mp3_file,
-            "tracks[0][price]": 36,
-            "tracks[0][title]": "Test track",
-            "tracks[0][wav]": test_wav_file,
-            "tracks[0][stems][0][name]": "snare",
-            "tracks[0][stems][0][file]": test_wav_file2,
+            "track[genre_count]": 1,
+            "track[collab_count]": 1,
+            "track[stem_count]": 1,
+            "track[bpm]": 120,
+            "track[collaborators][0]": ["some_pubkey"],
+            "track[exclusive_price]": 369,
+            "track[genres][0]": [str(genre.pk)],
+            "track[mood]": str(mood.pk),
+            "track[mp3]": test_mp3_file,
+            "track[price]": 36,
+            "track[title]": "Test track",
+            "track[wav]": test_wav_file,
+            "track[stems][0][name]": "snare",
+            "track[stems][0][file]": test_wav_file2,
         }
     
     @pytest.fixture
