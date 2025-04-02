@@ -55,6 +55,20 @@ def test_img_file():
     )
 
 @pytest.fixture
+def test_img_file2():
+    """Creates a temporary Image file in-memory for testing."""
+    image = Image.new("RGB", (100, 100), color="red")
+    image_io = io.BytesIO()
+    image.save(image_io, format="JPEG")
+    image_io.seek(0)
+
+    return SimpleUploadedFile(
+        "test_image2.jpg",
+        image_io.getvalue(),
+        content_type="image/jpeg"
+    )
+
+@pytest.fixture
 def default_album(db, default_station):
     """Fixture to create a test album."""
     return Album.objects.create(

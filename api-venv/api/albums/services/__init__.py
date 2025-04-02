@@ -1,3 +1,3 @@
-from .album_service import FormDataProcessor, AlbumValidator, AlbumCreator
+from .album_service import FormDataProcessor, AlbumValidator, AlbumCreator, TrackFormDataProcessor, TrackValidator, TrackCreator
 
-__all__ = ['AlbumCreator', 'AlbumValidator', 'FormDataProcessor']
+__all__ = ['AlbumCreator', 'AlbumValidator', 'FormDataProcessor', 'TrackFormDataProcessor', 'TrackValidator', 'TrackCreator']

@@ -1,4 +1,3 @@
-import { type ApiData } from "@/composables/useApi";
 import { type Station } from "@/services/models/station";
 
 export interface Album {
@@ -10,6 +9,7 @@ export interface Album {
     uploaded_at: string;
     station: Station;
     tracks: Track[];
+    is_owner: boolean;
 };
 
 export interface Track {
@@ -33,26 +33,47 @@ export interface Track {
 };
 
 
-export const submitAlbumWithTracks = async (data: any) => {
+export const updateAlbum = (albumAid: string, data: any) => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_ALBUM}/create_with_tracks_and_relations/`;
-    const apiData: ApiData = { method: 'POST', path: fetchPath, data, isMultiPart: true };
-    const res = await useApi(apiData);
-    return res;
+    return submitRequest('PUT', `${config.public.API_ALBUM}/${albumAid}/`, data);
 }
 
-export const submitTrackFavorite = async (trackTid: string) => {
+export const updateAlbumCover = (albumAid: string, data: any) => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_TRACK_FAVORITE}/`;
-    const apiData: ApiData = { method: 'POST', path: fetchPath, data: { track: trackTid } };
-    const res = await useApi(apiData);
-    return res;
+    return submitRequest('PUT', `${config.public.API_ALBUM_COVER}/${albumAid}/`, data, true);
 }
 
-export const removeTrackFavorite = async (trackTid: string) => {
+export const submitAlbumWithTracks = (data: any) => {
     const config = useRuntimeConfig();
-    const fetchPath = `${config.public.API_TRACK_FAVORITE}/${trackTid}/`;
-    const apiData: ApiData = { method: 'DELETE', path: fetchPath };
-    const res = await useApi(apiData);
-    return res;
+    return submitRequest('POST', `${config.public.API_ALBUM}/create_with_tracks_and_relations/`, data, true);
+}
+
+export const addAlbumTrack = (albumAid: string, data: FormData) => {
+    const config = useRuntimeConfig();
+    return submitRequest('POST', `${config.public.API_ALBUM}/${albumAid}/add_track/`, data, true);
+}
+
+export const updateTrack = (trackTid: string, data: any) => {
+    const config = useRuntimeConfig();
+    return submitRequest('PUT', `${config.public.API_TRACK}/${trackTid}/`, data);
+}
+
+export const updateTrackPrice = (trackTid: string, data: any) => {
+    const config = useRuntimeConfig();
+    return submitRequest('PUT', `${config.public.API_TRACK_PRICE}/${trackTid}/`, data);
+}
+
+export const updateTrackExclusivePrice = (trackTid: string, data: any) => {
+    const config = useRuntimeConfig();
+    return submitRequest('PUT', `${config.public.API_TRACK_EXCLUSIVE_PRICE}/${trackTid}/`, data);
+}
+
+export const submitTrackFavorite = (trackTid: string) => {
+    const config = useRuntimeConfig();
+    return submitRequest('POST', `${config.public.API_TRACK_FAVORITE}/`, { track: trackTid });
+}
+
+export const removeTrackFavorite = (trackTid: string) => {
+    const config = useRuntimeConfig();
+    return submitRequest('DELETE', `${config.public.API_TRACK_FAVORITE}/${trackTid}/`);
 }
