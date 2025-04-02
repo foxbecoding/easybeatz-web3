@@ -286,8 +286,8 @@ const uploadPicture = async (file: File) => {
         <div v-for="demo in demoTracks" class="skeleton h-[128px]"></div>
       </div>
     </div>
-    <AppTrackFormModal v-if="genre_status === 'success' && mood_status === 'success'" v-model="showAddTrackModal"
-      form-title="Add track" :genres="genres" :moods="moods" />
+    <AppTrackFormModal v-if="genre_status === 'success' && mood_status === 'success'" ref="addTrackModalRef"
+      v-model="showAddTrackModal" form-title="Add track" :genres="genres" :moods="moods" @submit="submitTrackHandler" />
     <AlbumFormModal v-if="(status == 'success' && album) || cachedAlbum" v-model="showAlbumFormModal"
       :title="album.title" :bio="album.bio" @submit="refresh()" />
     <TrackDetailsFormModal v-if="selectedEditTrack && (genre_status === 'success' && mood_status === 'success')"
