@@ -119,6 +119,19 @@ watch(selectedGenre, (newSelected) => {
   setGenresField(String(newSelected));
 });
 
+// MP3 & WAV Media file logic
+const onMediaChange = (e: any) => {
+  const file: File = e.target.files[0];
+  const fileType = e.target.files[0].type;
+  if (fileType == 'audio/mpeg') {
+    setMp3File(file);
+  } else if (fileType == 'audio/wav') {
+    setWavFile(file);
+  }
+}
+const setMp3File = (file: File) => trackForm.mp3 = file;
+const setWavFile = (file: File) => trackForm.wav = file;
+
 </script>
 
 <template>
