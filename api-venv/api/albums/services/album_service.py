@@ -188,9 +188,9 @@ class TrackValidator:
         return True
 
 class TrackCreator:
-    def __init__(self, tracks_data, aid):
+    def __init__(self, track_data, aid):
         self.aid = aid
-        self.tracks_data = tracks_data
+        self.track_data = track_data
 
     def _save_model_data(self, data, model):
         instance = model(**data)
