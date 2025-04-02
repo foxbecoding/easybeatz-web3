@@ -135,6 +135,41 @@ class AlbumCreator:
 
         return album
 
+class TrackFormDataProcessor:
+    def __init__(self, request_data) -> None:
+        self.form_data = request_data
+        self.track_form_data = None
+
+    def set_form_data(self):
+        self._set_tracks_form_data()
+
+    def _set_tracks_form_data(self):
+        track = self._track_form_data_builder() 
+        self.track_form_data = track
+
+    def _track_form_data_builder(self):
+        genre_count = int(self.form_data.get(f'track[genre_count]', 0))
+        collab_count = int(self.form_data.get(f'track[collab_count]', 0))
+        stem_count = int(self.form_data.get(f'track[stem_count]', 0))
+        return {
+            'title': self.form_data.get(f'track[title]'),
+            'genres': [self.form_data.get(f'track[genres][{gi}]') for gi in range(genre_count)],
+            'mood': self.form_data.get(f'track[mood]'),
+            'mp3': self.form_data.get(f'track[mp3]'),
+            'wav': self.form_data.get(f'track[wav]'),
+            'bpm': self.form_data.get(f'track[bpm]'),
+            'price': self.form_data.get(f'track[price]'),
+            'exclusive_price': self.form_data.get(f'track[exclusive_price]'),
+            'collaborators': [self.form_data.get(f'track[collaborators][{ci}]') for ci in range(collab_count)],
+            'stems': [self._stem_form_data_builder(si) for si in range(stem_count)],
+        }
+
+    def _stem_form_data_builder(self, stem_index):
+        return { 
+            "name": self.form_data.get(f'track[stems][{stem_index}][name]'),
+            "file": self.form_data.get(f'track[stems][{stem_index}][file]')
+        }
+
 class TrackValidator:
     def __init__(self, tracks_data):
         self.tracks_data = tracks_data
