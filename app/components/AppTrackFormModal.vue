@@ -136,6 +136,16 @@ const setWavFile = (file: File) => trackForm.wav = file;
 const addCollabHandler = () => trackForm.collaborators.push({ pubkey: '' });
 const removeCollabHandler = (index: number) => trackForm.collaborators.splice(index, 1);
 
+// Stems logic
+const ExclusivesAndStemsMessage = "If you enter an exclusive price you must include stem files.";
+const addStemHandler = () => trackForm.stems.push({ name: '', file: null });
+const removeStemHandler = (index: number) => trackForm.stems.splice(index, 1);
+const setStemFile = (index: number, file: File) => trackForm.stems[index].file = file;
+const onStemChange = (index: number, e: any) => {
+  const file: File = e.target.files[0];
+  setStemFile(index, file);
+}
+
 </script>
 
 <template>
