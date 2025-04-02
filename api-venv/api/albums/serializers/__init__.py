@@ -12,10 +12,11 @@ from .create_track_collaborator_serializer import CreateTrackCollaboratorSeriali
 from .create_track_price_serializer import CreateTrackPriceSerializer
 from .create_track_exclusive_price_serializer import CreateTrackExclusivePriceSerializer
 from .track_favorite_serializer import TrackFavoriteSerializer
-from .track_form_data_serializer import TrackFormSerializer
+from .track_form_data_serializer import TrackFormSerializer, AddTrackFormSerializer
 from .track_edit_form_serializer import TrackEditFormSerializer, TrackExclusivePriceEditFormSerializer, TrackPriceEditFormSerializer
 
 __all__ = [
+    'AddTrackFormSerializer',
     'AlbumCoverEditSerializer',
     'AlbumEditFormSerializer',
     'AlbumFormSerializer',
