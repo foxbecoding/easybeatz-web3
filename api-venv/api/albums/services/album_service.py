@@ -201,7 +201,7 @@ class TrackCreator:
     def create_track(self):
         album = Album.objects.get(aid=self.aid)
         track_count = Track.objects.filter(album__aid=self.aid).count()
-        track_data = self.tracks_data[0]
+        track_data = self.track_data
         
         order_no = track_count - 1
         if track_count == 0:
