@@ -74,7 +74,7 @@ const errorHandler = (res: any) => {
   <div class="max-w-[600px] flex flex-col gap-4">
     <h1 class="text-3xl font-bold">{{ props.title }}</h1>
 
-    <form id="form" class="w-full">
+    <form id="form" class="w-full" @keydown.enter.prevent>
       <label class="form-control w-full">
         <div class="label flex flex-col items-start">
           <span class="label-text text-lg font-bold">Name</span>
