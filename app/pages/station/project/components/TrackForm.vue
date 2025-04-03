@@ -167,7 +167,7 @@ const coverImgStyles = computed(() => {
   <dialog id="track_form_modal" class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
       <h2 class="text-2xl font-bold">{{ !isEditMode ? 'Add' : 'Edit' }} track</h2>
-      <form id="track-form" ref="trackForm">
+      <form id="track-form" ref="trackForm" @keydown.enter.prevent>
         <section class="flex flex-col gap-2 mt-4">
           <h3 class="text-xl font-bold">Details</h3>
           <label class="form-control w-full">
