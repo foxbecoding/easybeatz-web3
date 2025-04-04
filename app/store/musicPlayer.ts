@@ -143,7 +143,10 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
       playTrackHandler();
       return
     }
+    playNextTrack();
+  };
 
+  const playNextTrack = () => {
     const trackIndex = currentTrackIndex.value;
     if (trackIndex < trackList.value.length - 1) {
       const index = trackIndex + 1;
@@ -151,7 +154,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     } else if ((trackIndex === trackList.value.length - 1) && isRepeatAll.value) {
       selectedTrackListItem.value = trackList.value[0];
     }
-  };
+  }
 
   const prevTrackHandler = () => {
     if (audio.value) {
@@ -253,6 +256,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     nextTrackHandler,
     ogTrackList,
     pauseTrackHandler,
+    playNextTrack,
     playTrackHandler,
     prevTrackHandler,
     repeatHandler,

@@ -14,7 +14,13 @@ const playOrPause = computed(() => musicPlayerStore.isPlaying ? pauseHandler() :
 
 const playHandler = () => musicPlayerStore.playTrackHandler;
 const pauseHandler = () => musicPlayerStore.pauseTrackHandler;
-const nextHandler = () => musicPlayerStore.nextTrackHandler();
+const nextHandler = () => {
+  if (musicPlayerStore.isRepeatOne) {
+    musicPlayerStore.playNextTrack();
+    return;
+  }
+  musicPlayerStore.nextTrackHandler();
+}
 const prevHandler = () => musicPlayerStore.prevTrackHandler();
 const repeatHandler = () => musicPlayerStore.repeatHandler();
 const shuffleHandler = () => musicPlayerStore.shuffleHandler();
