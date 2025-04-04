@@ -254,6 +254,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
     nextTrackHandler,
     ogTrackList,
     pauseTrackHandler,
+    playNextTrack,
     playTrackHandler,
     prevTrackHandler,
     repeatHandler,
