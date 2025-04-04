@@ -143,6 +143,8 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
       playTrackHandler();
       return
     }
+    playNextTrack();
+  };
 
   const playNextTrack = () => {
     const trackIndex = currentTrackIndex.value;
