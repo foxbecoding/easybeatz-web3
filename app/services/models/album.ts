@@ -13,6 +13,7 @@ export interface Album {
 };
 
 export interface Track {
+    album?: Album;
     bpm: string;
     duration: number;
     formatted_duration: string;
