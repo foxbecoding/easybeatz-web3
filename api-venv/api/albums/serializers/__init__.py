@@ -35,5 +35,6 @@ __all__ = [
     'TrackFormSerializer',
     'TrackEditFormSerializer',
     'TrackExclusivePriceEditFormSerializer',
-    'TrackPriceEditFormSerializer'
+    'TrackPriceEditFormSerializer',
+    'TrackPageSerializer'
 ]
