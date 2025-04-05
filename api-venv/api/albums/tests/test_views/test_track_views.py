@@ -6,7 +6,7 @@ from django.conf import settings
 from users.tests.conftest import default_user
 from genres.tests.conftest import default_genre
 from moods.tests.conftest import default_mood
-from stations.tests.conftest import default_station
+from stations.tests.conftest import default_station, default_station_picture
 import logging
 
 logger = logging.getLogger("albums")
