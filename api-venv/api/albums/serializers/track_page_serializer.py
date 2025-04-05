@@ -9,3 +9,7 @@ class AlbumField(serializers.RelatedField):
             "cover": value.cover.cover_url
         }
 
+class DisplayField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.display_url
+
