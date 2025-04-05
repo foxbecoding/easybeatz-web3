@@ -21,6 +21,17 @@ class TrackViewSet(viewsets.ViewSet, ResponseMixin):
                 permission_classes = [IsAuthenticated, HasStation, TrackOwner]
         return [permission() for permission in permission_classes]
 
+
+    @action(detail=True, methods=['get'])
+    def track_page(self, request, pk=None):
+        tid = pk
+        qs = Track.tracks.track_page(tid)
+        if not qs:
+            return self.view_response("Track page does not exists", None, status.HTTP_404_NOT_FOUND)
+        serialized_data = TrackPageSerializer(qs).data
+        return self.view_response(None, serialized_data, status.HTTP_200_OK)
+
+
     def update(self, request, pk=None):
         track = Track.objects.get(tid=pk)
         serializer = TrackEditFormSerializer(track, data=request.data)
