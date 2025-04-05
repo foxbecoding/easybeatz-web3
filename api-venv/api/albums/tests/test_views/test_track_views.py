@@ -114,3 +114,11 @@ class TestTrackViewSet:
         assert response.data.get("message") is None
         assert response.data.get("data") is not None
 
+    @pytest.mark.django_db
+    def test_track_page_view_error(self, db, client, user, station, station_picture, album, album_cover, track, track_display, track_price, track_exclusive_price, mood, genre):
+        url = reverse("track-track-page", kwargs={"pk": "wrong_tid"})
+        response = client.get(url)
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.data.get("message") == "Track page does not exists"
+        assert response.data.get("data") is None
