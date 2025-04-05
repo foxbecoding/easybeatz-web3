@@ -13,3 +13,7 @@ class DisplayField(serializers.RelatedField):
     def to_representation(self, value):
         return value.display_url
 
+class MoodField(serializers.RelatedField):
+    def to_representation(self, value):
+        return { "name": value.name, "slug": value.slug }
+
