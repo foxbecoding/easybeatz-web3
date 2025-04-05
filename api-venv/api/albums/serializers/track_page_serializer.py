@@ -21,3 +21,7 @@ class PriceField(serializers.RelatedField):
     def to_representation(self, value):
         return value.value
 
+class ExclusivePriceField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.value
+
