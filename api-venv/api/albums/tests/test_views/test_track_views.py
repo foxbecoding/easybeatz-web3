@@ -59,6 +59,10 @@ class TestTrackViewSet:
     def station(self, default_station):
         return default_station
 
+    @pytest.fixture
+    def station_picture(self, default_station_picture):
+        return default_station_picture
+
     @pytest.mark.django_db
     def test_track_update_view(self, client, user, station, album, track, mood, genre):
         client.force_authenticate(user=user)
