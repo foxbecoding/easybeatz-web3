@@ -17,3 +17,7 @@ class MoodField(serializers.RelatedField):
     def to_representation(self, value):
         return { "name": value.name, "slug": value.slug }
 
+class PriceField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.value
+
