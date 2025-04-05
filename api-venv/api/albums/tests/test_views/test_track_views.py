@@ -36,6 +36,10 @@ class TestTrackViewSet:
         return default_track
 
     @pytest.fixture
+    def track_display(self, default_track_display):
+        return default_track_display
+    
+    @pytest.fixture
     def genre(self, default_genre):
         return default_genre
 
