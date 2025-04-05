@@ -26,6 +26,7 @@ class Track(models.Model):
     deleted = models.DateTimeField(null=True)
 
     objects = models.Manager()
+    tracks = TrackManager()
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         if not self.tid:
