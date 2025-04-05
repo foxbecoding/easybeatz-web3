@@ -21,3 +21,7 @@ class TrackDisplay(models.Model):
     deleted = models.DateTimeField(null=True)
     
     objects = models.Manager()
+
+    @property
+    def display_url(self):
+        return self.audio.url
