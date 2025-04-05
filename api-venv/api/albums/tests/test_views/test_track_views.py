@@ -104,3 +104,13 @@ class TestTrackViewSet:
         response = client.put(url, None)
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    @pytest.mark.django_db
+    def test_track_page_view(self, db, client, user, station, station_picture, album, album_cover, track, track_display, track_price, track_exclusive_price, mood, genre):
+        url = reverse("track-track-page", kwargs={"pk": track.tid})
+        response = client.get(url)
+
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data.get("message") is None
+        assert response.data.get("data") is not None
+
