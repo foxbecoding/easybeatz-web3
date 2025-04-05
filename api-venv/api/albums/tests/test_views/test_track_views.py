@@ -28,6 +28,10 @@ class TestTrackViewSet:
         return default_album
 
     @pytest.fixture
+    def album_cover(self, default_album_cover):
+        return default_album_cover
+
+    @pytest.fixture
     def track(self, default_track):
         return default_track
 
