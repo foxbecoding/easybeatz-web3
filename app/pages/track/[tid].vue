@@ -45,6 +45,31 @@ const albumCoverStyles = computed(() => {
 // Track play audio logic
 const playHandler = () => { }
 
+// Track details logic
+interface TrackDetail {
+  label: string;
+  content: string;
+  icon: string;
+  to?: string;
+}
+
+const trackDetailItems = computed<TrackDetail[]>(() => [
+  { label: "Duration", content: track.value.formatted_duration, icon: "solar:clock-circle-bold" },
+  { label: "BPM", content: track.value.bpm, icon: "solar:playback-speed-bold" },
+  { label: "Uploaded", content: "2025", icon: "solar:upload-track-2-bold" },
+  { label: "Genre", content: track.value.genres.name, icon: "solar:music-notes-bold" },
+  { label: "Mood", content: track.value.mood.name, icon: "solar:music-notes-bold" },
+  {
+    label: "Project",
+    content: track.value.album?.title,
+    icon: "solar:music-library-2-bold",
+    to: {
+      name: "project-aid", params: { aid: track.value.album?.aid }
+    }
+  },
+] as TrackDetail[]);
+</script>
+
 <template>
   <AppPageContainer>
   </AppPageContainer>
