@@ -2,12 +2,12 @@ import { type ApiData } from "@/composables/useApi";
 import { type Album } from "@/services/models/album";
 
 export interface Station {
-    albums: StationAlbum[];
-    formatted_launched_date: string;
-    description: string;
-    email: string;
+    albums?: Album[];
+    formatted_launched_date?: string;
+    description?: string;
+    email?: string;
     handle: string;
-    is_owner: boolean;
+    is_owner?: boolean;
     name: string;
     picture: string;
     pubkey: string;
