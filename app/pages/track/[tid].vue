@@ -30,6 +30,18 @@ const { data: fetchedTrack, error, status, refresh } = await useLazyFetch<{ mess
 
 const track = computed<Track>(() => fetchedTrack.value?.data as Track || cachedTrack.value?.data as Track);
 
+// Album cover logic
+const albumCover = computed(() => {
+  const { album } = track.value;
+  if (!album) return "";
+  return `${config.public.MEDIA_URL}` + album.cover
+});
+
+const albumCoverStyles = computed(() => {
+  const imgUrl = img(albumCover.value, { width: 100 })
+  return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
+});
+
 <template>
   <AppPageContainer>
   </AppPageContainer>
