@@ -88,8 +88,11 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
               <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
               Play
             </button>
-            <button class="btn btn-secondary btn-square rounded-[1rem] text-lg">
-              <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
+            <button class="btn btn-ghost btn-square btn-active mask mask-squircle rounded-[1rem] text-lg">
+              <Icon class="text-lg lg:text-xl" icon="solar:heart-outline" />
+            </button>
+            <button class="btn btn-ghost btn-active btn-square mask mask-squircle rounded-[1rem] text-lg">
+              <Icon class="text-lg lg:text-xl" icon="solar:square-share-line-bold" />
             </button>
           </div>
         </div>
@@ -100,7 +103,7 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
           <div class="stats shadow">
             <div class="stat">
               <div class="stat-figure text-secondary">
-                <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
+                <Icon class="text-lg lg:text-xl" icon="solar:play-bold" />
               </div>
               <div class="stat-title">Plays</div>
               <div class="stat-value">10,000</div>
@@ -108,7 +111,7 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
 
             <div class="stat">
               <div class="stat-figure text-secondary">
-                <Icon class="text-lg lg:text-xl" icon="solar:shuffle-outline" />
+                <Icon class="text-lg lg:text-xl text-error" icon="solar:heart-bold" />
               </div>
               <div class="stat-title">Favorite</div>
               <div class="stat-value">180</div>
