@@ -1,11 +1,5 @@
-import { type ApiData } from "@/composables/useApi"
-
-interface StationAlbum {
-    aid: string,
-    bio: string,
-    title: string,
-    cover: string,
-}
+import { type ApiData } from "@/composables/useApi";
+import { type Album } from "@/services/models/album";
 
 export interface Station {
     albums: StationAlbum[];
