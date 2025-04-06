@@ -134,7 +134,7 @@ const albumCoverStyles = (cover_picture: string) => {
 
     <div v-if="(status == 'success' && station) || cachedStation">
       <div class="divider mt-8"></div>
-      <div v-if="station.albums.length > 0"
+      <div v-if="stationAlbums.length > 0"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
         <NuxtLink v-for="(album, a) in station.albums" :key="a"
           :to="{ name: 'project-aid', params: { aid: album.aid } }" class="flex flex-col w-full h-full gap-2">
