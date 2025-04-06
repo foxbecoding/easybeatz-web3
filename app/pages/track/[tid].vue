@@ -96,10 +96,11 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
           </div>
         </div>
       </div>
-      <div class="card bg-base-200 w-full">
-        <div class="card-body p-4">
-          <h2 class="card-title text opacity-60 pb-2">Track details</h2>
-          <div class="stats shadow">
+      <div tabindex="0" class="collapse collapse-arrow bg-base-200 w-full">
+        <input type="checkbox" />
+        <div class="collapse-title text-xl opacity-60 font-medium">Track details</div>
+        <div class="collapse-content">
+          <div class="stats shadow w-full">
             <div class="stat">
               <div class="stat-figure text-secondary">
                 <Icon class="text-lg lg:text-xl" icon="solar:play-bold" />
