@@ -48,7 +48,6 @@ const editTrackMenuItems = ref<EditTrackMenuItem[]>([
   { title: "Edit price", action: (track: Track) => { emit("editPrice", track) } },
   { title: "Edit exclusive price", action: (track: Track) => { emit("editExclusive", track) } },
 ]);
-
 </script>
 
 <template>
@@ -78,7 +77,7 @@ const editTrackMenuItems = ref<EditTrackMenuItem[]>([
           </div>
         </div>
         <div class="flex flex-col md:flex-row gap-2 items-start md:items-center">
-          <NuxtLink v-if="!isEditMode"
+          <NuxtLink v-if="!isEditMode" @click.stop :to="{ name: 'track-tid', params: { tid: track.tid } }"
             class="btn btn-primary w-full md:w-[116px] rounded-[1rem] order-last md:order-first">
             Buy ${{ track.price }}
           </NuxtLink>
