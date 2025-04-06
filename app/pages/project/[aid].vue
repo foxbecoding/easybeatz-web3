@@ -33,7 +33,6 @@ const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch(fetchP
   },
   onResponseError({ request, response, options }) {
     return navigateTo({ name: 'index' })
-    //isOwner.value = response._data.is_owner;
   }
 });
 
