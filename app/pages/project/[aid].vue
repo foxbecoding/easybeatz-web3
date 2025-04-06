@@ -253,8 +253,9 @@ const uploadPicture = async (file: File) => {
           Add track
         </button>
       </div>
-      <AppTrackList v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station" :album="album"
-        @edit-details="editDetailsHandler" @edit-price="editPriceHandler" @edit-exclusive="editExclusiveHandler" />
+      <AppTrackList v-if="album.station" v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station"
+        :album="album" @edit-details="editDetailsHandler" @edit-price="editPriceHandler"
+        @edit-exclusive="editExclusiveHandler" />
     </div>
 
     <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-8">
