@@ -35,6 +35,8 @@ const isStationOwner = computed(() => station.value?.is_owner);
 
 const stationPicture = computed(() => station.value?.picture ? `${config.public.MEDIA_URL}` + station.value?.picture : defaultStationImage);
 
+const stationAlbums = computed(() => station.value.albums || []);
+
 const img = useImage()
 const stationImgStyles = computed(() => {
   const imgUrl = img(stationPicture.value, { width: 100 })
