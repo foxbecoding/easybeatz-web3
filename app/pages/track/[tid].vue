@@ -133,11 +133,11 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
         </div>
       </div>
     </div>
-    <div v-if="(status == 'idle' || status == 'pending') && !cachedTrack" class="flex flex-col gap-8">
+    <div v-if="(status == 'idle' || status == 'pending') && !cachedTrack"
+      class="flex flex-col gap-8 w-full max-w-[1000px]">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div class="skeleton min-w-[300px] h-[300px] rounded-[1rem]"></div>
-        <div
-          class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
+        <div class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full">
           <div class="items-center md:items-start w-full flex flex-col gap-2">
             <div class="skeleton h-[36px] w-full max-w-[300px]"></div>
             <div class="flex gap-2">
