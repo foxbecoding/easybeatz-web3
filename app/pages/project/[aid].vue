@@ -85,8 +85,9 @@ const trackListBuilder = (): TrackList[] => {
   let trackList: TrackList[] = [];
 
   if (album.value) {
-    const { tracks, station } = album.value
-    tracks.forEach(track => {
+    const { tracks, station } = album.value;
+    tracks?.forEach(track => {
+      if (!station) return;
       trackList.push({ album: album.value as Album, station: station, track })
     });
   }
