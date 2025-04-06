@@ -72,13 +72,12 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
 
 <template>
   <AppPageContainer>
-    <div v-if="(status == 'success' && track) || cachedTrack" class="flex flex-col gap-8">
+    <div v-if="(status == 'success' && track) || cachedTrack" class="flex flex-col gap-8 w-full max-w-[1000px]">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div :style="albumCoverStyles"
           class="w-full md:w-auto md:min-w-[300px] md:h-[300px] group relative aspect-square bg-neutral rounded-[1rem]">
         </div>
-        <div
-          class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
+        <div class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full">
           <div class="md:items-start w-full flex flex-col gap-2">
             <p class="text-lg md:text-xl lg:text-2xl font-bold">{{ track.title }}</p>
             <AppStationBlock v-if="track.station" class="md:w-fit flex gap-2 justify-start" :station="track.station" />
@@ -97,7 +96,7 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
           </div>
         </div>
       </div>
-      <div class="card bg-base-200 w-full max-w-[920px]">
+      <div class="card bg-base-200 w-full">
         <div class="card-body p-4">
           <h2 class="card-title text opacity-60 pb-2">Track details</h2>
           <div class="stats shadow">
