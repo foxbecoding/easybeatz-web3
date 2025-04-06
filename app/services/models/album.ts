@@ -10,6 +10,11 @@ export interface Album {
     station: Station;
     tracks: Track[];
     is_owner: boolean;
+    total_duration?: number;
+    uploaded_at?: string;
+    station?: Station;
+    tracks?: Track[];
+    is_owner?: boolean;
 };
 
 export interface Track {
