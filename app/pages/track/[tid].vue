@@ -42,6 +42,9 @@ const albumCoverStyles = computed(() => {
   return { backgroundImage: `url('${imgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' }
 });
 
+// Track play audio logic
+const playHandler = () => { }
+
 <template>
   <AppPageContainer>
   </AppPageContainer>
