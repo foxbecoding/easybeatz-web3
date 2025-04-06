@@ -224,8 +224,8 @@ const uploadPicture = async (file: File) => {
           class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
           <div class="items-center md:items-start w-full flex flex-col gap-2">
             <p class="text-2xl md:text-3xl font-bold">{{ album.title }}</p>
-            <AppStationBlock class="md:w-fit flex gap-2 items-center justify-center md:justify-start"
-              :station="album.station" />
+            <AppStationBlock v-if="album.station"
+              class="md:w-fit flex gap-2 items-center justify-center md:justify-start" :station="album.station" />
             <p class="opacity-70">{{ album.uploaded_at }}</p>
             <button v-if="isEditMode" @click="openAlbumFormModal()" class="btn btn-secondary rounded-[1rem] text-lg">
               Edit details
