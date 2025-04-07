@@ -56,7 +56,7 @@ interface TrackDetail {
 const trackDetailItems = computed<TrackDetail[]>(() => [
   { label: "Duration", content: track.value.formatted_duration, icon: "solar:clock-circle-bold" },
   { label: "BPM", content: track.value.bpm, icon: "solar:playback-speed-bold" },
-  { label: "Uploaded", content: "2025", icon: "solar:upload-track-2-bold" },
+  { label: "Uploaded", content: track.value.uploaded_at, icon: "solar:upload-track-2-bold" },
   { label: "Genre", content: track.value.genres.name, icon: "solar:music-notes-bold" },
   { label: "Mood", content: track.value.mood.name, icon: "solar:music-notes-bold" },
   {
