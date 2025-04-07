@@ -34,6 +34,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
     genres = serializers.SerializerMethodField()
     station = serializers.SerializerMethodField()
     formatted_duration = serializers.SerializerMethodField()
+    uploaded_at = serializers.SerializerMethodField()
 
     def get_station(self, obj):
         station = obj.album.station 
@@ -44,6 +45,9 @@ class TrackPageSerializer(serializers.ModelSerializer):
             "pubkey": station.user.pubkey,
             "picture": station.picture.picture_url
         }
+
+    def get_uploaded_at(self, obj):
+        return obj.uploaded_at
 
     def get_formatted_duration(self, obj):
         return obj.formatted_duration
@@ -60,6 +64,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
             "duration",
             "exclusive_price",
             "formatted_duration",
+            "uploaded_at",
             "genres",
             "mood",
             "order_no",
