@@ -38,6 +38,11 @@ class Track(models.Model):
         return str(self.tid)
 
     @property
+    def uploaded_at(self):
+        created_date = datetime.fromisoformat(str(self.created).replace("Z", "+00:00"))
+        return f"{created_date.year}"
+
+    @property
     def display_url(self):
         return self.display.audio.url if self.display else None
     
