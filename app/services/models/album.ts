@@ -18,6 +18,7 @@ export interface Track {
     bpm: string;
     duration: number;
     formatted_duration: string;
+    uploaded_at: string;
     tid: string;
     title: string;
     display: string;
