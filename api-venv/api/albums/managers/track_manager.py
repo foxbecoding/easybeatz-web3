@@ -16,7 +16,7 @@ class TrackManager(models.Manager):
             "album__station",
             "album__station__user"
         ).only(
-            "bpm", "duration", "order_no", "tid", "title",
+            "bpm", "created", "duration", "order_no", "tid", "title",
             "display__audio",
             "exclusive_price__value",
             "mood__name", "mood__slug",
