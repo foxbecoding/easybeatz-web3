@@ -45,7 +45,12 @@ class Track(models.Model):
     @property
     def display_url(self):
         return self.display.audio.url if self.display else None
-    
+   
+    @property
+    def has_wav_file(self):
+        wav = getattr(self, 'wav', None)  # Avoid exception if related object doesn't exist
+        return True if wav else False
+
     @property
     def formatted_duration(self):
         hours, remainder = divmod(self.duration, 3600)
