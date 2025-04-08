@@ -27,6 +27,7 @@ export interface Track {
     exclusive_price: number | null;
     stems: string[];
     has_wav_file: boolean;
+    total_favorite_count: number;
     mood: {
         name: string;
         slug: string;
