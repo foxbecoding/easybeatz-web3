@@ -34,6 +34,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
     genres = serializers.SerializerMethodField()
     station = serializers.SerializerMethodField()
     formatted_duration = serializers.SerializerMethodField()
+    has_wav_file = serializers.SerializerMethodField()
     uploaded_at = serializers.SerializerMethodField()
 
     def get_station(self, obj):
@@ -52,6 +53,9 @@ class TrackPageSerializer(serializers.ModelSerializer):
     def get_formatted_duration(self, obj):
         return obj.formatted_duration
 
+    def get_has_wav_file(self, obj):
+        return obj.has_wav_file
+    
     def get_genres(self, obj):
         genres = [{ "name": genre.name, "slug": genre.slug } for genre in obj.genres.all()]
         return genres[0]
@@ -64,6 +68,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
             "duration",
             "exclusive_price",
             "formatted_duration",
+            "has_wav_file",
             "uploaded_at",
             "genres",
             "mood",
