@@ -11,13 +11,14 @@ class TrackManager(models.Manager):
             "exclusive_price",
             "mood",
             "price",
+            "wav",
             "album",
             "album__cover",
             "album__station",
             "album__station__user"
         ).only(
             "bpm", "created", "duration", "order_no", "tid", "title",
-            "display__audio",
+            "display__audio", "wav__track",
             "exclusive_price__value",
             "mood__name", "mood__slug",
             "price__value",
