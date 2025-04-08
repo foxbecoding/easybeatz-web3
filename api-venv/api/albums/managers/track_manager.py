@@ -5,7 +5,8 @@ from genres.models import Genre
 
 class TrackManager(models.Manager):
     def track_page(self, tid):
-
+        TrackStem = apps.get_model('albums', 'TrackStem')
+        
         queryset = self.select_related(
             "display",
             "exclusive_price",
@@ -30,6 +31,11 @@ class TrackManager(models.Manager):
             Prefetch(
                 "genres",  
                 queryset=Genre.objects.only("name", "slug")
+            )
+        ).prefetch_related(
+            Prefetch(
+                "stems", 
+                queryset=TrackStem.objects.only("name")
             )
         ).filter(tid=tid).first()
 
