@@ -43,7 +43,13 @@ const albumCoverStyles = computed(() => {
 });
 
 // Track play audio logic
-const playHandler = () => { }
+
+const playHandler = () => {
+  const { album, station } = track.value;
+  if (!album || !station) return;
+  let trackList: TrackList[] = [{ album: track.value.album, station: track.value.station, track: track.value }];
+  setMusicPlayerDetails(trackList);
+}
 
 // Track details logic
 interface TrackDetail {
