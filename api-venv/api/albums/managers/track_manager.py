@@ -6,6 +6,7 @@ from genres.models import Genre
 class TrackManager(models.Manager):
     def track_page(self, tid):
         TrackStem = apps.get_model('albums', 'TrackStem')
+        TrackFavorite = apps.get_model('albums', 'TrackFavorite')
         
         queryset = self.select_related(
             "display",
@@ -36,6 +37,11 @@ class TrackManager(models.Manager):
             Prefetch(
                 "stems", 
                 queryset=TrackStem.objects.only("name")
+            )
+        ).prefetch_related(
+            Prefetch(
+                "track_favorite_set", 
+                queryset=TrackFavorite.objects.only("track")
             )
         ).filter(tid=tid).first()
 
