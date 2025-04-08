@@ -107,7 +107,7 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
                 <Icon :icon="`solar:heart-${favoriteIcon}`" class="text-2xl" :class="favoriteIconColor" />
               </button>
             </div>
-            <div class="tooltip" data-tip="Share track">
+            <div class="tooltip" data-tip="share track">
               <button class="btn btn-ghost btn-active btn-square mask mask-squircle">
                 <Icon class="text-2xl" icon="solar:square-share-line-bold" />
               </button>
