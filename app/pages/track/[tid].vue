@@ -89,12 +89,15 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
               <Icon class="text-lg lg:text-xl" icon="solar:play-line-duotone" />
               Play
             </button>
-            <button class="btn btn-ghost btn-square btn-active mask mask-squircle rounded-[1rem] text-lg">
-              <Icon class="text-lg lg:text-xl" icon="solar:heart-outline" />
-            </button>
             <button class="btn btn-ghost btn-active btn-square mask mask-squircle rounded-[1rem] text-lg">
               <Icon class="text-lg lg:text-xl" icon="solar:square-share-line-bold" />
             </button>
+            <div class="tooltip" :data-tip="!isFavoriteTrack ? 'add favorite' : 'remove favorite'">
+              <button @click.stop="favoriteTrackHandler()"
+                class="btn btn-square btn-ghost btn-active mask mask-squircle">
+                <Icon :icon="`solar:heart-${favoriteIcon}`" class="text-2xl" :class="favoriteIconColor" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
