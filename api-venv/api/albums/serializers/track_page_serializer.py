@@ -35,6 +35,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
     stems = serializers.SerializerMethodField()
     station = serializers.SerializerMethodField()
     formatted_duration = serializers.SerializerMethodField()
+    total_favorite_count = serializers.SerializerMethodField()
     has_wav_file = serializers.SerializerMethodField()
     uploaded_at = serializers.SerializerMethodField()
 
@@ -65,6 +66,9 @@ class TrackPageSerializer(serializers.ModelSerializer):
         genres = [{ "name": genre.name, "slug": genre.slug } for genre in obj.genres.all()]
         return genres[0]
 
+    def get_total_favorite_count(self, obj):
+        return obj.track_favorite_set.all().count()
+
     class Meta:
         model = Track
         fields = [
@@ -73,6 +77,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
             "duration",
             "exclusive_price",
             "formatted_duration",
+            "total_favorite_count",
             "has_wav_file",
             "uploaded_at",
             "genres",
