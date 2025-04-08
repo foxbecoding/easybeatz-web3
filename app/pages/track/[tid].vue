@@ -154,6 +154,54 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
           </ul>
         </div>
       </div>
+      <div id="pricing" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card bg-gradient-to-b from-[rgba(36,36,36,1)] to-[rgba(18,18,18,1)]">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">Unlimited license</h2>
+              <span class="font-bold text-2xl">${{ track.price }}</span>
+            </div>
+            <h3>{{ trackIncludesText }}</h3>
+            <ul class="list-none space-y-2 py-4">
+              <li class="flex items-center gap-2">
+                <Icon icon="mingcute:check-2-fill" /> First item
+              </li>
+              <li class="flex items-center gap-2">
+                <Icon icon="mingcute:check-2-fill" /> Second item
+              </li>
+              <li class="flex items-center gap-2">
+                <Icon icon="mingcute:check-2-fill" /> Third item
+              </li>
+            </ul>
+            <div class="card-actions">
+              <button class="btn btn-primary btn-block rounded-[1rem] text-lg">Add to cart</button>
+            </div>
+          </div>
+        </div>
+        <div v-if="track.exclusive_price" class="card bg-gradient-to-b from-[rgba(36,36,36,1)] to-[rgba(18,18,18,1)]">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h2 class="card-title">Exclusive license</h2>
+              <span class="font-bold text-2xl text-warning">${{ track.exclusive_price }}</span>
+            </div>
+            <h3>{{ trackIncludesText }}</h3>
+            <ul class="list-none space-y-2 py-4">
+              <li class="flex items-center gap-2">
+                <Icon icon="mingcute:check-2-fill" /> First item
+              </li>
+              <li class="flex items-center gap-2">
+                <Icon icon="mingcute:check-2-fill" /> Second item
+              </li>
+              <li class="flex items-center gap-2">
+                <Icon icon="mingcute:check-2-fill" /> Third item
+              </li>
+            </ul>
+            <div class="card-actions">
+              <button class="btn btn-warning btn-block rounded-[1rem] text-lg">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div v-if="(status == 'idle' || status == 'pending') && !cachedTrack"
       class="flex flex-col gap-8 w-full max-w-[1000px]">
