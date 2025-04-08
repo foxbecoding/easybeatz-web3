@@ -24,7 +24,7 @@ const { data: fetchedTrack, error, status, refresh } = await useLazyFetch<{ mess
     }
   },
   onResponseError({ request, response, options }) {
-    console.log(response);
+    //console.log(response);
   }
 });
 
