@@ -29,7 +29,7 @@ const { data: fetchedTrack, error, status, refresh } = await useLazyFetch<{ mess
 });
 
 const track = computed<Track>(() => fetchedTrack.value?.data as Track || cachedTrack.value?.data as Track);
-const trackIncludesText = computed(() => `Includes: MP3 ${track.value.has_wav_file ? " + WAV" : ""}`)
+const trackIncludesText = computed(() => `Includes: MP3 ${track.value.has_wav_file ? " + WAV" : ""} ${track.value.stems.length > 0 ? " + STEMS" : ""} `)
 
 
 // Album cover logic
