@@ -44,6 +44,10 @@ const albumCoverStyles = computed(() => {
 
 // Track play audio logic
 const musicPlayerStore = useMusicPlayerStore();
+const setMusicPlayerDetails = (trackList: TrackList[]) => {
+  const trackListItem: TrackList = trackList[0];
+  musicPlayerStore.setMusicPlayerDetails(trackListItem, trackList, String(route.path));
+}
 
 const playHandler = () => {
   const { album, station } = track.value;
