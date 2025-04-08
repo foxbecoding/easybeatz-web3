@@ -25,6 +25,7 @@ export interface Track {
     order_no: number;
     price: number;
     exclusive_price: number | null;
+    has_wav_file: boolean;
     mood: {
         name: string;
         slug: string;
