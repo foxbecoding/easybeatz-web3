@@ -135,7 +135,7 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
                 <Icon class="text-lg lg:text-xl text-error" icon="solar:heart-bold" />
               </div>
               <div class="stat-title">Favorite</div>
-              <div class="stat-value">180</div>
+              <div class="stat-value">{{ track.total_favorite_count }}</div>
             </div>
           </div>
           <ul class="py-4">
