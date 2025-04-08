@@ -32,6 +32,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
     mood = MoodField(read_only=True)
     exclusive_price = ExclusivePriceField(read_only=True)
     genres = serializers.SerializerMethodField()
+    stems = serializers.SerializerMethodField()
     station = serializers.SerializerMethodField()
     formatted_duration = serializers.SerializerMethodField()
     has_wav_file = serializers.SerializerMethodField()
@@ -55,6 +56,10 @@ class TrackPageSerializer(serializers.ModelSerializer):
 
     def get_has_wav_file(self, obj):
         return obj.has_wav_file
+
+    def get_stems(self, obj):
+        stems = [stem.name for stem in obj.stems.all()]
+        return stems
     
     def get_genres(self, obj):
         genres = [{ "name": genre.name, "slug": genre.slug } for genre in obj.genres.all()]
@@ -71,6 +76,7 @@ class TrackPageSerializer(serializers.ModelSerializer):
             "has_wav_file",
             "uploaded_at",
             "genres",
+            "stems",
             "mood",
             "order_no",
             "price",
