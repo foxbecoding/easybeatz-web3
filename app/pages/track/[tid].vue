@@ -68,6 +68,8 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
     }
   },
 ] as TrackDetail[]);
+// Favorite track logic
+const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler } = useFavoriteTrack(tid.value.toString());
 </script>
 
 <template>
