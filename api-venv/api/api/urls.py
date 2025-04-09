@@ -24,4 +24,5 @@ urlpatterns = [
     path('api/', include('genres.urls')),
     path('api/', include('moods.urls')),
     path('api/', include('albums.urls')),
+    path('api/', include('carts.urls')),
 ]
