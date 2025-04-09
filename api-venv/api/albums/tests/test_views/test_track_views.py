@@ -6,7 +6,7 @@ from django.conf import settings
 from users.tests.conftest import default_user
 from genres.tests.conftest import default_genre
 from moods.tests.conftest import default_mood
-from stations.tests.conftest import default_station
+from stations.tests.conftest import default_station, default_station_picture
 import logging
 
 logger = logging.getLogger("albums")
@@ -28,8 +28,24 @@ class TestTrackViewSet:
         return default_album
 
     @pytest.fixture
+    def album_cover(self, default_album_cover):
+        return default_album_cover
+
+    @pytest.fixture
     def track(self, default_track):
         return default_track
+
+    @pytest.fixture
+    def track_display(self, default_track_display):
+        return default_track_display
+    
+    @pytest.fixture
+    def track_price(self, default_track_price):
+        return default_track_price
+
+    @pytest.fixture
+    def track_exclusive_price(self, default_track_exclusive_price):
+        return default_track_exclusive_price
 
     @pytest.fixture
     def genre(self, default_genre):
@@ -42,6 +58,10 @@ class TestTrackViewSet:
     @pytest.fixture
     def station(self, default_station):
         return default_station
+
+    @pytest.fixture
+    def station_picture(self, default_station_picture):
+        return default_station_picture
 
     @pytest.mark.django_db
     def test_track_update_view(self, client, user, station, album, track, mood, genre):
@@ -84,3 +104,21 @@ class TestTrackViewSet:
         response = client.put(url, None)
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
+
+    @pytest.mark.django_db
+    def test_track_page_view(self, db, client, user, station, station_picture, album, album_cover, track, track_display, track_price, track_exclusive_price, mood, genre):
+        url = reverse("track-track-page", kwargs={"pk": track.tid})
+        response = client.get(url)
+
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data.get("message") is None
+        assert response.data.get("data") is not None
+
+    @pytest.mark.django_db
+    def test_track_page_view_error(self, db, client, user, station, station_picture, album, album_cover, track, track_display, track_price, track_exclusive_price, mood, genre):
+        url = reverse("track-track-page", kwargs={"pk": "wrong_tid"})
+        response = client.get(url)
+
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.data.get("message") == "Track page does not exists"
+        assert response.data.get("data") is None

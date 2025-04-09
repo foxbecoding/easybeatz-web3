@@ -33,7 +33,6 @@ const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch(fetchP
   },
   onResponseError({ request, response, options }) {
     return navigateTo({ name: 'index' })
-    //isOwner.value = response._data.is_owner;
   }
 });
 
@@ -86,8 +85,9 @@ const trackListBuilder = (): TrackList[] => {
   let trackList: TrackList[] = [];
 
   if (album.value) {
-    const { tracks, station } = album.value
-    tracks.forEach(track => {
+    const { tracks, station } = album.value;
+    tracks?.forEach(track => {
+      if (!station) return;
       trackList.push({ album: album.value as Album, station: station, track })
     });
   }
@@ -224,8 +224,8 @@ const uploadPicture = async (file: File) => {
           class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full max-w-[600px]">
           <div class="items-center md:items-start w-full flex flex-col gap-2">
             <p class="text-2xl md:text-3xl font-bold">{{ album.title }}</p>
-            <AppStationBlock class="md:w-fit flex gap-2 items-center justify-center md:justify-start"
-              :station="album.station" />
+            <AppStationBlock v-if="album.station"
+              class="md:w-fit flex gap-2 items-center justify-center md:justify-start" :station="album.station" />
             <p class="opacity-70">{{ album.uploaded_at }}</p>
             <button v-if="isEditMode" @click="openAlbumFormModal()" class="btn btn-secondary rounded-[1rem] text-lg">
               Edit details
@@ -253,8 +253,9 @@ const uploadPicture = async (file: File) => {
           Add track
         </button>
       </div>
-      <AppTrackList v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station" :album="album"
-        @edit-details="editDetailsHandler" @edit-price="editPriceHandler" @edit-exclusive="editExclusiveHandler" />
+      <AppTrackList v-if="album.station" v-model:edit="isEditMode" :tracks="albumTracks" :station="album.station"
+        :album="album" @edit-details="editDetailsHandler" @edit-price="editPriceHandler"
+        @edit-exclusive="editExclusiveHandler" />
     </div>
 
     <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-8">

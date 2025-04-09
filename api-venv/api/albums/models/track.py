@@ -1,9 +1,11 @@
 import uuid
 from django.db import models
 from django.utils.text import slugify
+from ..managers import TrackManager
 from .album import Album
 from moods.models import Mood
 from genres.models import Genre
+from datetime import datetime
 
 class Track(models.Model):
     album = models.ForeignKey(
@@ -25,6 +27,7 @@ class Track(models.Model):
     deleted = models.DateTimeField(null=True)
 
     objects = models.Manager()
+    tracks = TrackManager()
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         if not self.tid:
@@ -35,9 +38,19 @@ class Track(models.Model):
         return str(self.tid)
 
     @property
+    def uploaded_at(self):
+        created_date = datetime.fromisoformat(str(self.created).replace("Z", "+00:00"))
+        return f"{created_date.year}"
+
+    @property
     def display_url(self):
         return self.display.audio.url if self.display else None
-    
+   
+    @property
+    def has_wav_file(self):
+        wav = getattr(self, 'wav', None)  # Avoid exception if related object doesn't exist
+        return True if wav else False
+
     @property
     def formatted_duration(self):
         hours, remainder = divmod(self.duration, 3600)
