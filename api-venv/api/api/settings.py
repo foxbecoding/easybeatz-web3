@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'albums.apps.AlbumsConfig',
     'genres.apps.GenresConfig',
     'moods.apps.MoodsConfig',
+    'carts.apps.CartsConfig',
     'core.apps.CoreConfig'
 ]
 
