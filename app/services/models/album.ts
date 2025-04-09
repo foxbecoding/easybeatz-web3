@@ -5,23 +5,29 @@ export interface Album {
     bio: string;
     cover: string;
     title: string;
-    total_duration: number;
-    uploaded_at: string;
-    station: Station;
-    tracks: Track[];
-    is_owner: boolean;
+    total_duration?: number;
+    uploaded_at?: string;
+    station?: Station;
+    tracks?: Track[];
+    is_owner?: boolean;
 };
 
 export interface Track {
+    album?: Album;
+    station?: Station;
     bpm: string;
     duration: number;
     formatted_duration: string;
+    uploaded_at: string;
     tid: string;
     title: string;
     display: string;
-    oder_no: number;
+    order_no: number;
     price: number;
     exclusive_price: number | null;
+    stems: string[];
+    has_wav_file: boolean;
+    total_favorite_count: number;
     mood: {
         name: string;
         slug: string;

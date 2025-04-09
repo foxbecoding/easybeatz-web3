@@ -14,6 +14,7 @@ from .create_track_exclusive_price_serializer import CreateTrackExclusivePriceSe
 from .track_favorite_serializer import TrackFavoriteSerializer
 from .track_form_data_serializer import TrackFormSerializer, AddTrackFormSerializer
 from .track_edit_form_serializer import TrackEditFormSerializer, TrackExclusivePriceEditFormSerializer, TrackPriceEditFormSerializer
+from .track_page_serializer import TrackPageSerializer
 
 __all__ = [
     'AddTrackFormSerializer',
@@ -34,5 +35,6 @@ __all__ = [
     'TrackFormSerializer',
     'TrackEditFormSerializer',
     'TrackExclusivePriceEditFormSerializer',
-    'TrackPriceEditFormSerializer'
+    'TrackPriceEditFormSerializer',
+    'TrackPageSerializer'
 ]
