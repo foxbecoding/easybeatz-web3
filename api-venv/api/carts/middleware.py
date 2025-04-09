@@ -15,5 +15,5 @@ class CartIdMiddleware:
         response = self.get_response(request)
 
         if new_cart_id:
-            response.set_cookie('cart_id', new_cart_id, max_age=60*60*24*30)  # 30 days
+            response.set_cookie('cart_id', new_cart_id, max_age=60*60*24*30,  secure=True, samesite='Lax')  # 30 days
         return response
