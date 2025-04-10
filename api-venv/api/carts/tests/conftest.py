@@ -22,3 +22,13 @@ def default_cart_item(db, default_cart, default_track, default_track_price):
         price_model_id=default_track_price.id,
     )
 
+@pytest.fixture
+def default_cart_item_exclusive(db, default_cart, default_track, default_track_exclusive_price):
+    price_model_ct = ContentType.objects.get_for_model(default_track_exclusive_price)
+    return CartItem.objects.create(
+        cart=default_cart,
+        track=default_track,
+        price_model_type=price_model_ct,
+        price_model_id=default_track_exclusive_price.id,
+    )
+
