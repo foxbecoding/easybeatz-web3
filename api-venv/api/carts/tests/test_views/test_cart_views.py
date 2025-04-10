@@ -7,3 +7,6 @@ from users.tests.conftest import default_user
 import logging
 
 logger = logging.getLogger("carts")
+@pytest.mark.django_db
+class TestCartViewSet:
+
