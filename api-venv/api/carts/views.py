@@ -2,11 +2,12 @@ from rest_framework import viewsets
 from rest_framework import status
 from django.contrib.contenttypes.models import ContentType
 from core.mixins import ResponseMixin
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
-from .models import Cart, CartItem
+from .models import Cart
+from .serializers import CartItemSerializer
 from albums.enums import TrackPriceEnum
-from albums.models import TrackPrice, TrackExclusivePrice
+from albums.models import Track, TrackPrice, TrackExclusivePrice
 
 class CartViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
@@ -19,21 +20,37 @@ class CartViewSet(viewsets.ViewSet, ResponseMixin):
         if not cart_id:
             return self.view_response("Cart ID not found", None, status.HTTP_400_BAD_REQUEST)
 
-        pricing_type = request.data.get("type")
-    
-        valid_types = [
-            TrackPriceEnum.TRACK_PRICE.value,
-            TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value
-        ]
+        valid_type_model_map = {
+            TrackPriceEnum.TRACK_PRICE.value: TrackPrice,
+            TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: TrackExclusivePrice,
+        }
 
-        if pricing_type not in valid_types:
+        pricing_type = request.data.get("type")
+
+        if pricing_type not in valid_type_model_map:
             return self.view_response("Invalid track pricing", None, status.HTTP_400_BAD_REQUEST)
 
-        content_type = None
-        
-        if pricing_type == TrackPriceEnum.TRACK_PRICE.value:
-            content_type = ContentType.objects.get_for_model(TrackPrice)
-        else:
-            content_type = ContentType.objects.get_for_model(TrackExclusivePrice)
+        track_price_ct = ContentType.objects.get_for_model(valid_type_model_map[pricing_type])
 
-        return self.view_response("", None, status.HTTP_200_OK)
+        tid = request.data.get("tid")
+        if not tid:
+            return self.view_response("Invalid Track ID", None, status.HTTP_400_BAD_REQUEST)
+
+        cart_instance = Cart.objects.get(cart_id=cart_id)
+        track_instance = Track.objects.filter(tid=tid).first()
+        if not track_instance:
+            return self.view_response("Track not found", None, status.HTTP_400_BAD_REQUEST)
+
+        data = {
+            'cart': cart_instance,
+            'track': track_instance,
+            'price_model_type': track_price_ct,
+            'price_model_id': track_instance.pk
+        }
+
+        serializer = CartItemSerializer(data=data)
+        if not serializer.is_valid():
+            return self.view_response("Error adding cart item", serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+        serializer.save(cart=cart_instance, track=track_instance)
+        return self.view_response("Added to cart", { "tid": tid, "type": pricing_type }, status.HTTP_201_CREATED)
