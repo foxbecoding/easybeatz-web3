@@ -217,6 +217,11 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
+        "carts": {
+            "handlers": ["file", "console"],
+            "level": "INFO",
+            "propagate": False,
+        },
     },
 }
 
