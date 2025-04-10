@@ -6,3 +6,4 @@ from django.conf import settings
 from users.tests.conftest import default_user
 import logging
 
+logger = logging.getLogger("carts")
