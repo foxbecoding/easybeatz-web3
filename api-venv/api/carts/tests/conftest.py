@@ -8,3 +8,7 @@ from ..models import *
 # def default_cart(db, default_user):
 #     return Cart.objects.create(user=default_user, cart_id='test-cart-123')
 
+@pytest.fixture
+def default_cart(db):
+    return Cart.objects.create(cart_id='test-cart-123')
+
