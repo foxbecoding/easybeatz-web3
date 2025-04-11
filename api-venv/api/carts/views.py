@@ -36,15 +36,18 @@ class CartViewSet(viewsets.ViewSet, ResponseMixin):
         if not tid:
             return self.view_response("Invalid Track ID", None, status.HTTP_400_BAD_REQUEST)
 
-        cart_instance = Cart.objects.get(cart_id=cart_id)
+        cart_instance = Cart.objects.filter(cart_id=cart_id).first()
+        if not cart_instance:
+            return self.view_response("Cart not found", None, status.HTTP_400_BAD_REQUEST)
+
         track_instance = Track.objects.filter(tid=tid).first()
         if not track_instance:
             return self.view_response("Track not found", None, status.HTTP_400_BAD_REQUEST)
 
         data = {
-            'cart': cart_instance,
-            'track': track_instance,
-            'price_model_type': track_price_ct,
+            'cart': cart_instance.pk,
+            'track': track_instance.pk,
+            'price_model_type': track_price_ct.pk,
             'price_model_id': track_instance.pk
         }
 
@@ -52,5 +55,6 @@ class CartViewSet(viewsets.ViewSet, ResponseMixin):
         if not serializer.is_valid():
             return self.view_response("Error adding cart item", serializer.errors, status.HTTP_400_BAD_REQUEST)
 
-        serializer.save(cart=cart_instance, track=track_instance)
+        # serializer.save(cart=cart_instance, track=track_instance)
+        serializer.save()
         return self.view_response("Added to cart", { "tid": tid, "type": pricing_type }, status.HTTP_201_CREATED)
