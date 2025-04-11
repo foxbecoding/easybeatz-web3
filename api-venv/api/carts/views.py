@@ -21,41 +21,12 @@ class CartViewSet(viewsets.ViewSet, ResponseMixin):
         if not cart_id:
             return self.view_response("Cart ID not found", None, status.HTTP_400_BAD_REQUEST)
 
-        valid_type_model_map = {
-            TrackPriceEnum.TRACK_PRICE.value: TrackPrice,
-            TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: TrackExclusivePrice,
-        }
-
+        tid = request.data.get("tid")
         pricing_type = request.data.get("type")
 
-        if pricing_type not in valid_type_model_map:
-            return self.view_response("Invalid track pricing", None, status.HTTP_400_BAD_REQUEST)
+        success, message, data = add_item_to_cart(cart_id, tid, pricing_type)
 
-        track_price_ct = ContentType.objects.get_for_model(valid_type_model_map[pricing_type])
+        if not success:
+            return self.view_response(message, data, status.HTTP_400_BAD_REQUEST)
 
-        tid = request.data.get("tid")
-        if not tid:
-            return self.view_response("Invalid Track ID", None, status.HTTP_400_BAD_REQUEST)
-
-        cart_instance = Cart.objects.filter(cart_id=cart_id).first()
-        if not cart_instance:
-            return self.view_response("Cart not found", None, status.HTTP_400_BAD_REQUEST)
-
-        track_instance = Track.objects.filter(tid=tid).first()
-        if not track_instance:
-            return self.view_response("Track not found", None, status.HTTP_400_BAD_REQUEST)
-
-        data = {
-            'cart': cart_instance.pk,
-            'track': track_instance.pk,
-            'price_model_type': track_price_ct.pk,
-            'price_model_id': track_instance.pk
-        }
-
-        serializer = CartItemSerializer(data=data)
-        if not serializer.is_valid():
-            return self.view_response("Error adding cart item", serializer.errors, status.HTTP_400_BAD_REQUEST)
-
-        # serializer.save(cart=cart_instance, track=track_instance)
-        serializer.save()
-        return self.view_response("Added to cart", { "tid": tid, "type": pricing_type }, status.HTTP_201_CREATED)
+        return self.view_response(message, data, status.HTTP_201_CREATED)
