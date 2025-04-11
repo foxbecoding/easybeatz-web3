@@ -19,7 +19,7 @@ def default_cart_item(db, default_cart, default_track, default_track_price):
         cart=default_cart,
         track=default_track,
         price_model_type=price_model_ct,
-        price_model_id=default_track_price.id,
+        price_model_id=default_track_price.track.id,
     )
 
 @pytest.fixture
@@ -29,6 +29,6 @@ def default_cart_item_exclusive(db, default_cart, default_track, default_track_e
         cart=default_cart,
         track=default_track,
         price_model_type=price_model_ct,
-        price_model_id=default_track_exclusive_price.id,
+        price_model_id=default_track_exclusive_price.track.id,
     )
 
