@@ -31,7 +31,11 @@ class TestWeb3LoginService:
         mock_msg_generator.return_value = "wrong_message"
         
         data = {"pubkey": "test_pubkey", "originalMessage": "message", "signedMessage": "signature"}
-        service = Web3LoginService(data)
+
+        factory = APIRequestFactory()
+        request = factory.post("/auth/web3-login/", data, format='json')
+
+        service = Web3LoginService(data, request)
         
         response = service.run()
         
