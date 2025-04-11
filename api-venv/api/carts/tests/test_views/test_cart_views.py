@@ -34,3 +34,7 @@ class TestCartViewSet:
     def album(self, default_album):
         return default_album
 
+    @pytest.fixture
+    def track(self, default_track):
+        return default_track
+
