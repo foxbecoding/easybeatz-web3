@@ -18,6 +18,10 @@ def user(db, default_user):
 def station(db, default_station):
     return default_station
 
+@pytest.fixture
+def album(db, default_album):
+    return default_album
+
 @pytest.mark.django_db
 def test_web3_login_done_handler(default_user):
     """Test that the web3_login_done signal creates a UserLogin record."""
