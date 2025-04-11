@@ -83,3 +83,21 @@ def test_web3_login_done_with_cart_handler(user, station, cart, album, track, tr
     # Verify that a UserLogin record is created
     assert UserLogin.objects.filter(user=user).count() == 1
 
+@pytest.mark.django_db
+def test_web3_login_done_without_cart_handler(user, station, cart, album, track, track_price, track_exclusive_price, genre, mood, cart_item):
+    """Test that the web3_login_done signal creates a UserLogin record.""" 
+
+    factory = RequestFactory()
+    request = factory.get("/")  # or .post() if needed
+
+    # Set the cookie manually
+    request.COOKIES["cart_id"] = "cart.cart_id"
+
+    # Ensure no UserLogin records exist before the signal
+    assert UserLogin.objects.filter(user=user).count() == 0
+
+    # Send the web3_login_done signal
+    web3_login_done.send(sender=None, user=user, request=request)
+
+    # Verify that a UserLogin record is created
+    assert UserLogin.objects.filter(user=user).count() == 1
