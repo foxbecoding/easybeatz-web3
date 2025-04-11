@@ -10,11 +10,12 @@ from albums.models import TrackFavorite
 from core.mixins import ResponseMixin
 
 class Web3LoginService(ResponseMixin):
-    def __init__(self, data) -> None:
+    def __init__(self, data, request) -> None:
         self.validated_data = data
         self.pubkey = data.get("pubkey")
         self.message = data.get("originalMessage")
         self.signature = data.get("signedMessage")
+        self.request = request
 
     def run(self) -> Response:
         nonce = self._get_nonce()
@@ -77,4 +78,4 @@ class Web3LoginService(ResponseMixin):
         return str(refresh.access_token)
 
     def _save_user_login(self, user: User) -> None:
-        web3_login_done.send(self.__class__, user=user)
+        web3_login_done.send(self.__class__, user=user, request=self.request)
