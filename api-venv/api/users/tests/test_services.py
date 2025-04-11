@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 from rest_framework import status
+from rest_framework.test import APIRequestFactory
 from users.services import Web3LoginService
 
 @pytest.mark.django_db
