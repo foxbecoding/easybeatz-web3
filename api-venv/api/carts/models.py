@@ -7,7 +7,7 @@ import uuid
 
 class Cart(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
-    cart_id = models.CharField(max_length=255, unique=True)
+    cart_id = models.CharField(max_length=255, unique=True, default=uuid.uuid4)
     objects = models.Manager()
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
