@@ -85,7 +85,11 @@ class TestWeb3LoginService:
         mock_track_favorites.filter.return_value = mock_filter
         
         data = {"pubkey": "test_pubkey", "originalMessage": "message", "signedMessage": "signature"}
-        service = Web3LoginService(data)
+        
+        factory = APIRequestFactory()
+        request = factory.post("/auth/web3-login/", data, format='json')
+
+        service = Web3LoginService(data, request)
         
         response = service.run()
         
