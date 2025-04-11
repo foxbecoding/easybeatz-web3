@@ -34,6 +34,10 @@ def track_price(db, default_track_price):
 def track_exclusive_price(db, default_track_exclusive_price):
     return default_track_exclusive_price
 
+@pytest.fixture
+def genre(db, default_genre):
+    return default_genre
+
 @pytest.mark.django_db
 def test_web3_login_done_handler(default_user):
     """Test that the web3_login_done signal creates a UserLogin record."""
