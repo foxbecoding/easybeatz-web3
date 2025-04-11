@@ -25,3 +25,8 @@ class TestCartViewSet:
     def user(self, default_user):
         """Fixture to create a test user with a public key."""
         return default_user
+
+    @pytest.fixture
+    def station(self, default_station):
+        return default_station
+
