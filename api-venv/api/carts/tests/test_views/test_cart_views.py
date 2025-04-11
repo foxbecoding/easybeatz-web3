@@ -94,7 +94,6 @@ class TestCartViewSet:
             "type": "WRONG_TYPE"
         }
 
-
     @pytest.mark.django_db
     def test_add_cart_item_view(self, db, client, user, station, cart, album, track, track_price, track_exclusive_price, genre, mood, request_data_track_price):
         # Set the cookie before making the request
@@ -110,6 +109,29 @@ class TestCartViewSet:
         price_model_ct = ContentType.objects.get_for_model(track_price)
         cart_item = CartItem.objects.filter(
             cart__cart_id=cart.cart_id, 
+            track__tid=request_data["tid"], 
+            price_model_type=price_model_ct, 
+            price_model_id=track_price.pk
+        ).exists()
+        assert cart_item == True
+
+    @pytest.mark.django_db
+    def test_add_cart_item_authenticated_view(self, db, client, user, station, album, track, track_price, track_exclusive_price, genre, mood, request_data_track_price):
+        client.force_authenticate(user=user)
+        # Set the cookie before making the request
+        cart_id = "cart-test-id-111"
+        client.cookies['cart_id'] = cart_id
+        url = reverse("cart-add-cart-item")
+        request_data = request_data_track_price
+        response = client.post(url, request_data)
+
+        assert response.status_code == status.HTTP_201_CREATED
+        assert response.data.get("message") == "Added to cart"
+        assert response.data.get("data") == { "tid": request_data["tid"], "type": request_data["type"] }
+
+        price_model_ct = ContentType.objects.get_for_model(track_price)
+        cart_item = CartItem.objects.filter(
+            cart__cart_id=cart_id,
             track__tid=request_data["tid"], 
             price_model_type=price_model_ct, 
             price_model_id=track_price.pk
