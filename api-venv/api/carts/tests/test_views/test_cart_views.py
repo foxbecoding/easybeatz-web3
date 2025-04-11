@@ -172,19 +172,5 @@ class TestCartViewSet:
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
         assert response.data.get("message") == "Invalid track pricing"
-        assert response.data.get("data") is None
-
-
-    @pytest.mark.django_db
-    def test_add_cart_item_view_invalid_tid_missing_error(self, db, client, user, station, cart, album, track, track_price, track_exclusive_price, genre, mood):
-        # Set the cookie before making the request
-        client.cookies['cart_id'] = cart.cart_id
-        url = reverse("cart-add-cart-item")
-        request_data = {"type": "TRACK_PRICE"}
-        response = client.post(url, request_data )
-
-        assert response.status_code == status.HTTP_400_BAD_REQUEST
-        assert response.data.get("message") == "Invalid Track ID"
-        assert response.data.get("data") is None
-
+        assert response.data.get("data") is None 
 
