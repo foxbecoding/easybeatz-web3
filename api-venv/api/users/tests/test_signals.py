@@ -14,6 +14,10 @@ def user(db, default_user):
     """Fixture to create a test user with a public key."""
     return default_user
 
+@pytest.fixture
+def station(db, default_station):
+    return default_station
+
 @pytest.mark.django_db
 def test_web3_login_done_handler(default_user):
     """Test that the web3_login_done signal creates a UserLogin record."""
