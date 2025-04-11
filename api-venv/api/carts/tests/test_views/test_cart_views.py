@@ -80,3 +80,10 @@ class TestCartViewSet:
             "type": "TRACK_EXCLUSIVE_PRICE"
         } 
 
+    @pytest.fixture
+    def invalid_request_data_tid(self, track):
+        return {
+            "tid": "wrong_tid",
+            "type": "TRACK_PRICE"
+        }
+
