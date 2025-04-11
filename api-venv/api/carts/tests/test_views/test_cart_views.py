@@ -162,3 +162,16 @@ class TestCartViewSet:
         assert response.data.get("data") is None
 
 
+    @pytest.mark.django_db
+    def test_add_cart_item_view_invalid_type_error(self, db, client, user, station, cart, album, track, track_price, track_exclusive_price, genre, mood, invalid_request_data_type):
+        # Set the cookie before making the request
+        client.cookies['cart_id'] = cart.cart_id
+        url = reverse("cart-add-cart-item")
+        request_data = invalid_request_data_type
+        response = client.post(url, request_data )
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Invalid track pricing"
+        assert response.data.get("data") is None
+
+
