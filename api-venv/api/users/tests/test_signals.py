@@ -42,6 +42,10 @@ def genre(db, default_genre):
 def mood(db, default_mood):
     return default_mood
 
+@pytest.fixture
+def cart(db, default_cart):
+    return default_cart
+
 @pytest.mark.django_db
 def test_web3_login_done_handler(default_user):
     """Test that the web3_login_done signal creates a UserLogin record."""
