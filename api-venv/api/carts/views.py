@@ -24,7 +24,7 @@ class CartViewSet(viewsets.ViewSet, ResponseMixin):
         tid = request.data.get("tid")
         pricing_type = request.data.get("type")
 
-        success, message, data = add_item_to_cart(cart_id, tid, pricing_type)
+        success, message, data = add_item_to_cart(cart_id, tid, pricing_type, request.user)
 
         if not success:
             return self.view_response(message, data, status.HTTP_400_BAD_REQUEST)
