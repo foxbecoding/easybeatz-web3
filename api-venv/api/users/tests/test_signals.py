@@ -46,6 +46,11 @@ def mood(db, default_mood):
 def cart(db, default_cart):
     return default_cart
 
+@pytest.fixture
+def cart_item(db, default_cart_item):
+    return default_cart_item
+
+
 @pytest.mark.django_db
 def test_web3_login_done_handler(default_user):
     """Test that the web3_login_done signal creates a UserLogin record."""
