@@ -72,3 +72,11 @@ class TestCartViewSet:
             "tid": track.tid,
             "type": "TRACK_PRICE"
         }
+
+    @pytest.fixture
+    def request_data_track_exclusive_price(self, track):
+        return {
+            "tid": track.tid,
+            "type": "TRACK_EXCLUSIVE_PRICE"
+        } 
+
