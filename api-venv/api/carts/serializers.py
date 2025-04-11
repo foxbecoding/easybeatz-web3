@@ -1,7 +1,5 @@
-from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from .models import CartItem
-from albums.models import Track, TrackPrice, TrackExclusivePrice
 
 class CartItemSerializer(serializers.ModelSerializer):
     # Price model will be determined by the backend (ContentType-based)
