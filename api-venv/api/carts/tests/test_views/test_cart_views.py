@@ -81,7 +81,7 @@ class TestCartViewSet:
         } 
 
     @pytest.fixture
-    def invalid_request_data_tid(self, track):
+    def invalid_request_data_tid(self):
         return {
             "tid": "wrong_tid",
             "type": "TRACK_PRICE"
