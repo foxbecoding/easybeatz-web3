@@ -137,3 +137,15 @@ class TestCartViewSet:
         ).exists()
         assert cart_item == True
 
+    @pytest.mark.django_db
+    def test_add_cart_item_view_invalid_cart_id_error(self, db, client, user, station, cart, album, track, track_price, track_exclusive_price, genre, mood, request_data_track_price):
+        # Set the cookie before making the request
+        client.cookies['cart_id'] = "wrong_id"
+        url = reverse("cart-add-cart-item")
+        request_data = request_data_track_price
+        response = client.post(url, request_data )
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Cart not found"
+        assert response.data.get("data") is None
+
