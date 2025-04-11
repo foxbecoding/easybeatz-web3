@@ -54,3 +54,7 @@ class TestCartViewSet:
     def mood(self, default_mood):
         return default_mood
 
+    @pytest.fixture
+    def cart(self, default_cart):
+        return default_cart
+
