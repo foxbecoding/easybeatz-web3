@@ -58,3 +58,7 @@ class TestCartViewSet:
     def cart(self, default_cart):
         return default_cart
 
+    @pytest.fixture
+    def cart_item(self, default_cart_item):
+        return default_cart_item
+
