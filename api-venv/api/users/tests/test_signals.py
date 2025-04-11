@@ -1,7 +1,13 @@
 import pytest
 from django.contrib.auth import get_user_model
+from django.test.client import RequestFactory
 from users.models import UserLogin
 from users.signals.user_login_signal import web3_login_done
+from carts.tests.conftest import default_cart, default_cart_item
+from genres.tests.conftest import default_genre
+from moods.tests.conftest import default_mood
+from stations.tests.conftest import default_station
+from albums.tests.conftest import default_album, default_track, default_track_price, default_track_exclusive_price
 
 @pytest.mark.django_db
 def test_web3_login_done_handler(default_user):
