@@ -27,3 +27,11 @@ class CartItem(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
+    @property
+    def price_type(self):
+        value = None
+        if ContentType.objects.get_for_model(TrackPrice) == self.price_model_type:
+            value = TrackPriceEnum.TRACK_PRICE.value
+        elif ContentType.objects.get_for_model(TrackExclusivePrice) == self.price_model_type: 
+            value = TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value
+        return value
