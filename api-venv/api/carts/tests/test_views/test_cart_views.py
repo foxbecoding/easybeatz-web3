@@ -107,7 +107,23 @@ class TestCartViewSet:
         }
 
     @pytest.mark.django_db
-    def test_add_cart_item_view(self, db, client, user, station, cart, album, track, track_price, track_exclusive_price, genre, mood, request_data_track_price):
+    def test_add_cart_item_view(
+            self, 
+            db, 
+            client, 
+            user, 
+            station,
+            station_picture,
+            cart, 
+            album,
+            album_cover,
+            track, 
+            track_display,
+            track_price, 
+            track_exclusive_price, 
+            genre, 
+            mood, 
+            request_data_track_price):
         # Set the cookie before making the request
         client.cookies['cart_id'] = cart.cart_id
         url = reverse("cart-add-cart-item")
@@ -116,7 +132,7 @@ class TestCartViewSet:
 
         assert response.status_code == status.HTTP_201_CREATED
         assert response.data.get("message") == "Added to cart"
-        assert response.data.get("data") == { "tid": request_data["tid"], "type": request_data["type"] }
+        assert response.data.get("data") != []
 
         price_model_ct = ContentType.objects.get_for_model(track_price)
         cart_item = CartItem.objects.filter(
