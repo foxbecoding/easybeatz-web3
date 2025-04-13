@@ -9,7 +9,8 @@ def get_cart_items(cart_id: str, user=None):
 
     if not cart_items:
         return []
-    # TODO complete logic
+    
+    return CartWithRelationsSerializer(data=cart_items).data
 
 def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
     valid_type_model_map = {
