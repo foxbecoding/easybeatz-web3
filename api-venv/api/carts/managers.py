@@ -3,11 +3,13 @@ from django.db.models import Prefetch, Q, Count
 from django.apps import apps
 
 class CartManager(models.Manager):
-    def get_cart_items(self, cart_id: str, user=None):
+    def get_cart_items(self, cart_id: str, user):
        
         CartItem = apps.get_model('carts', 'CartItem')
         
-        cart_filter = Q(cart_id=cart_id, user=user, deleted__isnull=True) if user else Q(cart_id=cart_id, user__isnull=True, deleted__isnull=True)
+        user_type = str(user)
+
+        cart_filter = Q(cart_id=cart_id, user=user, deleted__isnull=True) if user_type != "AnonymousUser" else Q(cart_id=cart_id, user__isnull=True, deleted__isnull=True)
 
         queryset = self.select_related("user").prefetch_related(
             Prefetch(
