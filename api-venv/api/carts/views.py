@@ -1,14 +1,8 @@
 from rest_framework import viewsets
 from rest_framework import status
-from django.contrib.contenttypes.models import ContentType
 from core.mixins import ResponseMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
-from .models import Cart
-from .serializers import CartItemSerializer
-from .services.cart_service import add_item_to_cart
-from albums.enums import TrackPriceEnum
-from albums.models import Track, TrackPrice, TrackExclusivePrice
 
 class CartViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
