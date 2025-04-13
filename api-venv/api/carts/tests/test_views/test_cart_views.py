@@ -31,6 +31,10 @@ class TestCartViewSet:
         return default_station
 
     @pytest.fixture
+    def station_picture(self, default_station_picture):
+        return default_station_picture
+
+    @pytest.fixture
     def album(self, default_album):
         return default_album
 
