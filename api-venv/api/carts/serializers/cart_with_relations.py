@@ -2,11 +2,6 @@ from rest_framework import serializers
 from ..models import Cart, CartItem
 from albums.enums import TrackPriceEnum
 
-class ItemsField(serializers.RelatedField):
-    def to_representation(self, value):
-        price_map = {
-            TrackPriceEnum.TRACK_PRICE.value: value.track.price.value,
-            TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: value.track.exclusive_price.value,
         }
         return {
             "type": value.price_type,
