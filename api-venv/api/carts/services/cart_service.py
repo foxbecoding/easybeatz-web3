@@ -4,6 +4,13 @@ from ..serializers import CartItemSerializer
 from albums.enums import TrackPriceEnum
 from albums.models import TrackPrice, TrackExclusivePrice
 
+def get_cart_items(cart_id: str, user=None):
+    cart_items = Cart.carts.get_cart_items(cart_id, user)
+
+    if not cart_items:
+        return []
+    # TODO complete logic
+
 
 def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
     valid_type_model_map = {
