@@ -10,6 +10,16 @@ class CartViewSet(viewsets.ViewSet, ResponseMixin):
         permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]
 
+    @action(detail=False, methods=['get'])
+    def get_cart(self, request):
+        cart_id = getattr(request, "cart_id", None)
+        if not cart_id:
+            return self.view_response("Cart ID not found", None, status.HTTP_400_BAD_REQUEST)
+
+        data = get_cart_items(cart_id, request.user)
+
+        return self.view_response(None, data, status.HTTP_200_OK)
+
     @action(detail=False, methods=['post'])
     def add_cart_item(self, request):
         cart_id = getattr(request, "cart_id", None)
