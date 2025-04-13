@@ -47,6 +47,10 @@ class TestCartViewSet:
         return default_track
 
     @pytest.fixture
+    def track_display(self, default_track_display):
+        return default_track_display
+
+    @pytest.fixture
     def track_price(self, default_track_price):
         return default_track_price
 
