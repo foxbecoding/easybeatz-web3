@@ -31,3 +31,10 @@ class ItemsField(serializers.RelatedField):
             }
         }
 
+class CartWithRelationsSerializer(serializers.ModelSerializer):
+    items = ItemsField(read_only=True) 
+
+    class Meta:
+        model = Cart
+        fields = ["items"]
+
