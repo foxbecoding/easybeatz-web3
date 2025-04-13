@@ -7,8 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 from users.tests.conftest import default_user
 from genres.tests.conftest import default_genre
 from moods.tests.conftest import default_mood
-from stations.tests.conftest import default_station
-from albums.tests.conftest import default_album, default_track, default_track_price, default_track_exclusive_price
+from stations.tests.conftest import default_station, default_station_picture
+from albums.tests.conftest import default_album, default_album_cover, default_track, default_track_price, default_track_exclusive_price, default_track_display, test_mp3_file, test_img_file
 from carts.models import *
 import logging
 
