@@ -10,7 +10,7 @@ def get_cart_items(cart_id: str, user=None):
     if not cart_items:
         return []
     # TODO complete logic
-
+    # ContentType.objects.get_for_model(TrackPrice) == cart_test.price_model_type
 
 def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
     valid_type_model_map = {
