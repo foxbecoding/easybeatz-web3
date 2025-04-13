@@ -4,13 +4,14 @@ from ..serializers import CartWithRelationsSerializer, CartItemSerializer
 from albums.enums import TrackPriceEnum
 from albums.models import TrackPrice, TrackExclusivePrice
 
-def get_cart_items(cart_id: str, user=None):
+def get_cart_items(cart_id: str, user):
     cart_items = Cart.carts.get_cart_items(cart_id, user)
 
     if not cart_items:
         return []
-    
-    return CartWithRelationsSerializer(data=cart_items).data
+
+    serializer = CartWithRelationsSerializer(cart_items)
+    return serializer.data
 
 def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
     valid_type_model_map = {
@@ -53,4 +54,6 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
         return False, "Validation error", serializer.errors
 
     serializer.save()
-    return True, "Added to cart", { "tid": tid, "type": pricing_type }
+
+    cart_items = get_cart_items(cart_id, user)
+    return True, "Added to cart", cart_items
