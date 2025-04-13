@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Cart
+from ..models import Cart, CartItem
 from albums.enums import TrackPriceEnum
 
 class ItemsField(serializers.RelatedField):
