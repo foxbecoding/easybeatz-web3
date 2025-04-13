@@ -52,22 +52,7 @@ class CartItemWithRelationsSerializer(serializers.ModelSerializer):
 
 class CartWithRelationsSerializer(serializers.ModelSerializer):
     items = CartItemWithRelationsSerializer(many=True, read_only=True)
-    # items = ItemsField(read_only=True, many=True) 
+
     class Meta:
         model = Cart
         fields = ["items"]
-
-
-    # items = serializers.SerializerMethodField()
-   
-    # def get_items(self, obj):
-    #     items = obj.items.all()
-    #     collection = []
-    #     for item in items:
-    #         price_map = {
-    #             TrackPriceEnum.TRACK_PRICE.value: item.track.price.value,
-    #             TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: .track.exclusive_price.value,
-    #         }
-    #        collection.append() 
-    #     return collection
-
