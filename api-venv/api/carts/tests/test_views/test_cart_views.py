@@ -190,7 +190,7 @@ class TestCartViewSet:
         assert cart_item == True
 
     @pytest.mark.django_db
-    def test_add_cart_item_view_invalid_tid_error(self, db, client, user, station, cart, album, track, track_price, track_exclusive_price, genre, mood, invalid_request_data_tid):
+    def test_add_cart_item_view_invalid_tid_error(self, db, client, user, station, station_picture, cart, album, album_cover, track, track_display, track_price, track_exclusive_price, genre, mood, invalid_request_data_tid):
         # Set the cookie before making the request
         client.cookies['cart_id'] = cart.cart_id
         url = reverse("cart-add-cart-item")
@@ -203,7 +203,7 @@ class TestCartViewSet:
 
 
     @pytest.mark.django_db
-    def test_add_cart_item_view_invalid_type_error(self, db, client, user, station, cart, album, track, track_price, track_exclusive_price, genre, mood, invalid_request_data_type):
+    def test_add_cart_item_view_invalid_type_error(self, db, client, user, station, station_picture, cart, album, album_cover, track, track_display, track_price, track_exclusive_price, genre, mood, invalid_request_data_type):
         # Set the cookie before making the request
         client.cookies['cart_id'] = cart.cart_id
         url = reverse("cart-add-cart-item")
