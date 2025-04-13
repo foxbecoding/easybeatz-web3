@@ -3,7 +3,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from .managers import CartManager
 from users.models import User
-from albums.models import Track
+from albums.models import Track, TrackPrice, TrackExclusivePrice
+from albums.enums import TrackPriceEnum
 import uuid
 
 class Cart(models.Model):
