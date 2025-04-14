@@ -106,6 +106,19 @@ class TestCartViewSet:
             "type": "WRONG_TYPE"
         }
 
+
+    @pytest.mark.django_db
+    def test_get_cart_view(self, db, client, user, station, station_picture, cart, cart_item, album, album_cover, track, track_display, track_price, track_exclusive_price, genre, mood):
+        # Set the cookie before making the request
+        client.cookies['cart_id'] = cart.cart_id
+        url = reverse("cart-get-cart")
+        response = client.get(url)
+
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data.get("message") is None 
+        assert "items" in response.data.get("data")
+
+
     @pytest.mark.django_db
     def test_add_cart_item_view(
             self, 
