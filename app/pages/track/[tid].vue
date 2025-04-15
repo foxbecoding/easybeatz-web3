@@ -95,6 +95,10 @@ const isAddingCartItem = reactive<Record<TrackPriceEnum, boolean>>({
   [TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]: false
 });
 
+const cartBtnLabelPrice = computed(() => {
+  return !isAddingCartItem[TrackPriceEnum.TRACK_PRICE] ? "Add to cart" : "Adding to cart"
+});
+
 const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
   try {
     const { message, data } = await addCartItem({ tid, type });
