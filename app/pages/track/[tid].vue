@@ -3,6 +3,7 @@ import { type Track } from "@/services/models/album";
 import { TrackPriceEnum } from "@/services/enums/track-price-enums";
 import { useAuthStore } from "@/store/auth";
 import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
+import { type CartResponse, type CartItem, addCartItem } from "@/services/models/cart";
 
 const route = useRoute();
 const config = useRuntimeConfig();
