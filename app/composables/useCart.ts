@@ -11,11 +11,11 @@ export const useCart = () => {
     cartSetter(data as CartResponse);
   }
 
+  const cartSetter = (response_data: CartResponse) => {
     if (response_data.items.length === 0) return;
     cartStore.setCartItems(response_data.items);
     cartStore.setCartCount(response_data.cart_count);
     cartStore.setCartSubtotal(response_data.cart_subtotal);
-
   }
 
   //const addCartItemHandler = async () => {
