@@ -218,8 +218,12 @@ const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE 
             </ul>
             <div class="card-actions">
               <button @click="addCartItemHandler(tid.toString(), TrackPriceEnum.TRACK_PRICE)"
-                class="btn btn-primary btn-block rounded-[1rem] text-lg">Add to
-                cart</button>
+                class="btn btn-primary btn-block rounded-[1rem] text-lg" :disabled="isPriceInCart">
+                {{ cartBtnLabelPrice }}
+                <span v-if="isAddingCartItem[TrackPriceEnum.TRACK_PRICE]"
+                  class="loading loading-dots loading-md"></span>
+
+              </button>
             </div>
           </div>
         </div>
