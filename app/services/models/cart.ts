@@ -28,6 +28,13 @@ interface Album {
     cover: string;
 };
 
+interface Station {
+    name: string;
+    handle: string;
+    picture: string;
+    pubkey: string;
+};
+
 export const getCart = () => {
     const config = useRuntimeConfig();
     return submitRequest('GET', `${config.public.API_CART}/get-cart/`);
