@@ -2,6 +2,13 @@ from rest_framework import serializers
 from ..models import Cart, CartItem
 from albums.enums import TrackPriceEnum
 
+def track_price_setter(track, price_type: str):
+    price_map = {
+        TrackPriceEnum.TRACK_PRICE.value: track.price.value,
+        TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: track.exclusive_price.value
+    }
+    return price_map.get(price_type)
+
 class CartItemWithRelationsSerializer(serializers.ModelSerializer):
     price_type = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
