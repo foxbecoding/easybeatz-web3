@@ -1,3 +1,5 @@
+import { type CartItem } from "@/services/models/cart";
+
 export const useCartStore = defineStore("use-cart-store", () => {
   const items = ref([])
 
