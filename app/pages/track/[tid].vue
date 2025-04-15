@@ -103,6 +103,11 @@ const cartBtnLabelExclusive = computed(() => {
   return !isAddingCartItem[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE] ? "Add to cart" : "Adding to cart"
 });
 
+const isPriceInCart = computed(() => {
+  let found = cartStore.items.find(x => (x.price_type == TrackPriceEnum.TRACK_PRICE) && (x.track.tid === tid.value.toString()))
+  return found ? true : false;
+})
+
 const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
   try {
     const { message, data } = await addCartItem({ tid, type });
