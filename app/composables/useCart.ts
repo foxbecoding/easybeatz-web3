@@ -1,6 +1,5 @@
 import { useCartStore } from "@/store/cart";
-import { type CartResponse, type CartItem, getCart, addCartItem } from "@/services/models/cart";
-import { TrackPriceEnum } from "@/services/enums/track-price-enums";
+import { type CartResponse, getCart } from "@/services/models/cart";
 
 export const useCart = () => {
   const cartStore = useCartStore();
