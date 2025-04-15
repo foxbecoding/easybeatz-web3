@@ -24,11 +24,7 @@ class CartItemWithRelationsSerializer(serializers.ModelSerializer):
         return obj.price_type
 
     def get_price(self, obj):
-        if obj.price_type == TrackPriceEnum.TRACK_PRICE.value:
-            return obj.track.price.value if obj.track.price else None
-        elif obj.price_type == TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value:
-            return obj.track.exclusive_price.value if obj.track.exclusive_price else None
-        return None
+        return track_price_setter(obj.track, obj.price_type)
 
     def get_track(self, obj):
         track = obj.track
