@@ -20,6 +20,7 @@ export const useCart = () => {
 
   return {
     fetchCart,
+    cartSetter
   }
 
 }
