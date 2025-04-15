@@ -55,3 +55,17 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
 
     return True, "Added to cart", cart_items
 
+def _get_or_create_cart(cart_id, user):
+    if user and user.is_authenticated:
+        cart_instance, _ = Cart.objects.get_or_create(
+            user=user,
+            deleted__isnull=True,
+            defaults={"cart_id": cart_id}
+        )
+    else:
+        cart_instance, _ = Cart.objects.get_or_create(
+            cart_id=cart_id,
+            user__isnull=True,
+            deleted__isnull=True
+        )
+    return cart_instance
