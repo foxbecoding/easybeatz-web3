@@ -37,7 +37,7 @@ interface Station {
 
 export const getCart = () => {
     const config = useRuntimeConfig();
-    return submitRequest('GET', `${config.public.API_CART}/get-cart/`);
+    return submitRequest('GET', `${config.public.API_CART}/get_cart/`);
 }
 
 export const addCartItem = (data: any) => {
