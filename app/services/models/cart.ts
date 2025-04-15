@@ -42,5 +42,5 @@ export const getCart = () => {
 
 export const addCartItem = (data: any) => {
     const config = useRuntimeConfig();
-    return submitRequest('POST', `${config.public.API_CART}/add-cart-item/`, data);
+    return submitRequest('POST', `${config.public.API_CART}/add_cart_item/`, data);
 }
