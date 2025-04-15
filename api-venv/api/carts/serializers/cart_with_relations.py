@@ -55,7 +55,14 @@ class CartItemWithRelationsSerializer(serializers.ModelSerializer):
 
 class CartWithRelationsSerializer(serializers.ModelSerializer):
     items = CartItemWithRelationsSerializer(many=True, read_only=True)
+    cart_count = serializers.SerializerMethodField()
+    cart_subtotal = serializers.SerializerMethodField()
 
     class Meta:
         model = Cart
-        fields = ["items"]
+        fields = [
+            "items",
+            "cart_count",
+            "cart_subtotal"
+        ]
+
