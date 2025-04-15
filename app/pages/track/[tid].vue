@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Track } from "@/services/models/album";
+import { TrackPriceEnum } from "@/services/enums/track-price-enums";
 import { useAuthStore } from "@/store/auth";
 import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
 
