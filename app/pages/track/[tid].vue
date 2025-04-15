@@ -189,7 +189,9 @@ const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE 
               </li>
             </ul>
             <div class="card-actions">
-              <button class="btn btn-primary btn-block rounded-[1rem] text-lg">Add to cart</button>
+              <button @click="addCartItemHandler(tid.toString(), TrackPriceEnum.TRACK_PRICE)"
+                class="btn btn-primary btn-block rounded-[1rem] text-lg">Add to
+                cart</button>
             </div>
           </div>
         </div>
