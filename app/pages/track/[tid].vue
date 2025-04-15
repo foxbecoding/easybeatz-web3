@@ -99,6 +99,10 @@ const cartBtnLabelPrice = computed(() => {
   return !isAddingCartItem[TrackPriceEnum.TRACK_PRICE] ? "Add to cart" : "Adding to cart"
 });
 
+const cartBtnLabelExclusive = computed(() => {
+  return !isAddingCartItem[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE] ? "Add to cart" : "Adding to cart"
+});
+
 const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
   try {
     const { message, data } = await addCartItem({ tid, type });
