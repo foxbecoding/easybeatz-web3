@@ -66,3 +66,6 @@ class CartWithRelationsSerializer(serializers.ModelSerializer):
             "cart_subtotal"
         ]
 
+    def get_cart_count(self, obj):
+        return obj.items.count()
+
