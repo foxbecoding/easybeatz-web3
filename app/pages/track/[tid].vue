@@ -89,6 +89,7 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
 const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler } = useFavoriteTrack(tid.value.toString());
 
 // Cart handler logic
+const cartStore = useCartStore();
 const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
   try {
     const { message, data } = await addCartItem({ tid, type });
