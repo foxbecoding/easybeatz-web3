@@ -7,6 +7,7 @@ export const useCartStore = defineStore("use-cart-store", () => {
 
   const setCartItems = (_items: CartItem[]) => items.value = _items;
   const setCartCount = (_count: number) => cart_count.value = _count;
+  const setCartSubtotal = (_subtotal: number) => cart_subtotal.value = _subtotal;
   return {
     items
   }
