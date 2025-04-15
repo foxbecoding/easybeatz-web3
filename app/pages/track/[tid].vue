@@ -114,6 +114,7 @@ const isExclusiveInCart = computed(() => {
 })
 
 const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
+  isAddingCartItem[type] = true;
   try {
     const { message, data } = await addCartItem({ tid, type });
     useCart().cartSetter(data as CartResponse);
@@ -122,6 +123,8 @@ const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE 
     }
   } catch (error: any) {
     useToast().setToast(error.data.message, "ERROR");
+  } finally {
+    setTimeout(() => { isAddingCartItem[type] = false }, 2000);
   }
 }
 </script>
