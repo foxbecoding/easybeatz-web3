@@ -86,6 +86,19 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
 
 // Favorite track logic
 const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler } = useFavoriteTrack(tid.value.toString());
+
+// Cart handler logic
+const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
+  try {
+    const { message, data } = await addCartItem({ tid, type });
+    useCart().cartSetter(data as CartResponse);
+    if (message) {
+      useToast().setToast(message, "SUCCESS");
+    }
+  } catch (error: any) {
+    useToast().setToast(error.data.message, "ERROR");
+  }
+}
 </script>
 
 <template>
