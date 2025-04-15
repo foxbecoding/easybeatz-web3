@@ -32,7 +32,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
-  plugins: ["~/plugins/iconify.ts"],
+  plugins: ["~/plugins/iconify.ts", "~/plugins/init-cart.client.ts"],
 
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', [
     '@pinia/nuxt',
