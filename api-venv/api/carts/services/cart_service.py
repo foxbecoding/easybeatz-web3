@@ -14,39 +14,36 @@ def get_cart_items(cart_id: str, user):
     return serializer.data
 
 def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
+    # Step 1: Map pricing types to their models
     valid_type_model_map = {
         TrackPriceEnum.TRACK_PRICE.value: TrackPrice,
         TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: TrackExclusivePrice,
     }
 
-    if pricing_type not in valid_type_model_map:
-        return False, "Invalid track pricing", None
+    track_model = valid_type_model_map.get(pricing_type)
+    if not track_model:
+        return False, "Invalid track pricing type", None
 
-     # Determine the appropriate cart based on auth state
-    if user and user.is_authenticated:
-        cart_instance, created = Cart.objects.get_or_create(
-            user=user,
-            deleted__isnull=True,
-            defaults={"cart_id": cart_id}  # only used if new cart is created
-        )
-    else:
-        cart_instance, created = Cart.objects.get_or_create(
-            cart_id=cart_id,
-            user__isnull=True,
-            deleted__isnull=True
-        )
+    # Step 2: Fetch or create the cart
+    cart_instance = _get_or_create_cart(cart_id, user)
 
+    # Step 3: Get the track
     track_instance = Track.objects.filter(tid=tid).first()
     if not track_instance:
         return False, "Track not found", None
 
-    price_model_ct = ContentType.objects.get_for_model(valid_type_model_map[pricing_type])
+    # Step 4: Get the content type of the pricing model
+    try:
+        price_model_ct = ContentType.objects.get_for_model(track_model)
+    except ContentType.DoesNotExist:
+        return False, "Content type not found", None
 
+    # Step 5: Prepare serializer data
     data = {
         'cart': cart_instance.pk,
         'track': track_instance.pk,
         'price_model_type': price_model_ct.pk,
-        'price_model_id': track_instance.pk
+        'price_model_id': track_instance.pk,  # Note: might want to confirm if this is correct
     }
 
     serializer = CartItemSerializer(data=data)
@@ -54,6 +51,7 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
         return False, "Validation error", serializer.errors
 
     serializer.save()
-
     cart_items = get_cart_items(cart_id, user)
+
     return True, "Added to cart", cart_items
+
