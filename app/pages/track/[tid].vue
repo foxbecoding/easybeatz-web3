@@ -55,7 +55,7 @@ const setMusicPlayerDetails = (trackList: TrackList[]) => {
 const playHandler = () => {
   const { album, station } = track.value;
   if (!album || !station) return;
-  let trackList: TrackList[] = [{ album: track.value.album, station: track.value.station, track: track.value }];
+  let trackList: TrackList[] = [{ album: album, station: station, track: track.value }];
   setMusicPlayerDetails(trackList);
 }
 
