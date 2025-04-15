@@ -90,6 +90,11 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
 
 // Cart handler logic
 const cartStore = useCartStore();
+const isAddingCartItem = reactive<Record<TrackPriceEnum, boolean>>({
+  [TrackPriceEnum.TRACK_PRICE]: false,
+  [TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]: false
+});
+
 const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
   try {
     const { message, data } = await addCartItem({ tid, type });
