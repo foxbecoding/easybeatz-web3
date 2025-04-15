@@ -8,7 +8,7 @@ def get_cart_items(cart_id: str, user):
     cart_items = Cart.carts.get_cart_items(cart_id, user)
 
     if not cart_items:
-        return []
+        return None
 
     serializer = CartWithRelationsSerializer(cart_items)
     return serializer.data
