@@ -69,3 +69,10 @@ class CartWithRelationsSerializer(serializers.ModelSerializer):
     def get_cart_count(self, obj):
         return obj.items.count()
 
+    def get_cart_subtotal(self, obj):
+        prices = []
+        for item in obj.items.all():
+            track = item.track
+            price = track_price_setter(track, item.price_type)
+            prices.append(price)
+        return sum(prices)
