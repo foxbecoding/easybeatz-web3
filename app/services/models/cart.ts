@@ -14,6 +14,15 @@ export interface CartItem {
     station: Station;
 };
 
+interface Track {
+    tid: string;
+    title: string;
+    duration: number;
+    formatted_duration: string;
+    display: string;
+    order_no: number;
+};
+
 export const getCart = () => {
     const config = useRuntimeConfig();
     return submitRequest('GET', `${config.public.API_CART}/get-cart/`);
