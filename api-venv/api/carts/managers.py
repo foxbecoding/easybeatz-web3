@@ -35,7 +35,7 @@ class CartManager(models.Manager):
                     "track__album__station__handle", "track__album__station__name",
                     "track__album__station__picture__picture",
                     "track__album__station__user__pubkey"
-                )
+                ).filter(deleted__isnull=True)
             )
         ).annotate(
             item_count=Count("items")
