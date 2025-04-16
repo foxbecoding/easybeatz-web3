@@ -35,3 +35,18 @@ class CartViewSet(viewsets.ViewSet, ResponseMixin):
             return self.view_response(message, data, status.HTTP_400_BAD_REQUEST)
 
         return self.view_response(message, data, status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=['delete'])
+    def remove_cart_item(self, request):
+        cart_id = getattr(request, "cart_id", None)
+        if not cart_id:
+            return self.view_response("Cart ID not found", None, status.HTTP_400_BAD_REQUEST)
+        
+        tid = request.data.get("tid")
+        pricing_type = request.data.get("type")
+        
+        success, message, data = remove_cart_item(cart_id, tid, pricing_type, request.user)
+        if not success:
+            return self.view_response(message, data, status.HTTP_400_BAD_REQUEST)
+
+        return self.view_response(message, data, status.HTTP_200_OK)
