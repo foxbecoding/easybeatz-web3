@@ -79,6 +79,14 @@ def remove_cart_item(cart_id: str, tid: str, pricing_type: str, user=None):
 
     return True, "Track removed from cart", cart_items
 
+def _get_track_model(pricing_type: str):
+    valid_type_model_map = {
+        TrackPriceEnum.TRACK_PRICE.value: TrackPrice,
+        TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: TrackExclusivePrice,
+    }
+
+    return valid_type_model_map.get(pricing_type)
+
 def _get_or_create_cart(cart_id, user):
     if user and user.is_authenticated:
         cart_instance, _ = Cart.objects.get_or_create(
