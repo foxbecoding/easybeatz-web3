@@ -243,3 +243,15 @@ class TestCartViewSet:
         assert response.data.get("data").get("cart_count") == 0
         assert response.data.get("data").get("cart_subtotal") == 0
 
+    @pytest.mark.django_db
+    def test_remove_cart_view_invalid_type_error(self, db, client, user, station, station_picture, cart, cart_item,  album, album_cover, track, track_display, track_price, track_exclusive_price, genre, mood, invalid_request_data_type):
+        # Set the cookie before making the request
+        client.cookies['cart_id'] = cart.cart_id
+        url = reverse("cart-remove-cart-item")
+        request_data = invalid_request_data_type
+        response = client.delete(url, request_data)
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.data.get("message") == "Invalid track pricing type" 
+        assert response.data.get("data") is None
+
