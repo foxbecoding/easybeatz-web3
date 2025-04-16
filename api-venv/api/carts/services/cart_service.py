@@ -51,6 +51,34 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
 
     return True, "Track added to cart", cart_items
 
+def remove_cart_item(cart_id: str, tid: str, pricing_type: str, user=None):
+    track_model = _get_track_model(pricing_type)
+
+    if not track_model:
+        return False, "Invalid track pricing type", None
+
+    try:
+        price_model_ct = ContentType.objects.get_for_model(track_model)
+    except ContentType.DoesNotExist:
+        return False, "Content type not found", None
+
+    cart_item_instance = CartItem.objects.filter(
+        cart__cart_id=cart_id,
+        track__tid=tid,
+        price_model_type=price_model_ct.pk,
+        deleted__isnull=True
+    ).first()
+
+    if not cart_item_instance:
+        return False, "Invalid cart item", None
+
+    cart_item_instance.deleted = now()
+    cart_item_instance.save()
+
+    cart_items = get_cart_items(cart_id, user)
+
+    return True, "Track removed from cart", cart_items
+
 def _get_or_create_cart(cart_id, user):
     if user and user.is_authenticated:
         cart_instance, _ = Cart.objects.get_or_create(
