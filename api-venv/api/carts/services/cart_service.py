@@ -16,12 +16,7 @@ def get_cart_items(cart_id: str, user):
 
 def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
     # Step 1: Map pricing types to their models
-    valid_type_model_map = {
-        TrackPriceEnum.TRACK_PRICE.value: TrackPrice,
-        TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: TrackExclusivePrice,
-    }
-
-    track_model = valid_type_model_map.get(pricing_type)
+    track_model = _get_track_model(pricing_type)
     if not track_model:
         return False, "Invalid track pricing type", None
 
@@ -54,7 +49,7 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
     serializer.save()
     cart_items = get_cart_items(cart_id, user)
 
-    return True, "Added to cart", cart_items
+    return True, "Track added to cart", cart_items
 
 def _get_or_create_cart(cart_id, user):
     if user and user.is_authenticated:
