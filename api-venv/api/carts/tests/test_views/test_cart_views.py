@@ -147,7 +147,7 @@ class TestCartViewSet:
         response = client.post(url, request_data )
 
         assert response.status_code == status.HTTP_201_CREATED
-        assert response.data.get("message") == "Added to cart"
+        assert response.data.get("message") == "Track added to cart"
         assert response.data.get("data") != []
 
         price_model_ct = ContentType.objects.get_for_model(track_price)
