@@ -3,7 +3,7 @@ from rest_framework import status
 from core.mixins import ResponseMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
-from .services.cart_service import add_item_to_cart, get_cart_items
+from .services.cart_service import add_item_to_cart, get_cart_items, remove_cart_item
 
 class CartViewSet(viewsets.ViewSet, ResponseMixin):
     def get_permissions(self):
