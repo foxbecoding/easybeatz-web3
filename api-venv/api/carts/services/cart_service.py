@@ -1,8 +1,9 @@
 from django.contrib.contenttypes.models import ContentType
-from ..models import Cart, Track
+from django.utils.timezone import now
+from ..models import Cart, CartItem
 from ..serializers import CartWithRelationsSerializer, CartItemSerializer
 from albums.enums import TrackPriceEnum
-from albums.models import TrackPrice, TrackExclusivePrice
+from albums.models import Track, TrackPrice, TrackExclusivePrice
 
 def get_cart_items(cart_id: str, user):
     cart_items = Cart.carts.get_cart_items(cart_id, user)
