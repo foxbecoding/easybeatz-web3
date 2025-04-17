@@ -24,7 +24,7 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
     cart_instance = _get_or_create_cart(cart_id, user)
 
     # Step 3: Get the track
-    track_instance = Track.objects.filter(tid=tid).first()
+    track_instance = Track.objects.filter(tid=tid, is_exclusive_sold=False).first()
     if not track_instance:
         return False, "Track not found", None
 
