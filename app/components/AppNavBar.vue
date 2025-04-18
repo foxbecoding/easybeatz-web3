@@ -39,5 +39,6 @@ import { useCartStore } from "@/store/cart"
 
 const authStore = useAuthStore();
 const cartStore = useCartStore();
+const isCartEmpty = computed(() => cartStore.cart_count)
 
 </script>
