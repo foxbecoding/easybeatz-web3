@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/store/auth"
+import { useCartStore } from "@/store/cart"
 
 const authStore = useAuthStore();
 
