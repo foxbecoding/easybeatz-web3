@@ -82,3 +82,9 @@ class Web3LoginService(ResponseMixin):
     def _save_user_login(self, user: User) -> None:
         web3_login_done.send(self.__class__, user=user, request=self.request)
 
+
+    def _set_cart_id_cookie(self, response) -> None:
+        # Check if the cart_id was attached to the request by the signal
+        cart_id = getattr(self.request, 'cart_id', None)
+        if cart_id and isinstance(response, Response):
+            response.set_cookie('cart_id', cart_id, max_age=60 * 60 * 24 * 30)  # 30 days, customize as needed
