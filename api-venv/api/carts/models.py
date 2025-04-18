@@ -27,6 +27,14 @@ class CartItem(models.Model):
     updated = models.DateTimeField(auto_now=True, null=True)
     deleted = models.DateTimeField(null=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['cart', 'track', 'price_model_type'],
+                name='unique_cart_item'
+            )
+        ]
+
     @property
     def price_type(self):
         value = None
