@@ -105,8 +105,8 @@ const isExclusiveInCart = computed(() => {
   return found ? true : false;
 })
 
-const addCartItemHandler = async (tid: string, type: TrackPriceEnum.TRACK_PRICE | TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) => {
   isAddingCartItem[type] = true;
+const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
   try {
     const { message, data } = await addCartItem({ tid, type });
     useCart().cartSetter(data as CartResponse);
