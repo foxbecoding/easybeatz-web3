@@ -112,6 +112,11 @@ const cartBtnLabelPrice = computed(() => {
   return !isCartActionLoading[TrackPriceEnum.TRACK_PRICE] ? labelParts[0] : labelParts[1]
 });
 
+const cartBtnLabelExclusive = computed(() => {
+  const labelParts = !isExclusiveInCart.value ? ["Add to cart", btnLabelProcess] : ["Remove from cart", btnLabelProcess];
+  return !isCartActionLoading[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE] ? labelParts[0] : labelParts[1]
+});
+
 const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
 const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
 
