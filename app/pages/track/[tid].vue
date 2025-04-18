@@ -105,6 +105,8 @@ const isExclusiveInCart = computed(() => {
   return found ? true : false;
 })
 
+const btnLabelProcess = "Processing";
+
 const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
 const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
 
