@@ -72,8 +72,7 @@ def remove_cart_item(cart_id: str, tid: str, pricing_type: str, user=None):
     if not cart_item_instance:
         return False, "Invalid cart item", None
 
-    cart_item_instance.deleted = now()
-    cart_item_instance.save()
+    cart_item_instance.delete()
 
     cart_items = get_cart_items(cart_id, user)
 
