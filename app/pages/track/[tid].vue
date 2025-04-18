@@ -95,14 +95,6 @@ const isCartActionLoading = reactive<Record<TrackPriceEnum, boolean>>({
   [TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]: false
 });
 
-const cartBtnLabelPrice = computed(() => {
-  return !isAddingCartItem[TrackPriceEnum.TRACK_PRICE] ? "Add to cart" : "Adding to cart"
-});
-
-const cartBtnLabelExclusive = computed(() => {
-  return !isAddingCartItem[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE] ? "Add to cart" : "Adding to cart"
-});
-
 const isPriceInCart = computed(() => {
   let found = cartStore.items.find(x => (x.price_type == TrackPriceEnum.TRACK_PRICE) && (x.track.tid === tid.value.toString()))
   return found ? true : false;
