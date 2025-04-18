@@ -38,5 +38,6 @@ import { useAuthStore } from "@/store/auth"
 import { useCartStore } from "@/store/cart"
 
 const authStore = useAuthStore();
+const cartStore = useCartStore();
 
 </script>
