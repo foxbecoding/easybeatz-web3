@@ -117,6 +117,11 @@ const cartBtnLabelExclusive = computed(() => {
   return !isCartActionLoading[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE] ? labelParts[0] : labelParts[1]
 });
 
+enum CartActionEnum {
+  ADD_ITEM = "ADD_ITEM",
+  REMOVE_ITEM = "REMOVE_ITEM",
+}
+
 const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
 const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
 
