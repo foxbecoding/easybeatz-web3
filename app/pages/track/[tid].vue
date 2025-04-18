@@ -109,16 +109,20 @@ const isExclusiveInCart = computed(() => {
 const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
 const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
 
+const cartActionHandler = async (tid: string, type: TrackPriceEnum, actionHandler: Function) => {
+  if (isCartActionLoading[type]) return;
+  isCartActionLoading[type] = true;
+
   try {
-    const { message, data } = await addCartItem({ tid, type });
+    const { message, data } = await actionHandler({ tid, type });
     useCart().cartSetter(data as CartResponse);
     if (message) {
-      useToast().setToast(message, "SUCCESS");
+      useToast().setToast(message, "INFO");
     }
   } catch (error: any) {
     useToast().setToast(error.data.message, "ERROR");
   } finally {
-    setTimeout(() => { isAddingCartItem[type] = false }, 2000);
+    setTimeout(() => { isCartActionLoading[type] = false }, 2000);
   }
 }
 </script>
