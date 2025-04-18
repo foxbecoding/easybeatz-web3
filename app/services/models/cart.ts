@@ -40,7 +40,8 @@ export const getCart = () => {
     return submitRequest('GET', `${config.public.API_CART}/get_cart/`);
 }
 
-export const addCartItem = (data: any) => {
+export const addCartItem = (data: { tid: string, type: TrackPriceEnum }) => {
     const config = useRuntimeConfig();
     return submitRequest('POST', `${config.public.API_CART}/add_cart_item/`, data);
 }
+
