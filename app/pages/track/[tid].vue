@@ -130,6 +130,14 @@ const exclusivePriceCartAction = computed<CartActionEnum>(() => {
   return !isExclusiveInCart.value ? CartActionEnum.ADD_ITEM : CartActionEnum.REMOVE_ITEM;
 });
 
+const cartActionRouterHandler = (tid: string, type: TrackPriceEnum, actionType: CartActionEnum) => {
+  const routerMap = {
+    [CartActionEnum.ADD_ITEM]: () => addCartItemHandler(tid, type),
+    [CartActionEnum.REMOVE_ITEM]: () => removeCartItemHandler(tid, type),
+  }
+  routerMap[actionType]();
+}
+
 const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
 const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
 
