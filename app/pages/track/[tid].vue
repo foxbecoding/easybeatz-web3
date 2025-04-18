@@ -247,10 +247,10 @@ const cartActionHandler = async (tid: string, type: TrackPriceEnum, actionHandle
               </li>
             </ul>
             <div class="card-actions">
-              <button @click="addCartItemHandler(tid.toString(), TrackPriceEnum.TRACK_PRICE)"
-                class="btn btn-primary btn-block rounded-[1rem] text-lg" :disabled="isPriceInCart">
+              <button @click="cartActionRouterHandler(tid.toString(), TrackPriceEnum.TRACK_PRICE, priceCartAction)"
+                class="btn btn-primary btn-block rounded-[1rem] text-lg">
                 {{ cartBtnLabelPrice }}
-                <span v-if="isAddingCartItem[TrackPriceEnum.TRACK_PRICE]"
+                <span v-if="isCartActionLoading[TrackPriceEnum.TRACK_PRICE]"
                   class="loading loading-dots loading-md"></span>
 
               </button>
