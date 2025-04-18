@@ -45,3 +45,8 @@ export const addCartItem = (data: { tid: string, type: TrackPriceEnum }) => {
     return submitRequest('POST', `${config.public.API_CART}/add_cart_item/`, data);
 }
 
+export const removeCartItem = (data: { tid: string, type: TrackPriceEnum }) => {
+    const config = useRuntimeConfig();
+    return submitRequest('DELETE', `${config.public.API_CART}/remove_cart_item/`, data);
+}
+
