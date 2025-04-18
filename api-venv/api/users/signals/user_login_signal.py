@@ -11,6 +11,8 @@ web3_login_done = Signal()
 def web3_login_done_handler(sender, user: User, request=None, **kwargs): 
     user_login = UserLogin(user = user)
     user_login.save()
+    _sync_cart(user, request)
+
 
     if request is None:
         return  # Can't sync cart without request
