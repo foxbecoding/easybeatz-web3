@@ -14,6 +14,7 @@ def web3_login_done_handler(sender, user: User, request=None, **kwargs):
     _sync_cart(user, request)
 
 
+def _sync_cart(user:User, request=None):
     if request is None:
         return  # Can't sync cart without request
 
