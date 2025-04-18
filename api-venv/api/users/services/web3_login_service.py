@@ -34,7 +34,9 @@ class Web3LoginService(ResponseMixin):
         track_tids = self._get_user_favorite_tracks(user)
         self._save_user_login(user)
         data = {"access_token": access_token, "pubkey": user.pubkey, "favorite_tracks": track_tids} 
-        return self.view_response("Logged in successfully!", data, status.HTTP_200_OK)
+        response = self.view_response("Logged in successfully!", data, status.HTTP_200_OK)
+        self._set_cart_id_cookie(response)
+        return response
 
     def _get_nonce(self):
         return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
@@ -79,3 +81,4 @@ class Web3LoginService(ResponseMixin):
 
     def _save_user_login(self, user: User) -> None:
         web3_login_done.send(self.__class__, user=user, request=self.request)
+
