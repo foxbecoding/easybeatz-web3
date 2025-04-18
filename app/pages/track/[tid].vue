@@ -90,7 +90,7 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
 
 // Cart handler logic
 const cartStore = useCartStore();
-const isAddingCartItem = reactive<Record<TrackPriceEnum, boolean>>({
+const isCartActionLoading = reactive<Record<TrackPriceEnum, boolean>>({
   [TrackPriceEnum.TRACK_PRICE]: false,
   [TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]: false
 });
