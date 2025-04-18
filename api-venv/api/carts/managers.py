@@ -9,7 +9,7 @@ class CartManager(models.Manager):
         
         user_type = str(user)
 
-        cart_filter = Q(cart_id=cart_id, user=user, deleted__isnull=True) if user_type != "AnonymousUser" else Q(cart_id=cart_id, user__isnull=True, deleted__isnull=True)
+        cart_filter = Q(cart_id=cart_id, user=user, deleted__isnull=True) if user_type != "AnonymousUser" else Q(cart_id=cart_id, deleted__isnull=True)
 
         queryset = self.select_related("user").prefetch_related(
             Prefetch(
