@@ -122,6 +122,10 @@ enum CartActionEnum {
   REMOVE_ITEM = "REMOVE_ITEM",
 }
 
+const priceCartAction = computed<CartActionEnum>(() => {
+  return !isPriceInCart.value ? CartActionEnum.ADD_ITEM : CartActionEnum.REMOVE_ITEM;
+});
+
 const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
 const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
 
