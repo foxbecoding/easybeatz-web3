@@ -11,6 +11,7 @@ export const useCartStore = defineStore("use-cart-store", () => {
 
   return {
     items,
+    cart_count,
     setCartCount,
     setCartItems,
     setCartSubtotal
