@@ -44,7 +44,7 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
 
     serializer = CartItemSerializer(data=data)
     if not serializer.is_valid():
-        return False, "Validation error", serializer.errors
+        return False, "Cannot add to cart", serializer.errors
 
     serializer.save()
     cart_items = get_cart_items(cart_id, user)
