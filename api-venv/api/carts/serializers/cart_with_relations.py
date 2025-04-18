@@ -4,8 +4,8 @@ from albums.enums import TrackPriceEnum
 
 def track_price_setter(track, price_type: str):
     price_map = {
-        TrackPriceEnum.TRACK_PRICE.value: track.price.value,
-        TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: track.exclusive_price.value
+        TrackPriceEnum.TRACK_PRICE.value: getattr(track.price, 'value', None),
+        TrackPriceEnum.TRACK_EXCLUSIVE_PRICE.value: getattr(getattr(track, 'exclusive_price', None), 'value', None),
     }
     return price_map.get(price_type)
 
