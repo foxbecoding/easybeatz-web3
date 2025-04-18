@@ -276,10 +276,11 @@ const cartActionHandler = async (tid: string, type: TrackPriceEnum, actionHandle
               </li>
             </ul>
             <div class="card-actions">
-              <button @click="addCartItemHandler(tid.toString(), TrackPriceEnum.TRACK_EXCLUSIVE_PRICE)"
-                class="btn btn-warning btn-block rounded-[1rem] text-lg" :disabled="isExclusiveInCart">
+              <button
+                @click="cartActionRouterHandler(tid.toString(), TrackPriceEnum.TRACK_EXCLUSIVE_PRICE, exclusivePriceCartAction)"
+                class="btn btn-warning btn-block rounded-[1rem] text-lg">
                 {{ cartBtnLabelExclusive }}
-                <span v-if="isAddingCartItem[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]"
+                <span v-if="isCartActionLoading[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]"
                   class="loading loading-dots loading-md"></span>
               </button>
             </div>
