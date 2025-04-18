@@ -107,6 +107,8 @@ const isExclusiveInCart = computed(() => {
 
   isAddingCartItem[type] = true;
 const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
+const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
+
   try {
     const { message, data } = await addCartItem({ tid, type });
     useCart().cartSetter(data as CartResponse);
