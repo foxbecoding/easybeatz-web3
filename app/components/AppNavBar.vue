@@ -23,7 +23,7 @@
         <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral mask mask-squircle btn-square btn-sm lg:btn-md">
           <Icon icon="solar:bag-music-2-bold" class="text-lg lg:text-2xl" />
         </NuxtLink>
-        <div v-if="isCartEmpty" class="badge badge-primary mask mask-squircle absolute -right-[9px]">{{
+        <div v-if="isCartEmpty" class="badge badge-primary mask mask-circle absolute -right-[9px]">{{
           cartStore.cart_count }}</div>
       </div>
     </div>
