@@ -19,6 +19,19 @@ const trackLicense = computed(() => {
 const img = useImage();
 const albumCover = computed(() => `${config.public.MEDIA_URL}${props.cartItem.album.cover}`);
 
+const albumCoverStyles = computed(() => {
+  const imgUrl = img(albumCover.value)
+  return {
+    backgroundImage: `url('${imgUrl}')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    width: '88px',
+    minWidth: '88px',
+    height: '88px',
+    minHeight: '88px'
+  }
+});
+
 //Remove cart item logic
 const removeItem = async () => {
   try {
