@@ -33,6 +33,8 @@ const albumCoverStyles = computed(() => {
 });
 
 //Remove cart item logic
+const deleteModel = ref(false);
+const openDeleteModal = () => deleteModel.value = true;
 const removeItem = async () => {
   try {
     const { message, data } = await removeCartItem({ tid: props.cartItem.track.tid, type: props.cartItem.price_type });
