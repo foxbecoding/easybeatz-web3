@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       MEDIA_URL: process.env.MEDIA_URL,
       API_ALBUM: process.env.API_ALBUM,
       API_ALBUM_COVER: process.env.API_ALBUM_COVER,
+      API_CART: process.env.API_CART,
       API_GENRE: process.env.API_GENRE,
       API_LOGOUT: process.env.API_LOGOUT,
       API_MOOD: process.env.API_MOOD,
@@ -31,7 +32,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
-  plugins: ["~/plugins/iconify.ts"],
+  plugins: ["~/plugins/iconify.ts", "~/plugins/init-cart.client.ts"],
 
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/color-mode', [
     '@pinia/nuxt',

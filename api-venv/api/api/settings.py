@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'albums.apps.AlbumsConfig',
     'genres.apps.GenresConfig',
     'moods.apps.MoodsConfig',
+    'carts.apps.CartsConfig',
     'core.apps.CoreConfig'
 ]
 
@@ -93,6 +94,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'carts.middleware.CartIdMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -211,6 +213,11 @@ LOGGING = {
             "propagate": False,
         },
         "users": {
+            "handlers": ["file", "console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "carts": {
             "handlers": ["file", "console"],
             "level": "INFO",
             "propagate": False,

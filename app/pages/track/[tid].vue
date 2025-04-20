@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { type Track } from "@/services/models/album";
+import { TrackPriceEnum } from "@/services/enums/track-price-enums";
 import { useAuthStore } from "@/store/auth";
 import { type TrackList, useMusicPlayerStore } from "@/store/musicPlayer";
+import { type CartResponse, type CartItem, addCartItem, removeCartItem } from "@/services/models/cart";
+import { useCartStore } from "@/store/cart";
 
 const route = useRoute();
 const config = useRuntimeConfig();
@@ -54,7 +57,7 @@ const setMusicPlayerDetails = (trackList: TrackList[]) => {
 const playHandler = () => {
   const { album, station } = track.value;
   if (!album || !station) return;
-  let trackList: TrackList[] = [{ album: track.value.album, station: track.value.station, track: track.value }];
+  let trackList: TrackList[] = [{ album: album, station: station, track: track.value }];
   setMusicPlayerDetails(trackList);
 }
 
@@ -84,6 +87,76 @@ const trackDetailItems = computed<TrackDetail[]>(() => [
 
 // Favorite track logic
 const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler } = useFavoriteTrack(tid.value.toString());
+
+// Cart handler logic
+const cartStore = useCartStore();
+const isCartActionLoading = reactive<Record<TrackPriceEnum, boolean>>({
+  [TrackPriceEnum.TRACK_PRICE]: false,
+  [TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]: false
+});
+
+const isPriceInCart = computed(() => {
+  let found = cartStore.items.find(x => (x.price_type == TrackPriceEnum.TRACK_PRICE) && (x.track.tid === tid.value.toString()))
+  return found ? true : false;
+})
+
+const isExclusiveInCart = computed(() => {
+  let found = cartStore.items.find(x => (x.price_type == TrackPriceEnum.TRACK_EXCLUSIVE_PRICE) && (x.track.tid === tid.value.toString()))
+  return found ? true : false;
+})
+
+const btnLabelProcess = "Processing";
+
+const cartBtnLabelPrice = computed(() => {
+  const labelParts = !isPriceInCart.value ? ["Add to cart", btnLabelProcess] : ["Remove from cart", btnLabelProcess];
+  return !isCartActionLoading[TrackPriceEnum.TRACK_PRICE] ? labelParts[0] : labelParts[1]
+});
+
+const cartBtnLabelExclusive = computed(() => {
+  const labelParts = !isExclusiveInCart.value ? ["Add to cart", btnLabelProcess] : ["Remove from cart", btnLabelProcess];
+  return !isCartActionLoading[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE] ? labelParts[0] : labelParts[1]
+});
+
+enum CartActionEnum {
+  ADD_ITEM = "ADD_ITEM",
+  REMOVE_ITEM = "REMOVE_ITEM",
+}
+
+const priceCartAction = computed<CartActionEnum>(() => {
+  return !isPriceInCart.value ? CartActionEnum.ADD_ITEM : CartActionEnum.REMOVE_ITEM;
+});
+
+const exclusivePriceCartAction = computed<CartActionEnum>(() => {
+  return !isExclusiveInCart.value ? CartActionEnum.ADD_ITEM : CartActionEnum.REMOVE_ITEM;
+});
+
+const cartActionRouterHandler = (tid: string, type: TrackPriceEnum, actionType: CartActionEnum) => {
+  const routerMap = {
+    [CartActionEnum.ADD_ITEM]: () => addCartItemHandler(tid, type),
+    [CartActionEnum.REMOVE_ITEM]: () => removeCartItemHandler(tid, type),
+  }
+  routerMap[actionType]();
+}
+
+const addCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, addCartItem);
+const removeCartItemHandler = (tid: string, type: TrackPriceEnum) => cartActionHandler(tid, type, removeCartItem);
+
+const cartActionHandler = async (tid: string, type: TrackPriceEnum, actionHandler: Function) => {
+  if (isCartActionLoading[type]) return;
+  isCartActionLoading[type] = true;
+
+  try {
+    const { message, data } = await actionHandler({ tid, type });
+    useCart().cartSetter(data as CartResponse);
+    if (message) {
+      useToast().setToast(message, "INFO");
+    }
+  } catch (error: any) {
+    useToast().setToast(error.data.message, "ERROR");
+  } finally {
+    setTimeout(() => { isCartActionLoading[type] = false }, 2000);
+  }
+}
 </script>
 
 <template>
@@ -174,7 +247,13 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
               </li>
             </ul>
             <div class="card-actions">
-              <button class="btn btn-primary btn-block rounded-[1rem] text-lg">Add to cart</button>
+              <button @click="cartActionRouterHandler(tid.toString(), TrackPriceEnum.TRACK_PRICE, priceCartAction)"
+                class="btn btn-primary btn-block rounded-[1rem] text-lg">
+                {{ cartBtnLabelPrice }}
+                <span v-if="isCartActionLoading[TrackPriceEnum.TRACK_PRICE]"
+                  class="loading loading-dots loading-md"></span>
+
+              </button>
             </div>
           </div>
         </div>
@@ -197,7 +276,13 @@ const { isFavoriteTrack, favoriteIcon, favoriteIconColor, favoriteTrackHandler }
               </li>
             </ul>
             <div class="card-actions">
-              <button class="btn btn-warning btn-block rounded-[1rem] text-lg">Add to cart</button>
+              <button
+                @click="cartActionRouterHandler(tid.toString(), TrackPriceEnum.TRACK_EXCLUSIVE_PRICE, exclusivePriceCartAction)"
+                class="btn btn-warning btn-block rounded-[1rem] text-lg">
+                {{ cartBtnLabelExclusive }}
+                <span v-if="isCartActionLoading[TrackPriceEnum.TRACK_EXCLUSIVE_PRICE]"
+                  class="loading loading-dots loading-md"></span>
+              </button>
             </div>
           </div>
         </div>

@@ -16,5 +16,5 @@ class UserLoginViewSet(viewsets.ViewSet, ResponseMixin):
         if not serializer.is_valid():
             return self.view_response("Login failed, please try again.", serializer.errors, status.HTTP_400_BAD_REQUEST)
 
-        service = Web3LoginService(serializer.validated_data)
+        service = Web3LoginService(serializer.validated_data, request)
         return service.run()

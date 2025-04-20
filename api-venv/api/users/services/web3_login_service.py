@@ -10,11 +10,12 @@ from albums.models import TrackFavorite
 from core.mixins import ResponseMixin
 
 class Web3LoginService(ResponseMixin):
-    def __init__(self, data) -> None:
+    def __init__(self, data, request) -> None:
         self.validated_data = data
         self.pubkey = data.get("pubkey")
         self.message = data.get("originalMessage")
         self.signature = data.get("signedMessage")
+        self.request = request
 
     def run(self) -> Response:
         nonce = self._get_nonce()
@@ -33,7 +34,9 @@ class Web3LoginService(ResponseMixin):
         track_tids = self._get_user_favorite_tracks(user)
         self._save_user_login(user)
         data = {"access_token": access_token, "pubkey": user.pubkey, "favorite_tracks": track_tids} 
-        return self.view_response("Logged in successfully!", data, status.HTTP_200_OK)
+        response = self.view_response("Logged in successfully!", data, status.HTTP_200_OK)
+        self._set_cart_id_cookie(response)
+        return response
 
     def _get_nonce(self):
         return UserLoginNonce.objects.filter(pubkey=self.pubkey).last()
@@ -77,4 +80,11 @@ class Web3LoginService(ResponseMixin):
         return str(refresh.access_token)
 
     def _save_user_login(self, user: User) -> None:
-        web3_login_done.send(self.__class__, user=user)
+        web3_login_done.send(self.__class__, user=user, request=self.request)
+
+
+    def _set_cart_id_cookie(self, response) -> None:
+        # Check if the cart_id was attached to the request by the signal
+        cart_id = getattr(self.request, 'cart_id', None)
+        if cart_id and isinstance(response, Response):
+            response.set_cookie('cart_id', cart_id, max_age=60 * 60 * 24 * 30)  # 30 days, customize as needed

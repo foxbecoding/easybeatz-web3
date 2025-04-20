@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import { useAuthStore } from "@/store/auth"
+import { useCartStore } from "@/store/cart"
+
+const authStore = useAuthStore();
+const cartStore = useCartStore();
+
+const cartCount = computed(() => cartStore.cart_count)
+
+</script>
+
 <template>
   <div class="navbar bg-base-100 lg:bg-base-200 fixed left-0 z-50 mx-auto w-full max-w-[2560px] px-4 sm:px-8">
     <div class="navbar-start gap-4">
@@ -19,16 +30,16 @@
     <div class="navbar-end">
       <AppWalletConnect v-if="!authStore.isAuthenticated" class="mr-4" />
       <AppAccountMenu v-else class="mr-4" />
-      <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral mask mask-squircle btn-square btn-sm lg:btn-md">
-        <Icon icon="solar:bag-music-2-bold" class="text-lg lg:text-2xl" />
-      </NuxtLink>
+      <div class="flex relative">
+        <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral mask mask-squircle btn-square btn-sm lg:btn-md">
+          <Icon icon="solar:bag-music-2-bold" class="text-lg lg:text-2xl" />
+        </NuxtLink>
+        <ClientOnly>
+          <div v-if="useCart().isCartEmpty" class="badge badge-primary badge-sm mask mask-circle absolute -right-[9px]">
+            {{ cartCount }}
+          </div>
+        </ClientOnly>
+      </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useAuthStore } from "@/store/auth"
-
-const authStore = useAuthStore();
-
-</script>
