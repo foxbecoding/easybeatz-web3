@@ -42,6 +42,12 @@ def add_item_to_cart(cart_id: str, tid: str, pricing_type: str, user=None):
         'price_model_id': track_instance.pk,  # Note: might want to confirm if this is correct
     }
 
+
+    # Step 6: If cart item with same tid exist, delete it
+    cart_item = CartItem.objects.filter(cart__cart_id=cart_id, track__tid=tid).first()
+    if cart_item:
+        cart_item.delete()
+
     serializer = CartItemSerializer(data=data)
     if not serializer.is_valid():
         return False, "Cannot add to cart", serializer.errors
