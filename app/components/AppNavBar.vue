@@ -34,9 +34,11 @@ const cartCount = computed(() => cartStore.cart_count)
         <NuxtLink :to="{ name: 'cart' }" class="btn btn-neutral mask mask-squircle btn-square btn-sm lg:btn-md">
           <Icon icon="solar:bag-music-2-bold" class="text-lg lg:text-2xl" />
         </NuxtLink>
-        <div v-if="useCart().isCartEmpty" class="badge badge-primary badge-sm mask mask-circle absolute -right-[9px]">
-          {{ cartStore.cart_count }}
-        </div>
+        <ClientOnly>
+          <div v-if="useCart().isCartEmpty" class="badge badge-primary badge-sm mask mask-circle absolute -right-[9px]">
+            {{ cartCount }}
+          </div>
+        </ClientOnly>
       </div>
     </div>
   </div>
