@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { useAuthStore } from "@/store/auth"
+import { useCartStore } from "@/store/cart"
+
+const authStore = useAuthStore();
+const cartStore = useCartStore();
+
+</script>
+
 <template>
   <div class="navbar bg-base-100 lg:bg-base-200 fixed left-0 z-50 mx-auto w-full max-w-[2560px] px-4 sm:px-8">
     <div class="navbar-start gap-4">
@@ -29,13 +38,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useAuthStore } from "@/store/auth"
-import { useCartStore } from "@/store/cart"
-
-const authStore = useAuthStore();
-const cartStore = useCartStore();
-const isCartEmpty = computed(() => cartStore.cart_count)
-
-</script>
