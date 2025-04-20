@@ -4,6 +4,8 @@ import { type CartResponse, getCart } from "@/services/models/cart";
 export const useCart = () => {
   const cartStore = useCartStore();
 
+  const isCartEmpty = computed(() => cartStore.cart_count);
+
   const fetchCart = async () => {
     const { message, data } = await getCart();
     if (!data) return;
