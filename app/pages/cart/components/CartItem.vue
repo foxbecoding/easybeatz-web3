@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type CartItem, type CartResponse, removeCartItem } from "@/services/models/cart";
 import { TrackPriceEnum } from "@/services/enums/track-price-enums";
+import CartItemDeleteModal from "./CartItemDeleteModal.vue";
 
 const props = defineProps<{ cartItem: CartItem }>();
 
