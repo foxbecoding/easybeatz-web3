@@ -26,3 +26,17 @@ const submit = async () => {
 
 </script>
 
+<template>
+  <dialog :id="modalID" class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h2 class="text-2xl font-bold">Remove track from cart?</h2>
+      <p>{{ cartItem.track.title }}</p>
+      <div class="modal-action">
+        <button @click="closeModal()" class="btn btn-neutral">Close</button>
+        <button @click="submit()" class="btn btn-error">
+          Remove
+        </button>
+      </div>
+    </div>
+  </dialog>
+</template>
