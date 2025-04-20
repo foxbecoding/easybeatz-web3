@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
 from rest_framework import status
+from rest_framework.test import APIRequestFactory
 from users.services import Web3LoginService
 
 @pytest.mark.django_db
@@ -11,8 +12,11 @@ class TestWeb3LoginService:
         """Test when no nonce is found for a wallet address"""
         mock_nonce_filter.return_value.last.return_value = None
         data = {"pubkey": "test_pubkey", "originalMessage": "message", "signedMessage": "signature"}
-        service = Web3LoginService(data)
-        
+
+        factory = APIRequestFactory()
+        request = factory.post("/auth/web3-login/", data, format='json')
+
+        service = Web3LoginService(data, request)
         response = service.run()
         
         assert response.status_code == status.HTTP_400_BAD_REQUEST
@@ -27,7 +31,11 @@ class TestWeb3LoginService:
         mock_msg_generator.return_value = "wrong_message"
         
         data = {"pubkey": "test_pubkey", "originalMessage": "message", "signedMessage": "signature"}
-        service = Web3LoginService(data)
+
+        factory = APIRequestFactory()
+        request = factory.post("/auth/web3-login/", data, format='json')
+
+        service = Web3LoginService(data, request)
         
         response = service.run()
         
@@ -45,7 +53,11 @@ class TestWeb3LoginService:
         mock_msg_generator.return_value = "message"
         
         data = {"pubkey": "test_pubkey", "originalMessage": "message", "signedMessage": "signature"}
-        service = Web3LoginService(data)
+        
+        factory = APIRequestFactory()
+        request = factory.post("/auth/web3-login/", data, format='json')
+
+        service = Web3LoginService(data, request)
         
         response = service.run()
         
@@ -73,7 +85,11 @@ class TestWeb3LoginService:
         mock_track_favorites.filter.return_value = mock_filter
         
         data = {"pubkey": "test_pubkey", "originalMessage": "message", "signedMessage": "signature"}
-        service = Web3LoginService(data)
+        
+        factory = APIRequestFactory()
+        request = factory.post("/auth/web3-login/", data, format='json')
+
+        service = Web3LoginService(data, request)
         
         response = service.run()
         
