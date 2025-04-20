@@ -50,18 +50,21 @@ const removeItem = async () => {
 </script>
 
 <template>
-  <div class="flex w-full h-[72px] justify-between items-center">
+  <div class="flex w-full h-[88px] justify-between items-center">
     <div class="flex gap-2">
-      <img class="rounded-[0.5rem]" :src="albumCover" width="72px" height="72px" />
+      <div :style="albumCoverStyles" class="relative aspect-square bg-neutral rounded-[0.5rem]">
+      </div>
       <div class="flex flex-col gap-0 items-start">
-        <p class="font-bold line-clamp-1 overflow-hidden text-ellipsis [line-height:0.8rem] md:[line-height:1rem]">
+        <p class="font-bold line-clamp-2 overflow-hidden text-ellipsis [line-height:1rem] ">
           {{ cartItem.track.title }}
         </p>
-        <p>${{ cartItem.price }} - {{ trackLicense }}</p>
+        <p>{{ trackLicense }}</p>
+        <p class="font-semibold">${{ cartItem.price }}</p>
       </div>
     </div>
-    <button class="btn btn-square btn-ghost btn-md mask mask-squircle">
+    <button @click="openDeleteModal()" class="btn btn-square btn-ghost btn-md mask mask-squircle">
       <Icon icon="solar:trash-bin-trash-bold" class="text-error" width="24" height="24" />
     </button>
   </div>
+  <CartItemDeleteModal v-model="deleteModel" :cart-item="cartItem" @submit="removeItem()" />
 </template>
