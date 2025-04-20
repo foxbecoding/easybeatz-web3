@@ -5,6 +5,8 @@ import { useCartStore } from "@/store/cart"
 const authStore = useAuthStore();
 const cartStore = useCartStore();
 
+const cartCount = computed(() => cartStore.cart_count)
+
 </script>
 
 <template>
