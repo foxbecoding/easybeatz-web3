@@ -16,6 +16,7 @@ const trackLicense = computed(() => {
 });
 
 // Album cover logic
+const img = useImage();
 const albumCover = computed(() => `${config.public.MEDIA_URL}${props.cartItem.album.cover}`);
 
 //Remove cart item logic
