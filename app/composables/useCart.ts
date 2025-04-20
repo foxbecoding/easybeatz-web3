@@ -20,7 +20,8 @@ export const useCart = () => {
 
   return {
     fetchCart,
-    cartSetter
+    cartSetter,
+    isCartEmpty,
   }
 
 }
