@@ -203,10 +203,6 @@ class TrackCreator:
         track_count = Track.objects.filter(album__aid=self.aid).count()
         track_data = self.track_data
         
-        order_no = track_count - 1
-        if track_count == 0:
-            order_no = 0
-        
         # 1.) Save Track
         genres = Genre.objects.filter(pk__in=track_data['genres'])
         mood = get_object_or_404(Mood, pk=track_data['mood'])
@@ -215,7 +211,7 @@ class TrackCreator:
             'title': track_data['title'],
             'bpm': track_data['bpm'],
             'mood': mood,
-            'order_no': order_no
+            'order_no': track_count
         }
         track = self._save_model_data(track_model_data, Track)
         track.genres.set(genres)

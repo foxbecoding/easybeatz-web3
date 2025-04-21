@@ -24,7 +24,7 @@ class Track(models.Model):
     is_exclusive_sold = models.BooleanField(blank=True, default=False)
     created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
-    deleted = models.DateTimeField(null=True)
+    deleted = models.DateTimeField(null=True, blank=True)
 
     objects = models.Manager()
     tracks = TrackManager()
