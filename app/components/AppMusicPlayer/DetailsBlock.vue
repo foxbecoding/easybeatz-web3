@@ -22,7 +22,7 @@ const albumCoverStyles = computed(() => {
 <template>
   <div class="flex gap-2">
     <NuxtLink :to="{ name: 'project-aid', params: { aid: album.aid } }" :style="albumCoverStyles"
-      class="w-[44px] sm:w-[56px] md:min-w-[68px] h-[44px] sm:h-[56px] md:h-[68px] group relative bg-neutral rounded-[0.5rem] flex">
+      class="w-[44px] min-w-[44px] sm:w-[56px] sm:min-w-[56px] md:w-[68px] md:min-w-[68px] h-[44px] min-h-[44px] sm:h-[56px] sm:min-h-[56px] md:h-[68px] md:min-h-[68px] relative bg-neutral rounded-[0.5rem] flex">
     </NuxtLink>
     <div class="flex flex-col gap-0 items-start">
       <span
