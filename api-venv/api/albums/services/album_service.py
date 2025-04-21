@@ -211,7 +211,7 @@ class TrackCreator:
             'title': track_data['title'],
             'bpm': track_data['bpm'],
             'mood': mood,
-            'order_no': order_no
+            'order_no': track_count
         }
         track = self._save_model_data(track_model_data, Track)
         track.genres.set(genres)
