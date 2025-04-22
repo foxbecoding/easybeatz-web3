@@ -13,12 +13,20 @@ const demoAlbums = Array.from({ length: 12 }, (_, i) => i);
 const fileInput = ref();
 const defaultStationImage = '/easy-glow.png'
 
-const { data: cachedStation } = useNuxtData<Station>(`station-${pubkey.value}`);
+// Station request logic
+interface StationResponse {
+  message: string;
+  data: Station;
+}
 
-const { data: fetchedStation, error, status, refresh } = await useLazyFetch(fetchPath, {
+const { data: cachedStation } = useNuxtData<StationResponse>(`station-${pubkey.value}`);
+const { data: fetchedStation, error, status, refresh } = await useLazyFetch<StationResponse>(fetchPath, {
   server: false,
   key: `station-${pubkey.value}`,
   watch: [isAuthenticated],
+  default() {
+    return cachedStation.value as StationResponse;
+  },
   onRequest({ request, options }) {
     if (authStore.accessToken) {
       options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
@@ -29,7 +37,7 @@ const { data: fetchedStation, error, status, refresh } = await useLazyFetch(fetc
   }
 });
 
-const station = computed<Station>(() => fetchedStation.value.data as Station || cachedStation.value)
+const station = computed<Station>(() => fetchedStation.value?.data)
 
 const isStationOwner = computed(() => station.value?.is_owner);
 
@@ -77,8 +85,7 @@ const albumCoverStyles = (cover_picture: string) => {
 
 <template>
   <AppPageContainer>
-    <div v-if="(status == 'success' && station) || cachedStation"
-      class="flex flex-col md:flex-row gap-4 items-center md:items-start">
+    <div v-if="status == 'success' || station" class="flex flex-col md:flex-row gap-4 items-center md:items-start">
       <div
         class="min-w-[200px] h-[200px] mask mask-squircle bg-neutral p-1 box-content aspect-square flex items-center justify-center">
         <div :style="stationImgStyles" class="min-w-[200px] h-[200px] group relative mask mask-squircle bg-neutral">
@@ -108,7 +115,7 @@ const albumCoverStyles = (cover_picture: string) => {
       </div>
     </div>
 
-    <div v-if="(status == 'idle' || status == 'pending') && !cachedStation">
+    <div v-if="(status == 'idle' || status == 'pending') && !station">
       <div class="flex">
         <div class="mr-4 min-w-[200px]">
           <div class="skeleton mask mask-squircle w-[200px] h-[200px]"></div>
@@ -132,7 +139,7 @@ const albumCoverStyles = (cover_picture: string) => {
       </div>
     </div>
 
-    <div v-if="(status == 'success' && station) || cachedStation">
+    <div v-if="status == 'success' || station">
       <div class="divider mt-8"></div>
       <div v-if="stationAlbums.length > 0"
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
