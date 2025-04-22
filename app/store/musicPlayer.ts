@@ -177,7 +177,7 @@ export const useMusicPlayerStore = defineStore("use-music-player-store", () => {
       return
     }
 
-    if (!isRepeatAll.value) {
+    if (!isRepeatAll.value && trackList.value.length > 1) {
       setRepeatAll();
     } else {
       setRepeatOne();
