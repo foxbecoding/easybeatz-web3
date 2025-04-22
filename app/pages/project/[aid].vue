@@ -21,11 +21,19 @@ const fetchPath = `${config.public.API_ALBUM}/${aid.value}/retrieve_with_tracks_
 const demoTracks = Array.from({ length: 6 }, (_, i) => i);
 
 // Album request logic
-const { data: cachedAlbum } = useNuxtData<Album>(`project-${aid.value}`);
-const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch(fetchPath, {
+interface AlbumResponse {
+  message: string;
+  data: Album
+}
+
+const { data: cachedAlbum } = useNuxtData<AlbumResponse>(`project-${aid.value}`);
+const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch<AlbumResponse>(fetchPath, {
   server: false,
   key: `project-${aid.value}`,
   watch: [isAuthenticated],
+  default() {
+    return cachedAlbum.value as AlbumResponse;
+  },
   onRequest({ request, options }) {
     if (authStore.accessToken) {
       options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
@@ -36,26 +44,36 @@ const { data: fetchedAlbum, error, status, refresh } = await useLazyFetch(fetchP
   }
 });
 
-const album = computed<Album>(() => fetchedAlbum.value.data as Album || cachedAlbum.value as Album)
-const albumTracks = computed(() => album.value?.tracks || [])
+const album = computed<Album>(() => fetchedAlbum.value?.data as Album)
+const albumTracks = computed(() => album.value?.tracks || []);
 
 // Genres request logic
-const { data: cachedGenres } = useNuxtData<Album>(`project-aid-genres`);
+interface GenreResponse {
+  message: string;
+  data: Genre[];
+}
+
+const { data: cachedGenres } = useNuxtData<GenreResponse>(`project-aid-genres`);
 const fetchGenrePath = `${config.public.API_GENRE}/`;
-const { data: fetchedGenres, status: genre_status } = await useLazyFetch(fetchGenrePath, {
+const { data: fetchedGenres, status: genre_status } = await useLazyFetch<GenreResponse>(fetchGenrePath, {
   server: false,
   key: `project-aid-genres`,
 });
-const genres = computed<Genre[]>(() => fetchedGenres.value.data as Genre[] || cachedGenres.value);
+const genres = computed<Genre[]>(() => fetchedGenres.value?.data as Genre[] || cachedGenres.value?.data as Genre[]);
 
 // Moods request logic
+interface MoodResponse {
+  message: string;
+  data: Mood[];
+}
+
 const fetchMoodPath = `${config.public.API_MOOD}/`;
-const { data: cachedMoods } = useNuxtData<Album>(`project-aid-moods`);
-const { data: fetchedMoods, status: mood_status } = await useLazyFetch(fetchMoodPath, {
+const { data: cachedMoods } = useNuxtData<MoodResponse>(`project-aid-moods`);
+const { data: fetchedMoods, status: mood_status } = await useLazyFetch<MoodResponse>(fetchMoodPath, {
   server: false,
   key: `project-aid-moods`,
 });
-const moods = computed<Mood[]>(() => fetchedMoods.value.data as Mood[] || cachedMoods.value);
+const moods = computed<Mood[]>(() => fetchedMoods.value?.data as Mood[] || cachedMoods.value?.data as Mood[]);
 
 // Music player logic
 const playHandler = () => {
@@ -208,7 +226,7 @@ const uploadPicture = async (file: File) => {
 
 <template>
   <AppPageContainer>
-    <div v-if="(status == 'success' && album) || cachedAlbum" class="flex flex-col gap-8">
+    <div v-if="status == 'success' || album" class="flex flex-col gap-8">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div :style="albumCoverStyles"
           class="min-w-[300px] h-[300px] group relative aspect-square bg-neutral rounded-[1rem]">
@@ -258,7 +276,7 @@ const uploadPicture = async (file: File) => {
         @edit-exclusive="editExclusiveHandler" />
     </div>
 
-    <div v-if="(status == 'idle' || status == 'pending') && !cachedAlbum" class="flex flex-col gap-8">
+    <div v-if="(status == 'idle' || status == 'pending') && !album" class="flex flex-col gap-8">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div class="skeleton min-w-[300px] h-[300px] rounded-[1rem]"></div>
         <div
