@@ -13,14 +13,22 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 const img = useImage();
 
 // Track request logic
+interface TrackResponse {
+  message: string;
+  data: Track;
+}
+
 const tid = ref(route.params.tid)
 const fetchPath = `${config.public.API_TRACK}/${route.params.tid}/track_page/`;
 
-const { data: cachedTrack } = useNuxtData<{ message: string; data: any }>(`track-${tid.value}`);
-const { data: fetchedTrack, error, status, refresh } = await useLazyFetch<{ message: string; data: any }>(fetchPath, {
+const { data: cachedTrack } = useNuxtData<TrackResponse>(`track-${tid.value}`);
+const { data: fetchedTrack, error, status, refresh } = await useLazyFetch<TrackResponse>(fetchPath, {
   server: false,
   key: `track-${tid.value}`,
   watch: [isAuthenticated],
+  default() {
+    return cachedTrack.value as TrackResponse;
+  },
   onRequest({ request, options }) {
     if (authStore.accessToken) {
       options.headers.set('Authorization', `Bearer ${authStore.accessToken}`)
@@ -31,7 +39,7 @@ const { data: fetchedTrack, error, status, refresh } = await useLazyFetch<{ mess
   }
 });
 
-const track = computed<Track>(() => fetchedTrack.value?.data as Track || cachedTrack.value?.data as Track);
+const track = computed<Track>(() => fetchedTrack.value?.data);
 const trackIncludesText = computed(() => `Includes: MP3 ${track.value.has_wav_file ? " + WAV" : ""} ${track.value.stems.length > 0 ? " + STEMS" : ""} `)
 
 
@@ -161,7 +169,7 @@ const cartActionHandler = async (tid: string, type: TrackPriceEnum, actionHandle
 
 <template>
   <AppPageContainer>
-    <div v-if="(status == 'success' && track) || cachedTrack" class="flex flex-col gap-8 w-full max-w-[1000px]">
+    <div v-if="status == 'success' || track" class="flex flex-col gap-8 w-full max-w-[1000px]">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div :style="albumCoverStyles"
           class="w-full md:w-auto md:min-w-[300px] md:h-[300px] group relative aspect-square bg-neutral rounded-[1rem]">
@@ -288,8 +296,7 @@ const cartActionHandler = async (tid: string, type: TrackPriceEnum, actionHandle
         </div>
       </div>
     </div>
-    <div v-if="(status == 'idle' || status == 'pending') && !cachedTrack"
-      class="flex flex-col gap-8 w-full max-w-[1000px]">
+    <div v-if="(status == 'idle' || status == 'pending') && !track" class="flex flex-col gap-8 w-full max-w-[1000px]">
       <div class="flex flex-col md:flex-row gap-4 items-center md:items-start">
         <div class="skeleton min-w-[300px] h-[300px] rounded-[1rem]"></div>
         <div class="flex flex-col gap-4 items-center md:items-start md:justify-between md:h-[300px] w-full">
