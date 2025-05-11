@@ -52,12 +52,14 @@ const removeItem = async () => {
 <template>
   <div class="flex w-full h-[88px] justify-between items-center">
     <div class="flex gap-2">
-      <div :style="albumCoverStyles" class="relative aspect-square bg-neutral rounded-[0.5rem]">
-      </div>
+      <NuxtLink class="relative aspect-square bg-neutral rounded-[0.5rem]"
+        :to="{ name: 'track-tid', params: { tid: cartItem.track.tid } }" :style="albumCoverStyles">
+      </NuxtLink>
       <div class="flex flex-col gap-0 items-start">
-        <p class="font-bold line-clamp-2 overflow-hidden text-ellipsis [line-height:1rem] ">
+        <NuxtLink class="font-bold line-clamp-2 overflow-hidden text-ellipsis [line-height:1rem]"
+          :to="{ name: 'track-tid', params: { tid: cartItem.track.tid } }">
           {{ cartItem.track.title }}
-        </p>
+        </NuxtLink>
         <p>{{ trackLicense }}</p>
         <p class="font-semibold">${{ cartItem.price }}</p>
       </div>
