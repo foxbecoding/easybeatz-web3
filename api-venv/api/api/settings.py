@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'genres.apps.GenresConfig',
     'moods.apps.MoodsConfig',
     'carts.apps.CartsConfig',
+    'orders.apps.OrdersConfig',
     'core.apps.CoreConfig'
 ]
 
